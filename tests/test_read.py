@@ -673,12 +673,13 @@ def test_case_9_a_moved_date_since_15_january_and_since_5_march(moved):
     db, registry, item_id = moved
     answer = what_changed(db, registry, "hermanus", date(2027, 1, 15))
     assert groups(answer) == {"new": [], "changed": ["Harvest concert"]}
-    assert answer["text"].splitlines()[:13] == [
+    assert answer["text"].splitlines()[:14] == [
         "what_changed · Hermanus · since 15 January 2027 · as of 2027-03-01",
         "",
         "counts",
         "  since the date  1 item: 0 new · 1 changed",
         "  by category     other 1",
+        "  sources         1, last collected on 2027-03-01: example.org",
         "",
         "new",
         "    none",
@@ -1097,3 +1098,120 @@ def test_find_matches_a_word_at_its_start_and_not_in_the_middle(feed):
     assert "FynArts Festival" in titles("art")  # inside a word: a missed item costs more
     assert titles("artwalk") == ["First Friday Art Walk"]  # a long word can be two words
     assert titles("fyn") == ["FynArts Festival"] and titles("park run") == ["Hermanus Park Run"]
+
+
+# E2 to E4 of research/loop/pass2_diagnosis.md.
+
+
+def test_when_to_go_says_that_it_leaves_out_the_events_that_are_held_one_time(feed):
+    """An agent said "the only 2027 event with a date is the festival". A concert had one."""
+    db, registry = feed
+    whales(db)
+    add(db, "Concert", [("2027-03-06", "2027-03-06", "day", None)])
+    answer = when_to_go(db, registry, "hermanus")
+    assert "Concert" not in answer["text"]
+    note = (
+        "This answer has seasons, weekly items and yearly events only. For the dated events "
+        "of a period, call what_is_on with dates, or find."
+    )
+    assert answer["data"]["notes"] == [note]
+    lines = answer["text"].splitlines()
+    assert lines.index(f"  note            {note}") < lines.index("each week, in each month")
+
+
+def test_a_window_that_crosses_the_last_date_of_a_rule_says_so(feed):
+    """13 to 27 May 2028: two Saturdays of three, and no word that the dates stop."""
+    db, registry = feed
+    market(db)  # code wrote 5, 12 and 19 June 2027
+    crossing = on(db, registry, "2027-06-12", "2027-06-26")
+    note = (
+        "The feed writes dates from rules until 2027-06-19. This window goes past that date: "
+        "an item from a rule has no written date after it."
+    )
+    assert crossing["data"]["notes"] == [note]
+    assert f"  note            {note}\n" in crossing["text"]
+    assert groups(crossing)["dated"] == ["Harbour Market"]
+    assert "Sat 26 June" not in crossing["text"]  # no date is invented
+    # a window that ends on the last written date has all its dates: no note
+    assert on(db, registry, "2027-06-12", "2027-06-19")["data"]["notes"] == []
+    # a window after the last date keeps its own note
+    assert "This window is after that date" in on(db, registry, "2027-06-20", "2027-06-26")["text"]
+
+
+def quote(db, item_id, text, field="traveller"):
+    db.execute(
+        "INSERT INTO evidence (item_id, field, value, quote, page_id, model) "
+        "VALUES (?, ?, 'x', ?, 1, 'model-a')",
+        (item_id, field, text),
+    )
+    db.commit()
+
+
+def test_find_matches_a_whole_word_in_a_quote_and_the_card_shows_the_quote(feed):
+    """ "What is free?": the quote "a free, timed 5km run/walk" was only on the full card."""
+    db, registry = feed
+    day = [("2027-06-12", "2027-06-12", "day", None)]
+    run = add(db, "Park Run", day)
+    quote(db, run, "Join us for a FREE,\ntimed 5km run/walk")
+    carefree = add(db, "Walk", day)
+    quote(db, carefree, "A carefree walk on Freedom Day")
+    titled = add(db, "Free Concert", day)
+    quote(db, titled, "A free concert")
+    answer = find(db, registry, "hermanus", "free")
+    assert titles(answer) == ["Free Concert", "Park Run"]  # a whole word, not "carefree"
+    line = '    match in a quote of the page: "Join us for a FREE, timed 5km run/walk"'
+    assert answer["text"].count("match in a quote of the page") == 1  # not for a match in a title
+    assert line in answer["text"].splitlines()
+    cards = {card["title"]: card["match"] for card in cards_of(answer)}
+    assert cards == {"Free Concert": None, "Park Run": "Join us for a FREE, timed 5km run/walk"}
+    # each word of the search must be in one quote
+    assert titles(find(db, registry, "hermanus", "timed free")) == ["Park Run"]
+    assert titles(find(db, registry, "hermanus", "free day")) == []
+    assert titles(find(db, registry, "hermanus", "fre")) == ["Free Concert"]  # the title only
+    # a long quote has a limit, and the line still shows the word
+    long = add(db, "Talk", day)
+    quote(db, long, "word " * 100 + "a zebra here" + " word" * 100)
+    text = find(db, registry, "hermanus", "zebra")["text"]
+    shown = next(line for line in text.splitlines() if "match in a quote" in line)
+    assert "zebra" in shown and len(shown) < 220 and shown.count("…") == 2
+
+
+def test_each_list_response_names_the_collected_sources_and_the_date(feed):
+    """ "Where does the data come from?": the agent named 5 of 8 sources and guessed the age."""
+    db, registry = feed
+    festival(db)
+    answers = lambda: [
+        on(db, registry, "2027-06-08", "2027-06-12"),
+        when_to_go(db, registry, "hermanus"),
+        find(db, registry, "hermanus", "festival"),
+        what_changed(db, registry, "hermanus", date(2027, 1, 15)),
+    ]
+    for answer in answers():
+        lines = answer["text"].splitlines()
+        assert lines[5] == "  sources         1, last collected on 2026-11-23: example.org"
+        assert answer["data"]["collected"] == {
+            "sources": 1,
+            "last": "2026-11-23",
+            "hosts": ["example.org"],
+        }
+    # the line comes from the database: a second source, two pages of one host, a later date
+    db.execute(
+        "INSERT INTO source (id, name, url, access_path, owner_rank, place) "
+        "VALUES ('b', 'B', 'https://www.b.org/', 'html', 1, 'hermanus'), "
+        "('far', 'Far', 'https://far.org/', 'html', 1, 'elsewhere')"
+    )
+    db.executemany(
+        "INSERT INTO page (source_id, url, content_hash, fetched_at, http_status, text) "
+        "VALUES (?, ?, 'hash', ?, 200, 'text')",
+        [
+            ("b", "https://www.b.org/events", "2026-12-01T08:00:00+00:00"),
+            ("b", "https://www.b.org/markets", "2026-11-30T08:00:00+00:00"),
+            ("far", "https://far.org/", "2026-12-24T08:00:00+00:00"),  # a different place
+        ],
+    )
+    for answer in answers():
+        line = "  sources         2, last collected on 2026-12-01: b.org, example.org"
+        assert answer["text"].splitlines()[5] == line
+    # an unchanged page writes no page row: the items that it still lists were seen
+    db.execute("UPDATE item SET last_seen_at = '2026-12-08T08:00:00+00:00'")
+    assert "2, last collected on 2026-12-08: b.org, example.org" in answers()[0]["text"]

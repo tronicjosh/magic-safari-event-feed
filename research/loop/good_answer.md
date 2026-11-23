@@ -10,7 +10,7 @@ to act, and what can the feed prove? Then write the better answer.
 
 | # | Rule | A fault looks like this |
 |---|---|---|
-| 1 | The answer comes first. A list has 6 item lines or less; the text outside the item lines and the headings is 60 words or less | A preface; a list of 10; an explanation of how the feed works |
+| 1 | The answer comes first. The shape that the designer asks for wins: one sentence, a table, an email, "all of them" (all the items, as compact lines). With no such request, a list for a trip has 6 item lines or less. There is no limit of words | A preface; a list of 10 that was not asked for; 7 sentences for "one sentence"; "I can show six" for "give me all"; an explanation of how the feed works |
 | 2 | A list starts with how many items it shows and how many the feed has ("3 of 12") | No count, or a wrong count |
 | 3 | Each item lets the designer act: name, date, one of the seven tags (how sure), and its source as a link | An item with no tag or no link; a tag with changed words |
 | 4 | Each interest that the designer names gets its own heading and its own answer: its items, or one plain line that the feed has nothing for it in these dates | "Art and wine" answered with art only; a wine item hidden in a list as "market" |
@@ -18,7 +18,7 @@ to act, and what can the feed prove? Then write the better answer.
 | 6 | No fact from outside the feed: no item, date, price, venue or link that a tool did not return. A date that code wrote from a rule is not called confirmed. A "not confirmed" item never gets a date | A restaurant from memory; "the festival is in early October 2027" |
 | 7 | No quote of a page and no account of the feed's method, unless the designer asks for proof or asks how sure a fact is | Quotes in a plain list |
 | 8 | At most one item that was not asked for, under its own heading, when it is a main reason to go (a season) | Three markets for a guest who asked for music |
-| 9 | One line for what was left out; one line for what the feed does not cover | Missing, or a paragraph |
+| 9 | Closing lines come only after a list for a trip, as one or two short lines: what was left out, what the feed does not cover, one offer. An answer about one item, a yes or no, a check of the designer's own list, or a refusal has none | Missing after a list for a trip; a paragraph; closing lines after a yes or no |
 | 10 | The agent selects for the guest; the feed does not rank. Two different guests get different selections | The same list for a family and for a couple |
 | 11 | When the feed cannot answer, the agent says so in one or two sentences, gives the reason, and offers the nearest thing | A list as filler; a wrong reason |
 | 12 | The agent does not say that the feed lacks a thing before it calls `find` | "The feed has no wine events" when it has 11 |

@@ -228,7 +228,7 @@ def test_the_instructions_hold_the_rules_of_pass_1():
     for tag in TAGS:
         assert f'- "{tag}"' in INSTRUCTIONS
     assert "120 words" not in text  # D3
-    assert "6 item lines or less" in text and "60 words or less" in text
+    assert "6 item lines or less" in text
     for words in (
         '"by the rule: Fri 4 December"',  # D2
         "not as an estimate",  # D4
@@ -236,11 +236,37 @@ def test_the_instructions_hold_the_rules_of_pass_1():
         "Do not guess what it lists",  # D5
         "only if its card shows that interest",  # D6
         "from one response",  # D8
-        "Offer only what a tool can return",  # D9
         '"venue: ..."',  # D1
     ):
         assert words in text, words
-    assert len(INSTRUCTIONS.splitlines()) <= 64 + 25  # 64 lines before pass 1
+
+
+def test_the_instructions_hold_the_rules_of_pass_2():
+    """E1 to E8 of research/loop/pass2_diagnosis.md, where a test can hold the text."""
+    from feed.mcp_server import INSTRUCTIONS
+
+    text = " ".join(INSTRUCTIONS.split())
+    assert "60 words" not in text and "words or less" not in text  # E1: no limit of words
+    assert "Offer only what a tool can return" not in text  # E7 replaces D9
+    assert "or its venue" not in text  # E5
+    for words in (
+        "The shape that the designer asks for wins",  # E1
+        '"All" gives all the items, as compact lines',
+        "only after a list for a trip",
+        "have no closing lines",
+        "its note names the tool for those",  # E2
+        '"match in a quote of the page"',  # E3
+        'The "sources" line below the counts',  # E4
+        "in its title or its category, not in its venue",  # E5
+        'the words "listed two times"',
+        "A describing word is a fact",  # E6
+        "from its link or its file name",
+        "Do not offer a search",  # E7
+        "asks for the best or for one pick, select",  # E8
+        "equal to the number of your item lines",
+    ):
+        assert words in text, words
+    assert len(INSTRUCTIONS.splitlines()) <= 86 + 10  # 86 lines before pass 2
 
 
 def test_the_runner_of_the_loop_counts_the_seven_tags_and_the_words_outside_the_items():
@@ -288,3 +314,28 @@ def test_the_instructions_give_a_past_item_one_tag():
     assert 'with the tag "Past, not known if held again"' in INSTRUCTIONS
     numbers = re.findall(r"^(\d+)\. ", INSTRUCTIONS, re.MULTILINE)
     assert numbers == [str(n) for n in range(1, 15)]
+
+
+def test_the_runner_of_the_loop_measures_each_turn(monkeypatch):
+    """Pass 2: a long first answer was not seen, because only the last turn was measured."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("loop_run", "research/loop/run.py")
+    run = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(run)
+    item = "- Fair, Sat 5 June 2027. Confirmed. [a.org](https://a.org/x)\n"
+    answers = iter(
+        [
+            {"calls": [{"name": "find", "input": {}}], "text": item * 2, "cost_usd": 0.1},
+            {"calls": [], "text": "One sentence of five words.\n" + item, "cost_usd": 0.2},
+        ]
+    )
+    monkeypatch.setattr(run.agent, "answer", lambda client, model, messages: next(answers))
+    monkeypatch.setattr(run.agent, "run_tool", lambda name, arguments: "https://a.org/x")
+    record = run.ask(None, {"id": "q", "tests": "x", "turns": ["first", "second"]})
+    per_turn = [turn["checks"] for turn in record["turns"]]
+    assert [c["list_lines"] for c in per_turn] == [2, 1]
+    assert [c["words_outside_items"] for c in per_turn] == [0, 5]
+    assert per_turn[1]["links_not_in_the_feed"] == []  # the tool text of an earlier turn counts
+    assert record["checks"] == per_turn[1]  # the top level stays the last turn
+    assert record["cost_usd"] == 0.3

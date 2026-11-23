@@ -79,13 +79,16 @@ def ask(client, question: dict) -> dict:
             tool_text += text
             calls.append({**call, "first_lines": text.splitlines()[:12]})
         cost += result["cost_usd"]
-        turns.append({"designer": turn, "calls": calls, "answer": result["text"]})
-    last = turns[-1]["answer"]
+        # each turn is measured, against the tool text of the conversation up to that turn
+        measured = checks(result["text"], tool_text)
+        turns.append(
+            {"designer": turn, "calls": calls, "answer": result["text"], "checks": measured}
+        )
     return {
         **question,
         "turns": turns,
         "cost_usd": round(cost, 6),
-        "checks": checks(last, tool_text),
+        "checks": turns[-1]["checks"],  # the last turn, as before
     }
 
 
@@ -115,7 +118,9 @@ def main() -> int:
             SPEND.write_text(json.dumps(ledger, indent=1))
             done.append(record)
             out.write_text(json.dumps(done, indent=1, ensure_ascii=False), encoding="utf-8")
-        print(f"ok    {record['id']}  {record['cost_usd']}  {record['checks']}")
+        print(f"ok    {record['id']}  {record['cost_usd']}")
+        for number, turn in enumerate(record["turns"], 1):
+            print(f"      turn {number}  {turn['checks']}")
 
     with ThreadPoolExecutor(max_workers=4) as pool:
         list(pool.map(one, [q for q in questions if q["id"] not in seen]))

@@ -5,8 +5,10 @@ page states is never shown: an item that is held each year and has no new dates 
 "not confirmed", with its last real dates.
 """
 
+import re
 import sqlite3
 from datetime import date
+from urllib.parse import urlsplit
 
 CHANGE_GROUPS = ("new", "changed")
 GROUPS = ("dated", "seasons and experiences", "not confirmed", "below the traveller bar")
@@ -128,6 +130,7 @@ def _card(row) -> dict:
         "source": _line(link),
         "first_seen": seen[:10],
         "changed": None,  # the latest change row, if there is one
+        "match": None,  # find: the quote that holds the text, if no other field holds it
     }
 
 
@@ -255,13 +258,39 @@ def _counts(cards: list[dict], groups: dict[str, int]) -> dict:
     return {"items": len(cards), "groups": groups, "categories": dict(sorted(categories.items()))}
 
 
-def _counts_lines(counts: dict, scope: str) -> list[str]:
+def _collected(db: sqlite3.Connection, place: str) -> dict:
+    """The sources of the place that the feed holds a page of, and the day of the last
+    collection. A page that did not change has no new row: its items were seen on that day."""
+    pages = db.execute(
+        "SELECT p.source_id, p.url, p.fetched_at FROM page p JOIN source s ON s.id = p.source_id "
+        "WHERE s.place = ?",
+        (place,),
+    ).fetchall()
+    seen = db.execute(
+        "SELECT max(i.last_seen_at) FROM item i JOIN evidence e ON e.item_id = i.id "
+        "JOIN page p ON p.id = e.page_id JOIN source s ON s.id = p.source_id WHERE s.place = ?",
+        (place,),
+    ).fetchone()[0]
+    hosts = {_line(urlsplit(url).hostname or url).removeprefix("www.") for _, url, _ in pages}
+    return {
+        "sources": len({source for source, _, _ in pages}),
+        "last": max([at for _, _, at in pages] + [seen or ""], default="")[:10],
+        "hosts": sorted(hosts),
+    }
+
+
+def _counts_lines(counts: dict, scope: str, collected: dict) -> list[str]:
     by_group = " · ".join(f"{number} {name}" for name, number in counts["groups"].items())
     by_category = " · ".join(f"{name} {number}" for name, number in counts["categories"].items())
+    sources = "none collected"
+    if collected["sources"]:
+        sources = f"{collected['sources']}, last collected on {collected['last']}: "
+        sources += ", ".join(collected["hosts"])
     return [
         "counts",
         f"  {scope:<16}{_count(counts['items'], 'item')}: {by_group}",
         f"  by category     {by_category or 'none'}",
+        f"  sources         {sources}",
     ]
 
 
@@ -296,6 +325,7 @@ def _card_lines(card: dict, mark_below: bool = False, changes: list | None = Non
             f"first seen {card['first_seen']} · id {card['id']}{_also(card)}"
         ),
         *(f"    changed {_change_text(change)}" for change in changes),
+        *([f'    match in a quote of the page: "{card["match"]}"'] if card["match"] else []),
         f"    source: {card['source']}",
     ]
 
@@ -376,11 +406,14 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
 
     # The horizon. Code writes the dates of a rule only some time ahead. For a window after
     # the last such date, the item is not lost: it is listed with its rule and no date.
-    horizon = ""
+    # For a window that only crosses that date, the item has its dates up to it, and a note.
+    horizon, crossed = "", ""
     for item_id, (card, last) in _weekly_rules(db, place).items():
         if item_id not in cards and last < start.isoformat():
             cards[item_id], first_day[item_id] = card, start.isoformat()
             horizon = max(horizon, last)
+        elif item_id in cards and last < end.isoformat():
+            crossed = max(crossed, last)
     last_season = {row[0]: row for row in _rows(db, place, "o.rule = 'season'")}
     window_months = _months_of(start.isoformat(), end.isoformat())
     for item_id, row in last_season.items():
@@ -412,6 +445,11 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
             f"The feed writes dates from rules until {horizon}. This window is after that "
             "date: an item from a rule is listed with its rule and no date."
         )
+    if crossed:
+        notes.append(
+            f"The feed writes dates from rules until {crossed}. This window goes past that "
+            "date: an item from a rule has no written date after it."
+        )
     if not ordered:
         notes.append("The feed has no item for these dates.")
     data = {
@@ -422,13 +460,14 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
         "counts": _counts(ordered, {group["name"]: len(group["cards"]) for group in groups}),
         "notes": notes,
         "groups": groups,
+        "collected": _collected(db, place),
         "holes": _holes(registry, [place]),
     }
 
     place_name = _line(registry["places"][place]["name"])
     window = f"{_day(start, False)} - {_day(end, False)}"
     lines = [f"what_is_on · {place_name} · {window} · as of {data['as_of']}", ""]
-    lines += _counts_lines(data["counts"], "in the window")
+    lines += _counts_lines(data["counts"], "in the window", data["collected"])
     lines += [f"  note            {note}" for note in notes]
     for group in groups:
         lines += ["", group["name"]]
@@ -504,21 +543,26 @@ def when_to_go(
         for index, name in enumerate(PLAN_GROUPS[:3])
     }
     groups[PLAN_GROUPS[3]] = len(weekly)
+    note = "This answer has seasons, weekly items and yearly events only. For the dated events "
+    notes = [note + "of a period, call what_is_on with dates, or find."]
     data = {
         "place": place,
         "from_month": first,
         "to_month": last,
         "as_of": as_of,
         "counts": _counts([card for _, card, _ in listed] + weekly, groups),
+        "notes": notes,
         "each_week": weekly,
         "months": months,
+        "collected": _collected(db, place),
         "holes": _holes(registry, [place]),
     }
 
     place_name = _line(registry["places"][place]["name"])
     span = _MONTHS[first - 1] if first == last else f"{_MONTHS[first - 1]} - {_MONTHS[last - 1]}"
     lines = [f"when_to_go · {place_name} · {span} · as of {as_of}", ""]
-    lines += _counts_lines(data["counts"], "in the months")
+    lines += _counts_lines(data["counts"], "in the months", data["collected"])
+    lines += [f"  note            {note}" for note in notes]
     lines += ["", "each week, in each month"]
     if not weekly:
         lines.append("    none")
@@ -704,12 +748,13 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
         "at_first_collection": at_first,
         "counts": _counts(cards, {group["name"]: len(group["cards"]) for group in groups}),
         "groups": groups,
+        "collected": _collected(db, place),
         "holes": _holes(registry, [place]),
     }
 
     place_name = _line(registry["places"][place]["name"])
     lines = [f"what_changed · {place_name} · since {_day(since, False)} · as of {as_of}", ""]
-    lines += _counts_lines(data["counts"], "since the date")
+    lines += _counts_lines(data["counts"], "since the date", data["collected"])
     if before_first:
         lines += [
             f"  first look      The feed first collected {place_name} on {first}.",
@@ -733,12 +778,27 @@ def _holds(hay: str, word: str) -> bool:
     return word in hay or (len(word) >= 6 and word in hay.replace(" ", ""))
 
 
+def _in_quote(quote: str, words: list[str]) -> str | None:
+    """The quote for the short card, if it holds each word of the search as a whole word
+    ("free" is not in "carefree"). A long quote is cut to the part that holds the first word."""
+    text = "".join(c for c in _line(quote) if c.isprintable())
+    found = [re.search(rf"(?<!\w){re.escape(word)}(?!\w)", text.casefold()) for word in words]
+    if not all(found):
+        return None
+    if len(text) <= 160:
+        return text
+    first = max(0, min(found[0].start() - 60, len(text) - 160))
+    part = text[first : first + 160].strip()
+    return ("…" if first else "") + part + ("…" if first + 160 < len(text) else "")
+
+
 def find(db: sqlite3.Connection, registry: dict, place: str, text: str) -> dict:
-    """Each live item of the place whose title, category, venue or town holds the text.
+    """Each live item of the place whose title, category, venue or town holds the text, or
+    that has a stored quote of a page with each word of the text as a whole word.
 
     For a named item or a subject ("wine") when the trip has no dates. Each
     word of the text must be in the item. The order is neutral: by date, then by title.
-    There is no score.
+    There is no score. A card that matched only in a quote shows the quote.
     """
     words = _line(text).casefold().split()
     if not words:
@@ -752,6 +812,16 @@ def find(db: sqlite3.Connection, registry: dict, place: str, text: str) -> dict:
         hay = f"{title} {category} {venue} {town}".casefold()
         if all(_holds(hay, word) for word in words):
             wanted.append(item_id)
+    quotes = {}  # an item that matched in no field: its first quote that holds the text
+    for item_id, quote in db.execute(
+        "SELECT e.item_id, e.quote FROM evidence e JOIN item i ON i.id = e.item_id "
+        "WHERE i.status = 'live' ORDER BY e.id"
+    ):
+        if item_id not in wanted and item_id not in quotes:
+            match = _in_quote(quote, words)
+            if match:
+                quotes[item_id] = match
+    wanted += quotes
     items = {}
     if wanted:
         marks = ", ".join("?" * len(wanted))
@@ -761,6 +831,7 @@ def find(db: sqlite3.Connection, registry: dict, place: str, text: str) -> dict:
     found = []  # (group, the date of the order, card)
     for rows in items.values():
         card = _finish(db, _card(rows[0]))
+        card["match"] = quotes.get(card["id"])
         coming = [row for row in rows if row[_N + 1] >= as_of]
         real = [row for row in rows if row[_N + 3] is None]
         if coming:
@@ -789,12 +860,13 @@ def find(db: sqlite3.Connection, registry: dict, place: str, text: str) -> dict:
         "counts": _counts(cards, {group["name"]: len(group["cards"]) for group in groups}),
         "notes": notes,
         "groups": groups,
+        "collected": _collected(db, place),
         "holes": _holes(registry, [place]),
     }
 
     place_name = _line(registry["places"][place]["name"])
     lines = [f'find · {place_name} · "{data["text"]}" · as of {as_of}', ""]
-    lines += _counts_lines(data["counts"], "with the text")
+    lines += _counts_lines(data["counts"], "with the text", data["collected"])
     lines += [f"  note            {note}" for note in notes]
     for group in groups:
         lines += ["", group["name"]]
