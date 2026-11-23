@@ -2,42 +2,42 @@
 
 Written by `research/acceptance/scenarios.py` on 2026-11-23. Model: `claude-opus-5-5`.
 The agent has only the four tools and the server instructions of the feed.
-**21 of 33 scenarios pass the checks by code.** Measured cost: 1.429700 US dollars.
+**20 of 33 scenarios pass the checks by code.** Measured cost: 1.429700 US dollars.
 
 | Scenario | Last question | Tools called | Words | Checks | What failed | Cost (USD) |
 |---|---|---|---|---|---|---|
-| dated_one_day | Is anything on in Hermanus on Saturday 5 December 2026? | what_is_on | 143 | FAIL | lacks /5 Dec/ | 0.0383 |
+| dated_one_day | Is anything on in Hermanus on Saturday 5 December 2026? | what_is_on | 143 | PASS |  | 0.0383 |
 | dated_month | What is on in Hermanus in December 2026? | what_is_on | 166 | PASS |  | 0.0466 |
-| dated_long | My clients are in Hermanus from 1 June to 31 August 2027.  | what_is_on | 131 | FAIL | lacks /\d+ of \d+/ | 0.0402 |
+| dated_long | My clients are in Hermanus from 1 June to 31 August 2027.  | what_is_on | 131 | PASS |  | 0.0402 |
 | dated_quiet_day | Is anything on in Hermanus on Tuesday 9 March 2027? | what_is_on | 107 | FAIL | 1 quotes of a page | 0.0296 |
-| dated_past | What was on in Hermanus from 1 to 31 March 2026? | what_is_on | 138 | PASS |  | 0.0310 |
-| dated_june_2028 | What is on in Hermanus from 3 to 10 June 2028? | what_is_on | 115 | PASS |  | 0.0355 |
-| dated_2029 | What is on in Hermanus from 10 to 17 June 2029? | what_is_on | 90 | FAIL | lacks /too far|does not (reach|go|cover)|only (reaches|covers|goes)|horizon|as far as|beyond/ | 0.0212 |
+| dated_past | What was on in Hermanus from 1 to 31 March 2026? | what_is_on | 138 | FAIL | has /twice|duplicate/ | 0.0310 |
+| dated_june_2028 | What is on in Hermanus from 3 to 10 June 2028? | what_is_on | 115 | FAIL | lacks /Akwaaba|Hermanuspietersfontein|Cricket Club/ | 0.0355 |
+| dated_2029 | What is on in Hermanus from 10 to 17 June 2029? | what_is_on | 90 | FAIL | lacks /[Mm]arket/; lacks /rule|no date|not (yet )?written|until 2028/; has /\b0 items|has nothing/ | 0.0212 |
 | dated_tonight | My clients are in Hermanus now. Is anything on tonight or  | what_is_on | 141 | PASS |  | 0.0360 |
 | dated_next_weekend | What is on in Hermanus next weekend? | what_is_on | 157 | FAIL | 157 words (limit 150) | 0.0562 |
-| nodates_recurring | What recurring or regular events does Hermanus have? | when_to_go | 129 | PASS |  | 0.0808 |
-| nodates_weekly_market | Is there a weekly market in Hermanus? | when_to_go | 97 | FAIL | 1 quotes of a page | 0.0720 |
-| nodates_wine | My guests love wine. No dates yet. What does Hermanus have | when_to_go | 119 | PASS |  | 0.0691 |
+| nodates_recurring | What recurring or regular events does Hermanus have? | when_to_go | 129 | FAIL | lacks /Akwaaba|Hermanuspietersfontein|Cricket Club/ | 0.0808 |
+| nodates_weekly_market | Is there a weekly market in Hermanus? | when_to_go | 97 | FAIL | 1 quotes of a page; lacks /Akwaaba|Hermanuspietersfontein|Cricket Club/; has /does ?n[o']t list a weekly|no weekly market/ | 0.0720 |
+| nodates_wine | My guests love wine. No dates yet. What does Hermanus have | when_to_go | 119 | FAIL | does not call find; lacks /Food and Wine Market/; has /no wine/ | 0.0691 |
 | nodates_september | They are thinking of September 2027. What is on then? | what_is_on | 141 | PASS |  | 0.0424 |
 | nodates_compare | Which is better for whales in Hermanus: July or October? | when_to_go | 118 | PASS |  | 0.0427 |
 | named_brief_market | Is the Hermanus Country Market on on a Saturday? | when_to_go, tell_me_more | 79 | PASS |  | 0.0780 |
 | named_missing | Is there a J. Cole concert in Hermanus in December 2026? | what_is_on | 92 | PASS |  | 0.0339 |
 | named_experience | Can my clients do shark cage diving near Hermanus in July  | what_is_on | 102 | PASS |  | 0.0313 |
-| named_kalfiefees | When is Kalfiefees? | when_to_go | 113 | FAIL | lacks /August 2026|Aug 2026/ | 0.0696 |
+| named_kalfiefees | When is Kalfiefees? | when_to_go | 113 | FAIL | does not call find; lacks /August 2026|Aug 2026/; has /August 2027|isn't in the feed|not in the feed/ | 0.0696 |
 | named_price | How much does the FynArts Festival cost? | when_to_go | 75 | PASS |  | 0.0681 |
 | bad_other_city | What is on in Cape Town from 1 to 5 January 2027? | none | 77 | PASS |  | 0.0156 |
 | bad_town_inside | What is on in Stanford in the first week of December 2026? | what_is_on | 107 | PASS |  | 0.0374 |
-| bad_impossible_date | What is on in Hermanus from 30 February to 2 March 2027? | none | 48 | FAIL | a date that is not in the feed: ['28 February'] | 0.0154 |
+| bad_impossible_date | What is on in Hermanus from 30 February to 2 March 2027? | none | 48 | PASS |  | 0.0154 |
 | bad_reversed | What is on in Hermanus from 27 June to 20 June 2027? | what_is_on | 144 | PASS |  | 0.0375 |
 | bad_no_place | What is on from 1 to 7 December 2026? | what_is_on | 145 | PASS |  | 0.0443 |
-| bad_gibberish | asdf qwer zxcv | none | 112 | FAIL | a date that is not in the feed: ['10 December', '20 December']; 112 words (limit 80); 1 quotes of a page; lacks /\?/ | 0.0156 |
+| bad_gibberish | asdf qwer zxcv | none | 112 | FAIL | 112 words (limit 60); 1 quotes of a page; a list with no source; a list with no tag for how sure; lacks /\?/ | 0.0156 |
 | bad_weather | What is the weather like in Hermanus in June? | when_to_go | 87 | FAIL | 1 quotes of a page | 0.0287 |
 | bad_booking | Book two tickets for the FynArts Festival on 25 June 2027. | what_is_on | 97 | PASS |  | 0.0258 |
 | follow_rest | Show me the ones you left out. | what_is_on | 139 | PASS |  | 0.0499 |
-| follow_proof | How sure is the date of the wine market? | what_is_on, tell_me_more | 124 | FAIL | lacks /rule/ | 0.0316 |
+| follow_proof | How sure is the date of the wine market? | what_is_on, tell_me_more | 124 | FAIL | a list with no tag for how sure | 0.0316 |
 | follow_link | Send me the link for the FynArts Festival. | what_is_on | 40 | PASS |  | 0.0261 |
-| changed_same_day | I last looked on 23 November 2026. What changed in Hermanu | what_changed | 131 | PASS |  | 0.1291 |
-| changed_future | What changed in Hermanus since 1 January 2027? | none | 62 | FAIL | does not call what_changed; a date that is not in the feed: ['23 November'] | 0.0154 |
+| changed_same_day | I last looked on 23 November 2026. What changed in Hermanu | what_changed | 131 | FAIL | a site that is not in the feed: ['hermanusfynarts.co.za', 'whalecoast.info'] | 0.1291 |
+| changed_future | What changed in Hermanus since 1 January 2027? | none | 62 | PASS |  | 0.0154 |
 | afrikaans | Wat is aan in Hermanus van 20 tot 27 Junie 2027? | what_is_on | 153 | PASS |  | 0.0348 |
 
 ## dated_one_day

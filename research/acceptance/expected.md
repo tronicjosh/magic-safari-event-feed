@@ -7,7 +7,7 @@ Agreed with Joshua on 2026-11-23 (option B). The rules:
 3. One tag after each item: how sure the date is, and so what the designer must do before a booking.
 4. Evidence has less weight than the answer: no quote, unless the designer asks for proof or how sure a fact is.
 5. One line for what was left out, and one line for what the feed does not cover.
-6. Sources as short site names at the end, and an offer of the proof.
+6. Each item lets the designer act: its tag, and its source as a link with the site name as its text. (Changed on 2026-11-23 after the scenario suite: at first the sources were short names at the end of the answer.) An offer of the proof ends the answer.
 
 Each expected answer below uses only facts of the real feed (`feed.db`, the run of 2026-11-23). The actual answer does not need the same words. It must have the same items, the same tags and the same shape.
 

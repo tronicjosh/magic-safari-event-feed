@@ -7,18 +7,18 @@ Code made the checks below against the text that the tools returned and against 
 
 | # | Question | Tools called | Size | Checks by code | What failed | Cost (USD) |
 |---|---|---|---|---|---|---|
-| 1 | What is on in Hermanus for my clients from 20 to 27 June 202 | what_is_on | 126 words, 0 quotes | PASS |  | 0.0337 |
-| 2 | The same dates, a second guest: a couple in their 60s who lo | none | 129 words, 0 quotes | PASS |  | 0.0163 |
-| 3 | The same dates, a third guest: a family with two children of | none | 125 words, 0 quotes | PASS |  | 0.0146 |
-| 4 | My clients have no dates yet. When is the best time to go to | when_to_go | 121 words, 0 quotes | PASS |  | 0.0736 |
-| 5 | Tell me more about the FynArts Festival in June 2027. How su | what_is_on, tell_me_more | 123 words, 2 quotes | PASS |  | 0.0363 |
-| 6 | I last looked on 1 November 2026. What changed in Hermanus? | what_changed | 111 words, 0 quotes | PASS |  | 0.0195 |
-| 7 | Is the Hermanus Whale Festival on in October 2027? | what_is_on | 108 words, 0 quotes | PASS |  | 0.0334 |
+| 1 | What is on in Hermanus for my clients from 20 to 27 June 202 | what_is_on | 140 words, 0 quotes | PASS |  | 0.0397 |
+| 2 | The same dates, a second guest: a couple in their 60s who lo | find, find | 125 words, 0 quotes | PASS |  | 0.0529 |
+| 3 | The same dates, a third guest: a family with two children of | find, find | 138 words, 0 quotes | PASS |  | 0.0292 |
+| 4 | My clients have no dates yet. When is the best time to go to | when_to_go | 149 words, 0 quotes | PASS |  | 0.0774 |
+| 5 | Tell me more about the FynArts Festival in June 2027. How su | find, tell_me_more | 138 words, 2 quotes | PASS |  | 0.0365 |
+| 6 | I last looked on 1 November 2026. What changed in Hermanus? | what_changed | 79 words, 0 quotes | PASS |  | 0.0212 |
+| 7 | Is the Hermanus Whale Festival on in October 2027? | find | 95 words, 0 quotes | PASS |  | 0.0245 |
 
 - The selections for guest 2 and guest 3 differ: **yes**.
   - Guest 2 (wine and art, no crowds): FynArts Festival, Hermanus Whale Watching Experience, Hermanuspietersfontein Food and Wine Market
   - Guest 3 (family, children 8 and 11): Food and craft market at the Hermanus Cricket Club, Hermanus Park Run, Hermanus Whale Watching Experience, Southern Right Whales
-- Measured cost of the 7 answers: 0.227398 US dollars.
+- Measured cost of the 7 answers: 0.281390 US dollars.
 
 ## Question 1
 
@@ -26,63 +26,63 @@ Code made the checks below against the text that the tools returned and against 
 
 Tools called: `what_is_on({"place": "Hermanus", "from_date": "2027-06-20", "to_date": "2027-06-27"})`
 
-Checks: calls what_is_on: pass; each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 0 or less: pass; names a source: pass; starts with how many of 13: pass; gives a tag for how sure: pass; names what the feed does not cover: pass
+Checks: calls what_is_on: pass; each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 0 or less: pass; names a source: pass; starts with how many of 12: pass; gives a tag for how sure: pass; names what the feed does not cover: pass
 
-I'm showing **6 of the 13 items** in the feed for 20 to 27 June 2027:
+**I'm showing 6 of 12 items for 20–27 June 2027.** The highlights are the FynArts Festival opening and the start of whale season.
 
-- **FynArts Festival**: 24 June to 4 July 2027, Hermanus. Confirmed, programme not stated
-- **Southern Right Whales**: June to November. Season
-- **Hermanus Whale Watching Experience**: June to November. Season
-- **Hermanuspietersfontein Food and Wine Market**: Sat 26 June, Hemel-en-Aarde. From a weekly rule, confirm near the date
-- **Akwaaba Market**: Sat 26 June. From a weekly rule, confirm near the date
-- **Hermanus Country Market**: all year. Season
+- FynArts Festival, 24 June – 4 July 2027. Confirmed, programme not stated. [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)
+- Southern Right Whales, June – November. Season. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/)
+- Hermanus Whale Watching Experience, June – November. Season. [southernrightcharters.co.za](https://www.southernrightcharters.co.za/)
+- Hermanuspietersfontein Food and Wine Market, Hemel-en-Aarde, Sat 26 June 2027. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)
+- Akwaaba Market, Sat 26 June 2027. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)
+- Hermanus Country Market, all year. From a rule of the page, check the day. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)
 
-**Left out:** monthly art walks and markets (their first-of-the-month days fall outside these dates), a second craft market, and two parkruns.
+**Left out:** one more Saturday market, two parkruns and three monthly first-weekend events.
 
-The feed doesn't cover Quicket or Webtickets.
+The feed does not cover Quicket or Webtickets.
 
-**Sources:** hermanusfynarts.co.za, hermanus-tourism.co.za, southernrightcharters.co.za. I can send the evidence for any item.
+I can show you the proof for any of these items.
 
 ## Question 2
 
 > The same dates, a second guest: a couple in their 60s who love wine and art, and do not like crowds. What do you recommend?
 
-Tools called: none
+Tools called: `find({"place": "Hermanus", "text": "wine"})`, `find({"place": "Hermanus", "text": "art"})`
 
-Checks: each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 0 or less: pass; names a source: pass; starts with how many of 13: pass; gives a tag for how sure: pass
+Checks: each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 0 or less: pass; names a source: pass; starts with how many of 12: pass; gives a tag for how sure: pass
 
-For this couple I'd suggest **3 of the 13 items**:
+**I'm showing 3 of 12 items for 20–27 June 2027 that suit a couple who love wine and art.**
 
-- **FynArts Festival**: 24 June to 4 July 2027, Hermanus. Confirmed, programme not stated. It's an art festival. The feed says nothing about crowd sizes, so check the programme for smaller events.
-- **Hermanuspietersfontein Food and Wine Market**: Sat 26 June, Hemel-en-Aarde. From a weekly rule, confirm near the date. It fits their love of wine, but its page says Saturdays are busy.
-- **Hermanus Whale Watching Experience**: June to November. Season. It's a nature outing they can take at a slower pace.
+- FynArts Festival, 24 June – 4 July 2027. Confirmed, programme not stated. It's the art highlight; ask the organiser for its smaller events. [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)
+- Hermanuspietersfontein Food and Wine Market, Hemel-en-Aarde, Sat 26 June 2027. From a weekly rule, confirm near the date. The page says Saturdays are busy, so they should arrive early. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)
+- Hermanus Whale Watching Experience, June – November. Season. It's a calm outing at sea. [southernrightcharters.co.za](https://www.southernrightcharters.co.za/)
 
-**Left out:** other markets, the parkruns, and monthly art events whose first-of-the-month days fall outside these dates.
+**Left out:** other markets, parkruns and monthly art events whose dates fall outside the trip.
 
-The feed doesn't cover Quicket or Webtickets.
+The feed does not cover Quicket or Webtickets.
 
-**Sources:** hermanusfynarts.co.za, hermanus-tourism.co.za, southernrightcharters.co.za. I can send the evidence for any item.
+I can show you the proof for any of these items.
 
 ## Question 3
 
 > The same dates, a third guest: a family with two children of 8 and 11. What do you recommend?
 
-Tools called: none
+Tools called: `find({"place": "Hermanus", "text": "family"})`, `find({"place": "Hermanus", "text": "kids"})`
 
-Checks: each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 0 or less: pass; names a source: pass; starts with how many of 13: pass; gives a tag for how sure: pass
+Checks: each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 0 or less: pass; names a source: pass; starts with how many of 12: pass; gives a tag for how sure: pass
 
-For the family I'd suggest **4 of the 13 items**:
+**I'm showing 4 of 12 items for 20–27 June 2027.** None of them is marked for children, and the feed's only family festival is in November 2026.
 
-- **Southern Right Whales**: June to November, Hermanus. Season
-- **Hermanus Whale Watching Experience**: June to November. Season
-- **Hermanus Park Run**: Sat 26 June, 08:00. From a weekly rule, confirm near the date. It's a run they can take part in. The feed doesn't give age rules, so check those.
-- **Food and craft market at the Hermanus Cricket Club**: Sat 26 June. From a weekly rule, confirm near the date
+- Southern Right Whales, June – November. Season. Watching from the shore is easy with children. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/)
+- Hermanus Whale Watching Experience, June – November. Season. Check the minimum age for children. [southernrightcharters.co.za](https://www.southernrightcharters.co.za/)
+- Hermanus Park Run, Sat 26 June 2027. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)
+- Food and craft market at the Hermanus Cricket Club, Sat 26 June 2027. From a weekly rule, confirm near the date. [xplorio.com](https://xplorio.com/hermanus/en/things-to-do/events)
 
-**Left out:** the arts festival, other markets, the wine market, a second parkrun, and monthly art events whose first-of-the-month days fall outside these dates.
+**Left out:** the arts festival, the wine market, other markets and monthly events whose dates fall outside the trip.
 
-The feed doesn't cover Quicket or Webtickets.
+The feed does not cover Quicket or Webtickets.
 
-**Sources:** hermanus-tourism.co.za, southernrightcharters.co.za, xplorio.com. I can send the evidence for any item.
+I can show you the proof for any of these items.
 
 ## Question 4
 
@@ -92,40 +92,38 @@ Tools called: `when_to_go({"place": "Hermanus"})`
 
 Checks: calls when_to_go: pass; each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 0 or less: pass; names a source: pass; gives a tag for how sure: pass; names what the feed does not cover: pass
 
-**The best time to go is June to November, which is whale season.** For the most to do, choose September, which also has two yearly festivals. For culture, choose late June.
+**Go between June and November, the Southern Right whale season.** Late June to early July adds FynArts, and September to early October adds festivals.
 
-5 of 14:
-- Southern Right Whales, June to November: Season
-- FynArts Festival, 24 June to 4 July 2027: Confirmed, programme not stated
-- Hermanus Flower and Eco Fair, September: Season
-- Hermanus Adventure Week, September: Season
-- Whale Festival: Not confirmed, no dates yet
+6 of 18 items:
+- Southern Right Whales · June–November · Season · [hermanus-tourism.co.za](https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/)
+- FynArts Festival · 24 June – 4 July 2027 · Confirmed, programme not stated · [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)
+- Hermanus Adventure Week · September · Season · [xplorio.com](https://xplorio.com/hermanus/en/things-to-do/events)
+- Hermanus Flower and Eco Fair · September · Season · [xplorio.com](https://xplorio.com/hermanus/en/things-to-do/events)
+- Whale Festival · last held 2–4 October 2026 · Not confirmed, no dates yet · [hermanuswhalefestival.co.za](https://hermanuswhalefestival.co.za/)
+- Hermanus First Friday Artwalk · first Friday of every month · From a rule of the page, check the day · [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)
 
-Left out: a whale-watching boat trip, monthly markets and art walks, a duplicate Whale Festival listing and an art exhibition in November 2026.
+Left out: weekly and monthly markets, parkruns, a whale-watching boat trip, and a November 2026 art exhibition.
 The feed doesn't cover Quicket or Webtickets.
 
-Sources: hermanus-tourism.co.za, hermanusfynarts.co.za, xplorio.com, hermanuswhalefestival.co.za. I can show the proof for any of these.
+I can send the proof for any item.
 
 ## Question 5
 
 > Tell me more about the FynArts Festival in June 2027. How sure is the date?
 
-Tools called: `what_is_on({"place": "Hermanus", "from_date": "2027-06-01", "to_date": "2027-06-30"})`, `tell_me_more({"ids": [151]})`
+Tools called: `find({"place": "Hermanus", "text": "FynArts"})`, `tell_me_more({"ids": [151]})`
 
 Checks: calls tell_me_more: pass; each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 2 or less: pass; names a source: pass
 
-The festival is Thu 24 June – Sun 4 July 2027 in Hermanus. **Confirmed, programme not stated**
+The FynArts Festival in Hermanus runs **Thu 24 June – Sun 4 July 2027**. Tag: **Confirmed, programme not stated**. Source: [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)
 
-**How sure:** The organiser's own website gives the dates as "24 June 2027 – 4 July 2027." We last checked them today (23 Nov 2026), and they haven't changed. The page gives only the first and last day, so it doesn't show what's on each day.
+**How sure the date is**
+- The festival's own website states the dates: "24 June 2027 – 4 July 2027". The feed last checked this on 23 Nov 2026, and nothing has changed.
+- The page gives only the first and last day. It doesn't say what happens on each day in between, so check the programme before booking anything for a set day.
+- The festival runs past June into early July. The same page also says "ten inspiring days in June", so confirm the end date with the organiser.
+- The festival has been held every year since 2013. The venue and prices aren't given.
 
-**Other details:**
-- The festival has run every year since 2013 and lasts "ten inspiring days in June."
-- It's one of 13 items the feed lists for Hermanus in June 2027.
-- The venue and price aren't stated.
-
-**Before booking:** Check the daily programme with the organiser.
-
-**Source:** hermanusfynarts.co.za. I can send the full link if you need it.
+I can also show you the 2026 dates for comparison.
 
 ## Question 6
 
@@ -135,31 +133,27 @@ Tools called: `what_changed({"place": "Hermanus", "since": "2026-11-01"})`
 
 Checks: calls what_changed: pass; each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 0 or less: pass
 
-I can't tell you what changed since 1 November. The feed only started collecting Hermanus today, 23 November 2026, so it has nothing earlier to compare against. It found 151 items in that first collection, and none of them are marked as new or changed.
+The feed can't tell you what changed since 1 November, because it first collected Hermanus today (23 November 2026). It holds 151 items from that first collection, but it can't show which of them are new or changed since your last look.
 
-The feed doesn't cover Quicket or Webtickets for Hermanus.
+The feed also doesn't cover Quicket or Webtickets.
 
-I can still help in two ways:
-- **If you have trip dates:** I can list what's on in Hermanus between them.
-- **If you don't have dates yet:** I can show the seasons and yearly events month by month.
-
-If you check back after today, I can show you exactly what changed since this first collection.
+I can list what's on in Hermanus for your guest's trip dates, or show the best months to go if the trip has no dates yet. Which would help?
 
 ## Question 7
 
 > Is the Hermanus Whale Festival on in October 2027?
 
-Tools called: `what_is_on({"place": "Hermanus", "from_date": "2027-10-01", "to_date": "2027-10-31"})`
+Tools called: `find({"place": "Hermanus", "text": "Whale Festival"})`
 
 Checks: each site is from the feed: pass; each date is from the feed or the question: pass; 150 words or less: pass; quotes of a page: 0 or less: pass; names a source: pass; gives a tag for how sure: pass; says not confirmed: pass; gives no day in October 2027: pass
 
-Nobody has announced dates for the Hermanus Whale Festival in October 2027 yet. It's an annual event, and the most recent one ran Fri 2 to Sun 4 October 2026. That might suggest early October, but I can't give it a 2027 date. Check with the organiser closer to the time before you book.
+**Probably, but no 2027 dates are out yet.** The Hermanus Whale Festival takes place every year, and no page gives its October 2027 dates. It was last held Fri 2 – Sun 4 October 2026.
 
-- **Whale Festival, Hermanus:** Not confirmed, no dates yet
+- Hermanus Whale Festival, 2027 dates not yet published, Hermanus. Not confirmed, no dates yet. [hermanuswhalefestival.co.za](https://hermanuswhalefestival.co.za/)
 
-The whale-watching season itself runs from June to the end of November, so October falls inside it. Its listing gives months but no year.
+Check with the organiser before booking anything around the festival. If it keeps the same early-October weekend, the dates would fall around then, but no page says so.
 
-I don't have Quicket or Webtickets listings.
+The feed doesn't cover Quicket or Webtickets.
 
-Sources: hermanuswhalefestival.co.za, hermanus-tourism.co.za, southernrightcharters.co.za. I can show the source pages for any of this.
+Would you like the source details for this festival?
 

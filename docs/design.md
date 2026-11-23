@@ -6,7 +6,7 @@ Status: **draft 6** (2026-11-23). It describes the code as built. A part that is
 
 ## Summary
 
-- **What.** A headless feed of what a guest can do in and near Hermanus: dated events, repeating events, seasons. One ingest command collects it. Four read-only operations serve it to an agent.
+- **What.** A headless feed of what a guest can do in and near Hermanus: dated events, repeating events, seasons. One ingest command collects it. Five read-only operations serve it to an agent.
 - **For whom.** A travel designer who sells a luxury trip and works through an AI agent. They look two times: 6 to 18 months out to shape the trip, and weeks out to refine it. Many do not know the area.
 - **Why.** Magic Safari earns only when a trip is booked. The feed removes the admin of searching tourism sites, and gives the designer more to sell.
 - **The one idea.** AI is powerful and can be wrong. So the model decides, and each decision carries proof that code checks: a word-for-word quote from the page, or a value from a list that I own. A pass is stored. A fail is not stored, and the run report says why. The feed never invents a fact.
@@ -22,9 +22,9 @@ The brief asks for a first version. I cut the build to one path that shows each 
 |---|---|
 | Ingest: fetch, visible text, hash, extract, verify, store | Source discovery, completeness check, link check |
 | An unchanged page gives no model call | Retry with a stronger model |
-| The same item on a second run is updated, not added | Merge of one event from two sources; owner rank |
+| The same item on a second run is updated, not added. The same title, town and time from two sources is one card | Merge of one event with two different titles; owner rank |
 | Single date, repeating dates, run, season; yearly "not confirmed" | `cancelled`; "date moved from A to B" |
-| MCP server (local): `what_is_on`, `when_to_go`, `tell_me_more`, `what_changed` | Hosted server (HTTP), REST, `find`, `places` |
+| MCP server (local): `what_is_on`, `when_to_go`, `find`, `tell_me_more`, `what_changed` | Hosted server (HTTP), REST, `places` |
 | Soft traveller bar; category; change log | Standing experiences from approved operator pages (O4) |
 | `holes`: one block from the registry | `holes` from each run report |
 | A demo page on localhost, with and without an agent | A public site |
@@ -100,7 +100,8 @@ Source 1--* Page 1--* Evidence *--1 Item 1--* Occurrence
 | Month with a year | "October 2026" | 1 row, month precision | The same range note |
 | Weekly rule | A market each Saturday | 1 row for each week, 18 months ahead, `rule = weekly` | `Sat 26 June 2027 (weekly rule: "Every Saturday from 09:00 – 14:00")` |
 | Season | Whales, June to November | 1 row for each year: the running season and the next years, `rule = season` | `June - November (season, no year stated: "<quote>")` |
-| All year, or a rule by month | "First Friday of every month" | As a season, January to December | `All year (season, no year stated: "<quote>")` |
+| All year, or a rule by month | "First Friday of every month" | As a season, January to December | `All year (a rule of the page: "<quote>")` |
+| A rule after its last written date | The market, in June 2029 | No row in the window | `Each Saturday (weekly rule: "<quote>")`, with a note |
 | Yearly, no new dates | A festival held 2 to 4 October 2026 | Only the real row; `repeats_yearly = 1` | In "not confirmed": `Last held Fri 2 October 2026 - Sun 4 October 2026` |
 
 - **A date that code wrote is never called confirmed.** The card shows the rule and its quote. Only a date that a page states can be "last held".
@@ -111,7 +112,8 @@ Source 1--* Page 1--* Evidence *--1 Item 1--* Occurrence
 - **Identity:** the same source, town and title (case and whitespace). Two items with one title on one page stay two items; on a later run each is matched by its date.
 - **Never delete.** An item that a run does not find keeps its rows; `last_seen_at` does not move.
 - **Change rows:** a new price, venue, yearly mark or date of an item that exists. Only the page that gave a field can change it. The first time an item is stored is not a change; `first seen` records it.
-- **Not built:** one event from two sources is two items (the First Friday Artwalk is in the feed two times). A moved date is shown as an added date; the old date stays.
+- **Two sources, one card:** at read time, the same title, town and time from two sources is one card with "2 sources" (23 pairs in the real feed). The rows stay apart in the database, so this is reversible.
+- **Not built:** one event with two different titles is two cards ("Whale Festival" and "Hermanus Whale Festival"). A moved date is shown as an added date; the old date stays.
 
 ## Interface
 
@@ -120,11 +122,14 @@ Source 1--* Page 1--* Evidence *--1 Item 1--* Occurrence
 | The designer asks | Tool | Input | Output |
 |---|---|---|---|
 | "What is on while they are there?" | `what_is_on` | place, from, to | Counts, then each item in the window, in four groups |
-| "When is the best time to go?" | `when_to_go` | place, months | Seasons and yearly items, by month |
+| "When is the best time to go?" | `when_to_go` | place, months | The weekly items one time, as rules; then seasons and yearly items, by month |
+| "When is Kalfiefees?" "Anything with wine?" | `find` | place, text | Each item whose title, category, venue or town holds the text, with its coming dates or its last dates. No score |
 | "How sure is this? Where is it from?" | `tell_me_more` | ids | The full card: each fact with its quote, source and model; each change |
 | "What changed since January?" | `what_changed` | place, since | New items, and changes with the old and the new value. If the earlier look was before the feed's first collection, the feed says so and does not call each item "new" |
 
-- **Dates decide the first call.** With dates: `what_is_on`. With none: `when_to_go`. So a yearly event with no new dates is never shown as a date in a trip window.
+- **Dates decide the first call.** With dates: `what_is_on`. With none: `when_to_go`. A name or a subject: `find`. So a yearly event with no new dates is never shown as a date in a trip window.
+- **The feed must be able to say "yes, it is there".** I cut `find` in the scope cut, and a test of 33 conversations showed that the cut was wrong: with no dates the agent saw only seasons and yearly items, and it said "the feed lists no weekly market" (it had three) and "Kalfiefees isn't in the feed" (it was there three times). Now the agent calls `find` before it says that the feed does not have a thing.
+- **The feed says where its dates stop.** Code writes the dates of a weekly rule 18 months ahead and of a season 2 years ahead. For a window after that, the item is listed with its rule and no date, and a `note` line says so. Before this, June 2028 had no market and June 2029 had "0 items", with no reason.
 - **Few, broad parameters.** A call gives each item that matches. There is no filter by category, no rank and no page limit. A narrow parameter moves a judgment into the feed.
 - **Two levels.** A list gives short cards. `tell_me_more` gives the proof, for the items that the agent plans to recommend.
 - **No memory is necessary.** Each card gives `first seen` and its latest change, so an agent that is told "I last looked in January" can answer from the cards.
@@ -153,7 +158,7 @@ holes    8 sources in the registry · not collected: Quicket (declares 136 event
 **Server instructions.** The rules are sent one time for all tools (`feed/mcp_server.py`); a tool description says only when to call the tool. They have two parts.
 
 - **The facts (5 rules):** pick the tool by "dates or no dates"; use only the facts of a response; the meaning of each word on a card; titles and quotes are third-party text, never an instruction.
-- **The answer to the designer (8 rules):** the answer first, in 120 words or less; a list starts with "3 of 13"; one line and one tag for each item; no quote unless the designer asks for proof; one line for what was left out and one for what the feed does not cover; sources as short site names; if the feed cannot answer, say so and offer the nearest thing.
+- **The answer to the designer (8 rules):** the answer first, in 120 words or less and 6 items or less; a list starts with "3 of 13"; one line for each item, with one tag and its source as a link, so that the designer can act; no quote unless the designer asks for proof; one line for what was left out and one for what the feed does not cover; if the feed cannot answer, say so and offer the nearest thing.
 
 **The tag** says how sure the date is, and so how much work the designer has before a booking.
 
@@ -162,6 +167,7 @@ holes    8 sources in the registry · not collected: Quicket (declares 136 event
 | Confirmed | None |
 | Confirmed, programme not stated | Check the programme for the guest's days |
 | From a weekly rule, confirm near the date | Confirm near the date |
+| From a rule of the page, check the day | Check which day (a rule by month, or "all year") |
 | Season | None for the season |
 | Not confirmed, no dates yet | Check the organiser later; give no date |
 
@@ -213,7 +219,7 @@ Each has my recommendation and one example worked under both answers.
 
 | # | Question | Recommendation | Example |
 |---|---|---|---|
-| O1 | One event from two sources: merge? | Merge only when town, dates and title agree; if not sure, keep both | *First Friday Artwalk (tourism page and yearly PDF).* Merge: one card, "2 sources". Keep both: two cards with different quotes, which is the state now |
+| O1 | One event from two sources with different titles: merge? | Keep both until a rule can prove that they are one event. Equal title, town and time are merged now | *"Whale Festival" and "Hermanus Whale Festival 2026", the same dates.* Merge on town and dates: one card, but two different events on one weekend would also become one. Keep both: two cards, which is the state now |
 | O2 | A rule by month ("first Friday"): dates or "all year"? | Add it to the weekly rule, with the same proof | *Trip of 20 to 27 June 2027.* As dates: the Artwalk is not returned (the first Friday is 4 June). As "all year": it is returned with its quote, and the agent must read the rule |
 | O3 | Which model extracts? | The cheapest with 0 false facts on my confirmed sample; now `claude-haiku-5-5` | *A page with "R75 pp, children R40".* If the cheap model returns R40 as the price, the quote check passes and only my sample shows the fault. Then a stronger model, at about 20 times the price |
 | O4 | Standing experiences (shark cage diving, wine tasting) | A list of operator pages that I approve; operator, town and booking link from the registry | *Marine Dynamics (T2b: no time, no town on the page).* From the registry: a card with "availability not stated" and a booking link. Page facts only: no card |
@@ -252,8 +258,9 @@ Each has my recommendation and one example worked under both answers.
 - **Ground truth, not a model.** A blind reviewer checked the real database with new code: 0 of 145 dates that a page states failed against the stored page text.
 - **My sample:** `evals/sample_check.md` has 20 stored items, each fact with its quote in the page text. I mark each fact true or false. This is the first count of false facts.
 - **Reviews that try to break it.** Four blind reviews, each with only the requirement and the diff, found 29 faults (for example: "8 17:30" accepted on a page that says "18 17:30"; a default town on an item in a different town; a season year that code wrote shown as a stated date). Each is repaired with a test.
-- **Tests that can fail.** 219 tests. Each key line was broken on purpose, one at a time; where no test failed, I added a test or removed the line.
-- **The agent.** A new Claude with only the four tools answers 7 questions (`research/acceptance/agent_test.md`). Code checks each answer against the text of the tools and against the agreed shape (`expected.md`): 7 of 7 call the expected tool; no site and no stated date comes from outside the feed; a festival with no new dates stays "not confirmed"; two guests on the same dates get different selections; each answer is 150 words or less with a tag on each item. My judgment of the answers is the last check.
+- **Scenarios.** 39 conversations that a designer can have, well or badly (`research/acceptance/scenarios.py`): dates in the past and in 2029, no dates, a named item, a subject, a wrong town, an impossible date, nonsense, a booking request, Afrikaans. I read each answer. Round 1 found the false "not in the feed" statements and the silent horizon; round 2 shows them repaired.
+- **Tests that can fail.** 229 tests. Each key line was broken on purpose, one at a time; where no test failed, I added a test or removed the line.
+- **The agent.** A new Claude with only the five tools answers 7 questions (`research/acceptance/agent_test.md`). Code checks each answer against the text of the tools and against the agreed shape (`expected.md`): 7 of 7 call the expected tool; no site and no stated date comes from outside the feed; a festival with no new dates stays "not confirmed"; two guests on the same dates get different selections; each answer is 150 words or less with a tag on each item. My judgment of the answers is the last check.
 
 **How I improve it later, and see the effect.** Change one thing (the prompt, the bar wording, a category, a source), run the saved pages again, and compare the two measures; `runs/runs.md` has the cost of each run and `docs/assumptions.md` the result of each test, with wrong beliefs kept.
 
@@ -281,7 +288,7 @@ Each has my recommendation and one example worked under both answers.
 - **A weekly run, by arithmetic from the measured pages:** two pages are new each week by their nature, the weekend page (0.015009) and the monthly PDF (0.018828): 0.033837 US dollars. If all 10 pages change: 0.064780. For 52 weeks: 1.76 to 3.37 US dollars.
 - **The cost driver is output tokens** (91 percent): items on changed pages, and the quotes for each judgment. The two bar fields added 39 percent (T13); town and weekly rule added 2.5 percent (T12).
 - **The agent's side:** a query costs the feed nothing, but the agent pays input tokens for each card. One answer costs 0.015 to 0.075 US dollars on `claude-opus-5-5` (7 answers: 0.23). Before the answer rules it was 0.59, because the agent also called `tell_me_more` for each pick. A page limit is the first thing to add when the feed is larger.
-- **Total spend on this project:** 1.82 of a 5 US dollar budget (tests 0.18, the real run 0.06, agent tests and tuning 1.58).
+- **Total spend on this project:** 4.79 of a 5 US dollar budget: research tests 0.18, the real run 0.06, and 4.55 for tests of the agent (`claude-opus-5-5`). The agent tests cost 70 times the ingest. One run of 0.49 saved no transcript because of a fault in my test script.
 - **What fails first at 10 towns:** the person who owns the registries (sources, towns, bar wording). The pipeline has no review queue, so the weekly work for a person is the run report.
 
 ## Stack, models and deployment
@@ -290,7 +297,7 @@ Each has my recommendation and one example worked under both answers.
 |---|---|---|
 | Language | Python | Magic Safari uses it; it has the libraries for HTML and PDF text |
 | Database | SQLite | Small data (hundreds of items, thousands of rows), one writer one time a week, readers only read. One file: a backup is a file copy. At many writers or machines, the same tables move to Postgres |
-| Agent interface | An MCP server over the functions of `feed/read.py` | A Claude user gets four tools with short descriptions and one set of instructions |
+| Agent interface | An MCP server over the functions of `feed/read.py` | A Claude user gets five tools with short descriptions and one set of instructions |
 | Demo page | FastAPI | It calls the same functions |
 | Extraction model | `claude-haiku-5-5` | The cheapest; no failed check on the saved answers. A comparison with a stronger model (T4) is not done |
 | Tests | pytest; ruff for lint | The hand cases are the tests |

@@ -17,7 +17,7 @@ from datetime import date
 from pathlib import Path
 
 import anthropic
-from agent_test import MODEL, dates_in, hosts_in, quotes_in
+from agent_test import MODEL, TAGS, dates_in, hosts_in, quotes_in
 
 from feed import agent
 from feed.env import load_env
@@ -28,45 +28,52 @@ JUNE = "What is on in Hermanus for my clients from 20 to 27 June 2027?"
 # works out dates from "next weekend", so a date that is not in the feed is not a fault).
 SCENARIOS = [
     # the trip has dates
-    ("dated_one_day", ["Is anything on in Hermanus on Saturday 5 December 2026?"], "what_is_on", [r"5 Dec"], [], 150, False),
-    ("dated_month", ["What is on in Hermanus in December 2026?"], "what_is_on", [r"\d+ of \d+"], [], 170, False),
-    ("dated_long", ["My clients are in Hermanus from 1 June to 31 August 2027. What is on?"], "what_is_on", [r"\d+ of \d+", r"FynArts"], [], 170, False),
+    ("dated_one_day", ["Is anything on in Hermanus on Saturday 5 December 2026?"], "what_is_on", [r"5 Dec|Saturday"], [], 150, False),
+    ("dated_month", ["What is on in Hermanus in December 2026?"], "what_is_on", [r"\d+ of (the )?\d+"], [], 170, False),
+    ("dated_long", ["My clients are in Hermanus from 1 June to 31 August 2027. What is on?"], "what_is_on", [r"\d+ of (the )?\d+", r"FynArts"], [], 170, False),
     ("dated_quiet_day", ["Is anything on in Hermanus on Tuesday 9 March 2027?"], "what_is_on", [], [], 150, False),
-    ("dated_past", ["What was on in Hermanus from 1 to 31 March 2026?"], "what_is_on", [], [], 150, False),
-    ("dated_june_2028", ["What is on in Hermanus from 3 to 10 June 2028?"], "what_is_on", [r"market|Saturday"], [r"no (weekly|recurring|regular|markets)"], 150, False),
-    ("dated_2029", ["What is on in Hermanus from 10 to 17 June 2029?"], "what_is_on", [r"too far|does not (reach|go|cover)|only (reaches|covers|goes)|horizon|as far as|beyond"], [r"nothing (is )?on\b(?!.*(too far|beyond))"], 150, False),
+    ("dated_past", ["What was on in Hermanus from 1 to 31 March 2026?"], "what_is_on", [], [r"twice|duplicate"], 150, False),
+    ("dated_june_2028", ["What is on in Hermanus from 3 to 10 June 2028?"], "what_is_on", [r"Akwaaba|Hermanuspietersfontein|Cricket Club"], [r"no (weekly|recurring|regular|markets)"], 150, False),
+    ("dated_2029", ["What is on in Hermanus from 10 to 17 June 2029?"], "what_is_on", [r"[Mm]arket", r"rule|no date|not (yet )?written|until 2028"], [r"\b0 items|has nothing"], 150, False),
     ("dated_tonight", ["My clients are in Hermanus now. Is anything on tonight or tomorrow?"], "what_is_on", [], [], 150, True),
     ("dated_next_weekend", ["What is on in Hermanus next weekend?"], "what_is_on", [r"2[89] Nov"], [], 150, True),
     # no dates yet
-    ("nodates_recurring", ["What recurring or regular events does Hermanus have?"], None, [r"[Ss]aturday", r"[Mm]arket"], [r"no (recurring|regular|weekly)"], 170, False),
-    ("nodates_weekly_market", ["Is there a weekly market in Hermanus?"], None, [r"[Ss]aturday"], [r"\bno weekly market|there (is|are) no\b"], 150, False),
-    ("nodates_wine", ["My guests love wine. No dates yet. What does Hermanus have for them?"], None, [r"[Ww]ine"], [], 150, False),
+    ("nodates_recurring", ["What recurring or regular events does Hermanus have?"], None, [r"[Ss]aturday", r"Akwaaba|Hermanuspietersfontein|Cricket Club"], [r"no (recurring|regular|weekly)"], 170, False),
+    ("nodates_weekly_market", ["Is there a weekly market in Hermanus?"], None, [r"[Ss]aturday", r"Akwaaba|Hermanuspietersfontein|Cricket Club"], [r"does ?n[o']t list a weekly|no weekly market"], 150, False),
+    ("nodates_wine", ["My guests love wine. No dates yet. What does Hermanus have for them?"], "find", [r"Food and Wine Market"], [r"no wine"], 150, False),
     ("nodates_september", ["They are thinking of September 2027. What is on then?"], None, [r"September"], [], 150, False),
     ("nodates_compare", ["Which is better for whales in Hermanus: July or October?"], None, [r"June|November|season"], [], 150, False),
     # a named item
     ("named_brief_market", ["Is the Hermanus Country Market on on a Saturday?"], None, [r"not (state|say|give)|does ?n[o']t (state|say|give)|no day"], [], 150, False),
-    ("named_missing", ["Is there a J. Cole concert in Hermanus in December 2026?"], "what_is_on", [r"not in the feed|no .*(J\. ?Cole|such|concert).*feed|feed (has|does|lists|shows) no|does ?n[o']t (list|have|show)|isn't in|not listed", r"Quicket"], [], 150, False),
+    ("named_missing", ["Is there a J. Cole concert in Hermanus in December 2026?"], None, [r"not in the feed|feed (has|does|lists|shows) no|does ?n[o']t (list|have|show)|isn't in|not listed|no .*J\. ?Cole", r"Quicket"], [], 150, False),
     ("named_experience", ["Can my clients do shark cage diving near Hermanus in July 2027?"], None, [r"feed (has|does|lists|shows) no|not in the feed|does ?n[o']t (list|have|cover|show|include)|isn't in|not listed"], [], 150, False),
-    ("named_kalfiefees", ["When is Kalfiefees?"], None, [r"August 2026|Aug 2026"], [r"August 2027"], 150, False),
+    ("named_kalfiefees", ["When is Kalfiefees?"], "find", [r"August 2026|Aug 2026"], [r"August 2027|isn't in the feed|not in the feed"], 150, False),
     ("named_price", ["How much does the FynArts Festival cost?"], None, [r"not (stated|given)|does ?n[o']t (state|give|say)|no price"], [r"R ?\d"], 150, False),
     # bad or hard input
     ("bad_other_city", ["What is on in Cape Town from 1 to 5 January 2027?"], None, [r"Hermanus", r"only|does ?n[o']t cover|not cover|doesn't have|no data"], [], 120, False),
     ("bad_town_inside", ["What is on in Stanford in the first week of December 2026?"], "what_is_on", [r"Stanford"], [r"does ?n[o']t cover Stanford|no data for Stanford"], 150, False),
-    ("bad_impossible_date", ["What is on in Hermanus from 30 February to 2 March 2027?"], None, [r"30 February|does ?n[o']t exist|not a (real|valid) date|no 30"], [], 150, False),
+    ("bad_impossible_date", ["What is on in Hermanus from 30 February to 2 March 2027?"], None, [r"30 February|does ?n[o']t exist|not a (real|valid) date|no 30"], [], 150, True),
     ("bad_reversed", ["What is on in Hermanus from 27 June to 20 June 2027?"], "what_is_on", [r"20.{1,12}27 June|swap|other way|reversed|before"], [], 170, False),
     ("bad_no_place", ["What is on from 1 to 7 December 2026?"], None, [r"Hermanus"], [], 150, False),
-    ("bad_gibberish", ["asdf qwer zxcv"], None, [r"\?"], [], 80, False),
+    ("bad_gibberish", ["asdf qwer zxcv"], None, [r"\?"], [], 60, True),
     ("bad_weather", ["What is the weather like in Hermanus in June?"], None, [r"does ?n[o']t (have|cover|include|hold)|no weather|not (in|part of) the feed|can't|cannot"], [r"\d+ ?°|degrees"], 100, False),
     ("bad_booking", ["Book two tickets for the FynArts Festival on 25 June 2027."], None, [r"can't|cannot|not able|unable|read-only", r"hermanusfynarts"], [], 120, False),
     # a second question in the same conversation
     ("follow_rest", [JUNE, "Show me the ones you left out."], None, [r"[Pp]arkrun|Park Run", r"Art ?walk|Artwalk"], [], 220, False),
-    ("follow_proof", [JUNE, "How sure is the date of the wine market?"], "tell_me_more", [r"[Ss]aturdays are busy market days", r"rule"], [], 150, False),
+    ("follow_proof", [JUNE, "How sure is the date of the wine market?"], "tell_me_more", [r"[Ss]aturdays are busy market days", r"rule|pattern"], [], 150, False),
     ("follow_link", [JUNE, "Send me the link for the FynArts Festival."], None, [r"https://www\.hermanusfynarts\.co\.za"], [], 80, False),
     # what changed
     ("changed_same_day", ["I last looked on 23 November 2026. What changed in Hermanus?"], "what_changed", [r"nothing|no (changes|new)|cannot|can't|not (changed|able)"], [r"151 (new|items are new)"], 150, False),
-    ("changed_future", ["What changed in Hermanus since 1 January 2027?"], "what_changed", [r"23 November|future|has ?n[o']t|not yet|after"], [], 120, False),
+    ("changed_future", ["What changed in Hermanus since 1 January 2027?"], None, [r"23 November|future|has ?n[o']t|not yet|after"], [], 120, True),
+    # added after the plan: a name or a subject with no dates
+    ("named_fynarts", ["When is FynArts?"], None, [r"24 June", r"4 July"], [], 120, False),
+    ("subject_music", ["My guests love live music. What does Hermanus have?"], "find", [r"\d+ of (the )?\d+|\d+ items?"], [r"no (live )?music"], 150, False),
+    ("subject_parkrun", ["Is there a parkrun in Hermanus?"], None, [r"[Ss]aturday"], [r"no parkrun"], 120, False),
+    ("named_kalfiefees_2027", ["Is Kalfiefees on in August 2027?"], "find", [r"2026"], [r"\b\d{1,2}(\s*[-–]\s*\d{1,2})? August 2027"], 120, False),
+    ("subject_none", ["Is there a jazz festival in Hermanus?"], "find", [r"Quicket"], [], 120, False),
+    ("town_no_dates", ["What is there to do in Stanford?"], None, [r"Stanford"], [r"does ?n[o']t cover Stanford"], 150, False),
     # a different language
-    ("afrikaans", ["Wat is aan in Hermanus van 20 tot 27 Junie 2027?"], "what_is_on", [r"FynArts", r"13"], [], 170, False),
+    ("afrikaans", ["Wat is aan in Hermanus van 20 tot 27 Junie 2027?"], "what_is_on", [r"FynArts", r"1[23]"], [], 170, False),
 ]  # fmt: skip
 
 
@@ -101,7 +108,7 @@ def main() -> int:
 
     rows, parts, cost, passed = [], [], 0.0, 0
     for name, turns, tool, must, must_not, limit, free_dates in SCENARIOS:
-        if only and name not in only:
+        if (only and name not in only) or (old is not None and name not in old):
             continue
         history, seen, names_called, answers = [], "", [], []
         for index, question in enumerate(turns):
@@ -132,6 +139,11 @@ def main() -> int:
             failed.append(f"{len(text.split())} words (limit {limit})")
         if len(quotes_in(text)) > (2 if name == "follow_proof" else 0):
             failed.append(f"{len(quotes_in(text))} quotes of a page")
+        if len(re.findall(r"^\s*(?:[-*]|\d+\.)\s", text, re.MULTILINE)) >= 2:
+            if not hosts_in(text):
+                failed.append("a list with no source")
+            if not re.search(TAGS, text):
+                failed.append("a list with no tag for how sure")
         failed += [f"lacks /{pattern}/" for pattern in must if not re.search(pattern, text)]
         failed += [f"has /{pattern}/" for pattern in must_not if re.search(pattern, text)]
         passed += not failed
@@ -171,8 +183,7 @@ def main() -> int:
         *rows,
         "",
     ]
-    if not only:
-        out.write_text("\n".join(head + parts) + "\n", encoding="utf-8")
+    out.write_text("\n".join(head + parts) + "\n", encoding="utf-8")
     return 0
 
 

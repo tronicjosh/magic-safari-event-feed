@@ -27,7 +27,7 @@ from feed.env import load_env
 MODEL = "claude-opus-5-5"
 MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
 WORDS = 150  # the agreed aim is 120 words; this is the limit of the check
-TAGS = r"Confirmed|weekly rule|Season|Not confirmed"
+TAGS = r"Confirmed|weekly rule|rule of the page|Season|Not confirmed"
 
 # (conversation, question, the tool that must be among the calls or None, the checks that apply)
 QUESTIONS = [

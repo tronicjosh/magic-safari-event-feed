@@ -40,8 +40,21 @@ Each round is the same 7 questions to `claude-opus-5-5` with only the four tools
 | 1 | Answer rules in the server instructions | 162, 157, 196, 193, 189, 186, 142 | 0, 0, 0, 0, 2, 0, 0 | 1 of 7 (length) | 0.351900 |
 | 2 | Hard length; exact tag words; "if the feed cannot answer, say so" | 121, 107, 148, 122, 125, 150, 100 | 0, 0, 0, 0, 1, 0, 0 | 7 of 7 | 0.340222 |
 | 3 | The feed itself says when a look was before its first collection | 126, 129, 125, 121, 123, 111, 108 | 0, 0, 0, 0, 2, 0, 0 | 7 of 7 | 0.227398 |
+| Final | After the scenario suite: `find`, the horizon, one card for two sources; each item with its tag and its source link | 140, 125, 138, 149, 138, 79, 95 | 0, 0, 0, 0, 2, 0, 0 | 7 of 7 | 0.281390 |
 
-Transcripts: `agent_test_before.md`, `agent_test_round1.md`, `agent_test_round2.md`, `agent_test.md` (final).
+Transcripts: `agent_test_before.md`, `agent_test_round1.md`, `agent_test_round2.md`, `agent_test_round3.md`, `agent_test.md` (final).
+
+## The scenario suite (after round 3)
+
+Joshua tested the demo and found "there are no recurring events at all". A suite of 33 conversations (`scenarios.py`, transcript `scenarios.md`) found the cause in the feed, not in the wording: with no dates the agent could not see a weekly item or look up a name. Round 2 (`scenarios_round2.md`, 20 conversations) shows the repairs. Joshua then asked that each item lets the designer act: each line now ends with its source as a link.
+
+| Question | Round 1 | Round 2 |
+|---|---|---|
+| Is there a weekly market in Hermanus? | "The feed doesn't list a weekly market in Hermanus." | "Yes, there are three markets every Saturday", each with its tag and its source |
+| My guests love wine. No dates yet | "The feed has no wine events or experiences for Hermanus." | 5 of 11 wine items, the Saturday wine market first |
+| When is Kalfiefees? | "Kalfiefees isn't in the feed" | "The latest Kalfiefees ran Wed 5 – Mon 10 August 2026 ... The feed doesn't have dates for 2027 yet" |
+| What is on from 10 to 17 June 2029? | "The feed has nothing for Hermanus (0 items)" | 6 of 11 items as rules, and "the feed only gives dates up to 31 December 2028" |
+| asdf qwer zxcv | 112 words with example dates | "What do you need for Hermanus?" (23 words) |
 
 ## Why round 3 changed the feed, not the instructions
 

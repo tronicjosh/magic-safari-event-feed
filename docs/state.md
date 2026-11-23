@@ -15,6 +15,7 @@ review     one blind review of the joined code ....... done, 7 findings, repaire
 write-up   design.md draft 6: shortened, true to the code; acceptance.md and CLAUDE.md refined ... done; my read is open
 agent test 7 questions to a new Claude with only the tools ... done: research/acceptance/agent_test.md
 answers    expected answers agreed (option B), instructions tuned in 3 rounds ... done: research/acceptance/comparison.md
+scenarios  39 conversations; a plan of 8 repairs (find, weekly items, horizon, one card for two sources) ... done: research/acceptance/scenarios*.md
 mine       mark the sample of 20 items; judge the agent's answers; read the design ... OPEN
 ```
 
@@ -23,14 +24,14 @@ mine       mark the sample of 20 items; judge the agent's answers; read the desi
 ```text
 registry.json -> feed/fetch.py -> feed/render.py -> hash -> feed/extract.py (model)
      -> feed/verify.py (code) -> feed/update.py -> SQLite (feed/schema.sql, feed.db)
-     -> feed/read.py -> feed/mcp_server.py (four tools, stdio)
+     -> feed/read.py -> feed/mcp_server.py (five tools, stdio)
 feed/ingest.py runs the left side: python -m feed.ingest
 ```
 
 - Branch `build`, local commits only. A push needs my approval.
-- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (219 tests).
+- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (229 tests).
 - `feed.db` is the database of the real run (git ignores it). `python -m feed.ingest` makes it again; a run on unchanged pages costs nothing.
-- Spend: 1.822850 of 5 US dollars (tests 0.176008, real run 0.064780, demo agent tests 0.069481, the agent test 0.593061, three rounds of tuning the answers 0.919520).
+- Spend: 4.790660 of 5 US dollars. No more model calls are planned. An answer of the agent on the demo page costs about 0.02 to 0.08 US dollars.
 
 ## What the model decides, and what code checks
 
@@ -50,12 +51,12 @@ A person is not a step. An item that is not stored is in the run report with its
 
 | What | Where | How |
 |---|---|---|
-| Demo page with an agent | `feed/web.py`, `feed/agent.py` | `./.venv/Scripts/python -m uvicorn feed.web:app --port 8000`, then http://localhost:8000. "Ask the agent" is a Claude model with only the four tools and the server instructions; each answer is a paid model call and the page shows its measured cost. The other tabs call each tool with no model |
+| Demo page with an agent | `feed/web.py`, `feed/agent.py` | `./.venv/Scripts/python -m uvicorn feed.web:app --port 8000`, then http://localhost:8000. "Ask the agent" is a Claude model with only the five tools and the server instructions; each answer is a paid model call and the page shows its measured cost. The other tabs call each tool with no model |
 | Demo with no agent | `feed/demo.py` | `./.venv/Scripts/python -m feed.demo` prints the text of the four operations for a trip of 20 to 27 June 2027, from `feed.db` |
 | Test with a new Claude (A8, A14) | `C:/Users/joshj/Desktop/Magic Safari/feed-demo/` (outside the repository, so no `CLAUDE.md` is read) | Start Claude Code in that folder, approve the server `event-feed`, and ask the questions in `questions.md` |
 | Sample of 20 stored items (A1) | `evals/sample_check.md` | Open each source link and mark each fact true or false. `research/sample/make_sample.py` makes the sheet again |
 
-The MCP server: `python -m feed.mcp_server`, with `FEED_DB` and `FEED_REGISTRY` for the paths; the database is opened read-only. Tools: `what_is_on`, `when_to_go`, `tell_me_more`, `what_changed`. The rules are in the server instructions, one time.
+The MCP server: `python -m feed.mcp_server`, with `FEED_DB` and `FEED_REGISTRY` for the paths; the database is opened read-only. Tools: `what_is_on`, `when_to_go`, `find`, `tell_me_more`, `what_changed`. The rules are in the server instructions, one time.
 
 ## Open
 
