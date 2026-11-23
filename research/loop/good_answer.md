@@ -10,9 +10,9 @@ to act, and what can the feed prove? Then write the better answer.
 
 | # | Rule | A fault looks like this |
 |---|---|---|
-| 1 | The answer comes first. About 120 words, 6 items or less | A preface; a list of 10; an explanation of how the feed works |
+| 1 | The answer comes first. A list has 6 item lines or less; the text outside the item lines and the headings is 60 words or less | A preface; a list of 10; an explanation of how the feed works |
 | 2 | A list starts with how many items it shows and how many the feed has ("3 of 12") | No count, or a wrong count |
-| 3 | Each item lets the designer act: name, date, one of the six tags (how sure), and its source as a link | An item with no tag or no link; a tag with changed words |
+| 3 | Each item lets the designer act: name, date, one of the seven tags (how sure), and its source as a link | An item with no tag or no link; a tag with changed words |
 | 4 | Each interest that the designer names gets its own heading and its own answer: its items, or one plain line that the feed has nothing for it in these dates | "Art and wine" answered with art only; a wine item hidden in a list as "market" |
 | 5 | A gap is said plainly, so that the designer knows to look elsewhere | Silence about wine; a vague "limited options" |
 | 6 | No fact from outside the feed: no item, date, price, venue or link that a tool did not return. A date that code wrote from a rule is not called confirmed. A "not confirmed" item never gets a date | A restaurant from memory; "the festival is in early October 2027" |
@@ -23,9 +23,9 @@ to act, and what can the feed prove? Then write the better answer.
 | 11 | When the feed cannot answer, the agent says so in one or two sentences, gives the reason, and offers the nearest thing | A list as filler; a wrong reason |
 | 12 | The agent does not say that the feed lacks a thing before it calls `find` | "The feed has no wine events" when it has 11 |
 
-The six tags: "Confirmed"; "Confirmed, programme not stated"; "From a weekly rule, confirm
+The seven tags: "Confirmed"; "Confirmed, programme not stated"; "From a weekly rule, confirm
 near the date"; "From a rule of the page, check the day"; "Season"; "Not confirmed, no dates
-yet".
+yet"; "Past, not known if held again".
 
 ## The example
 

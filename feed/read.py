@@ -32,11 +32,11 @@ _MONTHS = [
 # The columns of an item for a short card, then the columns of one occurrence.
 _ITEM = (
     "i.id, i.kind, i.category, i.title, i.town, i.price_text, i.source_link, i.below_bar, "
-    "i.repeats_yearly, i.first_seen, "
+    "i.repeats_yearly, i.first_seen, i.venue, "
     "(SELECT count(DISTINCT p.source_id) FROM evidence e JOIN page p ON p.id = e.page_id "
     " WHERE e.item_id = i.id)"
 )
-_N = 11  # the number of item columns
+_N = 12  # the number of item columns
 _OCCURRENCE = "o.start_date, o.end_date, o.precision, o.rule, o.time_text"
 
 
@@ -105,7 +105,7 @@ def _rows(db: sqlite3.Connection, place: str, where: str, values: tuple = ()) ->
 
 
 def _card(row) -> dict:
-    item_id, kind, category, title, town, price, link, below, yearly, seen, sources = row[:_N]
+    item_id, kind, category, title, town, price, link, below, yearly, seen, venue = row[: _N - 1]
     return {
         "id": item_id,
         "kind": kind,
@@ -122,8 +122,9 @@ def _card(row) -> dict:
         "below_bar": bool(below),
         "yearly": bool(yearly),
         "town": _line(town),
+        "venue": _venue(venue),  # empty: no page states it
         "price": _line(price or "") or "not stated",
-        "sources": sources,
+        "sources": row[_N - 1],
         "source": _line(link),
         "first_seen": seen[:10],
         "changed": None,  # the latest change row, if there is one
@@ -264,16 +265,32 @@ def _counts_lines(counts: dict, scope: str) -> list[str]:
     ]
 
 
+def _venue(text: str | None) -> str:
+    """A venue for the short card. It is third-party text: the mark that divides the fields of
+    a card is taken out of it, and it has a limit."""
+    venue = "".join(c for c in _line(text or "").replace("·", ",") if c.isprintable())
+    return venue if len(venue) <= 80 else venue[:79].rstrip() + "…"
+
+
+def _same(a: str, b: str) -> bool:
+    """Two venues that differ only in case, spaces and punctuation are one venue."""
+    return [c for c in a.casefold() if c.isalnum()] == [c for c in b.casefold() if c.isalnum()]
+
+
 def _card_lines(card: dict, mark_below: bool = False, changes: list | None = None) -> list[str]:
     """The short card. `changes` replaces the line of the latest change."""
     when = f"{card['when']} ({card['state']})" if card["state"] else card["when"]
     if not card["confirmed"]:  # the last real dates; no date is given for this period
         when = f"not confirmed ({card['when']})"
+    venue = f" · venue: {card['venue']}" if card["venue"] else ""  # no words when there is none
     below = " · below the traveller bar" if mark_below and card["below_bar"] else ""
     if changes is None:
         changes = [card["changed"]] if card["changed"] else []
     return [
-        f"[{card['kind']} · {card['category']}] {card['title']} · {when} · {card['town']}{below}",
+        (
+            f"[{card['kind']} · {card['category']}] {card['title']} · {when} · {card['town']}"
+            f"{venue}{below}"
+        ),
         (
             f"    price: {card['price']} · {_count(card['sources'], 'source')} · "
             f"first seen {card['first_seen']} · id {card['id']}{_also(card)}"
@@ -299,8 +316,13 @@ def _merge(cards: list[dict]) -> list[dict]:
         key = (card["title"].casefold(), card["town"], card["when"], card["kind"])
         key += (card["below_bar"], card["confirmed"])
         if key in seen:
-            seen[key]["sources"] += card["sources"]
-            seen[key]["ids"].append(card["id"])
+            first = seen[key]
+            first["sources"] += card["sources"]
+            first["ids"].append(card["id"])
+            # A venue of the second source is not lost. Two different venues are both shown.
+            known = first["venue"].split(" / ") if first["venue"] else []
+            if card["venue"] and not any(_same(card["venue"], venue) for venue in known):
+                first["venue"] = " / ".join([*known, card["venue"]])
         else:
             card["ids"] = [card["id"]]
             seen[key] = card
@@ -542,7 +564,7 @@ def tell_me_more(db: sqlite3.Connection, registry: dict, ids: list[int]) -> dict
     cards = []
     for item_id in ids:
         row = db.execute(
-            f"SELECT {_ITEM}, i.venue, i.last_seen_at, i.last_verified FROM item i "
+            f"SELECT {_ITEM}, i.last_seen_at, i.last_verified FROM item i "
             "WHERE i.id = ? AND i.status = 'live'",
             (item_id,),
         ).fetchone()
@@ -569,7 +591,7 @@ def tell_me_more(db: sqlite3.Connection, registry: dict, ids: list[int]) -> dict
                 "category": base["category"],
                 "when": _full_when(occurrences),
                 "town": base["town"],
-                "venue": _line(row[_N] or "") or "not stated",
+                "venue": base["venue"] or "not stated",
                 "price": base["price"],
                 "yearly": base["yearly"],
                 "below_bar": base["below_bar"],
@@ -579,8 +601,8 @@ def tell_me_more(db: sqlite3.Connection, registry: dict, ids: list[int]) -> dict
                     {"field": field, "quote": _line(quote), "model": model, "page": _line(url)}
                     for field, quote, model, url in evidence
                 ],
-                "last_seen_at": row[_N + 1][:10],
-                "last_verified": row[_N + 2][:10],
+                "last_seen_at": row[_N][:10],
+                "last_verified": row[_N + 1][:10],
                 "changes": _changes(db, item_id),
             }
         )
@@ -704,6 +726,13 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
     return {"data": data, "text": "\n".join(lines) + "\n"}
 
 
+def _holds(hay: str, word: str) -> bool:
+    """A word of the search is in the text if the text holds it ("art" finds "FynArts"). A
+    long word can also be two words of the text with no space ("artwalk" finds "art walk").
+    A short word cannot: "spa" is not in "bus park"."""
+    return word in hay or (len(word) >= 6 and word in hay.replace(" ", ""))
+
+
 def find(db: sqlite3.Connection, registry: dict, place: str, text: str) -> dict:
     """Each live item of the place whose title, category, venue or town holds the text.
 
@@ -721,7 +750,7 @@ def find(db: sqlite3.Connection, registry: dict, place: str, text: str) -> dict:
         "WHERE i.status = 'live' ORDER BY i.id"
     ):
         hay = f"{title} {category} {venue} {town}".casefold()
-        if all(word in hay or word in hay.replace(" ", "") for word in words):
+        if all(_holds(hay, word) for word in words):
             wanted.append(item_id)
     items = {}
     if wanted:

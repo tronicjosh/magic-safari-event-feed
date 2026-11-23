@@ -30,22 +30,40 @@ TAGS = (
     "From a rule of the page, check the day",
     "Season",
     "Not confirmed, no dates yet",
+    "Past, not known if held again",
 )
 lock = threading.Lock()
 
 
 def checks(answer: str, tool_text: str) -> dict:
-    """Facts that code can check. The judgment of the answer is not here."""
+    """Facts that code can check. The judgment of the answer is not here.
+
+    An item line is a bullet or a numbered line that holds a link. A heading is a line of 6
+    words or less with no link and no end mark ("**Art**", "## Wine", "Art:"). Each other
+    line is text outside the items, also when it is written as a bullet or in bold.
+    """
     links = re.findall(r"https?://[^\s)\]>\"]+", answer)
-    lines = [line for line in answer.splitlines() if re.match(r"\s*[-*•]\s|\s*\d+\.\s", line)]
+    items, outside = [], 0
+    for line in answer.splitlines():
+        text = line.strip()
+        if not text or not re.search(r"\w", text):
+            continue
+        if re.match(r"([-*•–]|\d+[.)])\s", text) and "](http" in text:
+            items.append(text)
+        elif "](http" in text and items and line[:1].isspace():
+            items[-1] += " " + text  # an item line that goes on
+        elif (
+            len(text.split()) <= 6 and "](http" not in text and text.strip("*_# ")[-1:] not in ".!?"
+        ):
+            continue  # a heading
+        else:
+            outside += len(text.split())
     return {
         "words": len(answer.split()),
-        "links_not_in_the_feed": sorted(
-            {link for link in links if link.rstrip(".,") not in tool_text}
-        ),
-        "list_lines": len(lines),
-        "list_lines_with_no_link": sum("](http" not in line for line in lines),
-        "list_lines_with_no_tag": sum(not any(tag in line for tag in TAGS) for line in lines),
+        "words_outside_items": outside,
+        "links_not_in_the_feed": sorted({x for x in links if x.rstrip(".,") not in tool_text}),
+        "list_lines": len(items),
+        "list_lines_with_no_tag": sum(not any(tag in item for tag in TAGS) for item in items),
         "quotes": len(re.findall(r"[\"“][^\"”]{12,}[\"”]", answer)),
     }
 

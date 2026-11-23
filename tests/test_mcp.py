@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import sqlite3
 import sys
 from pathlib import Path
@@ -205,3 +206,85 @@ def test_the_demo_agent_has_the_same_tools_as_the_mcp_server(server, monkeypatch
     # the same instructions: the agent adds only the places and the date of today
     assert instructions == mcp_server.INSTRUCTIONS
     assert agent.system_prompt().startswith(mcp_server.INSTRUCTIONS)
+
+
+TAGS = (
+    "Confirmed",
+    "Confirmed, programme not stated",
+    "From a weekly rule, confirm near the date",
+    "From a rule of the page, check the day",
+    "Season",
+    "Not confirmed, no dates yet",
+    "Past, not known if held again",
+)
+
+
+def test_the_instructions_hold_the_rules_of_pass_1():
+    """D2 to D9 of research/loop/pass1_diagnosis.md, where a test can hold the text."""
+    from feed.mcp_server import INSTRUCTIONS
+
+    text = " ".join(INSTRUCTIONS.split())
+    assert "seven tags" in text and "six tags" not in text
+    for tag in TAGS:
+        assert f'- "{tag}"' in INSTRUCTIONS
+    assert "120 words" not in text  # D3
+    assert "6 item lines or less" in text and "60 words or less" in text
+    for words in (
+        '"by the rule: Fri 4 December"',  # D2
+        "not as an estimate",  # D4
+        'write "last held" and the last real dates',
+        "Do not guess what it lists",  # D5
+        "only if its card shows that interest",  # D6
+        "from one response",  # D8
+        "Offer only what a tool can return",  # D9
+        '"venue: ..."',  # D1
+    ):
+        assert words in text, words
+    assert len(INSTRUCTIONS.splitlines()) <= 64 + 25  # 64 lines before pass 1
+
+
+def test_the_runner_of_the_loop_counts_the_seven_tags_and_the_words_outside_the_items():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("loop_run", "research/loop/run.py")
+    run = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(run)
+    assert sorted(run.TAGS) == sorted(TAGS)
+    answer = (
+        "**2 of 9 items fit.**\n\n**Art**\n"
+        "- Art Walk, by the rule: Fri 4 December. From a rule of the page, check the day. "
+        "[a.org](https://a.org/x)\n"
+        "## Wine\n"
+        "1. Fair, 2025. Past, not known if held again. [a.org](https://a.org/y)\n\n"
+        "Left out: two markets.\n"
+    )
+    result = run.checks(answer, "https://a.org/x https://a.org/y")
+    assert result["words_outside_items"] == 9  # the first line and the last line
+    assert result["list_lines"] == 2 and result["list_lines_with_no_tag"] == 0
+
+
+def test_the_runner_of_the_loop_counts_text_in_bold_and_in_bullets_as_text():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("loop_run", "research/loop/run.py")
+    run = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(run)
+    item = "- Fair, Sat 5 June 2027. Confirmed. [a.org](https://a.org/x)\n"
+    assert (
+        run.checks("**3 of 13 items fit this guest well**\n" + item, "")["words_outside_items"] == 8
+    )
+    assert run.checks(item + "- This is a sentence in a bullet.\n", "")["words_outside_items"] == 8
+    numbered = run.checks("1. **Art**\n" + item + "* * *\n", "")
+    assert numbered["list_lines"] == 1 and numbered["words_outside_items"] == 0
+    wrapped = run.checks("- Fair, Sat 5 June 2027.\n  Confirmed. [a.org](https://a.org/x)\n", "")
+    assert wrapped["list_lines"] == 1 and wrapped["list_lines_with_no_tag"] == 0
+
+
+def test_the_instructions_give_a_past_item_one_tag():
+    from feed.mcp_server import INSTRUCTIONS
+
+    assert "(a page states the date; not past)" in INSTRUCTIONS
+    assert "A date\n     before it is past" in INSTRUCTIONS
+    assert 'with the tag "Past, not known if held again"' in INSTRUCTIONS
+    numbers = re.findall(r"^(\d+)\. ", INSTRUCTIONS, re.MULTILINE)
+    assert numbers == [str(n) for n in range(1, 15)]

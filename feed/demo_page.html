@@ -388,7 +388,7 @@ function row(card) {
   const how = sure(card), c = card.changed;
   const badge = how ? `<span><i class="mark ${how[0]}"></i>${how[1]}</span>` : "";
   const sources = card.sources > 1 ? `${card.sources} sources` : "";
-  const facts = [card.town, card.category, card.price === "not stated" ? "" : card.price, sources, `first seen ${card.first_seen}`].filter(Boolean);
+  const facts = [card.town, card.venue, card.category, card.price === "not stated" ? "" : card.price, sources, `first seen ${card.first_seen}`].filter(Boolean);
   const changed = c ? `<p class="note"><b>Changed ${esc(c.found_at)}.</b> ${esc(c.field)} ` +
     (c.old === null ? `added: <q>${esc(c.new)}</q>` : `was <q>${esc(c.old)}</q>, now <q>${esc(c.new)}</q>`) + `</p>` : "";
   return `<article class="row">

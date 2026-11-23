@@ -929,7 +929,7 @@ def test_find_shows_a_weekly_item_as_its_rule_and_a_yearly_item_as_not_confirmed
     db, registry = feed
     festival(db)  # last held 6 to 15 June 2026, held each year
     market(db)
-    cards = {card["title"]: card for card in cards_of(find(db, registry, "hermanus", "a"))}
+    cards = {card["title"]: card for card in cards_of(find(db, registry, "hermanus", "hermanus"))}
     assert cards["Arts Festival"]["when"] == "Last held Sat 6 June 2026 - Mon 15 June 2026"
     assert cards["Arts Festival"]["confirmed"] is False
     assert cards["Harbour Market"]["when"].startswith('weekly rule: "Every Saturday from 09:00"')
@@ -1002,3 +1002,98 @@ def test_a_rule_by_month_is_a_rule_of_the_page_and_not_a_season(feed):
     text = on(db, registry, "2027-06-12", "2027-06-12")["text"]
     assert 'Art Walk · All year (a rule of the page: "first Friday of every month")' in text
     assert 'Whale season · June - November (season, no year stated: "quote of the date")' in text
+
+
+# D1 of research/loop/pass1_diagnosis.md: the short card gives the venue.
+
+
+def test_a_short_card_gives_the_venue_in_each_operation(feed):
+    """The designer asked "is it at Fernkloof"; the venue was only on the full card."""
+    db, registry = feed
+    concert = add(db, "Concert", [("2027-06-12", "2027-06-12", "day", None)], venue="Old  Harbour")
+    market(db, venue="Harbour Square")
+    festival(db, venue="Fernkloof")
+    dated = "] Concert · Sat 12 June 2027 (confirmed) · Hermanus · venue: Old Harbour\n"
+    weekly = 'Each Saturday (weekly rule: "Every Saturday from 09:00") · Hermanus · venue: Harbour'
+    window = on(db, registry, "2027-06-12", "2027-06-12")
+    assert dated in window["text"]
+    assert "Sat 6 June 2026 - Mon 15 June 2026) · Hermanus · venue: Fernkloof\n" in window["text"]
+    assert {card["title"]: card["venue"] for card in cards_of(window)} == {
+        "Concert": "Old Harbour",
+        "Harbour Market": "Harbour Square",
+        "Arts Festival": "Fernkloof",
+    }
+    assert weekly in when_to_go(db, registry, "hermanus")["text"]
+    found = find(db, registry, "hermanus", "concert")["text"]
+    assert "(confirmed) · Hermanus · venue: Old Harbour\n" in found
+    change(db, concert, "price_text", None, "R100", "2026-11-25T08:00:00+00:00")
+    changed = what_changed(db, registry, "hermanus", date(2026, 11, 24))
+    assert "(confirmed) · Hermanus · venue: Old Harbour\n" in changed["text"]
+
+
+def test_a_short_card_with_no_venue_has_no_word_for_it(feed):
+    db, registry = feed
+    concert = add(db, "Concert", [("2027-06-12", "2027-06-12", "day", None)], price="R100")
+    add(db, "Fair", [("2027-06-12", "2027-06-12", "day", None)], below=1, venue="Hall", price="R50")
+    answer = on(db, registry, "2027-06-12", "2027-06-12")
+    assert "] Concert · Sat 12 June 2027 (confirmed) · Hermanus\n" in answer["text"]
+    assert "not stated" not in answer["text"]
+    assert answer["text"].count("venue") == 1 and cards_of(answer)[0]["venue"] == ""
+    # the full card says that the feed has none
+    assert "  venue     not stated" in tell_me_more(db, registry, [concert])["text"]
+    # the note of the bar stays the last part of the line
+    text = find(db, registry, "hermanus", "fair")["text"]
+    assert "· Hermanus · venue: Hall · below the traveller bar\n" in text
+
+
+def test_a_short_card_of_a_dated_item_does_not_show_the_quote_of_its_date(feed):
+    """The feed has no time field: a time is only inside the quote of the date."""
+    db, registry = feed
+    add(db, "Concert", [("2027-06-12", "2027-06-12", "day", None)], time_text="Events | 12 19:00")
+    text = on(db, registry, "2027-06-12", "2027-06-12")["text"]
+    assert "19:00" not in text and "] Concert · Sat 12 June 2027 (confirmed) · Hermanus\n" in text
+
+
+# Findings of the blind review of the pass 1 repairs.
+
+
+def test_one_card_for_two_sources_keeps_each_venue(feed):
+    db, registry = feed
+    day = [("2027-06-12", "2027-06-12", "day", None)]
+    add(db, "Concert", day)
+    add(db, "Concert", day, venue="Fernkloof Hall")
+    add(db, "Talk", day, venue="Mr. Write")
+    add(db, "Talk", day, venue="Mr Write")
+    add(db, "Show", day, venue="Old Harbour")
+    add(db, "Show", day, venue="Fernkloof Hall")
+    text = on(db, registry, "2027-06-12", "2027-06-12")["text"]
+    assert "] Concert · Sat 12 June 2027 (confirmed) · Hermanus · venue: Fernkloof Hall\n" in text
+    assert "· Hermanus · venue: Mr. Write\n" in text  # one venue with two spellings
+    assert "· Hermanus · venue: Old Harbour / Fernkloof Hall\n" in text  # two venues: both
+
+
+def test_a_venue_cannot_look_like_a_field_of_the_card(feed):
+    db, registry = feed
+    day = [("2027-06-12", "2027-06-12", "day", None)]
+    add(db, "Concert", day, venue="Hall · below the traveller bar")
+    add(db, "Talk", day, venue="X" * 500)
+    text = on(db, registry, "2027-06-12", "2027-06-12")["text"]
+    assert "venue: Hall , below the traveller bar\n" in text
+    assert max(len(line) for line in text.splitlines()) < 200
+
+
+def test_find_matches_a_word_at_its_start_and_not_in_the_middle(feed):
+    db, registry = feed
+    day = [("2027-06-12", "2027-06-12", "day", None)]
+    add(db, "Hermanus Park Run", day)
+    add(db, "Traffic Light Party", day)
+    add(db, "First Friday Art Walk", day)
+    add(db, "FynArts Festival", day)
+
+    def titles(text):
+        return sorted(card["title"] for card in cards_of(find(db, registry, "hermanus", text)))
+
+    assert titles("spa") == []  # not "Hermanu-s Pa-rk"
+    assert "FynArts Festival" in titles("art")  # inside a word: a missed item costs more
+    assert titles("artwalk") == ["First Friday Art Walk"]  # a long word can be two words
+    assert titles("fyn") == ["FynArts Festival"] and titles("park run") == ["Hermanus Park Run"]

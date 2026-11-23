@@ -533,9 +533,12 @@ def test_a_range_card_says_that_each_day_is_not_stated(hand):
     assert lines == [
         (
             "[event · other] The Whale Song · Tue 8 June 2027 - Thu 10 June 2027 "
-            "(confirmed; a range, each day is not stated) · Hermanus"
+            "(confirmed; a range, each day is not stated) · Hermanus · venue: Municipal Auditorium"
         ),
-        "[event · other] The Whale Song: a musical · Wed 9 June 2027 (confirmed) · Hermanus",
+        (
+            "[event · other] The Whale Song: a musical · Wed 9 June 2027 (confirmed) · Hermanus "
+            "· venue: Municipal Auditorium"
+        ),
     ]
 
 
