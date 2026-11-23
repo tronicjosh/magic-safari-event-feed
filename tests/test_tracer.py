@@ -211,7 +211,7 @@ def test_an_item_that_is_not_stored_leaves_no_row(hand):
     )
     report = ingest_answer(db, registry, "hand", _page("show"), answer)
     assert report["stored"] == 0 and report["updated"] == 0
-    assert "months: an end year needs a start year" in report["set_aside"][0][1]
+    assert "months with no year" in report["set_aside"][0][1]
     assert _counts(db) == before
 
 

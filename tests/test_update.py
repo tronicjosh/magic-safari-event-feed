@@ -83,12 +83,18 @@ def _counts(hand) -> tuple:
 
 # Kind "months".
 
-WHALES = "Whale season\nThe whales are in the bay from June to November.\n"
+WHALES = (
+    "Whale season\nThe whales are in the bay from June to November.\n"
+    "The whales come back every year.\n"
+)
+YEARLY = {"value": "yes", "quote": "come back every year"}
+NO_PROOF = "when: months with no year, and no proof on the page that it is held each year"
 WHALE_QUOTE = "from June to November"
 
 
 def test_a_season_with_no_year_is_one_row_for_this_year_and_the_next_two(hand):
-    report = _ingest(hand, WHALES, _item("Whale season", _months((6, 0), (11, 0), WHALE_QUOTE)))
+    season = _months((6, 0), (11, 0), WHALE_QUOTE)
+    report = _ingest(hand, WHALES, _item("Whale season", season, yearly=YEARLY))
     assert report == {"stored": 1, "updated": 0, "set_aside": []}
     assert _rows(hand, "Whale season") == [
         ("2026-06-01", "2026-11-30", "month", "season"),
@@ -96,16 +102,17 @@ def test_a_season_with_no_year_is_one_row_for_this_year_and_the_next_two(hand):
         ("2028-06-01", "2028-11-30", "month", "season"),
     ]
     item = _one(hand, "SELECT kind, time_shape, repeats_yearly FROM item")
-    assert item == ("season", "season", 0)
+    assert item == ("season", "season", 1)
     quote = _one(hand, "SELECT quote FROM evidence WHERE field = 'when'")[0]
     assert quote == WHALE_QUOTE
     assert _one(hand, "SELECT DISTINCT time_text FROM occurrence")[0] == WHALE_QUOTE
 
 
 def test_a_season_over_the_year_end_goes_into_the_next_year(hand):
-    text = "Summer season\nDecember to February\n"
+    text = "Summer season\nDecember to February\nIt is held every year.\n"
     season = _months((12, 0), (2, 0), "December to February")
-    assert _ingest(hand, text, _item("Summer season", season))["stored"] == 1
+    yearly = {"value": "yes", "quote": "held every year"}
+    assert _ingest(hand, text, _item("Summer season", season, yearly=yearly))["stored"] == 1
     assert _rows(hand, "Summer season") == [
         ("2026-12-01", "2027-02-28", "month", "season"),
         ("2027-12-01", "2028-02-29", "month", "season"),  # 2028 is a leap year
@@ -139,7 +146,7 @@ def test_months_with_a_stated_end_year_uses_it(hand):
     ("start", "end", "reason"),
     [
         ((6, 2027), (4, 2027), "when[0]: months: end is before start"),
-        ((6, 0), (8, 2027), "when[0]: months: an end year needs a start year"),
+        ((6, 0), (8, 2027), NO_PROOF),
     ],
 )
 def test_months_with_years_that_do_not_fit_are_not_stored(hand, start, end, reason):
@@ -156,7 +163,7 @@ def test_months_with_years_that_do_not_fit_are_not_stored(hand, start, end, reas
 def test_a_season_and_a_dated_entry_in_one_item_is_an_event(hand):
     text = WHALES + "Opening day 5 June 2027\n"
     day = _when("date", (5, 6, 2027), quotes=["Opening day 5 June 2027"])
-    item = _item("Whale season", _months((6, 0), (11, 0), WHALE_QUOTE), day)
+    item = _item("Whale season", _months((6, 0), (11, 0), WHALE_QUOTE), day, yearly=YEARLY)
     assert _ingest(hand, text, item)["stored"] == 1
     assert _one(hand, "SELECT kind, time_shape FROM item") == ("event", "repeating dates")
     assert ("2027-06-05", "2027-06-05", "day", None) in _rows(hand, "Whale season")
@@ -173,12 +180,12 @@ def test_a_months_entry_with_a_month_that_the_quote_does_not_hold_is_not_stored(
 # Held each year.
 
 SEASON = _months((6, 0), (11, 0), WHALE_QUOTE)
-YEARLY_TEXT = WHALES + "The whales come back every year.\n"
+YEARLY_TEXT = WHALES + "Opening day 5 June 2027\n"
+OPENING = _when("date", (5, 6, 2027), quotes=["Opening day 5 June 2027"])
 
 
 def test_yearly_with_a_quote_on_the_page_is_stored_with_evidence(hand):
-    yearly = {"value": "yes", "quote": "come back every year"}
-    assert _ingest(hand, YEARLY_TEXT, _item("Whale season", SEASON, yearly=yearly))["stored"] == 1
+    assert _ingest(hand, YEARLY_TEXT, _item("Whale season", SEASON, yearly=YEARLY))["stored"] == 1
     assert _one(hand, "SELECT repeats_yearly FROM item")[0] == 1
     row = _one(hand, "SELECT value, quote, model FROM evidence WHERE field = 'yearly'")
     assert row == ("yes", "come back every year", "hand")
@@ -198,10 +205,18 @@ def test_yearly_with_a_quote_on_the_page_is_stored_with_evidence(hand):
     ],
 )
 def test_yearly_without_a_quote_on_the_page_is_not_stored_and_the_item_is(hand, yearly):
-    report = _ingest(hand, YEARLY_TEXT, _item("Whale season", SEASON, yearly=yearly))
+    report = _ingest(hand, YEARLY_TEXT, _item("Whale season", OPENING, yearly=yearly))
     assert report == {"stored": 1, "updated": 0, "set_aside": []}
     assert _one(hand, "SELECT repeats_yearly FROM item")[0] == 0
     assert _one(hand, "SELECT count(*) FROM evidence WHERE field = 'yearly'")[0] == 0
+
+
+@pytest.mark.parametrize("yearly", [None, {"value": "yes", "quote": "held annually"}])
+def test_months_with_no_year_and_no_proof_of_each_year_is_not_stored(hand, yearly):
+    """ "October" in a calendar of one year must not become October of three years."""
+    report = _ingest(hand, YEARLY_TEXT, _item("Whale season", SEASON, yearly=yearly))
+    assert report == {"stored": 0, "updated": 0, "set_aside": [("Whale season", NO_PROOF)]}
+    assert _counts(hand) == (0, 0, 0, 0)
 
 
 # The second run.
@@ -316,7 +331,7 @@ def test_a_weekly_rule_on_a_second_run_adds_only_the_new_dates(hand):
 
 
 def test_a_season_on_a_second_run_in_the_next_year_adds_one_year(hand):
-    item = _item("Whale season", SEASON)
+    item = _item("Whale season", SEASON, yearly=YEARLY)
     _ingest(hand, WHALES, item)
     assert _ingest(hand, WHALES, item, at="2027-02-01T08:00:00+00:00")["updated"] == 1
     assert [row[0] for row in _rows(hand, "Whale season")] == [

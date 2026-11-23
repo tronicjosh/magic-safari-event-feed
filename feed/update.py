@@ -122,6 +122,11 @@ def _check_item(item: dict, page: dict, source: dict, towns: dict, model: str) -
 
     ingested = datetime.fromisoformat(page["fetched_at"])
     ingested = (ingested.astimezone(UTC) if ingested.tzinfo else ingested).date()
+    # Months with no year are a season only with proof that the item is held each year. If
+    # not, "October" in a calendar of one year would become October of three years.
+    yearly = _yearly_quote(item, page["text"])
+    if yearly is None and any(_is_season(when) for when in item["when"]):
+        return "when: months with no year, and no proof on the page that it is held each year"
     whens = []
     for index, when in enumerate(item["when"]):
         found = _occurrences(when, ingested)
@@ -156,7 +161,6 @@ def _check_item(item: dict, page: dict, source: dict, towns: dict, model: str) -
     bar = item.get("traveller") or {}
     if bar.get("value") == "no" and quote_on_page(bar.get("quote") or "", page["text"]):
         below_bar = bar["quote"]
-    yearly = _yearly_quote(item, page["text"])
 
     evidence = [
         (field, passed(field), item[field]["quote"], model)
