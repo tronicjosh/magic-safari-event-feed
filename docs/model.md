@@ -23,12 +23,16 @@ QUERY, on request
 - **Extract** is the only model step. It returns fields with word-for-word quotes. It must never verify, write or use a tool.
 - **Verify** is code. It checks quote on page, value in quote, shape, and links. It must never let a field through on the model's word.
 - **Store** holds events, their occurrence rows, the evidence for each field and a change log.
-- **Read and Card** answer three questions: what is on, when to go, what changed. They must never start a fetch or invent a date.
+- **Update** gives each item a category and a tier (headline or local) by a rule in a file. It never deletes an item that a run does not find.
+- **Read and Card** answer four questions: what is on, when to go, what changed, tell me more. Headline comes first. `include_local` is `auto`, `true` or `false`. They must never start a fetch or invent a date.
+- An item has two separate properties: its time shape (single date, repeating dates, run, season) and its tier.
 
 ## Findings that shaped the model
 
 Each line: what we believed, what the test showed, what changed. Newest first.
 
+- 2026-11-23 We believed that a Hermanus list gives the standing experiences. T9 showed that no list is complete, and that 15 of 20 candidates start outside Hermanus (shark cage diving starts in Kleinbaai). Thus experiences come from a list of operator pages that Joshua approves, and their place rule is wider than for events.
+- 2026-11-23 We believed that an operator page states months and price. T9 showed months on 5 of 15 pages and price on 7 of 15; the facts are often in a booking engine. Thus many experience cards say "not stated", and the booking link is the main value.
 - 2026-11-22 We believed that Hermanus has 20 to 30 events. T1 counted 112 as a lower limit (5 towns), and 79 percent are in one source only. Thus a bar or an order is necessary, and the scope (which towns) is a decision.
 - 2026-11-22 We believed that events are known months ahead. T1 showed that sources publish small events 1 to 5 weeks ahead: 59 of 66 dated events are in the next 6 weeks. Thus the feed has two populations. The durable one (annual, recurring, season: about 46) serves the 6 to 18 month use. The weekly flow serves only the last weeks before a trip.
 - 2026-11-22 We believed that the weekly delta is small. T1 showed about 39 new small events in one week. Thus model cost and review load follow the weekly flow, if the flow is in scope.
@@ -49,8 +53,8 @@ From the prototype (stated in `docs/handover.md`, not tested again here):
 
 ## Open questions
 
-- Is ordering necessary? T1 answers it.
-- Does the value-in-quote check work for dates in words? T2 answers it.
+- Does the value-in-quote check work for dates in words and for a year in a header? T2 answers it.
+- Is the category rule good enough for the tier? Joshua's marks answer it (design O1, acceptance A6).
+- Which towns are inside 45 minutes, and which experiences are approved? Joshua decides (design O2, O3).
+- Which access path is the most reliable for each source? T10 answers it.
 - Which model? T4 answers it.
-- What does a traveller tag do? Joshua's view first.
-- Is an event shown while two sources disagree? Open decision O4 in the design.
