@@ -10,8 +10,10 @@ from datetime import date
 
 CHANGE_GROUPS = ("new", "changed")
 GROUPS = ("dated", "seasons and experiences", "not confirmed", "below the traveller bar")
-PLAN_GROUPS = ("seasons and experiences", "yearly with a date", "not confirmed")
+PLAN_GROUPS = ("seasons and experiences", "yearly with a date", "not confirmed", "each week")
+FIND_GROUPS = ("coming or current", "past")
 _DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+_WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 _MONTHS = [
     "January",
     "February",
@@ -115,6 +117,8 @@ def _card(row) -> dict:
         "rule": None,  # the quote of a weekly rule, if code wrote a date from it
         "season": False,  # a page states the months and no year; code wrote the year
         "season_quote": None,  # the quote of those months: the designer sees the proof
+        "all_year": False,  # January to December: a rule of the page, not a season
+        "dateless": False,  # a rule after the last date that code wrote: no date is shown
         "below_bar": bool(below),
         "yearly": bool(yearly),
         "town": _line(town),
@@ -133,6 +137,7 @@ def _add(card: dict, occurrence) -> None:
         text = _months(first, last, year=rule is None)
         if rule is not None:
             card["season"], card["season_quote"] = True, _line(time_text)
+            card["all_year"] = text == "All year"
         else:  # a month that a page states with its year: the days in it are not stated
             card["range"] = True
     else:
@@ -158,6 +163,8 @@ def _state(card: dict) -> str:
         return "not confirmed"
     if card["rule"]:  # code wrote the date from a rule; the designer sees the proof
         state = f'weekly rule: "{card["rule"]}"'
+    elif card["season"] and card.get("all_year"):
+        state = f'a rule of the page: "{card["season_quote"]}"'
     elif card["season"]:
         state = f'season, no year stated: "{card["season_quote"]}"'
     else:
@@ -269,11 +276,53 @@ def _card_lines(card: dict, mark_below: bool = False, changes: list | None = Non
         f"[{card['kind']} · {card['category']}] {card['title']} · {when} · {card['town']}{below}",
         (
             f"    price: {card['price']} · {_count(card['sources'], 'source')} · "
-            f"first seen {card['first_seen']} · id {card['id']}"
+            f"first seen {card['first_seen']} · id {card['id']}{_also(card)}"
         ),
         *(f"    changed {_change_text(change)}" for change in changes),
         f"    source: {card['source']}",
     ]
+
+
+def _also(card: dict) -> str:
+    """The other ids of a card that is one item from two or more sources."""
+    others = [str(item_id) for item_id in card.get("ids", [])[1:]]
+    return f" (also id {', '.join(others)})" if others else ""
+
+
+def _merge(cards: list[dict]) -> list[dict]:
+    """One card for the same item from two sources: equal title, town, time and kind.
+
+    The order of the first card is kept. The sources are added, and the card keeps each id.
+    """
+    merged, seen = [], {}
+    for card in cards:
+        key = (card["title"].casefold(), card["town"], card["when"], card["kind"])
+        key += (card["below_bar"], card["confirmed"])
+        if key in seen:
+            seen[key]["sources"] += card["sources"]
+            seen[key]["ids"].append(card["id"])
+        else:
+            card["ids"] = [card["id"]]
+            seen[key] = card
+            merged.append(card)
+    return merged
+
+
+def _weekly_rules(db: sqlite3.Connection, place: str) -> dict[int, tuple[dict, str]]:
+    """Each item with a weekly rule: a card with the rule and no date, and the last date
+    that code wrote from the rule."""
+    found = {}
+    for row in _rows(db, place, "o.rule = 'weekly'"):
+        card, days, _ = found.get(row[0]) or (_card(row), [], "")
+        weekday = date.fromisoformat(row[_N]).weekday()
+        if weekday not in days:
+            days.append(weekday)
+        card["rule"] = _line(row[_N + 4])
+        found[row[0]] = (card, days, row[_N])  # the rows are in the order of the dates
+    for card, days, _ in found.values():
+        card["when"] = ["Each " + " and ".join(_WEEKDAYS[day] for day in sorted(days))]
+        card["dateless"] = True
+    return {item_id: (card, last) for item_id, (card, _, last) in found.items()}
 
 
 def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, end: date) -> dict:
@@ -303,11 +352,29 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
             _last_held(cards[item_id], row[_N:], _as_of(db))
             first_day[item_id] = moved.isoformat()
 
+    # The horizon. Code writes the dates of a rule only some time ahead. For a window after
+    # the last such date, the item is not lost: it is listed with its rule and no date.
+    horizon = ""
+    for item_id, (card, last) in _weekly_rules(db, place).items():
+        if item_id not in cards and last < start.isoformat():
+            cards[item_id], first_day[item_id] = card, start.isoformat()
+            horizon = max(horizon, last)
+    last_season = {row[0]: row for row in _rows(db, place, "o.rule = 'season'")}
+    window_months = _months_of(start.isoformat(), end.isoformat())
+    for item_id, row in last_season.items():
+        after = row[_N + 1] < start.isoformat()
+        if item_id not in cards and after and _months_of(row[_N], row[_N + 1]) & window_months:
+            cards[item_id] = _card(row)
+            _add(cards[item_id], row[_N:])
+            first_day[item_id] = start.isoformat()
+            horizon = max(horizon, row[_N + 1])
+
     # Neutral order: the first day in the window, then the title, then the id.
     ordered = sorted(
         (_finish(db, card) for card in cards.values()),
         key=lambda card: (first_day[card["id"]], card["title"].casefold(), card["id"]),
     )
+    ordered = _merge(ordered)
     groups = [{"name": name, "cards": []} for name in GROUPS]
     for card in ordered:
         if card["below_bar"]:
@@ -315,14 +382,23 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
         elif not card["confirmed"]:
             group = 2
         else:
-            group = 1 if card["kind"] != "event" else 0
+            group = 1 if card["kind"] != "event" or card["dateless"] else 0
         groups[group]["cards"].append(card)
+    notes = []
+    if horizon:
+        notes.append(
+            f"The feed writes dates from rules until {horizon}. This window is after that "
+            "date: an item from a rule is listed with its rule and no date."
+        )
+    if not ordered:
+        notes.append("The feed has no item for these dates.")
     data = {
         "place": place,
         "from": start.isoformat(),
         "to": end.isoformat(),
         "as_of": _as_of(db),
         "counts": _counts(ordered, {group["name"]: len(group["cards"]) for group in groups}),
+        "notes": notes,
         "groups": groups,
         "holes": _holes(registry, [place]),
     }
@@ -331,6 +407,7 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
     window = f"{_day(start, False)} - {_day(end, False)}"
     lines = [f"what_is_on · {place_name} · {window} · as of {data['as_of']}", ""]
     lines += _counts_lines(data["counts"], "in the window")
+    lines += [f"  note            {note}" for note in notes]
     for group in groups:
         lines += ["", group["name"]]
         if not group["cards"]:
@@ -386,6 +463,11 @@ def when_to_go(
         if covers & set(numbers):
             listed.append((group, _finish(db, card), covers))
     listed.sort(key=lambda entry: (entry[0], entry[1]["title"].casefold(), entry[1]["id"]))
+    kept = {id(card) for card in _merge([card for _, card, _ in listed])}
+    listed = [entry for entry in listed if id(entry[1]) in kept]
+    # A weekly item is on in each month: it is listed one time, as its rule, with no date.
+    weekly = [_finish(db, card) for card, _ in _weekly_rules(db, place).values()]
+    weekly = _merge(sorted(weekly, key=lambda card: (card["title"].casefold(), card["id"])))
 
     months = [
         {
@@ -397,14 +479,16 @@ def when_to_go(
     ]
     groups = {
         name: sum(1 for group, _, _ in listed if group == index)
-        for index, name in enumerate(PLAN_GROUPS)
+        for index, name in enumerate(PLAN_GROUPS[:3])
     }
+    groups[PLAN_GROUPS[3]] = len(weekly)
     data = {
         "place": place,
         "from_month": first,
         "to_month": last,
         "as_of": as_of,
-        "counts": _counts([card for _, card, _ in listed], groups),
+        "counts": _counts([card for _, card, _ in listed] + weekly, groups),
+        "each_week": weekly,
         "months": months,
         "holes": _holes(registry, [place]),
     }
@@ -413,6 +497,11 @@ def when_to_go(
     span = _MONTHS[first - 1] if first == last else f"{_MONTHS[first - 1]} - {_MONTHS[last - 1]}"
     lines = [f"when_to_go · {place_name} · {span} · as of {as_of}", ""]
     lines += _counts_lines(data["counts"], "in the months")
+    lines += ["", "each week, in each month"]
+    if not weekly:
+        lines.append("    none")
+    for card in weekly:
+        lines += _card_lines(card, mark_below=True)
     for month in months:
         lines += ["", month["name"]]
         if not month["cards"]:
@@ -435,7 +524,7 @@ def _full_when(occurrences: list) -> list[str]:
             rules[time_text][3] = last
             continue
         card = {"when": [], "confirmed": True, "range": False, "rule": None, "season": False}
-        card["season_quote"] = None
+        card["season_quote"], card["all_year"] = None, False
         _add(card, (first, last, precision, rule, time_text))
         line = f"{card['when'][0]} ({_state(card)})"
         if line not in lines:
@@ -547,7 +636,8 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
         "WHERE s.place = ?",
         (place,),
     ).fetchone()[0]
-    before_first = bool(first) and day < first  # the earlier look was before the feed existed
+    # The earlier look was before the feed's first collection ended: on that day or before.
+    before_first = bool(first) and day <= first
     at_first = 0
     items = {}
     where = (
@@ -576,10 +666,17 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
         {"name": name, "cards": [card for group, _, card in found if group == index]}
         for index, name in enumerate(CHANGE_GROUPS)
     ]
-    cards = [card for _, _, card in found]
+    groups[0]["cards"] = _merge(groups[0]["cards"])
+    cards = [card for group in groups for card in group["cards"]]
+    notes = []
+    if before_first:
+        note = f"The feed first collected this place on {first}. It cannot say what changed "
+        note += f"before or on that day. {_count(at_first, 'item')} of that first collection: "
+        notes = [note + "not listed as new."]
     data = {
         "place": place,
         "since": day,
+        "notes": notes,
         "as_of": as_of,
         "first_collected": first,
         "at_first_collection": at_first,
@@ -593,8 +690,8 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
     lines += _counts_lines(data["counts"], "since the date")
     if before_first:
         lines += [
-            f"  first look      The feed first collected {place_name} on {first}, after this date.",
-            f"                  It cannot say what changed before {first}.",
+            f"  first look      The feed first collected {place_name} on {first}.",
+            f"                  It cannot say what changed before or on {first}.",
             f"                  {_count(at_first, 'item')} of that first collection: not listed as new.",
         ]
     for group in groups:
@@ -603,5 +700,78 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
             lines.append("    none")
         for card in group["cards"]:
             lines += _card_lines(card, mark_below=True, changes=card.get("changes"))
+    lines += _holes_lines(registry, data["holes"])
+    return {"data": data, "text": "\n".join(lines) + "\n"}
+
+
+def find(db: sqlite3.Connection, registry: dict, place: str, text: str) -> dict:
+    """Each live item of the place whose title, category, venue or town holds the text.
+
+    For a named item or a subject ("wine") when the trip has no dates. Each
+    word of the text must be in the item. The order is neutral: by date, then by title.
+    There is no score.
+    """
+    words = _line(text).casefold().split()
+    if not words:
+        raise ValueError("give a name or a word to find")
+    as_of = _as_of(db)
+    wanted = []
+    for item_id, title, category, venue, town in db.execute(
+        "SELECT i.id, i.title, i.category, coalesce(i.venue, ''), i.town FROM item i "
+        "WHERE i.status = 'live' ORDER BY i.id"
+    ):
+        hay = f"{title} {category} {venue} {town}".casefold()
+        if all(word in hay or word in hay.replace(" ", "") for word in words):
+            wanted.append(item_id)
+    items = {}
+    if wanted:
+        marks = ", ".join("?" * len(wanted))
+        for row in _rows(db, place, f"i.id IN ({marks})", tuple(wanted)):
+            items.setdefault(row[0], []).append(row)
+
+    found = []  # (group, the date of the order, card)
+    for rows in items.values():
+        card = _finish(db, _card(rows[0]))
+        coming = [row for row in rows if row[_N + 1] >= as_of]
+        real = [row for row in rows if row[_N + 3] is None]
+        if coming:
+            card["when"] = ", ".join(_full_when([row[_N:] for row in coming]))
+            card["state"] = ""  # each part of `when` has its own state
+            found.append((0, coming[0][_N], card))
+        elif real:
+            if card["yearly"]:
+                _last_held(card, real[-1][_N:], as_of)
+                card["when"], card["state"] = card["when"][0], "not confirmed"
+            else:
+                card["when"] = ", ".join(_full_when([real[-1][_N:]]))
+                card["state"] = ""
+            found.append((1, real[-1][_N], card))
+    found.sort(key=lambda entry: (*entry[:2], entry[2]["title"].casefold(), entry[2]["id"]))
+    groups = [
+        {"name": name, "cards": _merge([card for group, _, card in found if group == index])}
+        for index, name in enumerate(FIND_GROUPS)
+    ]
+    cards = [card for group in groups for card in group["cards"]]
+    notes = [] if cards else ["The feed has no item that holds this text."]
+    data = {
+        "place": place,
+        "text": " ".join(words),
+        "as_of": as_of,
+        "counts": _counts(cards, {group["name"]: len(group["cards"]) for group in groups}),
+        "notes": notes,
+        "groups": groups,
+        "holes": _holes(registry, [place]),
+    }
+
+    place_name = _line(registry["places"][place]["name"])
+    lines = [f'find · {place_name} · "{data["text"]}" · as of {as_of}', ""]
+    lines += _counts_lines(data["counts"], "with the text")
+    lines += [f"  note            {note}" for note in notes]
+    for group in groups:
+        lines += ["", group["name"]]
+        if not group["cards"]:
+            lines.append("    none")
+        for card in group["cards"]:
+            lines += _card_lines(card, mark_below=True)
     lines += _holes_lines(registry, data["holes"])
     return {"data": data, "text": "\n".join(lines) + "\n"}

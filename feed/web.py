@@ -1,8 +1,8 @@
-"""A demo page on localhost: ask an agent, or browse the four read operations of the feed.
+"""A demo page on localhost: ask an agent, or browse the read operations of the feed.
 
 Run: python -m uvicorn feed.web:app --port 8000      then open http://localhost:8000
 The database is FEED_DB (default feed.db), opened read-only. No request to a source.
-"Ask the agent" calls a Claude model with only the four tools of the feed (feed/agent.py);
+"Ask the agent" calls a Claude model with only the tools of the feed (feed/agent.py);
 each answer costs money, and the page shows the measured cost. "Browse the feed" uses no model.
 The page is feed/demo_page.html.
 """
@@ -101,6 +101,11 @@ def tell_me_more(ids: str) -> dict:
         detail = "ids are numbers, for example: 151 11"
         raise HTTPException(status_code=400, detail=detail) from error
     return _run(read.tell_me_more, numbers)
+
+
+@app.get("/api/find")
+def find(text: str) -> dict:
+    return _run(read.find, text)
 
 
 @app.get("/api/what_changed")

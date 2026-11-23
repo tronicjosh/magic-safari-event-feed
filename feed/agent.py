@@ -1,4 +1,4 @@
-"""A demo agent: a normal Claude with only the four tools and the server instructions of the feed.
+"""A demo agent: a normal Claude with only the tools and the server instructions of the feed.
 
 It stands in for a travel designer's agent, so that the feed can be tested from a web page.
 It has the same tools, the same tool descriptions and the same instructions as the MCP server,
@@ -46,6 +46,7 @@ TOOLS = [
         mcp_server.when_to_go, {"place": _TEXT, "from_month": _MONTH, "to_month": _MONTH}, ["place"]
     ),
     _tool(mcp_server.what_changed, {"place": _TEXT, "since": _TEXT}, ["place", "since"]),
+    _tool(mcp_server.find, {"place": _TEXT, "text": _TEXT}, ["place", "text"]),
     _tool(
         mcp_server.tell_me_more,
         {"ids": {"type": "array", "items": {"type": "integer"}}},
@@ -66,6 +67,8 @@ def run_tool(name: str, arguments: dict) -> str:
             return answer(read.when_to_go, arguments["place"], lambda: first, lambda: last)
         if name == "what_changed":
             return answer(read.what_changed, arguments["place"], lambda: day(arguments["since"]))
+        if name == "find":
+            return answer(read.find, arguments["place"], lambda: arguments["text"])
         if name == "tell_me_more":
             return answer(read.tell_me_more, None, [int(item) for item in arguments["ids"]])
     except (KeyError, TypeError, ValueError) as error:

@@ -552,7 +552,7 @@ def test_trap_page_with_the_real_model_answer_gives_no_invented_weekly_dates():
     assert weekly == [("Fish Market", 78)]
     # The Wednesday rule is for December 2026 only, and the museum is closed on Sunday: no
     # date. The rule by month is not a date: it is "All year" with the quote of the page.
-    walk = 'Harbour Art Walk · All year (season, no year stated: "First Saturday of every month")'
+    walk = 'Harbour Art Walk · All year (a rule of the page: "First Saturday of every month")'
     for day in (9, 12, 13):  # a Wednesday, a second Saturday, a Sunday
         answer = what_is_on(db, registry, "hermanus", date(2027, 6, day), date(2027, 6, day))
         assert _titles(answer) == ["Harbour Art Walk"]

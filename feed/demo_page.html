@@ -140,7 +140,7 @@
   .text-btn { border: 0; background: transparent; padding: 0; font-size: 14px; font-weight: 600; color: var(--forest); text-decoration: underline; text-decoration-color: var(--leaf); text-underline-offset: 3px; }
   .text-btn:hover { color: #2E7D33; }
   .group.below .row h4, .group.below .row .when { color: var(--quiet); }
-  .gaps { margin-top: 48px; padding: 18px 22px; background: var(--sand); border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0; color: var(--body); font-size: 15px; }
+  .gaps { margin-top: 28px; padding: 18px 22px; background: var(--sand); border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0; color: var(--body); font-size: 15px; }
   .gaps b { color: var(--forest); }
   .raw { margin: 0; padding: 24px; background: var(--sand); border-radius: 8px; white-space: pre-wrap; word-break: break-word; font: 13px/1.65 var(--mono); color: var(--forest); }
   .problem { color: #C44; font-weight: 500; }
@@ -222,6 +222,7 @@
           <button role="tab" data-op="on" aria-selected="true">What is on<span>the trip has dates</span></button>
           <button role="tab" data-op="go" aria-selected="false">When to go<span>no dates yet</span></button>
           <button role="tab" data-op="changed" aria-selected="false">What changed<span>since the last look</span></button>
+          <button role="tab" data-op="find" aria-selected="false">Find<span>a name or a subject</span></button>
           <button role="tab" data-op="more" aria-selected="false">Tell me more<span>the proof of an item</span></button>
         </div>
         <form class="query" id="on">
@@ -239,6 +240,11 @@
         <form class="query" id="changed" hidden>
           <label class="field">Since <input type="date" name="since" required></label>
           <button class="btn">Show what changed</button>
+          <span class="toggle"><button type="button" data-raw="0" aria-pressed="true">Programme</button><button type="button" data-raw="1" aria-pressed="false">What the agent gets</button></span>
+        </form>
+        <form class="query" id="find" hidden>
+          <label class="field">A name or a subject <input name="text" required></label>
+          <button class="btn">Find it</button>
           <span class="toggle"><button type="button" data-raw="0" aria-pressed="true">Programme</button><button type="button" data-raw="1" aria-pressed="false">What the agent gets</button></span>
         </form>
         <form class="query" id="more" hidden>
@@ -285,12 +291,15 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const esc = text => String(text ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-const PATHS = {on: "what_is_on", go: "when_to_go", changed: "what_changed", more: "tell_me_more"};
+const PATHS = {on: "what_is_on", go: "when_to_go", changed: "what_changed", find: "find", more: "tell_me_more"};
 const GROUPS = {
   "dated": ["Dated", "On a day in this window."],
   "seasons and experiences": ["Seasons and all-year items", "A page states the months or a rule, and no year."],
   "not confirmed": ["Not confirmed", "Held each year. No page states the dates for this period."],
   "below the traveller bar": ["Below the traveller bar", "The feed judged these as routine local life. They are shown, not hidden."],
+  "each week": ["Each week", "A weekly rule on a page. It holds in each month; no date is given here."],
+  "coming or current": ["Coming or current", "Its dates are not past."],
+  "past": ["Past", "Its last dates are over."],
   "new": ["New", "First seen on or after the date."],
   "changed": ["Changed", "A fact changed on or after the date."]
 };
@@ -360,27 +369,32 @@ function problem(detail) {
 
 function sure(card) {
   if (!card.confirmed) return ["open", "Not confirmed"];
-  if (card.rule) return ["rule", "From a weekly rule"];
-  if (card.season) return ["rule", card.when === "All year" ? "A rule on the page, all year" : "Months, no year stated"];
+  if (card.state === "") return null;  // the text of `when` holds how sure each date is
+  if (card.rule) return ["rule", card.dateless ? "A weekly rule, no date" : "From a weekly rule"];
+  if (card.season) return ["rule", card.all_year ? "A rule of the page, all year" : "Months, no year stated"];
   if (card.range) return ["stated", "Stated as a range"];
   return ["stated", "Stated on the page"];
 }
 function note(card) {
   if (!card.confirmed) return "The feed does not give a date for this period.";
+  if (card.state === "") return "";
+  if (card.rule && card.dateless) return `The page states the rule: <q>${esc(card.rule)}</q>`;
   if (card.rule) return `The page states the rule, not this date: <q>${esc(card.rule)}</q>`;
   if (card.season) return `The page states: <q>${esc(card.season_quote)}</q>`;
   if (card.range) return "The page gives a first and a last day. It does not state each day.";
   return "";
 }
 function row(card) {
-  const [mark, label] = sure(card), c = card.changed;
-  const facts = [card.town, card.category, card.price === "not stated" ? "" : card.price, `first seen ${card.first_seen}`].filter(Boolean);
+  const how = sure(card), c = card.changed;
+  const badge = how ? `<span><i class="mark ${how[0]}"></i>${how[1]}</span>` : "";
+  const sources = card.sources > 1 ? `${card.sources} sources` : "";
+  const facts = [card.town, card.category, card.price === "not stated" ? "" : card.price, sources, `first seen ${card.first_seen}`].filter(Boolean);
   const changed = c ? `<p class="note"><b>Changed ${esc(c.found_at)}.</b> ${esc(c.field)} ` +
     (c.old === null ? `added: <q>${esc(c.new)}</q>` : `was <q>${esc(c.old)}</q>, now <q>${esc(c.new)}</q>`) + `</p>` : "";
   return `<article class="row">
     <div class="when">${esc(card.when).replace(/ - /g, " –<br>").replace(/, /g, "<br>")}</div>
     <div><h4>${esc(card.title)}</h4><p class="facts">${esc(facts.join(", "))}</p>${note(card) ? `<p class="note">${note(card)}</p>` : ""}${changed}</div>
-    <div class="sure"><span><i class="mark ${mark}"></i>${label}</span><button class="text-btn" data-proof="${card.id}">See the proof</button></div>
+    <div class="sure">${badge}<button class="text-btn" data-proof="${card.id}">See the proof</button></div>
   </article>`;
 }
 function group(name, cards) {
@@ -395,11 +409,14 @@ function draw(name, body) {
   if (raw) { result.innerHTML = `<pre class="raw">${esc(body.text)}</pre>`; return; }
   const counts = data.counts;
   const parts = Object.entries(counts.groups).map(([k, v]) => `${v} ${k}`).join(", ");
-  const scope = name === "on" ? "in this window" : name === "go" ? "in these months" : "since that date";
+  const scope = {on: "in this window", go: "in these months", changed: "since that date", find: "with this text"}[name];
   let html = `<div class="summary"><b>${counts.items}</b><span>${counts.items === 1 ? "item" : "items"} ${scope}: ${esc(parts)}.</span></div>`;
   const categories = Object.entries(counts.categories).map(([k, v]) => `${k} ${v}`).join(", ");
   if (categories) html += `<p class="categories">By category: ${esc(categories)}.</p>`;
   html += `<div class="legend"><span><i class="mark stated"></i>A page states the date</span><span><i class="mark rule"></i>Code wrote the date from a rule on the page</span><span><i class="mark open"></i>Not confirmed for this period</span></div>`;
+  // a note is a limit of this answer: the reason for an empty result, or the horizon of the feed
+  html += (data.notes || []).map(text => `<p class="gaps">${esc(text)}</p>`).join("");
+  if (data.each_week) html += group("each week", data.each_week);
   html += data.months ? data.months.map(m => group(m.name, m.cards)).join("") : data.groups.map(g => group(g.name, g.cards)).join("");
   const missing = (data.holes && data.holes.not_collected) || [];
   if (missing.length) {

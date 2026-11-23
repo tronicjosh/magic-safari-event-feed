@@ -69,11 +69,12 @@ def test_each_tool_answers_one_time_with_the_text_of_the_operation(server):
     assert changed.startswith("what_changed · Hermanus · since 1 November 2026 · as of 2026-11-23")
     # the earlier look (1 November) is before the first collection (23 November)
     assert "  since the date  0 items: 0 new · 0 changed" in changed
-    assert "It cannot say what changed before 2026-11-23." in changed
+    assert "It cannot say what changed before or on 2026-11-23." in changed
     assert "2 items of that first collection: not listed as new." in changed
-    assert bad_since == 'error: bad date "last week". Use the form YYYY-MM-DD'
+    assert bad_since == 'error: "last week" is not a date. Use the form YYYY-MM-DD'
     assert "what_changed" in instructions and "no memory of an earlier look" in instructions
     assert sorted(tool.name for tool in tools) == [
+        "find",
         "tell_me_more",
         "what_changed",
         "what_is_on",
@@ -125,14 +126,27 @@ def test_a_bad_input_gives_one_clear_line(server):
             ),
             ("when_to_go", {"place": "hermanus", "from_month": 13}),
             ("when_to_go", {"place": "atlantis"}),
+            ("what_is_on", {"place": "Stanford", **window}),
+            (
+                "what_is_on",
+                {"place": "hermanus", "from_date": "2027-02-30", "to_date": "2027-03-02"},
+            ),
+            ("find", {"place": "hermanus", "text": "   "}),
         ],
     )
+    # each line gives the reason, and what to do
     assert [_text(result) for result in results] == [
-        'error: unknown place "atlantis". The feed has: hermanus (Hermanus)',
-        'error: bad date "8 June". Use the form YYYY-MM-DD',
+        'error: the feed does not cover "atlantis". It covers: Hermanus',
+        'error: "8 June" is not a date. Use the form YYYY-MM-DD',
         "error: the window ends before it starts",
         "error: a month is a number from 1 to 12",
-        'error: unknown place "atlantis". The feed has: hermanus (Hermanus)',
+        'error: the feed does not cover "atlantis". It covers: Hermanus',
+        (
+            'error: "Stanford" is a town of the place Hermanus. Call again with the place '
+            "Hermanus: each card gives its town"
+        ),
+        'error: "2027-02-30" is not a day of the calendar',
+        "error: give a name or a word to find",
     ]
 
 

@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from feed.read import GROUPS, tell_me_more, what_changed, what_is_on, when_to_go
+from feed.read import GROUPS, find, tell_me_more, what_changed, what_is_on, when_to_go
 from feed.store import open_db
 
 INGESTED = "2026-11-23T12:00:00+00:00"
@@ -372,7 +372,12 @@ def test_case_6_when_to_go_april_to_august(feed):
     assert "2027" not in text  # no date of the festival is invented
     assert answer["data"]["counts"] == {
         "items": 2,
-        "groups": {"seasons and experiences": 1, "yearly with a date": 0, "not confirmed": 1},
+        "groups": {
+            "seasons and experiences": 1,
+            "yearly with a date": 0,
+            "not confirmed": 1,
+            "each week": 0,
+        },
         "categories": {"festival": 1, "nature": 1},
     }
     assert "  in the months   2 items: 1 seasons and experiences" in text
@@ -766,8 +771,15 @@ def test_a_year_that_code_wrote_is_never_shown_as_last_stated_or_last_held(feed)
     ]
     add(db, "Yearly market", weekly, yearly=1)
     answer = on(db, registry, "2029-07-01", "2029-07-31")
-    assert titles(answer) == []
+    # After the last date that code wrote, a rule is listed as a rule. No date is shown, and
+    # no year that code wrote: not 2028, and not 2029.
+    assert groups(answer)["seasons and experiences"] == ["Whale season", "Yearly market"]
     assert "Last stated" not in answer["text"] and "Last held" not in answer["text"]
+    cards = answer["text"].split("\nholes")[0].split("\nseasons and experiences\n", 1)[1]
+    assert "2028" not in cards.replace("first seen", "") and "2029" not in cards
+    assert 'Whale season · June - November (season, no year stated: "quote of the date")' in cards
+    assert 'Yearly market · Each Saturday (weekly rule: "quote of the date")' in cards
+    assert "The feed writes dates from rules until 2028-11-30." in answer["text"]
     months = when_to_go(db, registry, "hermanus", 5, 5)
     # its dates from the weekly rule are shown as a rule, never as "last held"
     assert "Last" not in months["text"] and '(weekly rule: "quote of the date")' in months["text"]
@@ -795,7 +807,8 @@ def test_when_to_go_does_not_call_a_past_rule_date_last_held(feed):
     db, registry = feed
     add(db, "Old market", [("2026-06-06", "2026-06-06", "day", "weekly")], yearly=1)
     text = when_to_go(db, registry, "hermanus", 6, 6)["text"]
-    assert "Old market" not in text and "Last" not in text
+    assert 'Old market · Each Saturday (weekly rule: "quote of the date")' in text
+    assert "Last" not in text and "2026-06-06" not in text and "6 June" not in text
 
 
 # A look that was before the first collection of the feed.
@@ -811,7 +824,8 @@ def test_a_look_before_the_first_collection_does_not_list_each_item_as_new(feed)
     assert answer["data"]["counts"]["items"] == 0
     assert answer["data"]["first_collected"] == "2026-11-23"
     assert answer["data"]["at_first_collection"] == 2
-    assert "The feed first collected Hermanus on 2026-11-23, after this date." in answer["text"]
+    assert "The feed first collected Hermanus on 2026-11-23." in answer["text"]
+    assert "It cannot say what changed before or on 2026-11-23." in answer["text"]
     assert "2 items of that first collection: not listed as new." in answer["text"]
 
 
@@ -831,9 +845,160 @@ def test_an_item_of_the_first_collection_that_changed_is_in_changed(moved):
     assert groups(answer) == {"new": [], "changed": ["Harvest concert"]}
 
 
-def test_a_look_on_or_after_the_first_collection_has_no_first_look_line(feed):
+def test_a_look_on_the_day_of_the_first_collection_does_not_list_each_item_as_new(feed):
     db, registry = feed
     festival(db)
     answer = what_changed(db, registry, "hermanus", date(2026, 11, 23))
-    assert groups(answer) == {"new": ["Arts Festival"], "changed": []}
-    assert "first look" not in answer["text"]
+    assert groups(answer) == {"new": [], "changed": []}
+    assert answer["data"]["at_first_collection"] == 1
+    assert "first look" in answer["text"]
+
+
+def test_a_look_after_the_first_collection_has_no_first_look_line(feed):
+    db, registry = feed
+    festival(db)
+    later = add(db, "Harvest concert", [("2027-09-18", "2027-09-18", "day", None)])
+    db.execute("UPDATE item SET first_seen = '2026-12-07T08:00:00+00:00' WHERE id = ?", (later,))
+    answer = what_changed(db, registry, "hermanus", date(2026, 11, 24))
+    assert groups(answer) == {"new": ["Harvest concert"], "changed": []}
+    assert "first look" not in answer["text"] and answer["data"]["notes"] == []
+
+
+# Faults that the scenario suite found (33 conversations with an agent).
+
+SATURDAYS = [(f"2027-06-{day:02d}", f"2027-06-{day:02d}", "day", "weekly") for day in (5, 12, 19)]
+
+
+ALL_YEAR = [(f"{year}-01-01", f"{year}-12-31", "month", "season") for year in (2026, 2027, 2028)]
+
+
+def cards_of(answer: dict) -> list[dict]:
+    return [card for group in answer["data"]["groups"] for card in group["cards"]]
+
+
+def market(db, title="Harbour Market", **fields) -> int:
+    fields.setdefault("time_text", "Every Saturday from 09:00")
+    return add(db, title, SATURDAYS, category="market", **fields)
+
+
+def test_when_to_go_lists_a_weekly_item_one_time_as_its_rule(feed):
+    """An agent with no dates said "the feed lists no weekly market". The feed had three."""
+    db, registry = feed
+    whales(db)
+    market(db)
+    answer = when_to_go(db, registry, "hermanus")
+    assert [card["title"] for card in answer["data"]["each_week"]] == ["Harbour Market"]
+    assert answer["data"]["counts"]["groups"]["each week"] == 1
+    assert answer["data"]["counts"]["items"] == 2
+    line = 'Harbour Market · Each Saturday (weekly rule: "Every Saturday from 09:00") · Hermanus'
+    assert answer["text"].count(line) == 1  # one time, not in each month
+    assert "5 June" not in answer["text"] and "2027-06-05" not in answer["text"]
+    for month in answer["data"]["months"]:
+        assert "Harbour Market" not in [card["title"] for card in month["cards"]]
+
+
+def test_find_a_named_item_with_no_dates(feed):
+    """An agent said "Kalfiefees isn't in the feed". It was there, with dates that are past."""
+    db, registry = feed
+    add(db, "Kalfie Fees", [("2026-08-05", "2026-08-10", "day", None)], category="festival")
+    festival(db)
+    market(db)
+    answer = find(db, registry, "hermanus", "  KALFIEFEES ")
+    assert groups(answer) == {"coming or current": [], "past": ["Kalfie Fees"]}
+    line = "Kalfie Fees · Wed 5 August 2026 - Mon 10 August 2026"
+    assert line in answer["text"] and 'find · Hermanus · "kalfiefees"' in answer["text"]
+    assert answer["data"]["counts"]["items"] == 1
+
+
+def test_find_a_subject_in_the_category_the_venue_or_the_town(feed):
+    db, registry = feed
+    market(db, "Food and Wine Market")
+    add(db, "Tasting", [("2027-03-06", "2027-03-06", "day", None)], category="food and wine")
+    add(db, "Concert", [("2027-03-07", "2027-03-07", "day", None)], venue="The Wine Cellar")
+    festival(db)
+    answer = find(db, registry, "hermanus", "wine")
+    assert groups(answer)["coming or current"] == ["Tasting", "Concert", "Food and Wine Market"]
+    assert groups(find(db, registry, "hermanus", "wine cellar")) == {
+        "coming or current": ["Concert"],
+        "past": [],
+    }
+    assert titles(find(db, registry, "hermanus", "hermanus")) != []  # the town
+
+
+def test_find_shows_a_weekly_item_as_its_rule_and_a_yearly_item_as_not_confirmed(feed):
+    db, registry = feed
+    festival(db)  # last held 6 to 15 June 2026, held each year
+    market(db)
+    cards = {card["title"]: card for card in cards_of(find(db, registry, "hermanus", "a"))}
+    assert cards["Arts Festival"]["when"] == "Last held Sat 6 June 2026 - Mon 15 June 2026"
+    assert cards["Arts Festival"]["confirmed"] is False
+    assert cards["Harbour Market"]["when"].startswith('weekly rule: "Every Saturday from 09:00"')
+
+
+def test_find_with_no_match_says_so_and_with_no_text_is_an_error(feed):
+    db, registry = feed
+    festival(db)
+    answer = find(db, registry, "hermanus", "zebra")
+    assert titles(answer) == [] and answer["data"]["counts"]["items"] == 0
+    assert "  note            The feed has no item that holds this text." in answer["text"]
+    with pytest.raises(ValueError, match="name or a word"):
+        find(db, registry, "hermanus", "   ")
+
+
+def test_after_the_last_date_of_a_rule_the_item_is_listed_as_a_rule_with_a_note(feed):
+    """June 2028: the markets had no date, and the answer did not say why."""
+    db, registry = feed
+    market(db)
+    whales(db)  # season rows for 2026, 2027 and 2028
+    inside = on(db, registry, "2027-06-12", "2027-06-12")
+    assert groups(inside)["dated"] == ["Harbour Market"] and inside["data"]["notes"] == []
+    after = on(db, registry, "2029-06-10", "2029-06-17")
+    assert groups(after) == {
+        "dated": [],
+        "seasons and experiences": ["Harbour Market", "Whale season"],
+        "not confirmed": [],
+        "below the traveller bar": [],
+    }
+    note = "The feed writes dates from rules until 2028-11-30. This window is after that date: "
+    assert after["data"]["notes"] == [
+        note + "an item from a rule is listed with its rule and no date."
+    ]
+    text = after["text"]
+    assert 'Harbour Market · Each Saturday (weekly rule: "Every Saturday from 09:00")' in text
+    assert "2029" not in text.split("\ndated\n")[1]  # no date of 2029 on a card
+    # a season is not on in a month outside its months, also after the horizon
+    winter = on(db, registry, "2029-02-10", "2029-02-17")
+    assert groups(winter)["seasons and experiences"] == ["Harbour Market"]
+
+
+def test_a_window_with_no_item_says_so(feed):
+    db, registry = feed
+    festival(db)
+    answer = on(db, registry, "2026-01-10", "2026-01-12")
+    assert titles(answer) == []
+    assert "  note            The feed has no item for these dates." in answer["text"]
+
+
+def test_the_same_item_from_two_sources_is_one_card(feed):
+    """23 pairs in the real feed; the agent spent a line on "listed twice"."""
+    db, registry = feed
+    first = add(db, "Art Walk", [("2027-06-12", "2027-06-12", "day", None)])
+    second = add(db, "art  walk", [("2027-06-12", "2027-06-12", "day", None)])
+    other_day = add(db, "Art Walk", [("2027-06-13", "2027-06-13", "day", None)])
+    answer = on(db, registry, "2027-06-12", "2027-06-13")
+    cards = cards_of(answer)
+    assert [(card["title"], card["ids"], card["sources"]) for card in cards] == [
+        ("Art Walk", [first, second], 2),
+        ("Art Walk", [other_day], 1),  # a different date is a different card
+    ]
+    assert answer["data"]["counts"]["items"] == 2
+    assert f"2 sources · first seen 2026-11-23 · id {first} (also id {second})" in answer["text"]
+
+
+def test_a_rule_by_month_is_a_rule_of_the_page_and_not_a_season(feed):
+    db, registry = feed
+    add(db, "Art Walk", ALL_YEAR, kind="season", time_text="first Friday of every month")
+    whales(db)
+    text = on(db, registry, "2027-06-12", "2027-06-12")["text"]
+    assert 'Art Walk · All year (a rule of the page: "first Friday of every month")' in text
+    assert 'Whale season · June - November (season, no year stated: "quote of the date")' in text
