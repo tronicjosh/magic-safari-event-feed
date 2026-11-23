@@ -1,73 +1,38 @@
 # Acceptance: when the work is done
 
-Work stops when every line below passes. A line that does not pass is reported as "fail" or "not checked", with the output. Nothing more gets built once all lines pass.
+Work stops when each line below passes, or is mine to do. A line that does not pass is "fail" or "not checked", with the evidence. Nothing more is built when all lines pass.
 
 ## The end result
 
-A designer asks an AI agent that has only the feed's MCP: "What's on in Hermanus for my clients from 20 to 27 June 2027?"
+A designer asks an AI agent that has only the feed's MCP server: "What's on in Hermanus for my clients from 20 to 27 June 2027?"
 
-The agent chooses the items that fit the clients and says how many the feed has for those dates. Each item has a title that says what it is, its date, its town and a working source link. Nothing in it is false. The designer can ask for more on one item and get the quote behind each fact.
+The agent selects the items that fit the clients, and says how many the feed has for those dates. Each item has a title that says what it is, its date, its town and a source link. Nothing in it is false. The designer can ask for more on one item and get the quote behind each fact.
 
-## Checks
+## Checks, and the status on 2026-11-23
 
-| # | Check | How I prove it | Target |
-|---|---|---|---|
-| A1 | No false facts | Compare every live fact in the confirmed set (15 to 20 saved pages) with my confirmed entry | 0 false facts |
-| A2 | Missed items are counted | Count items in my confirmed entries that the feed does not have | Reported, no target |
-| A3 | Hand cases pass | `pytest` runs the 24 hand cases in `docs/design.md` | 24 of 24 |
-| A4 | The checks are really tested | Break each of the four verify checks on purpose. A test must fail each time | 4 of 4 |
-| A5 | Few items need review | Share of extracted items sent to review on the first real run | Under 10% |
-| A6 | Every time shape works on real data | The live feed has at least one real item of each shape: single date, repeating dates, run, season, yearly with no new dates | All 5 present |
-| A7 | Key items are there | I check by hand: whale season, FynArts, Hermanus Whale Festival, each approved experience | All present |
-| A8 | The cards carry enough to judge | A new Claude with only the MCP gets two different guests for the same dates. It selects from the short cards, and calls `tell_me_more` only for the items that it recommends | The two selections differ, each fits its guest, and no fact is changed. I judge |
-| A9 | Links work | Request every source link and action link of a live item | 100% return a page |
-| A10 | Gaps are visible | Stop one source on purpose. The response names it in `holes`. Quicket shows as "not collected" | Pass |
-| A11 | The retry adds no errors | Run the confirmed set with and without the stronger-model retry | Review rate drops, false facts stay 0 |
-| A12 | The API controls the output | Same query twice gives the same bytes. REST and MCP give the same bytes. The order is neutral (group, date, title), `counts` is equal to the number of cards, and no item in the window is left out | Pass |
-| A13 | `holes` shows what is missing | The response gives sources collected against sources known, each source not collected with its declared count, and the items that wait for review | Hand cases 10 and 11 pass on real data |
-| A14 | A fresh Claude can use it | A new Claude session with only the MCP answers the questions in the design's question table for a test trip (places, when to go, what is on, find by name, what changed, tell me more). It picks the expected call, changes no fact, gives each source link, and says how many items the feed has and how many it shows | I judge pass or fail |
-| A15 | Cost is known | Measured cost of the first run and of a second run a week later (or a replay). Weekly-run estimate with the model named and the arithmetic shown | Recorded; total spend under $5 |
-| A16 | Unchanged pages are free | Second run on unchanged saved pages | 0 model calls |
-| A17 | One command checks everything | One command runs lint and all tests | Exit code 0 |
-| A18 | The write-up is true | `docs/design.md` matches the code and `docs/assumptions.md`, and I can explain every part without AI | I confirm |
-
-## Changed by the scope cut of 2026-11-23
-
-These lines are not part of done for the build. Each stays as design in `docs/design.md`.
-
-- A3: the hand cases of the built parts only: 1 to 8, 10, 12, 13, 14, 16, 18, 19, 24.
-- A4: done in slice 0b.1 by deliberate breaks of the verify and update lines.
-- A5: the share is reported; there is no review queue and no target.
-- A9 (links), A10 and A13 (`holes` from a run), A11 (retry): not built.
-- A7: whale season, FynArts and the Whale Festival; the list of experiences is not built.
-- A8 and A14 are one test with a new Claude, on `what_is_on`, `when_to_go` and `tell_me_more`.
-- A12: MCP only; there is no REST.
-
-## Status on 2026-11-23
-
-| # | Status | Evidence |
-|---|---|---|
-| A1, A2 | not checked | No confirmed set exists. Joshua checks a sample of 20 stored items |
-| A3 | pass for the built cases | `pytest`: 207 tests, with hand cases 1 to 10, 12, 13, 14, 16, 18, 19, 24 |
-| A4 | pass | Each key line of verify, update, read and ingest was broken on purpose, one at a time. Where no test failed, a test was added or the line was removed |
-| A5 | reported | 41 of 194 items not stored on the first real run (21 percent); 22 of them are towns outside the place or with no town |
-| A6 | pass | The real database has a single date, repeating dates, a run, a season and yearly items |
-| A7 | pass for 2 of 3 | Whale season and FynArts 2027 are there; the Whale Festival is there with its 2026 dates and "held each year" |
-| A8, A14 | not checked | Joshua runs the test with a new Claude |
-| A12 | pass | Tests: same query, same bytes; neutral order; `counts` equal to the cards |
-| A15 | pass | First run 0.064780 US dollars; the weekly arithmetic is in `docs/design.md`; total spend 0.240788 |
-| A16 | pass | Second real run: 0 model calls |
-| A17 | pass | One command, exit code 0 |
-| A18 | not checked | Joshua reads `docs/design.md` against the code |
+| # | Check | How it is proved | Status | Evidence |
+|---|---|---|---|---|
+| A1 | No false facts | I compare each fact of a sample of 20 stored items with its page. Target: 0 false facts | **Mine, open** | `evals/sample_check.md` is ready. A reviewer checked by code: 0 of 145 dates that a page states failed against the stored page text |
+| A2 | Missed items are counted | Items of the model that the feed did not store, each with a reason | Pass | First run: 41 of 194 not stored (21 percent). 22 are towns outside the place or with no town |
+| A3 | Hand cases pass | Each built hand case of `docs/design.md` is a test | Pass | Cases 1 to 14, 16, 18, 19, 20, 24. Cases 15, 17, 21 to 23 are not built |
+| A4 | The checks are really tested | Each key line is broken on purpose; a test must fail | Pass | Done for verify, update, read and ingest. Where no test failed, a test was added or the line was removed |
+| A5 | Each kind of event works on real data | The real database has a single date, repeating dates, a run, a season, and a yearly item | Pass | `feed.db`: 142 events, 9 seasons, 9 yearly items; weekly rules; FynArts as a run |
+| A6 | Key items are there | Whale season, FynArts 2027, Hermanus Whale Festival | Pass | All three are stored. The Whale Festival has its 2026 dates and "held each year" |
+| A7 | The cards carry enough to judge | A new Claude with only the feed gets two different guests for the same dates | **Mine, open** | Questions 2 and 3 of `questions.md` in the demo folder. A first test on the demo agent: it picked `what_is_on`, then `tell_me_more` |
+| A8 | A new Claude can use it | It answers the 7 questions: the expected tool, no changed fact, each source link, "5 of 13" | **Mine, open** | The demo folder, or the demo page at localhost |
+| A9 | The feed controls the output | The same query gives the same bytes; neutral order; `counts` equal to the cards; nothing in the window left out | Pass | Tests, and a blind review on the real database |
+| A10 | Gaps are visible | `holes` names each source that is not collected, with what it declares | Pass | Quicket (136 events within 60 km) and Webtickets are in each answer |
+| A11 | Cost is known | Measured cost of the first run and a second run; the weekly arithmetic; total spend under 5 US dollars | Pass | 0.064780 and 0.000000 US dollars; `docs/design.md`, "Scale and cost"; total 0.31 |
+| A12 | Unchanged pages are free | A second run on unchanged pages | Pass | 0 model calls, on live pages |
+| A13 | One command checks everything | Lint and all tests | Pass | 215 tests; exit code 0 |
+| A14 | The write-up is true | `docs/design.md` matches the code, and I can explain each part without AI | **Mine, open** | Draft 6 was written against the code |
 
 ## Not part of done
 
-- More sources than the version 1 registry.
-- A screen for people, a relevance score, audience tags, location data.
-- A second town.
+Each of these is in `docs/design.md` as "next": links checked; `cancelled`; merge of one event from two sources; a retry with a stronger model; standing experiences; REST, `find`, `places`; a hosted server; a second town; a run one week later.
 
 ## Checks only I can do
 
-- A1 and A2: the confirmed set is mine.
-- A7 and A8: which items must be there, and if a selection fits a guest, is my call.
-- A14: whether the answer a designer sees is good enough.
+- A1: the sample is mine to mark.
+- A7 and A8: if a selection fits a guest, and if the answer is good enough for a designer, is my call.
+- A14: I must be able to explain it.

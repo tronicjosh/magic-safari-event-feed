@@ -1,6 +1,6 @@
 # State of the build
 
-Last change: 2026-11-23. Read this file first in a new session. It says where the work is. The design is in `docs/design.md` (start with "Scope of the build"); the end result is in `docs/acceptance.md` (see "Status on 2026-11-23").
+Last change: 2026-11-23. Read this file first in a new session. It says where the work is. The design is in `docs/design.md` (start with "Built, and not built"); the end result is in `docs/acceptance.md` (each line has its status).
 
 ## Where we are
 
@@ -12,7 +12,7 @@ builders   A ingest | B season, yearly, second run | C read + MCP ... done, inte
 repairs    season proof, all year, running season, category, reasons ... done, each with a break test
 real run   10 live pages, 151 items, 0.064780 USD; second run 0 model calls ... done
 review     one blind review of the joined code ....... done, 7 findings, repaired with a test each
-write-up   design.md true to the code ................ partly (scope table, cost); my read is open
+write-up   design.md draft 6: shortened, true to the code; acceptance.md and CLAUDE.md refined ... done; my read is open
 mine       check 20 stored items and the bar wording; the test with a new Claude ... OPEN
 ```
 

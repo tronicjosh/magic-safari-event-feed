@@ -10,23 +10,21 @@ A travel designer sells a luxury trip to Africa, usually 6 to 18 months before i
 
 ```text
 INGEST, weekly
- sources -> Fetch -> Render -> hash -> Extract -> Verify -> Update -> Store (SQLite)
-                               same?    model      code        |
-                                 |                   |         v
-                           no model call           fail --> needs review --> Joshua
+ registry -> Fetch -> Render -> hash -> Extract -> Verify -> Update -> Store (SQLite)
+                                same?    model      code
+                                  |                   |
+                            no model call           fail --> not stored; the reason is in the run report
 
-QUERY, on request
- designer -> agent -> REST or MCP (read-only) -> Read -> Card
+QUERY, on request (read-only, no model)
+ designer -> agent -> MCP tool -> Read -> one fixed text
 ```
 
 - **Fetch and Render** get the text that a visitor sees. They must never pass hidden text on.
-- **Extract** is the only model step. It returns fields with word-for-word quotes, and it decides with proof: the town from the list, "held each year", "this weekly rule has no end", and the two bars of the registry. It must never verify, write or use a tool.
-- **Verify** is code. It checks quote on page, value in quote, shape, and links. It must never let a field through on the model's word.
-- **Store** holds events, their occurrence rows, the evidence for each field and a change log.
-- **Update** gives each item a category from Joshua's list. It sets no tier and no rank: the feed stores facts, not judgments. It never deletes an item that a run does not find.
-- **Read and Card** are six read operations: places, what is on (dates known), when to go (no dates), find (by name or subject), what changed, tell me more. A list gives short cards with enough facts to judge; tell me more gives the depth for the items that the agent recommends. The order is neutral (group, date, title). Each list starts with `counts`, so the designer knows how many items exist. The fact rules are sent one time in the server instructions; a tool description says only when to call the tool. Each answer shows all groups; there is no `include_local` (design draft 3). They must never start a fetch or invent a date.
-- An item has a time shape (single date, repeating dates, run, season) and a category. Both are facts.
-- **Discovery** runs each week: sources that collected pages name, and that the registry does not have, go to a candidates list for Joshua. `holes` shows how many wait.
+- **Extract** is the only model step. It returns fields with word-for-word quotes, and it decides with proof: the town and the category from my lists, "this weekly rule has no end", "held each year", and "below the traveller bar". It must never verify, write or use a tool.
+- **Verify** is code. It checks quote on page, value in quote, a real date, and a value in my list. It must never let a field through on the model's word.
+- **Update** stores an item, or updates the same item (same source, town, title). It writes change rows. It never deletes, and it never calls a date "confirmed" that code wrote from a rule.
+- **Read** is four operations: what is on (dates known), when to go (no dates), tell me more (the proof), what changed (since a date). A list gives short cards, `counts` and `holes`. The order is neutral. The rules are sent one time in the server instructions. Read must never start a fetch or invent a date.
+- **The registry** is the town as data: sources, towns, categories, the bar wording. A person is not a step of the pipeline.
 
 ## Findings that shaped the model
 
@@ -39,7 +37,7 @@ Each line: what we believed, what the test showed, what changed. Newest first.
 - 2026-11-23 We believed that "throughout the year" and "first Friday of every month" must fail, because no month name is in the quote. Thus January to December with no year passes on the model's judgment, and the card shows "All year" with the quote. Effect on the T2 answers: 208 of 259 items live (was 205), 226 of 226 dates (was 223).
 - 2026-11-23 Decision by Joshua: a basic change log. Each card gives `first seen` and its latest change, so an agent with no memory can answer "what is new since January"; `what_changed(place, since)` answers the direct question. Category is a choice of the model from the list of the registry.
 - 2026-11-23 We believed that code can stop a false weekly rule with date patterns. Two blind reviews showed that a pattern list leaks ("Saturday 05.12.2026", "every saturday in may"). Thus three parts: code refuses any digit in a weekly quote except a clock time with minutes; the model decides the meaning; the card shows the rule and its quote, not "confirmed". Effect: T2 numbers 205 of 259 before and after; a true rule such as "Saturday 9 - 1pm" is now lost, with the reason in the report.
-- 2026-11-23 Scope cut, approved by Joshua: one path that shows each thing the brief names; the rest is design only (see `docs/design.md`, "Scope of the build"). The hard visitor bar is removed, because T13 gave 0 of 180 items.
+- 2026-11-23 Scope cut, approved by Joshua: one path that shows each thing the brief names; the rest is design only (see `docs/design.md`, "Built, and not built"). The hard visitor bar is removed, because T13 gave 0 of 180 items.
 - 2026-11-23 A range card now says "a range, each day is not stated", because code cannot see a closed day inside a range (decision by Joshua: tell the user, so that they take it into account).
 
 - 2026-11-23 (slice 0b.1) We believed that an item with no usable town can take the default town of its source. The real weekend page showed why that is too wide: "Bring & Braai" is in Pringle Bay, which is not in the place, and the default would give it the town Hermanus, a false fact. Thus the default applies only when the page states no town. A town that the page states and that is not in the list keeps the item out. A town that fails the check also keeps the item out, and a source for a region (Overstrand Municipality) has no default town. Measured on 2 real pages (56 items): 37 stored, 19 not stored (8 town not in the list, 3 no town and no default, 5 no time on the page, 3 a rule by month). 1 of the 8 is a loss of a true item ("Hemel-en-Aarde village" against "Hemel-en-Aarde" in the list); slice 2 (the model chooses from the list) repairs it. False facts: not measured, because the confirmed set does not exist yet.
@@ -72,19 +70,18 @@ Each line: what we believed, what the test showed, what changed. Newest first.
 From the prototype (stated in `docs/handover.md`, not tested again here):
 
 - A page is not a reliable witness, and a model alone cannot be the judge. Thus each fact needs evidence that code can check.
-- A false fact on a trip costs more than a missed event. Thus a failed check holds the event for a person.
+- A false fact on a trip costs more than a missed event. Thus a failed check keeps the item out of the feed.
 
 ## Where an error is expensive
 
 1. **The verify step.** A fault here puts a false fact on a client's trip.
 2. **The time model.** A wrong overlap says that an event is on when it is not.
-3. **The confirmed set.** Each gate depends on labels that Joshua confirmed.
+3. **The sample that Joshua confirms.** It is the only count of false facts.
 
 ## Open questions
 
-- T2 answered the date question (yes). Open from T2: a monthly rule as a time kind; "free" as a price; the link between a date quote and its item on pages with one field for each line.
-- Can a new Claude, with only the tool descriptions, pick the correct call and rank the items well? Acceptance A14 answers it.
-- Does extraction work on operator pages (experiences, seasons) as well as on event lists?
-- Which towns are inside 45 minutes, and which experiences are approved? Joshua decides (design O2, O3).
-- Which access path is the most reliable for each source? T10 answers it.
-- Which model? T4 answers it.
+- Are the stored facts true? My sample of 20 items answers it (`evals/sample_check.md`).
+- Can a new Claude, with only the tools, pick the correct call and select well for a guest? My test answers it.
+- How stable is the model between runs? One page gave 8 items, then 5.
+- Which model? A comparison with a stronger model (T4) is not done.
+- The open decisions O1 to O6 in `docs/design.md`.
