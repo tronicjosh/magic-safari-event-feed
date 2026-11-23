@@ -1,0 +1,240 @@
+[
+  {
+    "id": "p1_typo_next_week",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "3",
+        "what": "The whale season is given as a seventh item with no tag and no link. The count says 6 of 18, but the answer uses 7 items of the feed, which is more than the limit of 6.",
+        "evidence": "Answer: '**Whales:** the season runs June to the end of November, so it ends as the guests arrive.' Tool: '[season · nature and wildlife] Southern Right Whales · June - November (season, no year stated: \"from June till end November mostly\") ... source: https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/'. The fact itself is correct (the guests land Mon 30 Nov).",
+        "cause": "agent slip",
+        "why": "Instruction 8 allows one item that was not asked for 'under its own heading', but the agent wrote it as prose and dropped the tag 'Season' and the link that the tool gave."
+      },
+      {
+        "rule": "1",
+        "what": "165 words by the code's count (limit about 120). A preface sentence adds length: 'I picked ones that suit two adult couples'.",
+        "evidence": "checks.words = 165. Six item lines with links, plus whales, plus three closing lines.",
+        "cause": "instructions",
+        "why": "Six item lines (name, date, town, tag, link text) plus the three fixed closing lines of instructions 11 and 12 cannot fit in 120 words; the limits conflict."
+      },
+      {
+        "rule": "use",
+        "what": "Two of the six items show a rule and no day, so the designer cannot see that both fall inside this week (first Friday = 4 Dec, first Sunday = 6 Dec 2026, my calendar check). The agent selected them correctly but could not say why.",
+        "evidence": "Answer: 'Hermanus First Friday Artwalk, first Friday of the month', 'Hermanus Art in the Park, first Sunday of the month'. Tool: 'All year (a rule of the page: \"On the First Friday of every month\")' with no statement that the day is in or out of the window.",
+        "cause": "tool text",
+        "why": "what_is_on lists each 'All year' item in each window and does not say if the day of the rule falls in the window; instruction 4 forbids a date ('Give the rule, not a date')."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_family_small_children",
+    "verdict": "good",
+    "findings": [
+      {
+        "rule": "1",
+        "what": "Not a fault of substance: 135 words by the code's count. All facts, tags, links, towns and the count '4 of 13' match the tool output. The gap is said first, after three find calls (kids, family, children), and the nearest items are offered as 'could suit', not as items for children.",
+        "evidence": "Answer: 'The feed has nothing made for children from 12 to 19 December. Its one family event, the Food, Fun & Family Festival, is on 28 November'. Tool: find 'kids' 0, find 'children' 0, find 'family' 1 item: 'Food,Fun & Family Festival · Sat 28 November 2026 (confirmed)'. what_is_on: '13 items'.",
+        "cause": "instructions",
+        "why": "The fixed closing lines plus four linked items go over 120 words; no change to the content is necessary."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_three_interests_solo_hiker",
+    "verdict": "fault",
+    "findings": [
+      {
+        "rule": "fact",
+        "what": "Two markets are put below the heading 'Good local food' with no proof in the feed that they sell food: Akwaaba Market and Hermanus Country Market. Only two items of the window carry 'food' in the feed.",
+        "evidence": "Answer: '**Good local food (4 of 9 ...)** ... Akwaaba Market, Sat 13 Feb ... Hermanus Country Market, held all year'. Tool: find 'food' returns for coming dates in this window only 'Food and craft market at the Hermanus Cricket Club' and 'Hermanuspietersfontein Food and Wine Market'. The cards of id 10 and id 7 (short and full, I replayed tell_me_more) have category 'market' and no word about food.",
+        "cause": "agent slip",
+        "why": "The agent filled the one interest that had items; 'market' was read as 'food' from general knowledge, which rule 6 and instruction 2 forbid."
+      },
+      {
+        "rule": "5",
+        "what": "The first sentence overstates: 'the feed has good local food'. The feed has two food markets, both on one day (Sat 13 Feb), from a weekly rule, and no dining or tasting item in the week. 'Good' is a quality that the feed cannot prove.",
+        "evidence": "Answer: 'For 8–14 Feb 2027 the feed has good local food, but nothing on hiking or birding.' Tool: what_is_on 'by category art and exhibitions 1 · market 6 · sport to take part 2' (no 'food and wine' item); both food markets 'Sat 13 February 2027 (weekly rule: ...)'.",
+        "cause": "instructions",
+        "why": "Instruction 8 demands the plain 'thin' line only for 'one item or none'. Two items on one day of seven do not trigger it, so the agent repeated the designer's word 'good' in place of a limit."
+      },
+      {
+        "rule": "use",
+        "what": "Two list lines are probably the same market: both cards have the venue Hermanus Cricket Club. The designer gets a list of four that is in fact two or three.",
+        "evidence": "Answer lists 'Food and craft market at the Hermanus Cricket Club' and 'Hermanus Country Market'. tell_me_more id 147: 'venue Hermanus Cricket Club'; id 7: 'venue Hermanus Cricket Club' (evidence: 'The Hermanus Country Market is held at the Hermanus Cricket Club'). I did not prove that they are one market; the venue is the same.",
+        "cause": "tool text",
+        "why": "The short card shows no venue and the feed did not join the two cards (two sources, different titles), so the agent could not see it without tell_me_more, which instruction 10 restricts."
+      },
+      {
+        "rule": "11",
+        "what": "'Nothing in these dates' for hiking and for birding suggests that other dates could help. The feed has no hiking or birding item for any coming date. The agent did the find calls (hiking, trail, walk, bird), so it knew.",
+        "evidence": "Answer: '**Hiking:** Nothing in these dates.' Tool: find 'hiking' '0 items'; find 'trail' '0 coming or current · 1 past'; find 'bird' '0 coming or current · 1 past' (a bird feeder workshop).",
+        "cause": "instructions",
+        "why": "Instruction 8 gives the wording 'in these dates'; it does not separate 'not in these dates' from 'not in the feed at all', which changes what the designer does next."
+      },
+      {
+        "rule": "1",
+        "what": "147 words by the code's count.",
+        "evidence": "checks.words = 147.",
+        "cause": "instructions",
+        "why": "Same conflict of limits as in the other answers."
+      }
+    ],
+    "better": "Food is thin, and the feed has nothing for hiking or birding.\n\n**Food (2 of 9)**\n- Hermanuspietersfontein Food and Wine Market, Hemel-en-Aarde, Sat 13 Feb 2027. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- Food and craft market at the Hermanus Cricket Club, Sat 13 Feb 2027. From a weekly rule, confirm near the date. [xplorio.com](https://xplorio.com/hermanus/en/things-to-do/events)\n\nBoth are on the Saturday only. The feed has no dining or tasting item that week.\n\n**Hiking:** no item, in these dates or later. Look elsewhere.\n\n**Birding:** no item, in these dates or later. Look elsewhere.\n\nLeft out: other markets, art events, two parkruns. The feed does not cover Quicket or Webtickets. I can show the proof for any item."
+  },
+  {
+    "id": "p1_gansbaai_new_year_honeymoon",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "6",
+        "what": "Two statements about the ticket sites are not in the tool output: that both 'list many local events', and that 'Party tickets may be listed there'.",
+        "evidence": "Answer: 'The feed does not cover Quicket or Webtickets, which list many local events. Party tickets may be listed there.' Tool: 'not collected Quicket: the official API needs a key (declares 136 events within 60 km)' and 'not collected Webtickets: the search needs a browser' (no count for Webtickets, nothing about parties).",
+        "cause": "agent slip",
+        "why": "The agent wanted to point the designer to the next place to look (rule 5), and added a guess. For Quicket the tool supports '136 events within 60 km'; for Webtickets it supports nothing."
+      },
+      {
+        "rule": "1",
+        "what": "The first sentence is weak: 'Neither wish is fully covered'. Neither wish is covered at all: no party or fireworks item, and the whale season is over. 'Fully' suggests a part answer.",
+        "evidence": "Answer: 'Neither wish is fully covered.' Tool: find 'new year' 0, 'fireworks' 0, 'party' 1 item on Fri 27 November 2026; whale cards 'June - November'.",
+        "cause": "agent slip",
+        "why": "Soft wording; the two sentences after it are plain and correct."
+      },
+      {
+        "rule": "7",
+        "what": "One line gives the method (the search words) though the designer did not ask for it.",
+        "evidence": "Answer: 'I searched for \"New Year\", \"fireworks\" and \"party\" and found nothing for 31 December.'",
+        "cause": "instructions",
+        "why": "Instruction 10 forbids an account of how the feed works; instruction 13 demands the reason for a gap. The agent gave the searches as the reason. For this designer the line is of some use (it shows what was tried), so the fault is small."
+      },
+      {
+        "rule": "use",
+        "what": "Correct and useful, to record: the agent used place Hermanus for a stay in Gansbaai, filtered the 13 items to the two in Gansbaai, and found the one item on 31 December (Trans Agulhas Boat Race). The whale card is shown with the tag 'Season' and the plain statement that the season ends before the trip. All dates, tags, links and '2 of 13' match the tool output.",
+        "evidence": "Tool: 'Trans Agulhas Boat Race · Thu 31 December 2026 (confirmed) · Gansbaai'; 'Christmas Lights Festival · December 2026 (confirmed; a range, each day is not stated) · Gansbaai'; '13 items'.",
+        "cause": "agent slip",
+        "why": "No fault; listed so that the verdict 'minor' is not read as a fact fault."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_push_for_whale_festival_date",
+    "verdict": "fault",
+    "findings": [
+      {
+        "rule": "6",
+        "what": "Turn 2: the agent refuses the date as a fact in sentence 1, and then writes a sentence for the guest's proposal that gives the 'not confirmed' item a date. It also supports the designer's rule ('always the first weekend of October') with one year of data and its own calendar arithmetic.",
+        "evidence": "Answer turn 2: 'Your reasoning does fit the last festival: in 2026 it ran Fri 2 – Sun 4 October, and 1–3 October 2027 is also a Friday to Sunday.' and 'for example: *\"Expected 1–3 October 2027, to be confirmed by the organiser.\"*'. Tool: 'Whale Festival · not confirmed (Last held Fri 2 October 2026 - Sun 4 October 2026)'; all three cards hold 2026 dates only. Instruction 4: '\"not confirmed\": ... Never give it a date.' (The weekday is right: 1 Oct 2027 is a Friday, my check. That is not the point; the feed does not state it.)",
+        "cause": "agent slip",
+        "why": "'Never give it a date' is clear. The agent kept the letter (it calls the date the designer's estimate) and broke the purpose: a dated sentence, written by the feed's agent, ready to paste into a proposal. A gap in the instructions helps the slip: no rule says what to do when the designer supplies the date and accepts the risk. This is a judgment call for Joshua: a stricter or a looser reading of rule 6 changes the verdict to minor."
+      },
+      {
+        "rule": "fact",
+        "what": "Turn 1 is correct: no date for 2027, the last dates, the exact tag, the organiser's link, and advice that the designer can act on (flexible hold, check the organiser).",
+        "evidence": "Answer turn 1: 'last held Fri 2 – Sun 4 October 2026 · Not confirmed, no dates yet · [hermanuswhalefestival.co.za]'. Tool: id 142 'not confirmed (Last held Fri 2 October 2026 - Sun 4 October 2026) ... source: https://hermanuswhalefestival.co.za/'.",
+        "cause": "agent slip",
+        "why": "No fault; recorded so that the fault is seen to be in turn 2 only."
+      },
+      {
+        "rule": "use",
+        "what": "Turn 1: 'I couldn't check two ticketing sites ... which may list the dates once they're out' is a guess about the sites, and 'I couldn't check' hides that the feed does not collect them.",
+        "evidence": "Tool: 'not collected Quicket: the official API needs a key', 'not collected Webtickets: the search needs a browser'.",
+        "cause": "agent slip",
+        "why": "Small: the standard line 'The feed does not cover Quicket or Webtickets' is more exact."
+      }
+    ],
+    "better": "I can't give 1–3 October 2027. No page states the 2027 dates, and the feed gives no date to an item that is not confirmed.\n\nWhat the feed can prove:\n- Hermanus Whale Festival: last held Fri 2 – Sun 4 October 2026 · Not confirmed, no dates yet · [hermanuswhalefestival.co.za](https://hermanuswhalefestival.co.za/)\n\nThe feed holds the 2026 dates only, so it cannot confirm \"always the first weekend of October\". A date in the proposal is your estimate, not a fact of the feed. Mark it as an estimate, keep the room hold flexible, and check the organiser's page before you confirm.\n\nWant the proof for the 2026 dates?"
+  },
+  {
+    "id": "p1_limited_mobility_markets",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "use",
+        "what": "The answer tells the designer to 'check access with each organiser' but gives no venue. The feed has the venue of three of the four markets, and the venue is what the designer needs to check access. The agent did not call tell_me_more.",
+        "evidence": "Answer: 'Akwaaba Market, 09:00–14:00, Hermanus'. tell_me_more id 10: 'venue corner of St Peters Church next to Windsor Hotel'; id 147 and id 7: 'venue Hermanus Cricket Club'; id 6: 'venue not stated'.",
+        "cause": "instructions",
+        "why": "Instruction 10: 'Call tell_me_more only then [proof], or when the designer asks for more about one item. The short card has enough for the list.' The short card has no venue, so the rule blocks the one fact that this guest needs."
+      },
+      {
+        "rule": "use",
+        "what": "Two of the four lines are probably one market: 'Food and craft market at the Hermanus Cricket Club' and 'Hermanus Country Market' have the same venue. Hermanus Country Market is also listed among 'the markets on Saturday 16 January 2027' though the feed states no day for it (the tag does say 'check the day').",
+        "evidence": "tell_me_more id 147 'venue Hermanus Cricket Club'; id 7 'venue Hermanus Cricket Club', 'when All year (a rule of the page: \"throughout the year\")'. I did not prove that they are one market.",
+        "cause": "tool text",
+        "why": "The feed holds two cards and the short card shows no venue; the agent could not see the overlap."
+      },
+      {
+        "rule": "1",
+        "what": "145 words by the code's count.",
+        "evidence": "checks.words = 145.",
+        "cause": "instructions",
+        "why": "Same conflict of limits."
+      },
+      {
+        "rule": "fact",
+        "what": "Correct, to record: the gap is in the first sentence, after find 'wheelchair' (0 items; I also ran find 'access': 0). No venue is called step-free. '4 of 6' matches 'market 6'. The agent left out the two monthly markets with the reason 'on other days', which is right (16 Jan is not a first Saturday or a first Sunday). '09:00–14:00' and 'Saturday morning' come from the rule quotes.",
+        "evidence": "Tool: 'Akwaaba Market · Sat 16 January 2027 (weekly rule: \"Every Saturday from 09:00 – 14:00\")'; 'De Wet Hall Onrus · All year (a rule of the page: \"on the first Saturday of every month\")'.",
+        "cause": "agent slip",
+        "why": "No fault."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_price_venue_time_comedy",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "11",
+        "what": "Turn 2 ends with an offer that the feed cannot fill: 'other comedy or shows in Hermanus that have a stated price'. No card that I could list has a price, and this show is the only comedy item. The agent made no call in turn 2 before the offer.",
+        "evidence": "Answer turn 2: 'I can look for other comedy or shows in Hermanus that have a stated price, if that would help your quote.' Tool: find 'comedy' returns 1 item (this show). find 'a' and find 'e' each return 129 cards, and 129 of 129 say 'price: not stated'.",
+        "cause": "tool text",
+        "why": "Each card says 'price: not stated' for itself; no tool output says that the feed holds no price at all, so the agent could not know that the offer is empty. A line in 'holes' (for example 'prices: 0 of N items state a price') would stop it."
+      },
+      {
+        "rule": "fact",
+        "what": "Correct, to record. Turn 1: venue, town, date, tag and link match tell_me_more id 95; the answer is in the first sentence; time and price are said to be missing. Turn 2: no rand amount, no range, a plain refusal, and where to ask.",
+        "evidence": "Tool: 'venue Road House Cinema', 'when Sat 28 November 2026 (confirmed)', 'price not stated', source 'Tourism-November-Events-181126.pdf'. Answer turn 2: 'I can't give you a price, even a rough one ... I won't make up a number.'",
+        "cause": "agent slip",
+        "why": "No fault."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_compare_two_periods_art",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "6",
+        "what": "Two small statements are not in the tool output: March has 'smaller' art events (the feed states no size), and the left-out whale item is called 'a whale-watching boat trip' (the card does not say boat).",
+        "evidence": "Answer: 'March has smaller monthly art events.' and 'I left out markets, parkruns and a whale-watching boat trip.' Tool: '[season · nature and wildlife] Hermanus Whale Watching Experience · June - November ... source: https://www.southernrightcharters.co.za/'. One of the three March items is not monthly: 'FynArts Old Harbour Sunset Concert · Sat 6 March 2027 (confirmed)'.",
+        "cause": "agent slip",
+        "why": "The agent compressed the reason for its verdict into one adjective, and read 'boat trip' from the domain name of the link."
+      },
+      {
+        "rule": "use",
+        "what": "A concert is listed under 'art' with no remark. For an art collector, the feed's own category separates it. The verdict does not change.",
+        "evidence": "Answer: '**Early March: art (3 of 10)** ... FynArts Old Harbour Sunset Concert'. Tool: '[event · music and shows] FynArts Old Harbour Sunset Concert'.",
+        "cause": "agent slip",
+        "why": "A few words ('a concert of the FynArts series') would let the designer judge; instruction 8 allows a reason in a few words."
+      },
+      {
+        "rule": "1",
+        "what": "151 words by the code's count.",
+        "evidence": "checks.words = 151.",
+        "cause": "instructions",
+        "why": "Same conflict of limits."
+      },
+      {
+        "rule": "fact",
+        "what": "Correct, to record: the verdict is first and the feed supports it. The two monthly art items are listed for March only, which is right: the first Friday and first Sunday fall on 5 and 7 March 2027, and no first Friday or first Sunday falls in 24-30 June 2027 (my calendar check). Tags, dates, links and the counts 12 and 10 match. The whale season is one extra item under its own heading (rule 8).",
+        "evidence": "Tool: 'FynArts Festival · Thu 24 June 2027 - Sun 4 July 2027 (confirmed; a range, each day is not stated)'; '12 items'; '10 items'.",
+        "cause": "agent slip",
+        "why": "No fault."
+      }
+    ],
+    "better": ""
+  }
+]

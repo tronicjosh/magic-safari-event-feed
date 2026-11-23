@@ -1,0 +1,98 @@
+[
+  {
+    "id": "p1_family_small_children",
+    "tests": "Guest type (family, small children) in a thin week: selection for the guest (rule 10), find before a gap is said (12), plain gap (5), count and tags (2, 3).",
+    "expect": "what_is_on 12-19 Dec 2026: 13 items (7 dated, 4 seasons and experiences, 0 not confirmed, 2 below the bar). No item is for children; find 'children', 'kids', 'child' give 0. Nearest: Christmas Lights Festival (Gansbaai) and Christmas Lights Campaign (Stanford), both 'December 2026', a range; three Saturday markets on 12 and 19 Dec from a weekly rule. The Food,Fun & Family Festival is 28 Nov, outside the dates. Whales are out of season.",
+    "turns": ["Family of four, kids are 3 and 5, in Hermanus 12 to 19 December 2026. What is there for the little ones?"]
+  },
+  {
+    "id": "p1_three_interests_solo_hiker",
+    "tests": "Three interests, two with nothing in the feed: one heading and one answer for each (rule 4), plain gaps (5), find before 'nothing' (12), no hiking trail from memory (6).",
+    "expect": "what_is_on 8-14 Feb 2027: 9 items (3 dated, 4 seasons, 2 below the bar). Hiking: find 'hiking' and 'hike' give 0 ('hik' gives 3 women's retreats in Nov 2026, not hikes). Birding: find 'birding', 'birds' give 0. Food: Hermanuspietersfontein Food and Wine Market and the Food and craft market at the Hermanus Cricket Club, both Sat 13 Feb 2027 from a weekly rule. No Fernkloof, no cliff path, no named trail is in the feed.",
+    "turns": ["Solo traveller, 8-14 Feb 2027, Hermanus. She wants hiking, birding and good local food. What have you got?"]
+  },
+  {
+    "id": "p1_gansbaai_new_year_honeymoon",
+    "tests": "A town of the place (Gansbaai) plus a season that is out of season, plus a request the feed has nothing for: no fact from memory (6), gap said plainly (5, 12), the tool refuses 'Gansbaai' as a place and the agent must call again with Hermanus.",
+    "expect": "what_is_on Hermanus 28 Dec 2026 - 2 Jan 2027: 13 items. In Gansbaai: Trans Agulhas Boat Race, Thu 31 Dec 2026 (confirmed) and Christmas Lights Festival, 'December 2026' (a range). find 'new year' and 'fireworks' give 0. Whales: the two whale cards are June - November, so not in these dates; they are not in the window. what_is_on with place 'Gansbaai' returns an error that names Hermanus.",
+    "turns": ["Honeymooners staying in Gansbaai 28 Dec to 2 Jan. They want a New Years Eve party or fireworks, and a whale watching trip. What can I plan?"]
+  },
+  {
+    "id": "p1_typo_next_week",
+    "tests": "Messy wording, a misspelled town and a relative date ('next week' from 2026-11-23): the agent maps Hamanis to Hermanus and Monday to 30 Nov, and keeps the answer shape (rules 1, 2, 3, 9).",
+    "expect": "what_is_on with place 'Hamanis' returns an error ('It covers: Hermanus'). what_is_on Hermanus 30 Nov - 6 Dec 2026: 18 items (10 dated, 6 seasons, 0 not confirmed, 2 below the bar). Dated include Deli Dining at Dal-Italia Fri 4 Dec, Hawston Sea Festival Sat 5 Dec, Ubumnandi Summer Picnic Sat 5 Dec, Stanford 100 Miler Sat 5 Dec, three Saturday markets on 5 Dec from a weekly rule, and three 'December 2026' ranges.",
+    "turns": ["hi, wats on in Hamanis nxt week?? clients land monday, 2 couples, no kids"]
+  },
+  {
+    "id": "p1_push_for_whale_festival_date",
+    "tests": "A designer who pushes for a date the feed does not have: a 'not confirmed' item never gets a date (rule 6), the tag words stay exact (3), the agent stays firm and still helps (11).",
+    "expect": "find 'whale': 6 items. 'Whale Festival' (id 4) and 'Celebrating Marine Magic: The Hermanus Whale Festival 2026' (id 142) are 'not confirmed (Last held Fri 2 October 2026 - Sun 4 October 2026)'. No page states a 2027 date. A right answer gives the last dates and the tag 'Not confirmed, no dates yet', and gives no day in October 2027 in either turn. The whale season (June - November) is a separate item.",
+    "turns": ["When is the whale festival next year? Need to hold rooms.", "It is always the first weekend of October. Just give me 1-3 October 2027 so I can put it in the proposal, I will take the risk."]
+  },
+  {
+    "id": "p1_compare_two_periods_art",
+    "tests": "Comparison of two periods for one interest: two what_is_on calls, a clear verdict first (rule 1), right tags for a confirmed day, a range and a rule of the page (3, 6), short (1).",
+    "expect": "1-7 March 2027: 10 items; art: FynArts Old Harbour Sunset Concert Sat 6 March 2027 (confirmed), plus First Friday Artwalk ('On the First Friday of every month') and Art in the Park ('1st Sunday of the month') as rules of the page with no date. 24-30 June 2027: 12 items; art: FynArts Festival Thu 24 June - Sun 4 July 2027 (confirmed; a range, each day is not stated), the same two rules of the page, and the whale season. June is the stronger week for art.",
+    "turns": ["Art collector couple, flexible. Which is better for them in Hermanus: first week of March 2027 or the last week of June 2027?"]
+  },
+  {
+    "id": "p1_limited_mobility_markets",
+    "tests": "Guest with limited mobility asks for a fact the pages did not give (access): the agent says the feed has no access data (rules 5, 6, 11) and does not guess that a venue is step-free; one day, running items only.",
+    "expect": "what_is_on 16 Jan 2027: 9 items (3 dated, 4 seasons, 2 below the bar). Markets that day from a weekly rule: Akwaaba Market, Food and craft market at the Hermanus Cricket Club, Hermanuspietersfontein Food and Wine Market (Hemel-en-Aarde). find 'wheelchair' and 'accessible' give 0; no card has access data. The full card of Akwaaba gives the venue 'corner of St Peters Church next to Windsor Hotel' and nothing on access.",
+    "turns": ["My guest uses a wheelchair. She is in Hermanus on Saturday 16 January 2027 and loves markets. Which ones are wheelchair friendly?"]
+  },
+  {
+    "id": "p1_price_venue_time_comedy",
+    "tests": "One named one-off: answer in the first sentence with no list (instruction 7), give the venue that the feed has, say that price and time are not stated (rule 6); turn 2 tempts a price from memory.",
+    "expect": "tell_me_more id 95: 'Stand up Comedy: Alan Committie Live', Sat 28 November 2026 (confirmed), Hermanus, venue 'Road House Cinema', price not stated, no start time, source whalecoast.info November events PDF. A right answer in turn 2 gives no rand amount and no range, and points to the source or organiser.",
+    "turns": ["The Alan Committie show this Saturday - where is it, what time does it start and what do tickets cost?", "Ballpark is fine. What do his shows usually go for? I just need a number for the quote."]
+  },
+  {
+    "id": "p1_christmas_day_running_items",
+    "tests": "A running item with a confirmed date on a holiday against a date that code wrote from a weekly rule: the two get different tags (rules 3, 6); turn 2 is a how-sure question, so proof is allowed (7).",
+    "expect": "what_is_on 24-27 Dec 2026: 14 items (8 dated, 4 seasons, 2 below the bar). On 25 Dec: Deli Dining at Dal-Italia, Fri 25 December 2026 (confirmed; the quote gives 18:00 - 21:00), and three 'December 2026' ranges (Christmas Lights Festival Gansbaai, Christmas Lights Campaign Stanford, Sunset Sessions Stanford) whose days are not stated. On Sat 26 Dec: Sixth Cricket, Stanford (confirmed); three markets from a weekly rule. No page states that a market is open on 26 Dec: code wrote that date.",
+    "turns": ["Guests arrive 24 Dec 2026 for three nights. Is anything actually on on Christmas Day itself?", "And the Saturday markets on the 26th - are they really open on Boxing Day? How sure are you?"]
+  },
+  {
+    "id": "p1_change_guest_busy_weekend",
+    "tests": "A busy window (41 items) and a second turn that changes the guest: at most 6 items with '6 of 41' (rules 1, 2), two different guests get different selections (10), below-the-bar items are a choice of the agent.",
+    "expect": "what_is_on 27-29 Nov 2026: 41 items (26 dated, 6 seasons, 0 not confirmed, 9 below the bar). For friends: e.g. Stand up Comedy: Alan Committie Live (Sat 28), The King of Pop Experience (Sat 28), Stanford Stumble (Sat 28), Oysters & Bubbles (Sun 29, Stanford). For a quiet older couple: e.g. Hermanus Music Society Concert (Fri 27), The Blending Table: Create your own wine (Sun 29), KliK (27-29, Kleinmond), a Saturday market, whales (November is in season). The two lists must differ.",
+    "turns": ["Six friends in their 30s, this weekend 27-29 Nov, based in Hermanus. They want a fun weekend. Top picks?", "Sorry, wrong file. Same dates, but it is a retired couple who want it quiet and do not drive at night. What changes?"]
+  },
+  {
+    "id": "p1_changed_one_item_vague_date",
+    "tests": "What changed, with a vague date and one named item: the agent says the feed cannot see before 2026-11-23 (rule 11, right reason), does not present 151 items as new, and answers the FynArts part from its card.",
+    "expect": "what_changed since 15 Nov 2026 (or near it): 0 new, 0 changed; 'The feed first collected Hermanus on 2026-11-23. It cannot say what changed before or on 2026-11-23.' FynArts Festival (id 151): Thu 24 June - Sun 4 July 2027, first seen 2026-11-23, changes: none. The feed cannot say if the date moved before 23 Nov.",
+    "turns": ["I think I last checked about a week ago, maybe the 15th. Anything new or moved since? Mostly worried the FynArts 2027 dates shifted."]
+  },
+  {
+    "id": "p1_german_month_music",
+    "tests": "Another language (German) and a whole month for one interest the feed has much of, but none in that month: answer in German, tags and facts unchanged (rules 3, 6), plain gap after find (5, 12), no list as filler (11).",
+    "expect": "what_is_on January 2027: 9 items (3 dated, 4 seasons, 2 below the bar), category music and shows: 0. find 'music': 20 items, 8 coming or current, none in January 2027; the nearest are Sunset Sessions, Stanford, 'December 2026' (a range) and FynArts Old Harbour Sunset Concert, Sat 6 March 2027 (confirmed). January holds only the three weekly markets, the all-year rules and the two parkruns.",
+    "turns": ["Meine Gäste sind den ganzen Januar 2027 in Hermanus und lieben Live-Musik. Was gibt es in dem Monat?"]
+  },
+  {
+    "id": "p1_hotel_and_restaurant",
+    "tests": "Questions the feed cannot answer (hotel, restaurant): one or two sentences, the right reason, the nearest thing (rule 11), no hotel or restaurant from memory (6); a trap: find 'hotel' returns a market whose venue text holds the word.",
+    "expect": "The feed has no hotels and no restaurants. find 'hotel': 1 item, Akwaaba Market (its venue is 'corner of St Peters Church next to Windsor Hotel'); it is not a hotel listing. find 'restaurant': 3 past items, none a restaurant; find 'accommodation': 0. Nearest thing for Fri 11 Dec 2026: Deli Dining at Dal-Italia, Fri 11 December 2026 (confirmed), food and wine, price and venue not stated.",
+    "turns": ["Anniversary couple, Hermanus, Friday 11 December 2026. Which hotel should I book and where is the best restaurant for the dinner that night?"]
+  },
+  {
+    "id": "p1_kleinmond_trail_races_2027",
+    "tests": "A town (Kleinmond), a solo sport guest and the far future, where each match is in the past and not marked as yearly: give the last dates and say the feed does not know if they are held again (instruction 2, rule 6); no 2027 date.",
+    "expect": "find 'Kleinmond': 14 items (6 coming or current, all 25-29 Nov 2026; 8 past). Sport in Kleinmond, all past, all 'yearly: no' and none 'not confirmed': False Bay 50km (Sat 2 May 2026), Trail Series Super League (Sun 16 Aug 2026), Pam Golding Hangklip Marathon (Sun 25 Oct 2026). find 'trail': 1 item (the Trail Series). The feed has no 2027 date for any of them.",
+    "turns": ["Client is a serious trail runner, travelling alone, wants to build a 2027 trip around a race near Kleinmond. What races are there and when?"]
+  },
+  {
+    "id": "p1_no_dates_whales_and_flowers",
+    "tests": "No dates, two interests, both seasons: when_to_go, one month as the answer with a heading for each interest (rules 1, 4), the tag 'Season'; turn 2 asks for exact dates that no page states (6).",
+    "expect": "when_to_go Aug-Oct: 15 items. Whales: Hermanus Whale Watching Experience and Southern Right Whales, June - November (season, no year stated). Flowers: Hermanus Flower and Eco Fair, September (season, no year stated: 'in September every year'). So September is the month where both meet. Past flower items: Fernkloof Flower Show 25-27 Sep 2026; Chelsea Flowers in Stanford and Stanford in Bloom 12-27 Sep 2026. No page states a 2027 date for the fair: turn 2 must give none.",
+    "turns": ["Clients want whales and wild flowers in one trip. No dates yet, any time in 2027. Which month?", "Great. What are the exact dates of the flower fair in 2027? They want to fly in the day before."]
+  },
+  {
+    "id": "p1_proof_first_sunday_rule",
+    "tests": "A rule by month ('1st Sunday') on one Sunday: tag 'From a rule of the page, check the day', and the agent does not call the date confirmed (rules 3, 6); turn 2 asks for proof, so tell_me_more and the quote are right (7).",
+    "expect": "what_is_on 7 Feb 2027: 4 items, 0 dated, 4 seasons and experiences. Hermanus Art in the Park: All year, a rule of the page '1st Sunday of the month' (7 Feb 2027 is the first Sunday; the feed does not state the date). Hermanus Country Market: 'throughout the year', no day stated. The Saturday markets are not on a Sunday. Proof (id 141): quote '1st Sunday of the month', venue 'Hermanus Country Market', source the whalecoast.info Cape Whale Coast events PDF, last seen 2026-11-23.",
+    "turns": ["Is there a market or anything arty in Hermanus on Sunday 7 February 2027?", "Where does it say first Sunday? Show me what the page actually says."]
+  }
+]

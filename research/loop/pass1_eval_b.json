@@ -1,0 +1,226 @@
+[
+  {
+    "id": "p1_changed_one_item_vague_date",
+    "verdict": "good",
+    "findings": [
+      {
+        "rule": "2",
+        "what": "The two-item list has no count line ('2 of 6'). The total is only implied by the left-out line. Low weight.",
+        "evidence": "Answer: '**FynArts 2027, as of today:**' then two items, then 'I left out 4 past FynArts events.' Tool (find FynArts): 'with the text   6 items: 2 coming or current · 4 past'.",
+        "cause": "instructions",
+        "why": "Instruction 7 gives two rules that pull apart here: 'A list starts with how many...' and 'For a question about one item ... do not add a list'. The question was half 'what changed', half one item."
+      },
+      {
+        "rule": "use",
+        "what": "The answer does not give the two card facts that answer 'did it move': first seen 2026-11-23, and changes: none. It gives the reason in words only.",
+        "evidence": "Answer: 'The feed first collected Hermanus today (23 Nov), so it has no earlier record to compare against.' Tool card: 'first seen 2026-11-23 · id 151'; tell_me_more 151 (replayed by me, not called by the agent): 'changes   none'.",
+        "cause": "instructions",
+        "why": "Instruction 10 limits tell_me_more to proof requests, so 'changes: none' was not in the agent's view; the statement it made is still true."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_german_month_music",
+    "verdict": "good",
+    "findings": [
+      {
+        "rule": "use",
+        "what": "One of the two 'nearest' items (Sunset Sessions, December 2026) ends before the guests arrive in January, so the designer cannot use it. Only the 6 March concert is a real nearest item after the trip. Low weight.",
+        "evidence": "Answer: 'Die nächsten Musik-Termine (2 von 20 Musik-Einträgen): - Sunset Sessions, Dezember 2026, Stanford.' Designer: 'den ganzen Januar 2027'. Tool: 'Sunset Sessions · December 2026 (confirmed; a range, each day is not stated) · Stanford'.",
+        "cause": "agent slip",
+        "why": "Rule 11 asks for the nearest thing; the agent took nearest in time and did not test it against the trip dates."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_christmas_day_running_items",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "1",
+        "what": "Turn 2 has 160 words (limit 120). Turn 1 is in the limit (114).",
+        "evidence": "Word count of the turn 2 answer by code: 160 (checks.words).",
+        "cause": "instructions",
+        "why": "A how-sure question permits quotes (instruction 10), and the three long tags plus links use most of the 120 words; the limit and the proof permission conflict."
+      },
+      {
+        "rule": "9",
+        "what": "Turn 2 has no line for what the feed does not cover. Turn 1 has it.",
+        "evidence": "Turn 2 ends: 'I left out the other monthly markets and a year-round market with no day stated. I can show you the source for any of these.' Tool: 'not collected   Quicket ...', 'not collected   Webtickets ...'.",
+        "cause": "agent slip",
+        "why": "Instruction 11 is clear; the agent dropped the line in the follow-up turn."
+      },
+      {
+        "rule": "7",
+        "what": "Proof is given for two of the three markets only. The weakest quote, the one the designer most needs for a how-sure question, is left out.",
+        "evidence": "Answer: 'Hermanuspietersfontein Food and Wine Market, Sat 26 Dec, Hemel-en-Aarde. From a weekly rule...' with no quote. Tool: '(weekly rule: \"Saturdays are busy market days\")'.",
+        "cause": "agent slip",
+        "why": "The quote was on the card; 'Saturdays are busy market days' is a weaker rule than 'Every Saturday', and that difference is the answer to 'how sure'."
+      },
+      {
+        "rule": "use",
+        "what": "Two cards are probably one market: 'Food and craft market at the Hermanus Cricket Club' (id 147, weekly) and 'Hermanus Country Market' (id 7, venue Hermanus Cricket Club, 'throughout the year'). The agent saw both venues (tell_me_more 5, 7) and presented them as two markets. Not a false statement by the agent; a duplicate in the feed.",
+        "evidence": "Answer lists 'Food and craft market at the Hermanus Cricket Club' and then 'I left out ... a year-round market with no day stated.' tell_me_more id 7: 'venue     Hermanus Cricket Club'.",
+        "cause": "tool text",
+        "why": "The feed did not merge the two sources, and no rule tells the agent what to do with two cards at one venue."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_hotel_and_restaurant",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "11",
+        "what": "After the refusal and the nearest item, a third paragraph lists four more items that have no link to a hotel or a dinner. It is filler.",
+        "evidence": "Answer: 'The feed has 8 items for that day. Others include the December Sunset Sessions music in Stanford and Christmas lights in Stanford and Gansbaai. The Hermanus First Friday Artwalk falls on 4 December, not 11 December.'",
+        "cause": "agent slip",
+        "why": "Instruction 13 is clear: 'Do not fill the answer with a list.'"
+      },
+      {
+        "rule": "6",
+        "what": "The agent wrote a date for an 'All year' rule item (4 December). The arithmetic is right (4 Dec 2026 is the first Friday), but no tool returned that date.",
+        "evidence": "Answer: 'The Hermanus First Friday Artwalk falls on 4 December'. Tool: 'Hermanus First Friday Artwalk · All year (a rule of the page: \"On the First Friday of every month\")'.",
+        "cause": "tool text",
+        "why": "what_is_on for one Friday returns a first-Friday item without saying if the rule hits that day, so the agent does the calendar itself, against instruction 4 ('Give the rule, not a date')."
+      },
+      {
+        "rule": "11",
+        "what": "The reason for restaurants is not exact. 'It doesn't rank or review restaurants' implies that the feed lists restaurants. It lists none.",
+        "evidence": "Answer: 'It has no hotels, and it doesn't rank or review restaurants.' Tool (find restaurant): '3 items: 0 coming or current · 3 past', none a restaurant (Cape 1000 Classic Cars, two ChatGPT workshops).",
+        "cause": "agent slip",
+        "why": "The find result was clear."
+      },
+      {
+        "rule": "use",
+        "what": "The nearest item is offered as a 'dinner event', but the card has no time and no venue, so the designer cannot tell if it is a dinner. The feed holds the time (18:00 - 21:00) in the evidence only.",
+        "evidence": "Answer: 'this dated dinner event on Friday 11 December'. Card: 'Deli Dining at Dal-Italia · Fri 11 December 2026 (confirmed)'. tell_me_more 144 (my replay): 'when: \"Fri, 11/12/2026, 18:00 - Fri, 11/12/2026, 21:00\"', 'venue     not stated'.",
+        "cause": "tool text",
+        "why": "The short card drops the time that the stored quote has, and instruction 10 keeps the agent from tell_me_more."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_change_guest_busy_weekend",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "1",
+        "what": "Turn 2 has 162 words (limit 120). Turn 1 has 111.",
+        "evidence": "Word count by code: 162. The opening ('Most of the list changes. Miss Drag, the comedy show, Stanford Stumble and Oysters & Bubbles come off.') and a 15-word left-out line add to six full item lines.",
+        "cause": "instructions",
+        "why": "Six items with the long weekly tag and a link use about 100 words; '6 items' and '120 words' cannot both hold when the designer also asks 'what changes'."
+      },
+      {
+        "rule": "use",
+        "what": "For 'do not drive at night' the designer needs times and places. The agent says correctly that the feed has no start time for three items, but does not give the venues that the feed has, two of which are out of the town centre.",
+        "evidence": "Answer: 'The feed doesn't give start times for the last three. Check them so the couple won't be driving at night.' tell_me_more (my replay): id 79 'venue     Sandbaai Gereformeerde Church', id 101 'venue     Benguela Cove', id 92 'venue     Stonehouse Cheese Bar'; no time in any evidence quote.",
+        "cause": "tool text",
+        "why": "The short card has no venue and no time; instruction 10 allows tell_me_more only for proof or one item."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_no_dates_whales_and_flowers",
+    "verdict": "fault",
+    "findings": [
+      {
+        "rule": "fact",
+        "what": "Turn 2 says that the Fernkloof Flower Show is 'a separate event' from the Hermanus Flower and Eco Fair. No tool output says this. The feed points the other way: the fair's venue is Fernkloof Nature Reserve, and find 'fernkloof' returns both cards.",
+        "evidence": "Answer: 'last year's Fernkloof Flower Show ran 25–27 September 2026, but that's a separate event'. tell_me_more 145 (my replay; the agent made no call in turn 2): 'venue     Fernkloof Nature Reserve', 'evidence  venue: \"It is held at the Fernkloof Nature Reserve\"'.",
+        "cause": "agent slip",
+        "why": "The agent stated a relation between two cards without a tool call; the designer asked for more about one item, so tell_me_more was permitted (instruction 10)."
+      },
+      {
+        "rule": "fact",
+        "what": "'Last year's' is wrong. Today is 2026-11-23, so September 2026 is this year.",
+        "evidence": "Answer: 'last year's Fernkloof Flower Show ran 25–27 September 2026'. Tool header: 'as of 2026-11-23'.",
+        "cause": "agent slip",
+        "why": "The date was in each tool header; the agent reasoned from the 2027 trip."
+      },
+      {
+        "rule": "2",
+        "what": "Turn 1 count is wrong. '5 of 18' mixes two tool results: 3 of the items are in the 18 of when_to_go, 2 are past items that only find returned.",
+        "evidence": "Answer: 'Showing 5 of 18 items'. when_to_go: '18 items: 8 seasons and experiences · 3 yearly with a date · 2 not confirmed · 5 each week' (no Fernkloof Flower Show, no Chelsea Flowers). find flower: '3 items: 1 coming or current · 2 past'.",
+        "cause": "instructions",
+        "why": "Rule 2 and instruction 7 do not say which total to use when an answer joins two tool results."
+      },
+      {
+        "rule": "3",
+        "what": "The two past flower items carry none of the six tags. In place of a tag is the sentence of instruction 2. (Record p1_kleinmond gives past items the tag 'Confirmed'; the two answers disagree.)",
+        "evidence": "Answer: 'Fernkloof Flower Show: last held 25–27 September 2026. The feed doesn't know if it will be held again.' Instruction 9: 'Use one of these six tags'. Instruction 2: 'give its last dates and say that the feed does not know if it is held again.'",
+        "cause": "instructions",
+        "why": "No one of the six tags fits a past item that is not marked as yearly; instructions 2 and 9 conflict."
+      },
+      {
+        "rule": "5",
+        "what": "The designer asked for wild flowers. The feed has flower fairs and shows, and no wild-flower season. The answer puts the fairs under 'Wild flowers' and does not say this gap. It also misses 'Stanford in Bloom' (12-27 Sep 2026), which find 'flower' cannot match.",
+        "evidence": "Answer heading: '**Wild flowers**'. My replays: find 'wild' returns the two whale items and 'Rewilding Greater Gansbaai Festival' only; find 'fynbos' returns 'Alien Hacking' only; find 'bloom' returns 'Stanford in Bloom'.",
+        "cause": "agent slip",
+        "why": "The agent took 'flower event' as proof of wild flowers in bloom; one more find would have shown the gap."
+      }
+    ],
+    "better": "Turn 2: The feed has no 2027 dates for the Hermanus Flower and Eco Fair. Its page says only \"in September every year\", so do not book the flight from the feed.\n\n- Hermanus Flower and Eco Fair: September, Fernkloof Nature Reserve. Season. [xplorio.com](https://xplorio.com/hermanus/en/things-to-do/events)\n\nOne clue, not a date: the Fernkloof Flower Show ran Fri 25 – Sun 27 September 2026. The feed does not say if it is the same event, or if it is held again. Ask the organiser for the 2027 dates.\n\nThe feed does not cover Quicket or Webtickets. I can show the proof for either item.\n\n(Turn 1: the count line must be '3 of 18 items for the year, and 2 past flower items'.)"
+  },
+  {
+    "id": "p1_kleinmond_trail_races_2027",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "6",
+        "what": "The agent calls all three items 'running races'. The feed gives only the category 'sport to take part'. For 'False Bay 50km' no tool output says that it is a run.",
+        "evidence": "Answer: 'Three Kleinmond running races were held in 2026.' and '3 of 3 Kleinmond running races'. Tool: '[event · sport to take part] False Bay 50km · Sat 2 May 2026 (confirmed) · Kleinmond'; tell_me_more 113 (my replay): evidence '2 May False Bay 50km Kleinmond', no more.",
+        "cause": "tool text",
+        "why": "The card has a title and a wide category only; the agent filled the kind of sport from the name."
+      },
+      {
+        "rule": "use",
+        "what": "The guest is a trail runner. Only one of the three items is a trail race by its name, and the answer does not say which. find 'trail' returned 1 item.",
+        "evidence": "Designer: 'serious trail runner'. Tool (find trail): '1 item: 0 coming or current · 1 past' = 'Trail Series Super League · Sun 16 August 2026'. Answer lists the three in date order with no word on trail.",
+        "cause": "agent slip",
+        "why": "Rule 10: the agent selects for the guest; the find result made the selection easy."
+      },
+      {
+        "rule": "9",
+        "what": "The left-out line names kinds, but 'Race 2 the Sea 2026' (Sat 5 September 2026, Hermanus, sport to take part) is in no kind that the line names, unless the agent took it for a boat race. Low weight.",
+        "evidence": "Answer: 'I left out the Hermanus parkruns, a triathlon, and boat and river races.' Tool (find race): 'Race 2 the Sea 2026 · Sat 5 September 2026 (confirmed) · Hermanus'; tell_me_more 122: 'Franschhoek to Hermanus', kind of sport not stated.",
+        "cause": "tool text",
+        "why": "The feed does not say what sport the item is."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p1_proof_first_sunday_rule",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "6",
+        "what": "Turn 1 puts a date that the agent worked out ('Sun 7 Feb 2027') in the date place of an 'All year' rule item, and two more in the left-out line (5 Feb, 6 Feb). All three are right by the calendar, the tag is right, and turn 2 says plainly 'I worked out 7 February 2027 from that rule'. But no tool returned these dates.",
+        "evidence": "Answer: '- Hermanus Art in the Park, Sun 7 Feb 2027 · From a rule of the page, check the day'. Tool: 'Hermanus Art in the Park · All year (a rule of the page: \"1st Sunday of the month\")'. Instruction 4: 'Give the rule, not a date.'",
+        "cause": "tool text",
+        "why": "The designer asks about one day; what_is_on does not say if a rule by month hits that day, so the agent must do the calendar, and instruction 4 forbids the result."
+      },
+      {
+        "rule": "2",
+        "what": "'2 of the 4 items on that day' repeats the feed's count, but two of the four (first Friday, first Saturday) cannot be on a Sunday. The agent says so itself in the left-out line.",
+        "evidence": "Answer: 'Showing 2 of the 4 items on that day' and 'Left out: an art walk on the first Friday (5 Feb) and a market in Onrus on the first Saturday (6 Feb).' Tool: 'in the window   4 items: 0 dated · 4 seasons and experiences'.",
+        "cause": "tool text",
+        "why": "The window count of what_is_on includes each 'All year' rule item, whatever the day of the rule."
+      },
+      {
+        "rule": "1",
+        "what": "Both turns are a little over 120 words (129 and 130). Turn 2 is a proof answer, so low weight.",
+        "evidence": "Word counts by code: 129, 130.",
+        "cause": "agent slip",
+        "why": "The first sentence of turn 1 states the rule and the list repeats it."
+      }
+    ],
+    "better": ""
+  }
+]
