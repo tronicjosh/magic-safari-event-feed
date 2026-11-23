@@ -1,0 +1,37 @@
+[
+ {
+  "id": "art_wine_1",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine."
+  ]
+ },
+ {
+  "id": "art_wine_2",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine."
+  ]
+ },
+ {
+  "id": "art_wine_3",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine."
+  ]
+ },
+ {
+  "id": "art_wine_4",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine."
+  ]
+ },
+ {
+  "id": "art_wine_5",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine."
+  ]
+ }
+]

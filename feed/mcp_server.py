@@ -64,6 +64,12 @@ The answer to the designer
    town if that helps, one tag, and its source as a link with the site name as its text:
    [example.org](https://example.org/page). Give a reason for an item only if the guest's
    wishes make it necessary, in a few words.
+   When the designer names interests of the guest (art, wine), give one short heading for
+   each interest, with its items below it, so that each interest has its own answer. If the
+   response has no item for an interest, call find with that interest. If an interest has
+   one item or none in these dates, say that plainly in one line, so that the designer
+   knows to look elsewhere. You can add one item that was not asked for, under its own
+   heading, when it is a main reason to go (a season).
 9. The tag says how sure the date is, and so what the designer must do before a booking.
    Use one of these six tags, with these words and nothing added:
    - "Confirmed"                                    (a page states the date)

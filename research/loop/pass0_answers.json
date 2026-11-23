@@ -1,0 +1,217 @@
+[
+ {
+  "id": "art_wine_2",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   {
+    "designer": "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine.",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2027-06-20",
+       "to_date": "2027-06-27"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 20 June 2027 - 27 June 2027 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   12 items: 4 dated · 6 seasons and experiences · 0 not confirmed · 2 below the traveller bar",
+       "  by category     art and exhibitions 1 · festival 1 · market 6 · nature and wildlife 2 · sport to take part 2",
+       "",
+       "dated",
+       "[event · festival] FynArts Festival · Thu 24 June 2027 - Sun 4 July 2027 (confirmed; a range, each day is not stated) · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 151",
+       "    source: https://www.hermanusfynarts.co.za/",
+       "[event · market] Akwaaba Market · Sat 26 June 2027 (weekly rule: \"Every Saturday from 09:00 – 14:00\") · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 10"
+      ]
+     }
+    ],
+    "answer": "I've picked **3 of the 12** items for 20–27 June 2027 that suit art and wine lovers:\n\n- **FynArts Festival**: 24 June – 4 July 2027, Hermanus. Confirmed, programme not stated. [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)\n- **Hermanuspietersfontein Food and Wine Market**: Sat 26 June 2027, Hemel-en-Aarde. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- **Southern Right Whales**: June to November. Season. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/)\n\nThe First Friday Artwalk and Hermanus Art in the Park are held monthly, but on days outside these dates.\n\nLeft out: other markets, a whale-watching boat trip and parkruns.\n\nThe feed does not cover Quicket or Webtickets.\n\nI can show the proof for any of these items."
+   }
+  ],
+  "cost_usd": 0.036443,
+  "checks": {
+   "words": 108,
+   "links_not_in_the_feed": [],
+   "list_lines": 3,
+   "list_lines_with_no_link": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "art_wine_4",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   {
+    "designer": "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine.",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2027-06-20",
+       "to_date": "2027-06-27"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 20 June 2027 - 27 June 2027 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   12 items: 4 dated · 6 seasons and experiences · 0 not confirmed · 2 below the traveller bar",
+       "  by category     art and exhibitions 1 · festival 1 · market 6 · nature and wildlife 2 · sport to take part 2",
+       "",
+       "dated",
+       "[event · festival] FynArts Festival · Thu 24 June 2027 - Sun 4 July 2027 (confirmed; a range, each day is not stated) · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 151",
+       "    source: https://www.hermanusfynarts.co.za/",
+       "[event · market] Akwaaba Market · Sat 26 June 2027 (weekly rule: \"Every Saturday from 09:00 – 14:00\") · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 10"
+      ]
+     }
+    ],
+    "answer": "The best fit for art and wine is **FynArts Festival**, which starts during the stay. **4 of 12** items:\n\n- FynArts Festival: 24 June to 4 July 2027, Hermanus. Confirmed, programme not stated. [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)\n- Hermanuspietersfontein Food and Wine Market: Sat 26 June 2027, Hemel-en-Aarde. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- Akwaaba Market: Sat 26 June 2027, 09:00 to 14:00. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- Southern Right Whales: June to November. Season. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/)\n\nLeft out: other markets, a whale-watching tour, parkruns, and monthly art events that don't fall on these dates.\n\nThe feed does not cover Quicket or Webtickets.\n\nI can send the proof for any item."
+   }
+  ],
+  "cost_usd": 0.036983,
+  "checks": {
+   "words": 116,
+   "links_not_in_the_feed": [],
+   "list_lines": 4,
+   "list_lines_with_no_link": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "art_wine_3",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   {
+    "designer": "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine.",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2027-06-20",
+       "to_date": "2027-06-27"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 20 June 2027 - 27 June 2027 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   12 items: 4 dated · 6 seasons and experiences · 0 not confirmed · 2 below the traveller bar",
+       "  by category     art and exhibitions 1 · festival 1 · market 6 · nature and wildlife 2 · sport to take part 2",
+       "",
+       "dated",
+       "[event · festival] FynArts Festival · Thu 24 June 2027 - Sun 4 July 2027 (confirmed; a range, each day is not stated) · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 151",
+       "    source: https://www.hermanusfynarts.co.za/",
+       "[event · market] Akwaaba Market · Sat 26 June 2027 (weekly rule: \"Every Saturday from 09:00 – 14:00\") · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 10"
+      ]
+     }
+    ],
+    "answer": "**4 of 12 items** fit art and wine from 20 to 27 June 2027:\n\n- **FynArts Festival**, 24 June – 4 July 2027. Confirmed, programme not stated. [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)\n- **Hermanuspietersfontein Food and Wine Market**, Sat 26 June 2027, Hemel-en-Aarde. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- **Southern Right Whales**, June – November. Season. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/)\n- **Hermanus Country Market**, all year. From a rule of the page, check the day. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n\nThe First Friday Artwalk and Art in the Park don't fall in this window. They happen on the first Friday and the first Sunday of the month.\n\nI left out other markets, a whale-watching trip and parkruns.\n\nThe feed doesn't cover Quicket or Webtickets.\n\nI can show you the proof for any of these items."
+   }
+  ],
+  "cost_usd": 0.038763,
+  "checks": {
+   "words": 128,
+   "links_not_in_the_feed": [],
+   "list_lines": 4,
+   "list_lines_with_no_link": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "art_wine_1",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   {
+    "designer": "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine.",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2027-06-20",
+       "to_date": "2027-06-27"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 20 June 2027 - 27 June 2027 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   12 items: 4 dated · 6 seasons and experiences · 0 not confirmed · 2 below the traveller bar",
+       "  by category     art and exhibitions 1 · festival 1 · market 6 · nature and wildlife 2 · sport to take part 2",
+       "",
+       "dated",
+       "[event · festival] FynArts Festival · Thu 24 June 2027 - Sun 4 July 2027 (confirmed; a range, each day is not stated) · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 151",
+       "    source: https://www.hermanusfynarts.co.za/",
+       "[event · market] Akwaaba Market · Sat 26 June 2027 (weekly rule: \"Every Saturday from 09:00 – 14:00\") · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 10"
+      ]
+     }
+    ],
+    "answer": "**3 of 12 items for 20–27 June 2027 suit art and wine lovers:**\n\n- **FynArts Festival**: 24 June – 4 July 2027, Hermanus. Confirmed, programme not stated. [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)\n- **Hermanuspietersfontein Food and Wine Market**: Sat 26 June 2027, Hemel-en-Aarde. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- **Southern Right Whales**: June – November. Season. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/)\n\nThe First Friday Artwalk and Art in the Park won't happen during the trip because they fall on the first Friday and first Sunday of the month.\n\nI left out other markets, a whale-watching tour and parkruns.\n\nThe feed doesn't cover Quicket or Webtickets.\n\nI can show you the proof for any of these items."
+   }
+  ],
+  "cost_usd": 0.039383,
+  "checks": {
+   "words": 112,
+   "links_not_in_the_feed": [],
+   "list_lines": 3,
+   "list_lines_with_no_link": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "art_wine_5",
+  "tests": "each named interest gets an answer",
+  "turns": [
+   {
+    "designer": "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine.",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2027-06-20",
+       "to_date": "2027-06-27"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 20 June 2027 - 27 June 2027 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   12 items: 4 dated · 6 seasons and experiences · 0 not confirmed · 2 below the traveller bar",
+       "  by category     art and exhibitions 1 · festival 1 · market 6 · nature and wildlife 2 · sport to take part 2",
+       "",
+       "dated",
+       "[event · festival] FynArts Festival · Thu 24 June 2027 - Sun 4 July 2027 (confirmed; a range, each day is not stated) · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 151",
+       "    source: https://www.hermanusfynarts.co.za/",
+       "[event · market] Akwaaba Market · Sat 26 June 2027 (weekly rule: \"Every Saturday from 09:00 – 14:00\") · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 10"
+      ]
+     }
+    ],
+    "answer": "**4 of 12 items** fit art and wine for 20–27 June 2027:\n\n- **FynArts Festival**, 24 June – 4 July 2027, Hermanus. *Confirmed, programme not stated.* [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)\n- **Hermanuspietersfontein Food and Wine Market**, Sat 26 June 2027, Hemel-en-Aarde. *From a weekly rule, confirm near the date.* [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- **Food and craft market at the Hermanus Cricket Club**, Sat 26 June 2027. *From a weekly rule, confirm near the date.* [xplorio.com](https://xplorio.com/hermanus/en/things-to-do/events)\n- **Southern Right Whales**, June to November. *Season.* [hermanus-tourism.co.za](https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/)\n\nThe First Friday Artwalk and Art in the Park happen on the first Friday and first Sunday of each month, so they don't fall on these dates.\n\nI left out other markets, a whale-watching tour and parkruns.\n\nThe feed doesn't cover Quicket or Webtickets.\n\nI can show the proof for any item."
+   }
+  ],
+  "cost_usd": 0.020707,
+  "checks": {
+   "words": 131,
+   "links_not_in_the_feed": [],
+   "list_lines": 4,
+   "list_lines_with_no_link": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ }
+]
