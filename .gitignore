@@ -12,6 +12,7 @@ __pycache__/
 .venv/
 *.sqlite
 *.db
+feed.db
 *.egg-info/
 
 # Worktrees of parallel builders
