@@ -6,235 +6,278 @@
 <title>Hermanus Event Feed</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --forest: #001E01; --deep: #1F2A1C; --moss: #2C3628; --leaf: #5A6353; --sage: #7A8274; --mist: #93998E;
-    --ink: #292827; --body: #5C5954; --line: #E2E6EA; --line-2: #D5D9DD; --wash: #F5F6F7; --paper: #FAF9F7;
-    --ok-bg: #EDF6EA; --ok-line: #C9E6C0; --ok: #2A6B2E; --rule-bg: #DCE6F2; --rule: #3F5672;
-    --warn-bg: #FDF3C7; --warn: #7A5B00; --bad: #C0392B;
-    --serif: "Crimson Text", Georgia, "Times New Roman", serif;
+    --forest: #001E01;      /* text and dark surfaces */
+    --body: #44543D;        /* body text */
+    --quiet: #6C7A68;       /* secondary text */
+    --leaf: #47A54C;        /* the accent: a fact that a page states */
+    --sage: #D3DCCD;        /* borders */
+    --hair: #EBF0E8;        /* hairlines */
+    --sand: #F5F3EF;        /* tinted surfaces */
+    --amber: #B7791F;       /* not confirmed */
+    --serif: "Crimson Text", ui-serif, Georgia, serif;
     --sans: Montserrat, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    --page: 1120px;
+    --ease: cubic-bezier(.45, .05, .55, .95);
   }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: #fff; color: var(--ink); font: 400 15px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
-  a { color: var(--leaf); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--forest); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
   button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  a { color: var(--forest); text-decoration-color: var(--leaf); text-underline-offset: 3px; }
+  a:hover { color: #2E7D33; }
+  :focus-visible { outline: 2px solid var(--leaf); outline-offset: 3px; border-radius: 2px; }
   [hidden] { display: none !important; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .page { max-width: var(--page); margin-inline: auto; padding-inline: 32px; }
 
-  /* navigation */
-  .nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-  .nav .wrap { display: flex; align-items: center; gap: 20px; height: 64px; }
-  .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
-  .brand b { font: 700 22px/1 var(--serif); color: var(--deep); letter-spacing: -.01em; }
-  .brand span { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--sage); }
-  .nav nav { margin-left: auto; display: flex; gap: 4px; }
-  .nav nav button { border: 0; background: transparent; padding: 8px 14px; border-radius: 6px; font-weight: 600; font-size: 14px; color: var(--body); cursor: pointer; }
-  .nav nav button:hover { color: var(--deep); background: var(--wash); }
-  .nav nav button[aria-selected="true"] { color: #fff; background: var(--deep); }
+  /* ── the dark band: navigation, headline and the input ── */
+  .band {
+    color: #fff;
+    background:
+      radial-gradient(110% 90% at 88% -10%, rgba(226, 138, 104, .62), transparent 58%),
+      radial-gradient(70% 60% at 62% 8%, rgba(238, 190, 116, .30), transparent 62%),
+      radial-gradient(90% 70% at 0% 0%, rgba(58, 84, 122, .55), transparent 60%),
+      linear-gradient(180deg, #24364F 0%, #173A40 46%, #082A1C 80%, #001E01 100%);
+  }
+  .nav { display: flex; align-items: center; gap: 28px; height: 76px; }
+  .wordmark { font: 700 23px/1 var(--serif); letter-spacing: -.01em; color: #fff; text-decoration: none; }
+  .views { display: flex; gap: 4px; margin-inline: auto; }
+  .views button { border: 0; background: transparent; color: rgba(255,255,255,.78); font-weight: 600; font-size: 15px; padding: 9px 16px; border-radius: 6px; transition: color .24s var(--ease), background-color .24s var(--ease); }
+  .views button:hover { color: #fff; }
+  .views button[aria-selected="true"] { color: #fff; background: rgba(255,255,255,.14); }
+  .status { font-size: 13px; color: rgba(255,255,255,.72); white-space: nowrap; }
+  .lead { padding-block: 56px 64px; }
+  .lead h1 { font: 700 56px/1.06 var(--serif); letter-spacing: -.02em; margin: 0; max-width: 16ch; text-wrap: balance; }
+  .lead > p { margin: 18px 0 0; max-width: 56ch; font-size: 17px; line-height: 1.65; color: rgba(255,255,255,.9); }
+  .band[data-view="browse"] .lead { padding-block: 28px 40px; }
+  .band[data-view="browse"] .lead h1 { font-size: 40px; max-width: none; }
 
-  /* hero */
-  .hero { background: var(--forest); color: #fff; }
-  .hero .wrap { padding-top: 44px; padding-bottom: 40px; }
-  .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #A9B8A2; }
-  .hero h1 { font: 700 44px/1.08 var(--serif); letter-spacing: -.02em; margin: 10px 0 12px; max-width: 18ch; text-wrap: balance; }
-  .hero p { margin: 0; max-width: 62ch; color: rgba(255,255,255,.86); font-size: 16px; line-height: 1.7; }
-  .stats { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-  .stat { border: 1px solid rgba(255,255,255,.16); border-radius: 8px; padding: 10px 16px; min-width: 132px; }
-  .stat b { display: block; font: 700 26px/1.1 var(--serif); }
-  .stat span { font-size: 12px; color: #A9B8A2; }
-
-  main { padding: 32px 0 72px; }
-  h2 { font: 700 26px/1.15 var(--serif); color: var(--deep); margin: 0 0 6px; }
-  .sub { color: var(--body); margin: 0 0 20px; max-width: 70ch; }
-
-  /* controls */
-  .panel { border: 1px solid var(--line); border-radius: 12px; background: #fff; }
-  .tools { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; border-bottom: 1px solid var(--line); background: var(--wash); border-radius: 12px 12px 0 0; }
-  .tools button { border: 1px solid transparent; background: transparent; padding: 8px 14px; border-radius: 6px; font-weight: 600; font-size: 14px; color: var(--body); cursor: pointer; text-align: left; }
-  .tools button small { display: block; font-weight: 400; font-size: 11.5px; color: var(--mist); }
-  .tools button[aria-selected="true"] { background: #fff; border-color: var(--line-2); color: var(--deep); box-shadow: 0 1px 2px rgba(0,0,0,.04); }
-  form.query { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; padding: 16px; }
-  label { display: flex; flex-direction: column; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sage); }
-  input, select, textarea { border: 1px solid var(--line-2); border-radius: 6px; padding: 9px 11px; background: #fff; font-size: 14.5px; min-width: 160px; }
-  input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--sage); outline-offset: 1px; }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 6px; border: 1px solid transparent; background: var(--deep); color: #fff; font-weight: 600; font-size: 14.5px; cursor: pointer; transition: background .2s; }
+  .desk { margin-top: 32px; background: #fff; color: var(--forest); border-radius: 8px; box-shadow: 0 30px 60px -40px rgba(0,0,0,.55); max-width: 860px; }
+  .band[data-view="browse"] .desk { max-width: none; }
+  .desk textarea { display: block; width: 100%; min-height: 84px; border: 0; background: transparent; padding: 20px 22px 8px; font-size: 17px; line-height: 1.5; resize: none; }
+  .desk textarea:focus { outline: 0; }
+  .desk textarea::placeholder { color: #8C9889; }
+  .desk-foot { display: flex; align-items: center; gap: 12px; padding: 10px 14px 14px 22px; }
+  .desk-foot .grow { flex: 1; }
+  .plain-select { border: 0; background: transparent; color: var(--quiet); font-size: 14px; padding: 6px 4px; max-width: 260px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding-inline: 22px; border-radius: 6px; border: 1px solid transparent; background: var(--forest); color: #fff; font-weight: 600; font-size: 15px; white-space: nowrap; transition: background-color .24s var(--ease), color .24s var(--ease), border-color .24s var(--ease); }
   .btn:hover { background: var(--leaf); }
-  .btn:disabled { opacity: .55; cursor: wait; }
-  .btn.ghost { background: #fff; color: var(--deep); border-color: var(--line-2); }
-  .btn.ghost:hover { background: var(--wash); }
-  .viewswitch { margin-left: auto; display: inline-flex; border: 1px solid var(--line-2); border-radius: 6px; overflow: hidden; }
-  .viewswitch button { border: 0; background: #fff; padding: 8px 12px; font-size: 13px; font-weight: 600; color: var(--body); cursor: pointer; }
-  .viewswitch button[aria-pressed="true"] { background: var(--deep); color: #fff; }
+  .btn:disabled { opacity: .5; cursor: progress; }
+  .btn.outline { background: transparent; color: var(--forest); border-color: var(--sage); }
+  .btn.outline:hover { background: var(--forest); color: #fff; border-color: var(--forest); }
+  .btn.small { height: 36px; padding-inline: 14px; font-size: 14px; }
 
-  /* results */
-  .counts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 22px 0 6px; }
-  .counts .total { font: 700 22px/1 var(--serif); color: var(--deep); margin-right: 6px; }
-  .chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-2); background: var(--wash); border-radius: 999px; padding: 3px 11px; font-size: 12.5px; color: var(--body); }
-  .chip b { color: var(--deep); }
-  .group { margin-top: 26px; }
-  .group h3 { display: flex; align-items: baseline; gap: 10px; font: 600 12px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--sage); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
-  .group h3 span { color: var(--mist); letter-spacing: 0; text-transform: none; font-weight: 400; }
-  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
-  .card { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: #fff; display: flex; flex-direction: column; gap: 8px; }
-  .card:hover { border-color: #C9CFC4; box-shadow: 0 2px 10px rgba(31,42,28,.06); }
-  .card .top { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-  .tag { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--leaf); background: #F3F4F1; border: 1px solid #DDE1D8; border-radius: 4px; padding: 1px 7px; }
-  .sure { font-size: 11.5px; font-weight: 600; border-radius: 4px; padding: 1px 8px; border: 1px solid transparent; margin-left: auto; white-space: nowrap; }
-  .sure.ok { background: var(--ok-bg); border-color: var(--ok-line); color: var(--ok); }
-  .sure.rule { background: var(--rule-bg); color: var(--rule); }
-  .sure.warn { background: var(--warn-bg); color: var(--warn); }
-  .card h4 { font: 700 19px/1.2 var(--serif); color: var(--deep); margin: 0; }
-  .card .when { font-weight: 600; font-size: 14px; color: var(--ink); }
-  .card .note { font-size: 12.5px; color: var(--body); }
-  .card q { quotes: "\201C" "\201D"; font-style: italic; color: var(--moss); }
-  .card .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--body); }
-  .card .foot { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); font-size: 12.5px; }
-  .card .foot a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
-  .linkbtn { border: 0; background: transparent; color: var(--deep); font-weight: 600; cursor: pointer; padding: 0; white-space: nowrap; }
-  .linkbtn:hover { text-decoration: underline; }
-  .holes { margin-top: 30px; border: 1px solid #EBDDA8; background: #FFFBEA; border-radius: 10px; padding: 14px 16px; font-size: 13.5px; color: #5E4B0B; }
-  .holes b { color: #3D3006; }
-  .empty { color: var(--mist); padding: 10px 0; }
-  pre.raw { margin: 22px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 18px; background: var(--paper); white-space: pre-wrap; word-break: break-word; font: 12.5px/1.6 var(--mono); color: var(--ink); }
-  .error { color: var(--bad); font-weight: 600; margin-top: 18px; }
+  .ops { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 8px 0; border-bottom: 1px solid var(--hair); }
+  .ops button { border: 0; background: transparent; padding: 10px 16px 12px; font-weight: 600; font-size: 15px; color: var(--quiet); border-bottom: 2px solid transparent; margin-bottom: -1px; text-align: left; }
+  .ops button span { display: block; font-weight: 400; font-size: 12.5px; color: #8C9889; }
+  .ops button:hover { color: var(--forest); }
+  .ops button[aria-selected="true"] { color: var(--forest); border-bottom-color: var(--leaf); }
+  .query { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; padding: 18px 22px 20px; }
+  .field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500; color: var(--quiet); }
+  .field input, .field select { height: 44px; min-width: 190px; border: 1px solid var(--sage); border-radius: 6px; padding-inline: 12px; background: #fff; font-size: 15px; color: var(--forest); }
+  .field input:focus, .field select:focus { outline: 2px solid var(--leaf); outline-offset: 1px; }
+  .toggle { margin-left: auto; display: inline-flex; border: 1px solid var(--sage); border-radius: 6px; overflow: hidden; }
+  .toggle button { border: 0; background: #fff; padding: 0 14px; height: 42px; font-size: 14px; font-weight: 600; color: var(--quiet); }
+  .toggle button[aria-pressed="true"] { background: var(--forest); color: #fff; }
 
-  /* agent chat */
-  .chat { max-width: 860px; }
-  #talk { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
-  .turn { border-radius: 12px; padding: 14px 18px; white-space: pre-wrap; word-break: break-word; }
-  .turn.you { align-self: flex-end; max-width: 82%; background: var(--deep); color: #fff; border-bottom-right-radius: 4px; }
-  .turn.agent { border: 1px solid var(--line); background: #fff; border-bottom-left-radius: 4px; }
-  .turn.agent strong { color: var(--deep); }
-  .turn.agent .h { font: 700 18px/1.3 var(--serif); color: var(--deep); }
-  .trace { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12px; color: var(--body); white-space: normal; }
-  .trace code { display: inline-block; background: var(--wash); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; margin: 2px 4px 2px 0; font: 11.5px var(--mono); color: var(--moss); }
-  .dots::after { content: "…"; animation: dots 1.2s steps(4, end) infinite; }
-  @keyframes dots { 0% { content: ""; } 33% { content: "."; } 66% { content: ".."; } 100% { content: "..."; } }
-  .composer { padding: 14px; }
-  .composer textarea { width: 100%; min-height: 62px; resize: vertical; }
-  .composer .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-top: 10px; }
-  .composer .row .grow { flex: 1; }
+  /* ── the white area: the answer ── */
+  .work { padding-block: 48px 96px; min-height: 46vh; }
+  .work h2 { font: 700 30px/1.15 var(--serif); letter-spacing: -.01em; margin: 0; }
+  .hint { color: var(--body); max-width: 62ch; margin: 8px 0 0; }
+  .steps { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--sage); }
+  .steps li { padding: 22px 28px 4px 0; counter-increment: step; }
+  .steps li + li { padding-left: 28px; border-left: 1px solid var(--hair); }
+  .steps li::before { content: counter(step); display: block; font: 700 34px/1 var(--serif); color: var(--leaf); margin-bottom: 10px; }
+  .steps b { display: block; font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .steps span { color: var(--body); font-size: 15px; }
 
-  /* proof drawer */
-  .scrim { position: fixed; inset: 0; background: rgba(0,30,1,.35); z-index: 30; }
-  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 100%); background: #fff; z-index: 31; box-shadow: -8px 0 30px rgba(0,0,0,.12); display: flex; flex-direction: column; }
-  .drawer header { padding: 18px 20px; border-bottom: 1px solid var(--line); display: flex; align-items: flex-start; gap: 12px; }
-  .drawer header h3 { font: 700 22px/1.2 var(--serif); color: var(--deep); margin: 2px 0 0; flex: 1; }
-  .drawer .body { padding: 18px 20px; overflow: auto; }
-  .facts { display: grid; grid-template-columns: 92px 1fr; gap: 6px 14px; font-size: 13.5px; margin-bottom: 18px; }
-  .facts dt { color: var(--sage); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding-top: 2px; }
-  .facts dd { margin: 0; }
-  .proof { border-left: 3px solid var(--ok-line); background: var(--paper); border-radius: 0 8px 8px 0; padding: 10px 14px; margin-bottom: 10px; }
-  .proof .f { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sage); }
-  .proof q { display: block; font: 600 17px/1.4 var(--serif); color: var(--deep); margin: 2px 0 4px; quotes: "\201C" "\201D"; }
-  .proof small { color: var(--mist); }
+  /* conversation */
+  .talk { display: flex; flex-direction: column; gap: 28px; max-width: 860px; }
+  .asked { align-self: flex-end; max-width: 78%; background: var(--forest); color: #fff; padding: 14px 20px; border-radius: 14px 14px 2px 14px; white-space: pre-wrap; }
+  .answer { font-size: 16px; color: var(--body); }
+  .answer > :first-child { margin-top: 0; }
+  .answer p { margin: 0 0 12px; }
+  .answer h3 { font: 700 22px/1.25 var(--serif); color: var(--forest); margin: 22px 0 8px; }
+  .answer strong { color: var(--forest); font-weight: 600; }
+  .answer ul, .answer ol { margin: 0 0 12px; padding-left: 22px; }
+  .answer li { margin-bottom: 4px; }
+  .answer hr { border: 0; border-top: 1px solid var(--hair); margin: 18px 0; }
+  .answer code { font: 13.5px var(--mono); background: var(--sand); padding: 1px 5px; border-radius: 4px; }
+  .answer table { border-collapse: collapse; margin: 0 0 12px; font-size: 14.5px; }
+  .answer td, .answer th { border-bottom: 1px solid var(--hair); padding: 6px 14px 6px 0; text-align: left; vertical-align: top; }
+  .trace { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--hair); font-size: 13px; color: var(--quiet); }
+  .trace code { font: 12.5px var(--mono); color: var(--forest); background: var(--sand); padding: 2px 6px; border-radius: 4px; margin-right: 4px; display: inline-block; }
+  .working::after { content: ""; animation: dots 1.4s steps(4, end) infinite; }
+  @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
 
-  footer { border-top: 1px solid var(--line); background: var(--paper); color: var(--body); font-size: 13px; }
-  footer .wrap { padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
-  @media (max-width: 640px) { .hero h1 { font-size: 34px; } .brand span { display: none; } .viewswitch { margin-left: 0; } }
+  /* results: a programme, not a grid of cards */
+  .summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+  .summary b { font: 700 40px/1 var(--serif); letter-spacing: -.02em; }
+  .summary span { color: var(--body); }
+  .categories { margin: 8px 0 0; color: var(--quiet); font-size: 14px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 22px 0 0; padding: 14px 18px; background: var(--sand); border-radius: 8px; font-size: 14px; color: var(--body); }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .mark { flex: none; width: 11px; height: 11px; border-radius: 50%; }
+  .mark.stated { background: var(--leaf); }
+  .mark.rule { border: 2px solid var(--leaf); }
+  .mark.open { border: 2px dashed var(--amber); }
+  .group { margin-top: 44px; }
+  .group-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; padding-bottom: 12px; border-bottom: 1px solid var(--forest); }
+  .group-head h3 { font: 700 24px/1.2 var(--serif); margin: 0; }
+  .group-head p { margin: 0; color: var(--quiet); font-size: 14px; }
+  .none { color: var(--quiet); padding: 16px 0 0; margin: 0; }
+  .row { display: grid; grid-template-columns: 220px minmax(0, 1fr) 210px; gap: 8px 32px; padding: 20px 0; border-bottom: 1px solid var(--hair); }
+  .row .when { font: 600 19px/1.3 var(--serif); }
+  .row h4 { font: 600 17px/1.35 var(--sans); margin: 0; }
+  .row .facts { margin: 4px 0 0; font-size: 14px; color: var(--quiet); }
+  .row .note { margin: 8px 0 0; font-size: 14.5px; color: var(--body); }
+  .row q, .says q { font: italic 600 17px/1.4 var(--serif); color: var(--forest); quotes: "\201C" "\201D"; }
+  .row .sure { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; font-size: 14px; }
+  .row .sure > span { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
+  .text-btn { border: 0; background: transparent; padding: 0; font-size: 14px; font-weight: 600; color: var(--forest); text-decoration: underline; text-decoration-color: var(--leaf); text-underline-offset: 3px; }
+  .text-btn:hover { color: #2E7D33; }
+  .group.below .row h4, .group.below .row .when { color: var(--quiet); }
+  .gaps { margin-top: 48px; padding: 18px 22px; background: var(--sand); border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0; color: var(--body); font-size: 15px; }
+  .gaps b { color: var(--forest); }
+  .raw { margin: 0; padding: 24px; background: var(--sand); border-radius: 8px; white-space: pre-wrap; word-break: break-word; font: 13px/1.65 var(--mono); color: var(--forest); }
+  .problem { color: #C44; font-weight: 500; }
+
+  /* the proof */
+  .scrim { position: fixed; inset: 0; background: linear-gradient(transparent, rgba(0,30,1,.28)); backdrop-filter: blur(5px); z-index: 40; }
+  .proof { position: fixed; inset: 0 0 0 auto; width: min(560px, 100%); background: #fff; z-index: 41; display: flex; flex-direction: column; box-shadow: -30px 0 60px -40px rgba(0,0,0,.5); }
+  .proof-head { display: flex; align-items: flex-start; gap: 16px; padding: 24px 28px 20px; border-bottom: 1px solid var(--hair); }
+  .proof-head h3 { flex: 1; font: 700 28px/1.15 var(--serif); letter-spacing: -.01em; margin: 0; }
+  .proof-body { padding: 24px 28px 40px; overflow: auto; }
+  .says { margin: 0 0 18px; padding-left: 16px; border-left: 3px solid var(--leaf); }
+  .says q { display: block; font-size: 20px; }
+  .says small { display: block; margin-top: 4px; color: var(--quiet); font-size: 13px; }
+  .says.unquoted { border-left-color: var(--sage); }
+  .sheet { display: grid; grid-template-columns: 110px 1fr; gap: 8px 16px; margin: 0 0 28px; font-size: 15px; }
+  .sheet dt { color: var(--quiet); }
+  .sheet dd { margin: 0; overflow-wrap: anywhere; }
+  .proof-body h4 { font: 600 14px/1 var(--sans); color: var(--quiet); margin: 0 0 16px; }
+
+  .foot { border-top: 1px solid var(--hair); background: var(--sand); color: var(--body); font-size: 14px; }
+  .foot .page { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; padding-block: 22px; }
+
+  @media (max-width: 860px) {
+    .page { padding-inline: 20px; }
+    .status { display: none; }
+    .views { margin-inline: auto 0; }
+    .lead h1 { font-size: 40px; }
+    .wordmark { font-size: 19px; }
+    .nav { gap: 12px; }
+    .views button { padding: 8px 10px; font-size: 14px; }
+    .band[data-view="browse"] .lead h1 { font-size: 32px; }
+    .steps { grid-template-columns: 1fr; }
+    .steps li + li { padding-left: 0; border-left: 0; border-top: 1px solid var(--hair); }
+    .row { grid-template-columns: 1fr; gap: 6px; }
+    .row .sure { flex-direction: row; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; }
+    .toggle { margin-left: 0; }
+    .asked { max-width: 92%; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
 
-<div class="nav">
-  <div class="wrap">
-    <a class="brand" href="/"><b>Hermanus Event Feed</b><span>Demo</span></a>
-    <nav role="tablist" aria-label="View">
-      <button data-view="ask" aria-selected="true">Ask the agent</button>
-      <button data-view="browse" aria-selected="false">Browse the feed</button>
-    </nav>
-  </div>
-</div>
+<header class="band" id="band" data-view="ask">
+  <div class="page">
+    <div class="nav">
+      <a class="wordmark" href="#ask">Hermanus Event Feed</a>
+      <div class="views" role="tablist" aria-label="View">
+        <button role="tab" data-view="ask" aria-selected="true">Ask the agent</button>
+        <button role="tab" data-view="browse" aria-selected="false">Browse the feed</button>
+      </div>
+      <span class="status" id="status"></span>
+    </div>
 
-<section class="hero">
-  <div class="wrap">
-    <div class="eyebrow">For travel designers and their agents</div>
-    <h1>What’s on in Hermanus, and how sure are we?</h1>
-    <p>Every fact in this feed carries a word-for-word quote from its source page, checked by code.
-       The feed gives the facts and the proof. Your agent selects for the guest. You decide.</p>
-    <div class="stats" id="stats"></div>
-  </div>
-</section>
-
-<main class="wrap">
-
-  <!-- Ask the agent -->
-  <section id="view-ask" class="chat">
-    <h2>Ask the agent</h2>
-    <p class="sub">A Claude model with only the four tools of the feed, as a travel designer’s agent has them.
-       Under each answer: the tools it called, and the measured cost.</p>
-    <div id="talk"></div>
-    <form class="panel composer" id="chat">
-      <textarea name="message" placeholder="Type your question" required></textarea>
-      <div class="row">
-        <label>Model
-          <select name="model">
-            <option value="claude-opus-5-5">Claude Opus 5.5 · about 6 cents an answer</option>
+    <div class="lead" id="lead-ask">
+      <h1>What’s on in Hermanus, and how sure are we?</h1>
+      <p>Each fact in this feed has a word-for-word quote from its source page, and code checks the quote.
+         The feed gives the facts. The agent selects for the guest. You decide.</p>
+      <form class="desk" id="chat">
+        <textarea name="message" aria-label="Your question" placeholder="Ask about a trip to Hermanus" required></textarea>
+        <div class="desk-foot">
+          <select class="plain-select" name="model" aria-label="Model">
+            <option value="claude-opus-5-5">Claude Opus 5.5</option>
             <option value="claude-sonnet-5-5">Claude Sonnet 5.5</option>
-            <option value="claude-haiku-5-5">Claude Haiku 5.5 · under 1 cent an answer</option>
+            <option value="claude-haiku-5-5">Claude Haiku 5.5</option>
           </select>
-        </label>
-        <span class="grow"></span>
-        <button type="button" class="btn ghost" id="new">New chat</button>
-        <button class="btn" id="send">Ask</button>
-      </div>
-    </form>
-  </section>
-
-  <!-- Browse the feed -->
-  <section id="view-browse" hidden>
-    <h2>Browse the feed</h2>
-    <p class="sub">The same four operations that an agent calls. No model is used here.
-       “Agent view” shows the exact text that an agent gets.</p>
-    <div class="panel">
-      <div class="tools" role="tablist" aria-label="Operation">
-        <button data-tool="on" aria-selected="true">What is on<small>the trip has dates</small></button>
-        <button data-tool="go" aria-selected="false">When to go<small>no dates yet</small></button>
-        <button data-tool="changed" aria-selected="false">What changed<small>since the last look</small></button>
-        <button data-tool="more" aria-selected="false">Tell me more<small>the proof of an item</small></button>
-      </div>
-      <form class="query" id="on">
-        <label>From <input type="date" name="start" required></label>
-        <label>To <input type="date" name="end" required></label>
-        <button class="btn">Show</button>
-        <span class="viewswitch"><button type="button" data-raw="0" aria-pressed="true">Cards</button><button type="button" data-raw="1" aria-pressed="false">Agent view</button></span>
-      </form>
-      <form class="query" id="go" hidden>
-        <label>From month <select name="from_month"></select></label>
-        <label>To month <select name="to_month"></select></label>
-        <button class="btn">Show</button>
-        <span class="viewswitch"><button type="button" data-raw="0" aria-pressed="true">Cards</button><button type="button" data-raw="1" aria-pressed="false">Agent view</button></span>
-      </form>
-      <form class="query" id="changed" hidden>
-        <label>Since <input type="date" name="since" required></label>
-        <button class="btn">Show</button>
-        <span class="viewswitch"><button type="button" data-raw="0" aria-pressed="true">Cards</button><button type="button" data-raw="1" aria-pressed="false">Agent view</button></span>
-      </form>
-      <form class="query" id="more" hidden>
-        <label>Item ids <input name="ids" inputmode="numeric" required></label>
-        <button class="btn">Show</button>
+          <span class="grow"></span>
+          <button type="button" class="btn outline" id="new" hidden>Start a new chat</button>
+          <button class="btn" id="send">Ask</button>
+        </div>
       </form>
     </div>
-    <div id="result"></div>
+
+    <div class="lead" id="lead-browse" hidden>
+      <h1>Browse the feed</h1>
+      <p>The four calls that an agent can make. No model is used here.</p>
+      <div class="desk">
+        <div class="ops" role="tablist" aria-label="Call">
+          <button role="tab" data-op="on" aria-selected="true">What is on<span>the trip has dates</span></button>
+          <button role="tab" data-op="go" aria-selected="false">When to go<span>no dates yet</span></button>
+          <button role="tab" data-op="changed" aria-selected="false">What changed<span>since the last look</span></button>
+          <button role="tab" data-op="more" aria-selected="false">Tell me more<span>the proof of an item</span></button>
+        </div>
+        <form class="query" id="on">
+          <label class="field">From <input type="date" name="start" required></label>
+          <label class="field">To <input type="date" name="end" required></label>
+          <button class="btn">Show what is on</button>
+          <span class="toggle"><button type="button" data-raw="0" aria-pressed="true">Programme</button><button type="button" data-raw="1" aria-pressed="false">What the agent gets</button></span>
+        </form>
+        <form class="query" id="go" hidden>
+          <label class="field">From month <select name="from_month" required></select></label>
+          <label class="field">To month <select name="to_month" required></select></label>
+          <button class="btn">Show the months</button>
+          <span class="toggle"><button type="button" data-raw="0" aria-pressed="true">Programme</button><button type="button" data-raw="1" aria-pressed="false">What the agent gets</button></span>
+        </form>
+        <form class="query" id="changed" hidden>
+          <label class="field">Since <input type="date" name="since" required></label>
+          <button class="btn">Show what changed</button>
+          <span class="toggle"><button type="button" data-raw="0" aria-pressed="true">Programme</button><button type="button" data-raw="1" aria-pressed="false">What the agent gets</button></span>
+        </form>
+        <form class="query" id="more" hidden>
+          <label class="field">Item ids <input name="ids" inputmode="numeric" required></label>
+          <button class="btn">Show the proof</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="page work">
+  <section id="view-ask">
+    <div id="intro">
+      <h2>How an answer is built</h2>
+      <ol class="steps">
+        <li><b>The agent calls the feed</b><span>It has four calls and no other source. With dates it asks what is on. With no dates it asks when to go.</span></li>
+        <li><b>The feed returns facts with proof</b><span>Each item says how sure it is: a date that a page states, a date from a rule, or not confirmed.</span></li>
+        <li><b>The agent selects for the guest</b><span>It says how many items the feed has, shows the ones that fit, and gives each source.</span></li>
+      </ol>
+    </div>
+    <div class="talk" id="talk"></div>
+  </section>
+  <section id="view-browse" hidden>
+    <div id="result"><p class="hint">Choose a call and give its dates. The answer shows here.</p></div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>Read-only demo on a local database. A homework project for Magic Safari.</span>
+<footer class="foot">
+  <div class="page">
+    <span>A read-only demo on a local database. Homework for Magic Safari.</span>
     <span id="foot"></span>
   </div>
 </footer>
 
 <div class="scrim" id="scrim" hidden></div>
-<aside class="drawer" id="drawer" hidden aria-label="Proof of an item">
-  <header><div style="flex:1"><div class="eyebrow" style="color:var(--sage)">The proof</div><h3 id="drawer-title"></h3></div>
-    <button class="btn ghost" id="close" style="height:34px;padding:0 12px">Close</button></header>
-  <div class="body" id="drawer-body"></div>
+<aside class="proof" id="proof" hidden aria-label="The proof of an item">
+  <div class="proof-head"><h3 id="proof-title"></h3><button class="btn outline small" id="close">Close</button></div>
+  <div class="proof-body" id="proof-body"></div>
 </aside>
 
 <script>
@@ -243,165 +286,202 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const esc = text => String(text ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const PATHS = {on: "what_is_on", go: "when_to_go", changed: "what_changed", more: "tell_me_more"};
-const GROUP_NOTES = {
-  "dated": "a page states the date, or code wrote it from a weekly rule",
-  "seasons and experiences": "months that a page states, with no year",
-  "not confirmed": "held each year; no page states the dates for this period",
-  "below the traveller bar": "the feed’s soft judgment: routine local life. Shown, not hidden",
-  "new": "first seen on or after the date",
-  "changed": "a change on or after the date"
+const GROUPS = {
+  "dated": ["Dated", "On a day in this window."],
+  "seasons and experiences": ["Seasons and all-year items", "A page states the months or a rule, and no year."],
+  "not confirmed": ["Not confirmed", "Held each year. No page states the dates for this period."],
+  "below the traveller bar": ["Below the traveller bar", "The feed judged these as routine local life. They are shown, not hidden."],
+  "new": ["New", "First seen on or after the date."],
+  "changed": ["Changed", "A fact changed on or after the date."]
 };
-let rawView = false, lastAnswer = null, lastTool = "on";
+const PROVES = {title: "the title", town: "the town", venue: "the venue", price: "the price", when: "the date",
+  yearly: "that it is held each year", traveller: "that it is below the traveller bar"};
+let raw = false, last = null, op = "on";
 
-/* ---------- header numbers ---------- */
+/* ── numbers in the navigation ── */
 fetch("/api/stats").then(r => r.json()).then(s => {
-  if (!s.items && s.items !== 0) return;
-  const tiles = [[s.items, "items in the feed"], [s.sources, "sources collected"], [s.towns, "towns within a 45-minute drive"], [s.as_of, "last ingest"]];
-  $("#stats").innerHTML = tiles.map(([value, label]) => `<div class="stat"><b>${esc(value)}</b><span>${esc(label)}</span></div>`).join("");
-  $("#foot").textContent = `Not collected: ${s.not_collected.join(", ")}. ${s.below_bar} items are below the traveller bar.`;
+  if (typeof s.items !== "number") return;
+  $("#status").textContent = `${s.items} items from ${s.sources} sources, collected ${s.as_of}`;
+  $("#foot").textContent = `Not collected: ${s.not_collected.join(", ")}.`;
 }).catch(() => {});
 
-/* ---------- views ---------- */
-function view(name) {
-  $("#view-ask").hidden = name !== "ask";
-  $("#view-browse").hidden = name !== "browse";
-  $$(".nav nav button").forEach(b => b.setAttribute("aria-selected", b.dataset.view === name));
+/* ── the two views ── */
+function show(view) {
+  $("#band").dataset.view = view;
+  for (const name of ["ask", "browse"]) {
+    $("#lead-" + name).hidden = $("#view-" + name).hidden = name !== view;
+  }
+  $$(".views button").forEach(b => b.setAttribute("aria-selected", b.dataset.view === view));
 }
-$(".nav nav").addEventListener("click", e => { if (e.target.dataset.view) view(e.target.dataset.view); });
+$(".views").addEventListener("click", e => { if (e.target.dataset.view) { show(e.target.dataset.view); history.replaceState(null, "", "#" + e.target.dataset.view); } });
 
-/* ---------- browse ---------- */
+/* ── browse ── */
 for (const select of $$("#go select")) {
-  select.add(new Option("Select a month", ""));
+  select.add(new Option("Choose a month", ""));
   MONTHS.forEach((name, i) => select.add(new Option(name, i + 1)));
-  select.required = true;
 }
-function tool(name) {
-  lastTool = name;
+function pick(name) {
+  op = name;
   $$("form.query").forEach(f => f.hidden = f.id !== name);
-  $$(".tools button").forEach(b => b.setAttribute("aria-selected", b.dataset.tool === name));
+  $$(".ops button").forEach(b => b.setAttribute("aria-selected", b.dataset.op === name));
 }
-$(".tools").addEventListener("click", e => {
+$(".ops").addEventListener("click", e => {
   const button = e.target.closest("button");
-  if (button) { tool(button.dataset.tool); lastAnswer = null; $("#result").innerHTML = ""; }
+  if (!button) return;
+  pick(button.dataset.op);
+  last = null;
+  $("#result").innerHTML = '<p class="hint">Give the input for this call. The answer shows here.</p>';
 });
-$$("form.query").forEach(f => f.addEventListener("submit", e => { e.preventDefault(); ask(f.id); }));
-$$(".viewswitch").forEach(s => s.addEventListener("click", e => {
+$$("form.query").forEach(f => f.addEventListener("submit", e => { e.preventDefault(); run(f.id); }));
+$$(".toggle").forEach(t => t.addEventListener("click", e => {
   if (e.target.dataset.raw === undefined) return;
-  rawView = e.target.dataset.raw === "1";
-  $$(".viewswitch button").forEach(b => b.setAttribute("aria-pressed", (b.dataset.raw === "1") === rawView));
-  if (lastAnswer) render(lastTool, lastAnswer);
+  raw = e.target.dataset.raw === "1";
+  $$(".toggle button").forEach(b => b.setAttribute("aria-pressed", String((b.dataset.raw === "1") === raw)));
+  if (last) draw(op, last);
 }));
 
-async function ask(name) {
+async function run(name) {
   const result = $("#result");
-  result.innerHTML = '<p class="empty">Loading<span class="dots"></span></p>';
+  result.innerHTML = '<p class="hint working">Reading the feed</p>';
   try {
-    const query = new URLSearchParams(new FormData($("#" + name)));
-    const response = await fetch(`/api/${PATHS[name]}?${query}`);
+    const response = await fetch(`/api/${PATHS[name]}?${new URLSearchParams(new FormData($("#" + name)))}`);
     const body = await response.json();
-    if (!response.ok) { result.innerHTML = `<p class="error">${esc(body.detail)}</p>`; return; }
-    lastAnswer = body;
-    render(name, body);
-  } catch (error) { result.innerHTML = `<p class="error">${esc(error)}</p>`; }
+    if (!response.ok) { result.innerHTML = `<p class="problem">${esc(problem(body.detail))}</p>`; return; }
+    last = body;
+    draw(name, body);
+  } catch (error) { result.innerHTML = `<p class="problem">The page cannot reach the local server. Start it again, then try once more.</p>`; }
+}
+function problem(detail) {
+  const text = String(detail);
+  if (text.includes("ends before it starts")) return "The last day is before the first day. Change one of the dates.";
+  if (text.startsWith("not a date")) return "Give both dates.";
+  return text.charAt(0).toUpperCase() + text.slice(1) + ".";
 }
 
 function sure(card) {
-  if (!card.confirmed) return ['warn', 'Not confirmed'];
-  if (card.rule) return ['rule', 'Weekly rule'];
-  if (card.season) return ['rule', 'Season · no year stated'];
-  if (card.range) return ['ok', 'Confirmed · a range'];
-  return ['ok', 'Confirmed'];
+  if (!card.confirmed) return ["open", "Not confirmed"];
+  if (card.rule) return ["rule", "From a weekly rule"];
+  if (card.season) return ["rule", card.when === "All year" ? "A rule on the page, all year" : "Months, no year stated"];
+  if (card.range) return ["stated", "Stated as a range"];
+  return ["stated", "Stated on the page"];
 }
 function note(card) {
-  if (!card.confirmed) return "Held each year. No page states the dates for this period.";
+  if (!card.confirmed) return "The feed does not give a date for this period.";
   if (card.rule) return `The page states the rule, not this date: <q>${esc(card.rule)}</q>`;
   if (card.season) return `The page states: <q>${esc(card.season_quote)}</q>`;
-  if (card.range) return "The page gives a first and a last day. Each day is not stated.";
+  if (card.range) return "The page gives a first and a last day. It does not state each day.";
   return "";
 }
-function cardHtml(card) {
-  const [kind, label] = sure(card);
-  const c = card.changed;
-  const changed = c ? `<div class="note"><b>Changed ${esc(c.found_at)}:</b> ${esc(c.field)} ` +
-    (c.old === null ? `added <q>${esc(c.new)}</q>` : `<q>${esc(c.old)}</q> → <q>${esc(c.new)}</q>`) + `</div>` : "";
-  let host = card.source;
-  try { host = new URL(card.source).hostname.replace(/^www\./, ""); } catch (e) {}
-  return `<article class="card">
-    <div class="top"><span class="tag">${esc(card.category)}</span><span class="sure ${kind}">${label}</span></div>
-    <h4>${esc(card.title)}</h4>
-    <div class="when">${esc(card.when)}</div>
-    ${note(card) ? `<div class="note">${note(card)}</div>` : ""}${changed}
-    <div class="meta"><span>${esc(card.town)}</span><span>Price: ${esc(card.price)}</span><span>${card.sources} source${card.sources === 1 ? "" : "s"}</span><span>First seen ${esc(card.first_seen)}</span></div>
-    <div class="foot"><a href="${esc(card.source)}" target="_blank" rel="noopener">${esc(host)}</a><button class="linkbtn" data-proof="${card.id}">See the proof →</button></div>
+function row(card) {
+  const [mark, label] = sure(card), c = card.changed;
+  const facts = [card.town, card.category, card.price === "not stated" ? "" : card.price, `first seen ${card.first_seen}`].filter(Boolean);
+  const changed = c ? `<p class="note"><b>Changed ${esc(c.found_at)}.</b> ${esc(c.field)} ` +
+    (c.old === null ? `added: <q>${esc(c.new)}</q>` : `was <q>${esc(c.old)}</q>, now <q>${esc(c.new)}</q>`) + `</p>` : "";
+  return `<article class="row">
+    <div class="when">${esc(card.when).replace(/ - /g, " –<br>").replace(/, /g, "<br>")}</div>
+    <div><h4>${esc(card.title)}</h4><p class="facts">${esc(facts.join(", "))}</p>${note(card) ? `<p class="note">${note(card)}</p>` : ""}${changed}</div>
+    <div class="sure"><span><i class="mark ${mark}"></i>${label}</span><button class="text-btn" data-proof="${card.id}">See the proof</button></div>
   </article>`;
 }
-function groupHtml(name, cards, extra = "") {
-  const body = cards.length ? `<div class="cards">${cards.map(cardHtml).join("")}</div>` : '<p class="empty">None.</p>';
-  return `<section class="group"><h3>${esc(name)} · ${cards.length}<span>${esc(extra || GROUP_NOTES[name] || "")}</span></h3>${body}</section>`;
+function group(name, cards) {
+  const [title, meaning] = GROUPS[name] || [name, ""];
+  const body = cards.length ? cards.map(row).join("") : '<p class="none">Nothing in this group.</p>';
+  const below = name === "below the traveller bar" ? " below" : "";
+  return `<section class="group${below}"><div class="group-head"><h3>${esc(title)}</h3><p>${cards.length} ${cards.length === 1 ? "item" : "items"}. ${esc(meaning)}</p></div>${body}</section>`;
 }
-function render(name, body) {
+function draw(name, body) {
   const result = $("#result"), data = body.data;
-  if (name === "more") { result.innerHTML = moreHtml(data); return; }
-  if (rawView) { result.innerHTML = `<pre class="raw">${esc(body.text)}</pre>`; return; }
+  if (name === "more") { result.innerHTML = data.cards.map(card => `<section class="group" style="margin-top:0;max-width:680px"><div class="group-head"><h3>${esc(card.title || "Item " + card.id)}</h3><p>id ${card.id}</p></div><div style="padding-top:22px">${proof(card)}</div></section>`).join(""); return; }
+  if (raw) { result.innerHTML = `<pre class="raw">${esc(body.text)}</pre>`; return; }
   const counts = data.counts;
-  let html = `<div class="counts"><span class="total">${counts.items} item${counts.items === 1 ? "" : "s"}</span>`;
-  html += Object.entries(counts.groups).map(([k, v]) => `<span class="chip"><b>${v}</b> ${esc(k)}</span>`).join("");
-  html += `</div><div class="counts" style="margin-top:0">` + Object.entries(counts.categories).map(([k, v]) => `<span class="chip">${esc(k)} <b>${v}</b></span>`).join("") + `</div>`;
-  if (data.months) html += data.months.map(m => groupHtml(m.name, m.cards, " ")).join("");
-  else html += data.groups.map(g => groupHtml(g.name, g.cards)).join("");
-  const holes = data.holes;
-  if (holes && holes.not_collected.length) {
-    html += `<div class="holes"><b>The list can be incomplete.</b> The feed does not collect: ` +
-      holes.not_collected.map(h => `${esc(h.name)} (${esc(h.reason)}${h.declares ? `; it declares ${esc(h.declares)}` : ""})`).join("; ") + `.</div>`;
+  const parts = Object.entries(counts.groups).map(([k, v]) => `${v} ${k}`).join(", ");
+  const scope = name === "on" ? "in this window" : name === "go" ? "in these months" : "since that date";
+  let html = `<div class="summary"><b>${counts.items}</b><span>${counts.items === 1 ? "item" : "items"} ${scope}: ${esc(parts)}.</span></div>`;
+  const categories = Object.entries(counts.categories).map(([k, v]) => `${k} ${v}`).join(", ");
+  if (categories) html += `<p class="categories">By category: ${esc(categories)}.</p>`;
+  html += `<div class="legend"><span><i class="mark stated"></i>A page states the date</span><span><i class="mark rule"></i>Code wrote the date from a rule on the page</span><span><i class="mark open"></i>Not confirmed for this period</span></div>`;
+  html += data.months ? data.months.map(m => group(m.name, m.cards)).join("") : data.groups.map(g => group(g.name, g.cards)).join("");
+  const missing = (data.holes && data.holes.not_collected) || [];
+  if (missing.length) {
+    html += `<p class="gaps"><b>This list can be incomplete.</b> The feed does not collect ` +
+      missing.map(h => esc(h.name) + (h.declares ? ` (it declares ${esc(h.declares)})` : "")).join(" or ") + `.</p>`;
   }
   result.innerHTML = html;
 }
 
-/* ---------- proof ---------- */
-function proofHtml(card) {
-  if (!card.found) return `<p class="empty">Item ${card.id}: not found.</p>`;
-  const facts = [["When", card.when.join("<br>")], ["Town", esc(card.town)], ["Venue", esc(card.venue)], ["Price", esc(card.price)],
-                 ["Category", esc(card.category)], ["Each year", card.yearly ? "Yes, the page states it" : "Not stated"],
-                 ["Bar", card.below_bar ? "Below the traveller bar" : "Not below the traveller bar"],
-                 ["Source", `<a href="${esc(card.source)}" target="_blank" rel="noopener">${esc(card.source)}</a>`]];
-  const proofs = card.evidence.map(e => e.quote
-    ? `<div class="proof"><div class="f">${esc(e.field)}</div><q>${esc(e.quote)}</q><small>Quote from the page, checked by code · extracted by ${esc(e.model)}</small></div>`
-    : `<div class="proof"><div class="f">${esc(e.field)}</div><small>No quote: ${esc(e.model)}</small></div>`).join("");
-  return `<dl class="facts">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>${proofs}`;
-}
-function moreHtml(data) {
-  return data.cards.map(card => `<section class="group"><h3>${esc(card.title || "id " + card.id)}<span>id ${card.id}</span></h3><div style="max-width:620px">${proofHtml(card)}</div></section>`).join("");
+/* ── the proof ── */
+function proof(card) {
+  if (!card.found) return `<p class="none">The feed has no item with id ${card.id}.</p>`;
+  const sheet = [["When", card.when.map(esc).join("<br>")], ["Town", esc(card.town)], ["Venue", esc(card.venue)], ["Price", esc(card.price)],
+    ["Category", esc(card.category)], ["Each year", card.yearly ? "Yes, a page states it" : "Not stated"],
+    ["Source", `<a href="${esc(card.source)}" target="_blank" rel="noopener">${esc(card.source)}</a>`]];
+  const quotes = card.evidence.map(e => e.quote
+    ? `<div class="says"><q>${esc(e.quote)}</q><small>Proves ${esc(PROVES[e.field] || "the " + e.field)}. Code found this quote on the page. Extracted by ${esc(e.model)}.</small></div>`
+    : `<div class="says unquoted"><small>${esc(PROVES[e.field] || "The " + e.field)}: no quote. It is the default town of this source.</small></div>`).join("");
+  return `<dl class="sheet">${sheet.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl><h4>What the page says, word for word</h4>${quotes}`;
 }
 async function openProof(id) {
-  $("#drawer-title").textContent = "Loading…";
-  $("#drawer-body").innerHTML = "";
-  $("#drawer").hidden = $("#scrim").hidden = false;
-  const response = await fetch(`/api/tell_me_more?ids=${id}`);
-  const body = await response.json();
-  if (!response.ok) { $("#drawer-body").innerHTML = `<p class="error">${esc(body.detail)}</p>`; return; }
-  const card = body.data.cards[0];
-  $("#drawer-title").textContent = card.title || `Item ${id}`;
-  $("#drawer-body").innerHTML = proofHtml(card);
+  $("#proof-title").textContent = "";
+  $("#proof-body").innerHTML = '<p class="hint working">Reading the feed</p>';
+  $("#proof").hidden = $("#scrim").hidden = false;
+  try {
+    const response = await fetch(`/api/tell_me_more?ids=${encodeURIComponent(id)}`);
+    const body = await response.json();
+    if (!response.ok) { $("#proof-body").innerHTML = `<p class="problem">${esc(problem(body.detail))}</p>`; return; }
+    const card = body.data.cards[0];
+    $("#proof-title").textContent = card.title || `Item ${id}`;
+    $("#proof-body").innerHTML = proof(card);
+    $("#close").focus();
+  } catch (error) { $("#proof-body").innerHTML = '<p class="problem">The page cannot reach the local server.</p>'; }
 }
-function closeProof() { $("#drawer").hidden = $("#scrim").hidden = true; }
+function closeProof() { $("#proof").hidden = $("#scrim").hidden = true; }
 document.addEventListener("click", e => { if (e.target.dataset.proof) openProof(e.target.dataset.proof); });
 $("#close").addEventListener("click", closeProof);
 $("#scrim").addEventListener("click", closeProof);
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeProof(); });
 
-/* ---------- agent chat ---------- */
+/* ── the agent ── */
 const talk = $("#talk"), chat = $("#chat");
 let session = crypto.randomUUID();
-function rich(text) {
+function inline(text) {
   return esc(text)
-    .replace(/(https?:\/\/[^\s)<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/[*][*]([^*]+)[*][*]/g, "<strong>$1</strong>")
-    .replace(/^#{1,4} (.*)$/gm, '<span class="h">$1</span>')
-    .replace(/^---+$/gm, "");
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/(^|[\s(])(https?:\/\/[^\s)<]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
 }
-function turn(html, who) {
+function markdown(text) {
+  const out = [];
+  let list = null, table = null, para = [];
+  const flush = () => {
+    if (para.length) { out.push(`<p>${para.map(inline).join("<br>")}</p>`); para = []; }
+    if (list) { out.push(`<${list.tag}>${list.items.map(i => `<li>${inline(i)}</li>`).join("")}</${list.tag}>`); list = null; }
+    if (table) { out.push(`<table>${table.map((cells, n) => `<tr>${cells.map(c => n ? `<td>${inline(c)}</td>` : `<th>${inline(c)}</th>`).join("")}</tr>`).join("")}</table>`); table = null; }
+  };
+  for (const line of text.split("\n")) {
+    const heading = line.match(/^#{1,4}\s+(.*)$/), bullet = line.match(/^\s*[-*]\s+(.*)$/), number = line.match(/^\s*\d+[.)]\s+(.*)$/);
+    if (heading) { flush(); out.push(`<h3>${inline(heading[1])}</h3>`); }
+    else if (/^\s*-{3,}\s*$/.test(line)) { flush(); out.push("<hr>"); }
+    else if (/^\s*\|.*\|\s*$/.test(line)) {
+      if (para.length || list) flush();
+      const cells = line.trim().slice(1, -1).split("|").map(c => c.trim());
+      if (!cells.every(c => /^:?-+:?$/.test(c))) (table = table || []).push(cells);
+    }
+    else if (bullet || number) {
+      const tag = bullet ? "ul" : "ol";
+      if (para.length || table || (list && list.tag !== tag)) flush();
+      (list = list || {tag, items: []}).items.push((bullet || number)[1]);
+    }
+    else if (!line.trim()) flush();
+    else if (list && /^\s+\S/.test(line)) list.items[list.items.length - 1] += " " + line.trim();
+    else { if (list || table) flush(); para.push(line); }
+  }
+  flush();
+  return out.join("");
+}
+function add(html, kind) {
   const box = document.createElement("div");
-  box.className = "turn " + who;
+  box.className = kind;
   box.innerHTML = html;
   talk.append(box);
   box.scrollIntoView({behavior: "smooth", block: "nearest"});
@@ -410,32 +490,49 @@ function turn(html, who) {
 async function send() {
   const message = chat.message.value.trim();
   if (!message) return;
-  turn(esc(message), "you");
+  $("#intro").hidden = true;
+  $("#new").hidden = false;
+  add(esc(message), "asked");
   chat.message.value = "";
-  const wait = turn('The agent is calling the feed<span class="dots"></span>', "agent");
+  const wait = add('<p class="working">The agent is calling the feed</p>', "answer");
   $("#send").disabled = true;
   try {
     const response = await fetch("/api/chat", {method: "POST", headers: {"Content-Type": "application/json"},
       body: JSON.stringify({session, model: chat.model.value, message})});
     const body = await response.json();
-    if (!response.ok) { wait.innerHTML = `<span class="error">${esc(body.detail)}</span>`; return; }
-    const calls = body.calls.map(call =>
-      `<code>${esc(call.name)}(${esc(Object.values(call.input).map(v => JSON.stringify(v)).join(", "))})</code>`).join("") || "no tool call";
-    wait.innerHTML = rich(body.text) + `<div class="trace"><b>Tools called:</b> ${calls}<br>` +
-      `${esc(body.model)} · ${body.input_tokens.toLocaleString()} tokens in, ${body.output_tokens.toLocaleString()} out · ` +
-      `this answer ${body.cost_usd.toFixed(4)} USD · this page since start ${body.spent_usd.toFixed(4)} USD</div>`;
+    if (!response.ok) { wait.innerHTML = `<p class="problem">${esc(problem(body.detail))}</p>`; return; }
+    const calls = body.calls.map(call => `<code>${esc(call.name)}(${esc(Object.values(call.input).map(v => JSON.stringify(v)).join(", "))})</code>`).join("");
+    wait.innerHTML = markdown(body.text) + `<p class="trace">${calls ? "The agent called " + calls : "The agent made no call to the feed."}<br>` +
+      `${esc(body.model)}, ${body.input_tokens.toLocaleString()} tokens in and ${body.output_tokens.toLocaleString()} out. ` +
+      `This answer cost ${body.cost_usd.toFixed(4)} US dollars; ${body.spent_usd.toFixed(4)} since the page started.</p>`;
   } catch (error) {
-    wait.innerHTML = `<span class="error">${esc(error)}</span>`;
+    wait.innerHTML = '<p class="problem">The page cannot reach the local server. Start it again, then ask once more.</p>';
   } finally { $("#send").disabled = false; }
 }
 chat.addEventListener("submit", e => { e.preventDefault(); send(); });
 chat.message.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
 $("#new").addEventListener("click", () => {
-  fetch("/api/reset", {method: "POST", headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({session, model: chat.model.value, message: ""})});
+  fetch("/api/reset", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({session, model: chat.model.value, message: ""})});
   session = crypto.randomUUID();
   talk.innerHTML = "";
+  $("#intro").hidden = false;
+  $("#new").hidden = true;
 });
+
+/* ── a link can open a state: #browse/on?start=2027-06-20&end=2027-06-27&proof=151&raw=1 ── */
+(function fromLink() {
+  const [path, query] = location.hash.slice(1).split("?");
+  const [view, name] = path.split("/");
+  if (view !== "browse") return;
+  show("browse");
+  if (!PATHS[name]) return;
+  pick(name);
+  const params = new URLSearchParams(query || "");
+  for (const [key, value] of params) { const input = $("#" + name).elements[key]; if (input) input.value = value; }
+  if (params.get("raw") === "1") { raw = true; $$(".toggle button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.raw === "1"))); }
+  if ($("#" + name).checkValidity()) run(name);
+  if (params.get("proof")) openProof(params.get("proof"));
+})();
 </script>
 </body>
 </html>
