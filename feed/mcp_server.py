@@ -70,7 +70,7 @@ def _answer(operation, place: str | None, *values) -> str:
             return operation(db, registry, *values)["text"]
         finally:
             db.close()
-    except (ValueError, OSError, sqlite3.Error) as error:
+    except (ValueError, OverflowError, OSError, sqlite3.Error) as error:
         return "error: " + " ".join(str(error).split())
 
 

@@ -86,6 +86,40 @@ def _occurrences(when: dict, ingested: date) -> tuple[str, str, str | None, list
     return f"time kind {kind} is not known"
 
 
+def _ingest_date(fetched_at: str) -> date:
+    at = datetime.fromisoformat(fetched_at)
+    return (at.astimezone(UTC) if at.tzinfo else at).date()
+
+
+def extend_rules(db: sqlite3.Connection, url: str, fetched_at: str) -> None:
+    """An unchanged page still states its rules. Write the dates that a later ingest adds:
+    the next weeks of a weekly rule and the next years of a season. Nothing is deleted."""
+    ingested = _ingest_date(fetched_at)
+    rules = db.execute(
+        "SELECT item_id, rule, time_text, max(start_date), max(end_date) FROM occurrence "
+        "WHERE rule IS NOT NULL AND item_id IN (SELECT item_id FROM evidence WHERE page_id = "
+        "(SELECT max(id) FROM page WHERE url = ?)) GROUP BY item_id, rule, time_text",
+        (url,),
+    ).fetchall()
+    for item_id, rule, time_text, start, end in rules:
+        start, end = date.fromisoformat(start), date.fromisoformat(end)
+        new = []
+        if rule == "weekly":
+            last = _add_months(ingested, EXPAND_MONTHS)
+            while (start := start + timedelta(7)) <= last:
+                new.append((start, start, "day"))
+        else:  # a season: the same months of the next year
+            while start.year < ingested.year + SEASON_YEARS - 1:
+                start = start.replace(year=start.year + 1)
+                end = _add_months(date(end.year, end.month, 1), 13) - timedelta(1)
+                new.append((start, end, "month"))
+        db.executemany(
+            "INSERT INTO occurrence (item_id, start_date, end_date, precision, time_text, rule) "
+            "VALUES (?, ?, ?, ?, ?, ?)",
+            [(item_id, a.isoformat(), b.isoformat(), p, time_text, rule) for a, b, p in new],
+        )
+
+
 def _is_season(when: dict) -> bool:
     return when["kind"] == "months" and not when["start"]["year"]
 
@@ -128,8 +162,7 @@ def _check_item(item, page: dict, source: dict, towns, model: str, categories) -
         if (field == "title" or field.startswith("when")) and not result["ok"]:
             return f"{field}: {result['reason']}"
 
-    ingested = datetime.fromisoformat(page["fetched_at"])
-    ingested = (ingested.astimezone(UTC) if ingested.tzinfo else ingested).date()
+    ingested = _ingest_date(page["fetched_at"])
     # Months with no year are a season only with proof that the item is held each year. If
     # not, "October" in a calendar of one year would become October of three years.
     yearly = _yearly_quote(item, page["text"])
@@ -218,14 +251,28 @@ def _check_item(item, page: dict, source: dict, towns, model: str, categories) -
     }
 
 
-def _find_item(db, source_id: str, town: str, title: str) -> int | None:
-    """The item with this identity: the same source, the same town and the same title."""
+def _find_item(db, source_id: str, new: dict, page_id: int) -> int | None:
+    """The item with this identity: the same source, the same town and the same title.
+
+    Two items of one page are never one item (two "Live Music" evenings), so an item that
+    this page has given already is not a match. Of several matches, the one that shares a
+    date with the new item is taken.
+    """
     rows = db.execute(
         "SELECT DISTINCT i.id, i.title FROM item i JOIN evidence e ON e.item_id = i.id "
-        "JOIN page p ON p.id = e.page_id WHERE p.source_id = ? AND i.town = ? ORDER BY i.id",
-        (source_id, town),
+        "JOIN page p ON p.id = e.page_id WHERE p.source_id = ? AND i.town = ? "
+        "AND i.id NOT IN (SELECT item_id FROM evidence WHERE page_id = ?) ORDER BY i.id",
+        (source_id, new["town"], page_id),
     )
-    return next((id for id, held in rows if _same_title(held) == _same_title(title)), None)
+    same = [id for id, held in rows if _same_title(held) == _same_title(new["title"])]
+    dates = {row[:2] for _, entry in new["occurrences"] for row in entry}
+    for item_id in same:
+        held = db.execute(
+            "SELECT start_date, end_date FROM occurrence WHERE item_id = ?", (item_id,)
+        )
+        if dates & set(held):
+            return item_id
+    return same[0] if same else None
 
 
 def _write_evidence(db, item_id: int, page_id: int, evidence: list) -> None:
@@ -247,7 +294,7 @@ def _log_change(db, item_id: int, field: str, old, new, at: str) -> None:
 def _write_item(db, new: dict, page_id: int, page: dict, source_id: str) -> str:
     """Add the item, or update the item with the same identity. Returns "stored" or "updated"."""
     at = page["fetched_at"]
-    item_id = _find_item(db, source_id, new["town"], new["title"])
+    item_id = _find_item(db, source_id, new, page_id)
     if item_id is None:
         outcome = "stored"
         item_id = db.execute(
@@ -275,10 +322,15 @@ def _write_item(db, new: dict, page_id: int, page: dict, source_id: str) -> str:
         db.execute(
             "UPDATE item SET last_seen_at = ?, last_verified = ? WHERE id = ?", (at, at, item_id)
         )
-        old = db.execute(f"SELECT {', '.join(_LOGGED)} FROM item WHERE id = ?", (item_id,))
-        for field, was in zip(_LOGGED, old.fetchone(), strict=True):
+        old = db.execute(
+            f"SELECT {', '.join(_LOGGED)}, source_link FROM item WHERE id = ?", (item_id,)
+        ).fetchone()
+        # Only the page that gave the item its fields can change them. A second page of the
+        # source with a different wording ("Birkenhead" and "Birkenhead Brewery") is not a change.
+        same_page = old[-1] == page["url"]
+        for field, was in zip(_LOGGED, old, strict=False):
             # An empty value is "not stated on this page"; it never replaces a stored value.
-            if new[field] and new[field] != was:
+            if same_page and new[field] and new[field] != was:
                 db.execute(f"UPDATE item SET {field} = ? WHERE id = ?", (new[field], item_id))
                 _log_change(db, item_id, field, was, new[field], at)
 

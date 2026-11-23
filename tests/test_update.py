@@ -588,3 +588,63 @@ def test_real_festivals_page_yearly_and_months_that_no_quote_proves():
     reasons = dict(report["set_aside"])
     assert "Hermanus Country Market" not in reasons
     assert not any("not built" in reason for reason in reasons.values())
+
+
+# Faults that the blind review of the joined code found.
+
+MUSIC = "Live Music\nThe Deck\n4 December 2026\nLive Music\nHarbour Bar\n11 December 2026\n"
+
+
+def _music(venue: str, day: int) -> dict:
+    when = _when("date", (day, 12, 2026), quotes=[f"{day} December 2026"])
+    return _item("Live Music", when, venue={"value": venue, "quote": venue})
+
+
+def test_two_items_with_one_title_on_one_page_are_two_items(hand):
+    report = _ingest(hand, MUSIC, _music("The Deck", 4), _music("Harbour Bar", 11))
+    assert report == {"stored": 2, "updated": 0, "set_aside": []}
+    rows = (
+        hand[0]
+        .execute(
+            "SELECT i.venue, o.start_date FROM item i JOIN occurrence o ON o.item_id = i.id "
+            "ORDER BY o.start_date"
+        )
+        .fetchall()
+    )
+    assert rows == [("The Deck", "2026-12-04"), ("Harbour Bar", "2026-12-11")]
+    assert _counts(hand)[3] == 0  # one answer never writes a change row
+
+
+def test_on_a_second_run_each_of_the_two_items_is_matched_by_its_date(hand):
+    _ingest(hand, MUSIC, _music("The Deck", 4), _music("Harbour Bar", 11))
+    # the page now lists the later evening first
+    report = _ingest(hand, MUSIC, _music("Harbour Bar", 11), _music("The Deck", 4), at=SECOND)
+    assert report == {"stored": 0, "updated": 2, "set_aside": []}
+    assert _counts(hand)[0] == 2 and _counts(hand)[1] == 2 and _counts(hand)[3] == 0
+    rows = (
+        hand[0]
+        .execute(
+            "SELECT i.venue, o.start_date FROM item i JOIN occurrence o ON o.item_id = i.id "
+            "ORDER BY o.start_date"
+        )
+        .fetchall()
+    )
+    assert rows == [("The Deck", "2026-12-04"), ("Harbour Bar", "2026-12-11")]
+
+
+def test_a_second_page_of_the_source_with_a_different_wording_is_not_a_change(hand):
+    db, registry = hand
+    text = "Beer Fest\nBirkenhead Brewery\nBirkenhead\n12 December 2026\n"
+    when = _when("date", (12, 12, 2026), quotes=["12 December 2026"])
+
+    def ingest(url: str, venue: str, at: str) -> dict:
+        page = {"url": url, "text": text, "fetched_at": at, "status": 200}
+        item = _item("Beer Fest", when, venue={"value": venue, "quote": venue})
+        return ingest_answer(db, registry, "hand", page, {"model": "hand", "items": [item]})
+
+    assert ingest("https://example.org/monthly", "Birkenhead Brewery", FIRST)["stored"] == 1
+    for at in (FIRST, SECOND):
+        assert ingest("https://example.org/yearly", "Birkenhead", at)["updated"] == 1
+        assert ingest("https://example.org/monthly", "Birkenhead Brewery", at)["updated"] == 1
+    assert _one(hand, "SELECT venue FROM item")[0] == "Birkenhead Brewery"
+    assert _counts(hand)[3] == 0

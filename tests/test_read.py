@@ -165,7 +165,8 @@ def test_a_month_of_an_event_is_dated_and_shows_its_year(feed):
     add(db, "Summer months", [("2026-12-01", "2027-01-31", "month", None)])
     answer = on(db, registry, "2026-10-10", "2026-10-12")
     assert groups(answer)["dated"] == ["Food month"]
-    assert "Food month · October 2026 (confirmed) · Hermanus" in answer["text"]
+    note = "(confirmed; a range, each day is not stated)"  # the days in the month are not
+    assert f"Food month · October 2026 {note} · Hermanus" in answer["text"]
     assert titles(on(db, registry, "2026-11-01", "2026-11-05")) == []
     whens = {
         card["title"]: card["when"]
@@ -751,3 +752,47 @@ def test_dates_that_are_not_past_are_not_called_last_held(feed):
     card = answer["data"]["groups"][2]["cards"][0]
     assert card["when"] == "Last stated dates Sat 5 June 2027 - Sun 13 June 2027"
     assert "Last held" not in answer["text"] and "not confirmed" in answer["text"]
+
+
+# Faults that the blind review of the joined code found.
+
+
+def test_a_year_that_code_wrote_is_never_shown_as_last_stated_or_last_held(feed):
+    db, registry = feed
+    add(db, "Whale season", season(6, 11), kind="season", yearly=1)
+    weekly = [
+        ("2027-06-05", "2027-06-05", "day", "weekly"),
+        ("2028-05-20", "2028-05-20", "day", "weekly"),
+    ]
+    add(db, "Yearly market", weekly, yearly=1)
+    answer = on(db, registry, "2029-07-01", "2029-07-31")
+    assert titles(answer) == []
+    assert "Last stated" not in answer["text"] and "Last held" not in answer["text"]
+    months = when_to_go(db, registry, "hermanus", 5, 5)
+    # its dates from the weekly rule are shown as a rule, never as "last held"
+    assert "Last" not in months["text"] and '(weekly rule: "quote of the date")' in months["text"]
+
+
+def test_a_card_with_a_weekly_date_and_a_range_keeps_the_range_note(feed):
+    db, registry = feed
+    rows = [
+        ("2026-12-12", "2026-12-12", "day", "weekly"),
+        ("2026-12-14", "2026-12-20", "day", None),
+    ]
+    add(db, "Night market", rows, time_text="Every Saturday")
+    text = on(db, registry, "2026-12-10", "2026-12-21")["text"]
+    assert '(weekly rule: "Every Saturday"; a range, each day is not stated)' in text
+
+
+def test_as_of_is_the_last_time_that_an_item_was_seen(feed):
+    db, registry = feed
+    festival(db)
+    db.execute("UPDATE item SET last_seen_at = '2027-05-24T12:00:00+00:00'")
+    assert on(db, registry, "2027-06-08", "2027-06-12")["data"]["as_of"] == "2027-05-24"
+
+
+def test_when_to_go_does_not_call_a_past_rule_date_last_held(feed):
+    db, registry = feed
+    add(db, "Old market", [("2026-06-06", "2026-06-06", "day", "weekly")], yearly=1)
+    text = when_to_go(db, registry, "hermanus", 6, 6)["text"]
+    assert "Old market" not in text and "Last" not in text

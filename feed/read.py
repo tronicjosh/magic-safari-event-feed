@@ -81,7 +81,12 @@ def _count(number: int, noun: str) -> str:
 
 
 def _as_of(db: sqlite3.Connection) -> str:
-    return (db.execute("SELECT max(fetched_at) FROM page").fetchone()[0] or "")[:10]
+    # The last ingest: a new page, or an unchanged page that still lists its items.
+    newest = db.execute(
+        "SELECT max(at) FROM (SELECT max(fetched_at) AS at FROM page "
+        "UNION ALL SELECT max(last_seen_at) FROM item)"
+    ).fetchone()[0]
+    return (newest or "")[:10]
 
 
 def _rows(db: sqlite3.Connection, place: str, where: str, values: tuple = ()) -> list:
@@ -128,6 +133,8 @@ def _add(card: dict, occurrence) -> None:
         text = _months(first, last, year=rule is None)
         if rule is not None:
             card["season"], card["season_quote"] = True, _line(time_text)
+        else:  # a month that a page states with its year: the days in it are not stated
+            card["range"] = True
     else:
         text = _when(first, last)
         card["range"] = card["range"] or first != last
@@ -150,12 +157,14 @@ def _state(card: dict) -> str:
     if not card["confirmed"]:
         return "not confirmed"
     if card["rule"]:  # code wrote the date from a rule; the designer sees the proof
-        return f'weekly rule: "{card["rule"]}"'
-    if card["season"]:
-        return f'season, no year stated: "{card["season_quote"]}"'
+        state = f'weekly rule: "{card["rule"]}"'
+    elif card["season"]:
+        state = f'season, no year stated: "{card["season_quote"]}"'
+    else:
+        state = "confirmed"
     if card["range"]:  # the page gives a first and a last day, not each day
-        return "confirmed; a range, each day is not stated"
-    return "confirmed"
+        state += "; a range, each day is not stated"
+    return state
 
 
 def _changes(db: sqlite3.Connection, item_id: int, since: str = "") -> list[dict]:
@@ -284,7 +293,9 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
 
     # Held each year, and no row in the window: if the latest real dates, moved by whole
     # years, overlap the window, the item is "not confirmed". No other item is projected.
-    latest = {row[0]: row for row in _rows(db, place, "i.repeats_yearly = 1")}
+    # Only a date that a page states can be "last held": never a row that code wrote.
+    yearly = _rows(db, place, "i.repeats_yearly = 1 AND o.rule IS NULL")
+    latest = {row[0]: row for row in yearly}
     for item_id, row in latest.items():
         moved = None if item_id in cards else _moved_into(row[_N], row[_N + 1], start, end)
         if moved is not None:
@@ -366,8 +377,11 @@ def when_to_go(
             for row in shown:
                 _add(card, row[_N:])
         else:
-            group, shown = 2, rows[-1:]
-            _last_held(card, rows[-1][_N:], as_of)
+            real = [row for row in rows if row[_N + 3] is None]  # dates that a page states
+            if not real:
+                continue
+            group, shown = 2, real[-1:]
+            _last_held(card, real[-1][_N:], as_of)
         covers = set().union(*(_months_of(row[_N], row[_N + 1]) for row in shown))
         if covers & set(numbers):
             listed.append((group, _finish(db, card), covers))

@@ -21,12 +21,19 @@ from feed.env import load_env
 from feed.extract import extract
 from feed.fetch import fetch_page
 from feed.store import open_db
-from feed.update import ingest_answer
+from feed.update import extend_rules, ingest_answer
 
 MODEL = "claude-haiku-5-5"
 REGISTRY = Path("registry.json")
 RUNS = Path("runs/runs.md")
-_MODEL_FAILURES = (anthropic.AnthropicError, httpx.HTTPError, ValueError, LookupError)
+_MODEL_FAILURES = (
+    anthropic.AnthropicError,
+    httpx.HTTPError,
+    ValueError,
+    LookupError,
+    TypeError,
+    StopIteration,
+)
 
 
 def _unchanged(db: sqlite3.Connection, url: str, text: str) -> bool:
@@ -69,6 +76,7 @@ def _ingest_page(db, registry, source, page, fetch, extract, model, client) -> d
             "FROM evidence e WHERE e.page_id = (SELECT max(id) FROM page WHERE url = ?))",
             (fetched["fetched_at"], fetched["fetched_at"], fetched["url"]),
         )
+        extend_rules(db, fetched["url"], fetched["fetched_at"])
         db.commit()
         return line
 

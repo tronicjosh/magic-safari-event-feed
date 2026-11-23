@@ -548,8 +548,52 @@ def test_an_unchanged_page_moves_last_seen_of_its_items_and_writes_no_row(db, re
 
     extract = SavedExtract()
     run_ingest(db, registry, fetch=later, extract=extract, model=MODEL)
-    assert extract.calls == [] and _rows(db) == before
+    assert extract.calls == []
+    after = _rows(db)
+    # No page, item or evidence row. The only new rows are the next week of each weekly rule.
+    assert {t: after[t] for t in ("page", "item", "evidence")} == {
+        t: before[t] for t in ("page", "item", "evidence")
+    }
+    new = db.execute(
+        "SELECT DISTINCT rule, start_date FROM occurrence WHERE start_date > '2028-05-23'"
+    ).fetchall()
+    assert new == [("weekly", "2028-05-27")]
+    assert (
+        after["occurrence"] - before["occurrence"]
+        == db.execute(
+            "SELECT count(DISTINCT item_id) FROM occurrence WHERE rule = 'weekly'"
+        ).fetchone()[0]
+    )
     seen = db.execute("SELECT DISTINCT substr(last_seen_at, 1, 10) FROM item").fetchall()
     assert seen == [("2026-11-30",)]
     first = db.execute("SELECT DISTINCT substr(first_seen, 1, 10) FROM item").fetchall()
     assert first == [("2026-11-23",)]
+
+
+def test_an_unchanged_page_half_a_year_later_keeps_the_feed_current(db, registry):
+    """The answers must not go stale because the pages did not change."""
+    from datetime import date
+
+    from feed.read import what_is_on
+
+    run_ingest(db, registry, fetch=_saved_fetch, extract=SavedExtract(), model=MODEL)
+
+    def later(page):
+        return dict(_saved_fetch(page), fetched_at="2027-05-24T12:00:00+00:00")
+
+    run_ingest(db, registry, fetch=later, extract=SavedExtract(), model=MODEL)
+    answer = what_is_on(db, registry, "hermanus", date(2028, 6, 3), date(2028, 6, 10))
+    assert answer["data"]["as_of"] == "2027-05-24"
+    dated = [card for card in answer["data"]["groups"][0]["cards"] if card["rule"]]
+    assert dated and all("Sat 3 June 2028" in card["when"] for card in dated)
+    weekly = db.execute("SELECT max(start_date) FROM occurrence WHERE rule = 'weekly'")
+    assert weekly.fetchone()[0] == "2028-11-18"  # the last Saturday on or before 24 November 2028
+    seasons = db.execute(
+        "SELECT max(start_date) FROM occurrence WHERE rule = 'season' GROUP BY item_id"
+    ).fetchall()
+    assert seasons and all(start[:4] == "2029" for (start,) in seasons)
+    doubles = db.execute(
+        "SELECT count(*) FROM (SELECT 1 FROM occurrence GROUP BY item_id, start_date, end_date "
+        "HAVING count(*) > 1)"
+    ).fetchone()[0]
+    assert doubles == 0

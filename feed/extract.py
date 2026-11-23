@@ -186,6 +186,9 @@ def extract(client, model: str, page_id: str, text: str, towns, bars: dict, cate
         "items": None,  # a refusal or max_tokens gives no items, and the reason is on record
     }
     if message.stop_reason == "end_turn":
-        answer = next(block.text for block in message.content if block.type == "text")
-        record["items"] = json.loads(answer)["items"]
+        answer = next((block.text for block in message.content if block.type == "text"), "")
+        try:
+            record["items"] = json.loads(answer)["items"]
+        except (ValueError, KeyError, TypeError):  # the call is paid: keep its usage and cost
+            record["stop_reason"] = "the answer is not in the format"
     return record
