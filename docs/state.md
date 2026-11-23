@@ -28,7 +28,7 @@ feed/ingest.py runs the left side: python -m feed.ingest
 - Branch `build`, local commits only. A push needs my approval.
 - Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (215 tests).
 - `feed.db` is the database of the real run (git ignores it). `python -m feed.ingest` makes it again; a run on unchanged pages costs nothing.
-- Spend: 0.240788 of 5 US dollars (tests 0.176008, real run 0.064780).
+- Spend: 0.310269 of 5 US dollars (tests 0.176008, real run 0.064780, demo agent tests 0.069481). Answers that Joshua asks on the demo page add to this; the page shows each cost.
 
 ## What the model decides, and what code checks
 
@@ -48,6 +48,7 @@ A person is not a step. An item that is not stored is in the run report with its
 
 | What | Where | How |
 |---|---|---|
+| Demo page with an agent | `feed/web.py`, `feed/agent.py` | `./.venv/Scripts/python -m uvicorn feed.web:app --port 8000`, then http://localhost:8000. "Ask the agent" is a Claude model with only the four tools and the server instructions; each answer is a paid model call and the page shows its measured cost. The other tabs call each tool with no model |
 | Demo with no agent | `feed/demo.py` | `./.venv/Scripts/python -m feed.demo` prints the text of the four operations for a trip of 20 to 27 June 2027, from `feed.db` |
 | Test with a new Claude (A8, A14) | `C:/Users/joshj/Desktop/Magic Safari/feed-demo/` (outside the repository, so no `CLAUDE.md` is read) | Start Claude Code in that folder, approve the server `event-feed`, and ask the questions in `questions.md` |
 | Sample of 20 stored items (A1) | `evals/sample_check.md` | Open each source link and mark each fact true or false. `research/sample/make_sample.py` makes the sheet again |
