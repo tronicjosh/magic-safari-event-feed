@@ -44,14 +44,14 @@ def checks(answer: str, tool_text: str) -> dict:
     """
     links = re.findall(r"https?://[^\s)\]>\"]+", answer)
     items, outside = [], 0
-    for line in answer.splitlines():
+    # an item line that goes on a second, indented line is one line
+    joined = re.sub(r"\n[ \t]+(?![-*•–]\s|\d+[.)]\s)", " ", answer)
+    for line in joined.splitlines():
         text = line.strip()
         if not text or not re.search(r"\w", text):
             continue
         if re.match(r"([-*•–]|\d+[.)])\s", text) and "](http" in text:
             items.append(text)
-        elif "](http" in text and items and line[:1].isspace():
-            items[-1] += " " + text  # an item line that goes on
         elif (
             len(text.split()) <= 6 and "](http" not in text and text.strip("*_# ")[-1:] not in ".!?"
         ):

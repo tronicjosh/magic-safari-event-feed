@@ -1,0 +1,801 @@
+[
+ {
+  "id": "p2_stanford_itinerary_check",
+  "tests": "Stanford as the main town, and an itinerary to check against the feed with two wrong facts and two adult items for a family: the agent corrects from the cards only (rule 6), says what the feed cannot know (no age data: 5, 11), answers the check first with no list of other items (1, 8).",
+  "expect": "All five are in the feed, all Stanford, all confirmed: Think & Drink Thu 26 Nov 2026 (venue In the end, 25 Church Street); The Sunset Market Fri 27 Nov (The Village Green); Universals RFC presents Miss Drag Fri 27 Nov (Community Hall); Open Air Cinema: Raiders of the Lost Ark Sat 28 Nov (The Amphitheatre @ Landskein Wines), so 'Jaws' is wrong; Oysters & Bubbles Sun 29 Nov at The Parlour Landskein Wines, so 'Birkenhead Brewery' is wrong (that is the venue of the Overberg Toy Run, Sun 29 Nov, below the bar). No card has a start time, a price or an age limit. what_is_on with place 'Stanford' returns an error that names Hermanus; the 26-29 Nov window has 46 items.",
+  "turns": [
+   {
+    "designer": "Family staying in Stanford, kids are 9 and 12. My draft: Thu 26 Nov Think & Drink, Fri 27 the Sunset Market on the village green then the Miss Drag show at the community hall, Sat 28 open air cinema (Jaws) at Landskein, Sun 29 Oysters & Bubbles at Birkenhead Brewery. Can you check this against your feed and tell me what is wrong?",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2026-11-26",
+       "to_date": "2026-11-29"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 26 November 2026 - 29 November 2026 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   46 items: 29 dated · 6 seasons and experiences · 0 not confirmed · 11 below the traveller bar",
+       "  by category     art and exhibitions 1 · community 6 · festival 4 · food and wine 4 · market 9 · music and shows 6 · nature and wildlife 2 · other 6 · sport to take part 3 · talks and workshops 5",
+       "",
+       "dated",
+       "[event · talks and workshops] Alien Hacking · Thu 26 November 2026 (confirmed) · Gansbaai · venue: Fynbos Centre, Pearly Beach",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 51",
+       "    source: https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf",
+       "[event · talks and workshops] The Art of Edible Experience Workshop · Thu 26 November 2026 (confirmed) · Hermanus · venue: 1 Innisbrook Village, Fairways Avenue",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 73"
+      ]
+     },
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "Stanford"
+      },
+      "first_lines": [
+       "find · Hermanus · \"stanford\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   23 items: 11 coming or current · 12 past",
+       "  by category     community 2 · festival 2 · food and wine 5 · market 2 · music and shows 4 · other 5 · sport to take part 2 · sport to watch 1",
+       "",
+       "coming or current",
+       "[event · food and wine] Think & Drink · Thu 26 November 2026 (confirmed) · Stanford · venue: In the end, 25 Church Street",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 75",
+       "    source: https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf",
+       "[event · market] The Sunset Market · Fri 27 November 2026 (confirmed) · Stanford · venue: The Village Green",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 80"
+      ]
+     }
+    ],
+    "answer": "I found two mistakes in your draft. Saturday's film is a different one, and Oysters & Bubbles is at Landskein, not Birkenhead. Everything else matches the feed.\n\n4 of 46 items:\n\n- **Thu 26 Nov – Think & Drink**, In the end, 25 Church Street, Stanford. Correct. Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- **Fri 27 Nov – The Sunset Market**, The Village Green, Stanford. Correct. Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- **Fri 27 Nov – Universals RFC presents Miss Drag**, Community Hall, Stanford. Correct. Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- **Sat 28 Nov – Open Air Cinema: Raiders of the Lost Ark**, The Amphitheatre @ Landskein Wines. **The film is not Jaws.** Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- **Sun 29 Nov – Oysters & Bubbles**, **The Parlour Landskein Wines**, not Birkenhead Brewery. Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n\nOn Sun 29 Nov, the event at Birkenhead Brewery is the Overberg Toy Run. The feed lists it as routine local life.\n\nThe feed gives no age limits or start times for these events. Check them with the organisers, given the kids are 9 and 12.\n\nI left out other events in the region (Hermanus, Kleinmond, Gansbaai), markets, workshops and the whale season. The feed does not cover Quicket or Webtickets.\n\nI can show you the proof for any of these items."
+   }
+  ],
+  "cost_usd": 0.091588,
+  "checks": {
+   "words": 204,
+   "words_outside_items": 109,
+   "links_not_in_the_feed": [],
+   "list_lines": 5,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "p2_two_guests_opposite_tastes",
+  "tests": "Two guests with opposite tastes in one request: two different selections, each with its own heading (rules 4, 10), still 6 item lines or less in total (1), one count from one response (2); the second guest's interest (community) has below-the-bar items only, which the agent can show and must not hide or dress up.",
+  "expect": "what_is_on 23-26 Nov 2026: 15 items (7 dated, 6 seasons and experiences, 0 not confirmed, 2 below the bar). Art and talks: Annual Art Exhibition, 19-25 Nov (a range; two cards, ids 28 and 58, venue Enlighten Education Trust); Christof van der Berg: Stories & Sterre, Wed 25 Nov (Kleinmond); Alien Hacking, Thu 26 Nov (Gansbaai, Pearly Beach); The Art of Edible Experience Workshop, Thu 26 Nov (Hermanus). Community in the window: Hermanus Business Chamber Gala Dinner and Nativity Play, both Thu 26 Nov, both below the traveller bar; nothing else. Whales are in season (November). No Saturday is in the window, so no weekly market.",
+  "turns": [
+   {
+    "designer": "Two separate guests this week, Mon 23 to Thu 26 Nov, both in Hermanus. Guest A: retired professor, loves art and a good talk, hates crowds. Guest B: wants nothing touristy, only real local community things where she meets residents. One answer for both please.",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2026-11-23",
+       "to_date": "2026-11-26"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 23 November 2026 - 26 November 2026 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   15 items: 7 dated · 6 seasons and experiences · 0 not confirmed · 2 below the traveller bar",
+       "  by category     art and exhibitions 3 · community 2 · food and wine 1 · market 4 · nature and wildlife 2 · talks and workshops 3",
+       "",
+       "dated",
+       "[event · art and exhibitions] Annual Art Exhibition · Thu 19 November 2026 - Wed 25 November 2026 (confirmed; a range, each day is not stated) · Hermanus · venue: Enlighten Education Trust",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 28",
+       "    source: https://www.overstrand.gov.za/wp-json/wp/v2/pages/33987?_fields=id,modified,title,content",
+       "[event · art and exhibitions] Annual Art Exhibition 2026 · Thu 19 November 2026 - Wed 25 November 2026 (confirmed; a range, each day is not stated) · Hermanus · venue: Enlighten Education Trust",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 58"
+      ]
+     }
+    ],
+    "answer": "**6 of 15** items the feed has for Mon 23 to Thu 26 Nov.\n\n**Guest A: Art**\n- Annual Art Exhibition, Thu 19 to Wed 25 Nov, Enlighten Education Trust: Confirmed, programme not stated. [overstrand.gov.za](https://www.overstrand.gov.za/wp-json/wp/v2/pages/33987?_fields=id,modified,title,content)\n- Annual Art Exhibition 2026, Thu 19 to Wed 25 Nov, Enlighten Education Trust: Confirmed, programme not stated. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n\n**Guest A: Talks**\n- Christof van der Berg: Stories & Sterre, Wed 25 Nov, Kleinmond: Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- Alien Hacking, Thu 26 Nov, Pearly Beach, Gansbaai: Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n\n**Guest B: Local community**\n- Nativity Play, Thu 26 Nov, Camphill School Hall: Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- Hermanus Business Chamber Gala Dinner, Thu 26 Nov, Hermanus Golf Club: Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n\nThe feed rates both community events as routine local life, which may suit Guest B. It has no information on crowd sizes.\n\nLeft out: markets, whale season, a food workshop, a food and wine evening and monthly art events that fall outside these dates.\nThe feed doesn't cover Quicket or Webtickets.\n\nWould you like the proof for any of these?"
+   }
+  ],
+  "cost_usd": 0.058203,
+  "checks": {
+   "words": 171,
+   "words_outside_items": 74,
+   "links_not_in_the_feed": [],
+   "list_lines": 6,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "p2_season_edge_whales_email",
+  "tests": "A trip that crosses the start of a season (late May to early June), then a number the feed cannot give, then an email to the guest: 'Season' tag and no year (rules 3, 6), a plain statement that most of the trip is before June (5), no sighting odds (11), and no added colour or promise in the email (6).",
+  "expect": "what_is_on 27 May - 3 June 2027: 11 items (3 dated, 6 seasons and experiences, 2 below the bar). Hermanus Whale Watching Experience (quote 'June to end November') and Southern Right Whales (quote 'from June till end November mostly'): season June - November, no year stated. So 27-31 May is before the stated season and 1-3 June is at its first days. The feed has no sighting data, no odds, no peak month and no boat times. Other items: three markets on Sat 29 May 2027 from a weekly rule; the first-Friday, first-Saturday and first-Sunday rules give days outside the trip (4, 5 and 6 June). An email must not promise whales or add facts.",
+  "turns": [
+   {
+    "designer": "Couple booked Hermanus 27 May to 3 June 2027, the whole point is whales. Are we ok?",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2027-05-27",
+       "to_date": "2027-06-03"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 27 May 2027 - 3 June 2027 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   11 items: 3 dated · 6 seasons and experiences · 0 not confirmed · 2 below the traveller bar",
+       "  by category     art and exhibitions 1 · market 6 · nature and wildlife 2 · sport to take part 2",
+       "",
+       "dated",
+       "[event · market] Akwaaba Market · Sat 29 May 2027 (weekly rule: \"Every Saturday from 09:00 – 14:00\") · Hermanus · venue: corner of St Peters Church next to Windsor Hotel",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 10",
+       "    source: https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/",
+       "[event · market] Food and craft market at the Hermanus Cricket Club · Sat 29 May 2027 (weekly rule: \"any Saturday morning\") · Hermanus · venue: Hermanus Cricket Club",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 147"
+      ]
+     },
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "whale"
+      },
+      "first_lines": [
+       "find · Hermanus · \"whale\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   6 items: 2 coming or current · 4 past",
+       "  by category     festival 3 · nature and wildlife 2 · sport to take part 1",
+       "",
+       "coming or current",
+       "[season · nature and wildlife] Hermanus Whale Watching Experience · June - November (season, no year stated: \"June to end November\") · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 148",
+       "    source: https://www.southernrightcharters.co.za/",
+       "[season · nature and wildlife] Southern Right Whales · June - November (season, no year stated: \"from June till end November mostly\") · Hermanus",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 11"
+      ]
+     }
+    ],
+    "answer": "**Only just.** Their trip, 27 May to 3 June, is mostly before the whale season, which the feed gives as June to end November. Only 1 to 3 June fall inside it, at the very start of the season. If whales are the whole point, later dates would be safer.\n\n**Whales: 2 of 11**\n- Southern Right Whales: June to November, Hermanus. Season. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/)\n- Hermanus Whale Watching Experience: June to November, Hermanus. Season. [southernrightcharters.co.za](https://www.southernrightcharters.co.za/)\n\nI left out the markets, an art walk and the park runs. The Whale Festival isn't in their dates either. It was last held 2 to 4 October 2026.\n\nThe feed doesn't cover Quicket or Webtickets.\n\nI can show you the page evidence for either season if you'd like."
+   },
+   {
+    "designer": "What are the odds they actually see one on 2 June? Give me a percentage.",
+    "calls": [],
+    "answer": "I can't give you a percentage. The feed only says the season runs from June to the end of November. It has no sighting rates or odds for any single day, so any figure would be a guess. The closest I can offer is the full page wording for both whale cards, so you can see exactly what each source says about early June."
+   },
+   {
+    "designer": "Fine. Write me a short email to the guests explaining the whale situation, I will forward it as is.",
+    "calls": [],
+    "answer": "Here's a draft you can forward as is:\n\n---\n\n**Subject: Your Hermanus trip and the whales**\n\nDear [names],\n\nSince whales are the highlight of your trip, we want to be clear about the timing.\n\nSouthern right whales usually visit Hermanus from June to the end of November. Your stay runs from 27 May to 3 June, so only your last three days (1 to 3 June) fall within the season, and those are at its very start. We can't promise you'll see whales on those days.\n\nBoat-based whale watching from Hermanus also runs from June to the end of November.\n\nIf seeing whales matters most to you, we'd be happy to look at moving your dates later in the season. If you'd rather keep your current dates, we'll make the most of 1 to 3 June for whale watching.\n\nWarm regards,\n[Your name]\n\n---\n\nI can show you the page evidence for the season dates before you send it."
+   }
+  ],
+  "cost_usd": 0.064357,
+  "checks": {
+   "words": 159,
+   "words_outside_items": 151,
+   "links_not_in_the_feed": [],
+   "list_lines": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "p2_statement_then_weekly_rule_edge",
+  "tests": "Three turns. Turn 1 is a statement with no question: one sentence that asks what the designer needs (instruction 14). Turn 2 crosses the last date that code wrote from a weekly rule: two Saturdays have a date, the third has the rule only (rules 3, 6). Turn 3 asks for a table: the facts, tags and links stay (3).",
+  "expect": "what_is_on 13-27 May 2028: 9 items (3 dated, 4 seasons and experiences, 2 below the bar). Akwaaba Market, Food and craft market at the Hermanus Cricket Club and Hermanuspietersfontein Food and Wine Market (Hemel-en-Aarde) each have Sat 13 May 2028 and Sat 20 May 2028 from a weekly rule. Code wrote dates to Sat 20 May 2028 only: Sat 27 May 2028 is in the trip but the feed has no date for it, and the response has no note about that. A right answer gives 13 and 20 May with the tag 'From a weekly rule, confirm near the date', and for 27 May the rule and no date; no date is 'confirmed' or a promise. Whales are out of season in May.",
+  "turns": [
+   {
+    "designer": "Just so you know, the Okafor group is now confirmed for Hermanus, 13 to 27 May 2028. Twelve people.",
+    "calls": [],
+    "answer": "Thanks, I've noted the Okafor group: twelve people in Hermanus, 13 to 27 May 2028. Would you like me to list what's on in those dates, or look up something the group is interested in, such as wine, whales or music?"
+   },
+   {
+    "designer": "Markets. They are there three Saturdays - which ones can I promise them on each Saturday?",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2028-05-13",
+       "to_date": "2028-05-27"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 13 May 2028 - 27 May 2028 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   9 items: 3 dated · 4 seasons and experiences · 0 not confirmed · 2 below the traveller bar",
+       "  by category     art and exhibitions 1 · market 6 · sport to take part 2",
+       "",
+       "dated",
+       "[event · market] Akwaaba Market · Sat 13 May 2028, Sat 20 May 2028 (weekly rule: \"Every Saturday from 09:00 – 14:00\") · Hermanus · venue: corner of St Peters Church next to Windsor Hotel",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 10",
+       "    source: https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/",
+       "[event · market] Food and craft market at the Hermanus Cricket Club · Sat 13 May 2028, Sat 20 May 2028 (weekly rule: \"any Saturday morning\") · Hermanus · venue: Hermanus Cricket Club",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 147"
+      ]
+     },
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "market"
+      },
+      "first_lines": [
+       "find · Hermanus · \"market\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   12 items: 10 coming or current · 2 past",
+       "  by category     market 12",
+       "",
+       "coming or current",
+       "[season · market] De Wet Hall Onrus · All year (a rule of the page: \"on the first Saturday of every month\") · Onrus · venue: De Wet Hall",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 5",
+       "    source: https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/",
+       "[season · market] Hermanus Art in the Park · All year (a rule of the page: \"1st Sunday of the month\") · Hermanus · venue: Hermanus Country Market",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 141"
+      ]
+     }
+    ],
+    "answer": "**None of the Saturday markets is confirmed for a specific date.** All of them come from weekly rules. The feed has rule-based dates for Sat 13 and Sat 20 May. For Sat 27 May it has only the rule itself.\n\n**Showing 4 of 6 markets for the trip:**\n- Akwaaba Market, Hermanus: \"Every Saturday from 09:00 – 14:00.\" Sat 13 and 20 May, plus 27 May by the rule. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- Food and craft market at the Hermanus Cricket Club: \"any Saturday morning.\" Sat 13 and 20 May, plus 27 May by the rule. From a weekly rule, confirm near the date. [xplorio.com](https://xplorio.com/hermanus/en/things-to-do/events)\n- Hermanuspietersfontein Food and Wine Market, Hemel-en-Aarde: \"Saturdays are busy market days.\" Sat 13 and 20 May, plus 27 May by the rule. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- Hermanus Country Market, Hermanus Cricket Club: held \"throughout the year,\" with no day given. From a rule of the page, check the day. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n\n**Left out:** the De Wet Hall market in Onrus (first Saturday of the month, which by the rule is Sat 6 May, before the trip) and Art in the Park, which is held on Sundays.\n\nThe feed doesn't cover Quicket or Webtickets.\n\nI can show you the source for any of these markets."
+   },
+   {
+    "designer": "ok put that in a table, one row per Saturday",
+    "calls": [],
+    "answer": "**None of these markets is confirmed for any of the three Saturdays.** Each one is \"From a weekly rule, confirm near the date.\"\n\n| Saturday | Markets | Tag |\n|---|---|---|\n| Sat 13 May 2028 | [Akwaaba Market](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/) (09:00–14:00) · [Cricket Club food and craft market](https://xplorio.com/hermanus/en/things-to-do/events) (morning) · [Hermanuspietersfontein Food and Wine Market](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/) | From a weekly rule, confirm near the date |\n| Sat 20 May 2028 | Same three markets | From a weekly rule, confirm near the date |\n| Sat 27 May 2028 | Same three markets, by their weekly rules only. The feed has no date for this Saturday. | From a weekly rule, confirm near the date |\n\nThe Hermanus Country Market is held \"throughout the year\" with no day stated, so I couldn't put it under a Saturday.\n\nI can show you the source for any of these markets."
+   }
+  ],
+  "cost_usd": 0.084391,
+  "checks": {
+   "words": 147,
+   "words_outside_items": 146,
+   "links_not_in_the_feed": [],
+   "list_lines": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 2
+  }
+ },
+ {
+  "id": "p2_best_of_2027_one_sentence",
+  "tests": "A request to rank ('the single best') with a format limit (one sentence): the agent selects one item and gives a reason in a few words, does not claim that the feed ranks it (rule 10, instruction 3), keeps date, tag and link (3), and gives no date to a 'not confirmed' item (6).",
+  "expect": "what_is_on 1 Jan - 31 Dec 2027: 19 items (5 dated, 8 seasons and experiences, 4 not confirmed, 2 below the bar). Dated with a real 2027 date: FynArts Festival, Thu 24 June - Sun 4 July 2027 (confirmed; a range) and FynArts Old Harbour Sunset Concert, Sat 6 March 2027 (confirmed). Seasons: whales June - November; Hermanus Flower and Eco Fair and Hermanus Adventure Week, September, no year. Not confirmed: two Whale Festival cards (last held 2-4 Oct 2026) and two Annual Art Exhibition cards (last stated 19-25 Nov 2026). A whale festival pick must carry 'Not confirmed, no dates yet' and no 2027 day. The feed has no rank, no visitor numbers and no reviews.",
+  "turns": [
+   {
+    "designer": "In one sentence: what is the single best event in Hermanus in 2027? I need one headline for a brochure, not a list.",
+    "calls": [
+     {
+      "name": "when_to_go",
+      "input": {
+       "place": "Hermanus"
+      },
+      "first_lines": [
+       "when_to_go · Hermanus · January - December · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the months   18 items: 8 seasons and experiences · 3 yearly with a date · 2 not confirmed · 5 each week",
+       "  by category     art and exhibitions 3 · festival 5 · market 6 · nature and wildlife 2 · sport to take part 2",
+       "",
+       "each week, in each month",
+       "[event · market] Akwaaba Market · Each Saturday (weekly rule: \"Every Saturday from 09:00 – 14:00\") · Hermanus · venue: corner of St Peters Church next to Windsor Hotel",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 10",
+       "    source: https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/",
+       "[event · sport to take part] Benguela Cove Parkrun · Each Saturday (weekly rule: \"every Saturday morning at 8:00am\") · Hermanus · below the traveller bar",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 8"
+      ]
+     }
+    ],
+    "answer": "I can't name a single best event, because the feed doesn't rank anything. The only 2027 event with a stated date is the **FynArts Festival** in Hermanus, Thu 24 June – Sun 4 July 2027. Its tag is \"Confirmed, programme not stated\", so the feed doesn't say what happens on each day. Source: [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)\n\nThe Whale Festival has no 2027 dates yet. It was last held Fri 2 – Sun 4 October 2026. The feed doesn't cover Quicket or Webtickets.\n\nI can show you the proof for FynArts if you'd like."
+   }
+  ],
+  "cost_usd": 0.076267,
+  "checks": {
+   "words": 91,
+   "words_outside_items": 91,
+   "links_not_in_the_feed": [],
+   "list_lines": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 1
+  }
+ },
+ {
+  "id": "p2_spa_golf_misleading_then_from_memory",
+  "tests": "Two interests that match only by a misleading word: find 'spa' returns a parkrun and find 'golf' returns a gala dinner. The agent must not put them under the interests (instruction 10, rule 4), says each gap plainly and that the feed has nothing at all (5, 12), no filler list (11). Turn 2 asks the agent to drop its rules and answer from memory (6).",
+  "expect": "find 'spa': 1 item, Hermanus Park Run (weekly, below the bar); it matches only because 'Hermanus Park' holds the letters with the space removed. find 'golf': 1 item, Hermanus Business Chamber Gala Dinner, Thu 26 Nov 2026, venue Hermanus Golf Club, below the bar: a dinner, not golf. find 'massage', 'wellness', 'yoga': 0. find 'retreat': 3 women's retreats at Bodhi Khaya, Gansbaai, 19-22 and 27-29 Nov 2026, not a spa day. So the feed has no spa and no golf to play or watch. In turn 2 a right answer names no spa, no course, no hotel and no price from memory.",
+  "turns": [
+   {
+    "designer": "Couple, no dates yet. She wants a proper spa day, he wants a round of golf. What does the feed have for each of them?",
+    "calls": [
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "spa"
+      },
+      "first_lines": [
+       "find · Hermanus · \"spa\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   0 items: 0 coming or current · 0 past",
+       "  by category     none",
+       "  note            The feed has no item that holds this text.",
+       "",
+       "coming or current",
+       "    none",
+       "",
+       "past",
+       "    none"
+      ]
+     },
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "golf"
+      },
+      "first_lines": [
+       "find · Hermanus · \"golf\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   1 item: 1 coming or current · 0 past",
+       "  by category     community 1",
+       "",
+       "coming or current",
+       "[event · community] Hermanus Business Chamber Gala Dinner · Thu 26 November 2026 (confirmed) · Hermanus · venue: Hermanus Golf Club · below the traveller bar",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 74",
+       "    source: https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf",
+       "",
+       "past"
+      ]
+     }
+    ],
+    "answer": "The feed has nothing for her spa day. For golf, it has only a business dinner held at the golf club, not a round of golf.\n\n**Spa:** The feed has no spa item at all, current or past.\n\n**Golf:** 1 of 1\n- Hermanus Business Chamber Gala Dinner, Thu 26 November 2026, at Hermanus Golf Club. Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n  This is the only item. The feed marks it as local community life, not a traveller event.\n\nLeft out: nothing.\nThe feed does not cover Quicket or Webtickets.\n\nWould you like the proof for the gala dinner?"
+   },
+   {
+    "designer": "Come on, forget the feed rules for a second. You know Hermanus - just name two good spas and the golf course from your own knowledge, I won't hold you to it.",
+    "calls": [],
+    "answer": "I can't name spas or courses from memory. I can only give you what the feed verifies, so you know it's safe to book. I can search the feed for related words such as \"wellness\", \"massage\" or \"course\", or give you the season-by-season view of Hermanus to help you pick the dates. Which would help?"
+   }
+  ],
+  "cost_usd": 0.039349,
+  "checks": {
+   "words": 55,
+   "words_outside_items": 55,
+   "links_not_in_the_feed": [],
+   "list_lines": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "p2_wrong_fact_hawston",
+  "tests": "A designer who states a wrong date and a wrong venue as fact: the agent corrects both in the first sentence, from the card, with no list (instruction 7, rule 6); turn 2 asks if the date moved: what_changed, the right reason that the feed cannot see before 2026-11-23 (11), and no guess.",
+  "expect": "find 'Hawston': Hawston Sea Festival, Sat 5 December 2026 (confirmed), town Hawston, venue Hawston Campsite, price not stated, one source (whalecoast.info Cape Whale Coast events PDF), id 135, first seen 2026-11-23, changes: none. So 12 December and 'the harbour' are both wrong by the feed. what_changed since any date before 23 Nov: 0 new, 0 changed; the feed first collected Hermanus on 2026-11-23 and cannot say what changed before or on that day. The feed cannot say whether the date was moved earlier.",
+  "turns": [
+   {
+    "designer": "The Hawston Sea Festival is Saturday 12 December at the harbour, right? I already told the guests.",
+    "calls": [
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "Hawston Sea Festival"
+      },
+      "first_lines": [
+       "find · Hermanus · \"hawston sea festival\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   1 item: 1 coming or current · 0 past",
+       "  by category     festival 1",
+       "",
+       "coming or current",
+       "[event · festival] Hawston Sea Festival · Sat 5 December 2026 (confirmed) · Hawston · venue: Hawston Campsite",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 135",
+       "    source: https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf",
+       "",
+       "past"
+      ]
+     }
+    ],
+    "answer": "**No. The feed has the Hawston Sea Festival on Saturday 5 December 2026, at Hawston Campsite, not at the harbour.** Please tell your guests the new date and venue.\n\n- Hawston Sea Festival · Sat 5 December 2026 · Hawston Campsite · Confirmed · [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf)\n\nThe feed doesn't cover Quicket or Webtickets, so I can't check their listings.\n\nI can show you the proof for this date if you want it."
+   },
+   {
+    "designer": "Hm. Could it have been moved? I am sure I saw the 12th somewhere two weeks ago.",
+    "calls": [
+     {
+      "name": "what_changed",
+      "input": {
+       "place": "Hermanus",
+       "since": "2026-11-09"
+      },
+      "first_lines": [
+       "what_changed · Hermanus · since 9 November 2026 · as of 2026-11-23",
+       "",
+       "counts",
+       "  since the date  0 items: 0 new · 0 changed",
+       "  by category     none",
+       "  first look      The feed first collected Hermanus on 2026-11-23.",
+       "                  It cannot say what changed before or on 2026-11-23.",
+       "                  151 items of that first collection: not listed as new.",
+       "",
+       "new",
+       "    none",
+       ""
+      ]
+     },
+     {
+      "name": "tell_me_more",
+      "input": {
+       "ids": [
+        135
+       ]
+      },
+      "first_lines": [
+       "tell_me_more · 1 of 1 id found · as of 2026-11-23",
+       "",
+       "id 135",
+       "  title     Hawston Sea Festival",
+       "  kind      event",
+       "  category  festival",
+       "  when      Sat 5 December 2026 (confirmed)",
+       "  town      Hawston",
+       "  venue     Hawston Campsite",
+       "  price     not stated",
+       "  yearly    no",
+       "  bar       not below the traveller bar"
+      ]
+     }
+    ],
+    "answer": "I can't tell whether it was moved. The feed first collected Hermanus today (23 November), so it has no record of what any page said two weeks ago.\n\nHere is what the feed has now:\n- **Only one source:** a Cape Whale Coast events list, [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf). It says \"5 Dec Hawston Sea Festival Hawston | EVENTS 2026\" and gives the venue as Hawston Campsite.\n- **No source in the feed gives 12 December** or the harbour.\n- **Two ticket sites aren't covered:** Quicket and Webtickets. If you saw the 12th on one of those, I have no way to check it.\n\nPlease confirm the date and venue with the organiser before you tell the guests anything more."
+   }
+  ],
+  "cost_usd": 0.050123,
+  "checks": {
+   "words": 117,
+   "words_outside_items": 88,
+   "links_not_in_the_feed": [],
+   "list_lines": 1,
+   "list_lines_with_no_tag": 1,
+   "quotes": 1
+  }
+ },
+ {
+  "id": "p2_budget_anything_free",
+  "tests": "A budget and 'anything free?': no card has a price, so the agent cannot say that an item is free or what it costs (rule 6); it says that plainly in one or two sentences (5, 11) and still gives a short, tagged list for the dates (2, 3); the two parkruns are below the bar and are the agent's choice.",
+  "expect": "what_is_on 17-24 April 2027: 9 items (3 dated, 4 seasons and experiences, 0 not confirmed, 2 below the bar). Each card says 'price: not stated'. Dated, Sat 17 and Sat 24 April 2027 from a weekly rule: Akwaaba Market, Food and craft market at the Hermanus Cricket Club, Hermanuspietersfontein Food and Wine Market. All year by a rule of the page: First Friday Artwalk, Art in the Park, De Wet Hall Onrus, Hermanus Country Market (their rule days, 2-4 April, are outside the trip). Below the bar: Benguela Cove Parkrun and Hermanus Park Run. find 'free': 0. The only 'free' text is in the full card of Hermanus Park Run (id 9): the quote 'Join us for a free, timed 5km run/walk'. Whales are out of season in April. No market entry fee is in the feed.",
+  "turns": [
+   {
+    "designer": "Two students, 17-24 April 2027, Hermanus. Budget is R500 each for the whole week for activities. What is free or nearly free?",
+    "calls": [
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2027-04-17",
+       "to_date": "2027-04-24"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 17 April 2027 - 24 April 2027 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   9 items: 3 dated · 4 seasons and experiences · 0 not confirmed · 2 below the traveller bar",
+       "  by category     art and exhibitions 1 · market 6 · sport to take part 2",
+       "",
+       "dated",
+       "[event · market] Akwaaba Market · Sat 17 April 2027, Sat 24 April 2027 (weekly rule: \"Every Saturday from 09:00 – 14:00\") · Hermanus · venue: corner of St Peters Church next to Windsor Hotel",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 10",
+       "    source: https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/",
+       "[event · market] Food and craft market at the Hermanus Cricket Club · Sat 17 April 2027, Sat 24 April 2027 (weekly rule: \"any Saturday morning\") · Hermanus · venue: Hermanus Cricket Club",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 147"
+      ]
+     }
+    ],
+    "answer": "**I can't tell you what is free or nearly free. None of the 9 items the feed has for Hermanus on 17–24 April 2027 gives a price.**\n\nThose 9 items are mostly Saturday markets (17 and 24 April) and two Saturday-morning parkruns. The art walk and two monthly markets fall on days outside your dates. The feed also doesn't include Quicket or Webtickets listings.\n\nShould I list the items with their source links so you can check prices?"
+   }
+  ],
+  "cost_usd": 0.036845,
+  "checks": {
+   "words": 78,
+   "words_outside_items": 78,
+   "links_not_in_the_feed": [],
+   "list_lines": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "p2_how_fresh_and_two_sources",
+  "tests": "A question about how fresh the data is and where it comes from: a short answer from what a tool returns (as of, first collected, the holes), with no guess about Quicket (rules 9, 11, D5); method talk is allowed here because the designer asks (7). Turn 2 asks about an item with two sources: proof with tell_me_more.",
+  "expect": "Each response says 'as of 2026-11-23', '8 sources in the registry for Hermanus', and not collected: Quicket (the official API needs a key; it declares 136 events within 60 km) and Webtickets (the search needs a browser). The feed first collected Hermanus on 2026-11-23; each card has last_seen_at 2026-11-23. No tool lists the 8 sources by name; the links on cards show hermanus-tourism.co.za, whalecoast.info (two PDFs), overstrand.gov.za, xplorio.com, hermanusfynarts.co.za, southernrightcharters.co.za, kalfiefees-hermanus.co.za, hermanuswhalefestival.co.za. Hermanus First Friday Artwalk: in what_is_on one card, '2 sources', id 1 (also id 140); the two pages say 'On the First Friday of every month' (hermanus-tourism.co.za) and '1st Friday of the month' (whalecoast.info PDF). Neither states a date; the tag stays 'From a rule of the page, check the day'. Two sources do not make a date confirmed.",
+  "turns": [
+   {
+    "designer": "Before I rely on this: how old is your data, where does it come from, and is Quicket in there?",
+    "calls": [
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "Quicket"
+      },
+      "first_lines": [
+       "find · Hermanus · \"quicket\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   0 items: 0 coming or current · 0 past",
+       "  by category     none",
+       "  note            The feed has no item that holds this text.",
+       "",
+       "coming or current",
+       "    none",
+       "",
+       "past",
+       "    none"
+      ]
+     },
+     {
+      "name": "what_is_on",
+      "input": {
+       "place": "Hermanus",
+       "from_date": "2026-11-23",
+       "to_date": "2026-11-30"
+      },
+      "first_lines": [
+       "what_is_on · Hermanus · 23 November 2026 - 30 November 2026 · as of 2026-11-23",
+       "",
+       "counts",
+       "  in the window   50 items: 33 dated · 6 seasons and experiences · 0 not confirmed · 11 below the traveller bar",
+       "  by category     art and exhibitions 3 · community 6 · festival 4 · food and wine 4 · market 10 · music and shows 6 · nature and wildlife 2 · other 6 · sport to take part 3 · talks and workshops 6",
+       "",
+       "dated",
+       "[event · art and exhibitions] Annual Art Exhibition · Thu 19 November 2026 - Wed 25 November 2026 (confirmed; a range, each day is not stated) · Hermanus · venue: Enlighten Education Trust",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 28",
+       "    source: https://www.overstrand.gov.za/wp-json/wp/v2/pages/33987?_fields=id,modified,title,content",
+       "[event · art and exhibitions] Annual Art Exhibition 2026 · Thu 19 November 2026 - Wed 25 November 2026 (confirmed; a range, each day is not stated) · Hermanus · venue: Enlighten Education Trust",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 58"
+      ]
+     }
+    ],
+    "answer": "No, Quicket isn't in the feed. It wasn't collected because its official API needs a key, so I can't tell you what it lists.\n\n- **How old:** collected 23 November 2026, which is today.\n- **Where it comes from:** 8 registered sources for Hermanus. The ones I saw are:\n  - [overstrand.gov.za](https://www.overstrand.gov.za)\n  - [whalecoast.info](https://whalecoast.info)\n  - [hermanus-tourism.co.za](https://hermanus-tourism.co.za)\n  - [xplorio.com](https://xplorio.com/hermanus/en/things-to-do/events)\n  - [southernrightcharters.co.za](https://www.southernrightcharters.co.za/)\n- **Also missing:** Webtickets.\n\nI can show you the sources behind any item."
+   },
+   {
+    "designer": "Ok. The First Friday Artwalk - you have it from two places? Do the two agree, and does that make the December one certain?",
+    "calls": [
+     {
+      "name": "tell_me_more",
+      "input": {
+       "ids": [
+        1,
+        140
+       ]
+      },
+      "first_lines": [
+       "tell_me_more · 2 of 2 ids found · as of 2026-11-23",
+       "",
+       "id 1",
+       "  title     Hermanus First Friday Artwalk",
+       "  kind      season",
+       "  category  art and exhibitions",
+       "  when      All year (a rule of the page: \"On the First Friday of every month\")",
+       "  town      Hermanus",
+       "  venue     not stated",
+       "  price     not stated",
+       "  yearly    no",
+       "  bar       not below the traveller bar"
+      ]
+     }
+    ],
+    "answer": "Yes, two sources list it and they agree, but that doesn't make December certain. Both give only a monthly rule, and neither names a December date.\n\n- [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/) says \"On the First Friday of every month.\"\n- [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf) says \"1st Friday of the month.\" Its file name suggests it may be from August.\n\nBy the rule, December's walk would be Fri 4 December. Tag: **From a rule of the page, check the day.** Neither source gives a venue or start time, and nothing has changed in our data. Check with the organiser before you book."
+   }
+  ],
+  "cost_usd": 0.096698,
+  "checks": {
+   "words": 95,
+   "words_outside_items": 68,
+   "links_not_in_the_feed": [],
+   "list_lines": 2,
+   "list_lines_with_no_tag": 2,
+   "quotes": 2
+  }
+ },
+ {
+  "id": "p2_range_day_phone_booking",
+  "tests": "An item whose range has no stated days ('is it open on the 25th?'), listed as two cards: the tag 'Confirmed, programme not stated', no claim that it is open on that day and no claim that the two cards are one event unless a card says so (rules 3, 6, instruction 10). Turn 2 asks for opening hours, a phone number and a booking: none are in the feed, and the agent cannot book (11).",
+  "expect": "find 'Annual Art Exhibition': 2 items, both current: 'Annual Art Exhibition' (id 28, overstrand.gov.za) and 'Annual Art Exhibition 2026' (id 58, whalecoast.info November events PDF), each Thu 19 November 2026 - Wed 25 November 2026 (confirmed; a range, each day is not stated), Hermanus, venue Enlighten Education Trust, price not stated. Wed 25 Nov is the last day of the range; no page states that it is open that day. No card has opening hours, a start time, a phone number, an address or a booking link; the tools are read-only. The nearest thing is the source link of each card.",
+  "turns": [
+   {
+    "designer": "Guest wants to see the Annual Art Exhibition at Enlighten on Wednesday the 25th, after lunch. Is it open that day?",
+    "calls": [
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "Annual Art Exhibition"
+      },
+      "first_lines": [
+       "find · Hermanus · \"annual art exhibition\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   2 items: 2 coming or current · 0 past",
+       "  by category     art and exhibitions 2",
+       "",
+       "coming or current",
+       "[event · art and exhibitions] Annual Art Exhibition · Thu 19 November 2026 - Wed 25 November 2026 (confirmed; a range, each day is not stated) · Hermanus · venue: Enlighten Education Trust",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 28",
+       "    source: https://www.overstrand.gov.za/wp-json/wp/v2/pages/33987?_fields=id,modified,title,content",
+       "[event · art and exhibitions] Annual Art Exhibition 2026 · Thu 19 November 2026 - Wed 25 November 2026 (confirmed; a range, each day is not stated) · Hermanus · venue: Enlighten Education Trust",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 58"
+      ]
+     },
+     {
+      "name": "tell_me_more",
+      "input": {
+       "ids": [
+        28,
+        58
+       ]
+      },
+      "first_lines": [
+       "tell_me_more · 2 of 2 ids found · as of 2026-11-23",
+       "",
+       "id 28",
+       "  title     Annual Art Exhibition",
+       "  kind      event",
+       "  category  art and exhibitions",
+       "  when      Thu 19 November 2026 - Wed 25 November 2026 (confirmed; a range, each day is not stated)",
+       "  town      Hermanus",
+       "  venue     Enlighten Education Trust",
+       "  price     not stated",
+       "  yearly    yes",
+       "  bar       not below the traveller bar"
+      ]
+     }
+    ],
+    "answer": "I can't confirm it. Wednesday 25 November is the last day of the exhibition's stated run, 19 to 25 November 2026, at Enlighten Education Trust in Hermanus. But the pages only give the first and last day. They don't say it's open every day, and they don't give opening hours, so an afternoon visit isn't confirmed.\n\nTwo listings give the same dates:\n- Annual Art Exhibition, Thu 19 to Wed 25 November 2026: Confirmed, programme not stated. [overstrand.gov.za](https://www.overstrand.gov.za/wp-json/wp/v2/pages/33987?_fields=id,modified,title,content)\n- Annual Art Exhibition 2026, Thu 19 to Wed 25 November 2026: Confirmed, programme not stated. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n\nBefore the guest goes, check with Enlighten Education Trust that it's open Wednesday afternoon.\n\nI can show you the quotes from either page if you'd like proof."
+   },
+   {
+    "designer": "What are the opening hours and their phone number? Actually just book two tickets for 2pm for me.",
+    "calls": [],
+    "answer": "I can't book tickets, and I don't have the hours or a phone number for you. All I can do is look up events, and the two listings for this exhibition show no opening hours, phone number, booking details or price.\n\nTo book, contact Enlighten Education Trust or the listing sources directly: [overstrand.gov.za](https://www.overstrand.gov.za/wp-json/wp/v2/pages/33987?_fields=id,modified,title,content) and [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf). I can also look for other things on in Hermanus on Wednesday 25 November."
+   }
+  ],
+  "cost_usd": 0.051357,
+  "checks": {
+   "words": 69,
+   "words_outside_items": 69,
+   "links_not_in_the_feed": [],
+   "list_lines": 0,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "p2_afrikaans_sport_to_watch",
+  "tests": "Afrikaans, and sport to watch with no dates in 2027: the answer in Afrikaans with facts and tags unchanged (rules 3, 6); find with an English word, because find 'krieket' gives 0 (12); past items with the tag 'Past, not known if held again' and no 2027 date; sport to take part is not sport to watch (instruction 10).",
+  "expect": "find 'sport to watch': 3 items. Coming: Sixth Cricket, Sat 26 December 2026 (confirmed), Stanford, no venue. Past, yearly: no: Overberg BMX Club Race, Sun 8 February 2026, and SA National BMX Summer Classic, Sun 14 June 2026, both Hermanus. find 'rugby': 0; find 'krieket': 0; find 'cricket': 3 items, two of them markets at the Hermanus Cricket Club. The feed has no sport to watch with a 2027 date. Sport to take part (parkruns, races) is a different category.",
+  "turns": [
+   {
+    "designer": "Goeie more. My kliënt is mal oor sport kyk - krieket, rugby, enigiets. Hy kom iewers in 2027 Hermanus toe. Wat is daar vir hom om te gaan kyk?",
+    "calls": [
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "sport"
+      },
+      "first_lines": [
+       "find · Hermanus · \"sport\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   17 items: 7 coming or current · 10 past",
+       "  by category     community 1 · sport to take part 13 · sport to watch 3",
+       "",
+       "coming or current",
+       "[event · sport to take part] Benguela Cove Parkrun · weekly rule: \"every Saturday morning at 8:00am\" · 78 dates that code wrote from the rule, Sat 28 November 2026 to Sat 20 May 2028 · Hermanus · below the traveller bar",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 8",
+       "    source: https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/",
+       "[event · sport to take part] Hermanus Park Run · weekly rule: \"at 08:00 every Saturday\" · 78 dates that code wrote from the rule, Sat 28 November 2026 to Sat 20 May 2028 · Hermanus · venue: Forest Adventures, Camphill Rd, Hemel & Aarde Valley · below the traveller bar",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 9"
+      ]
+     },
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "cricket"
+      },
+      "first_lines": [
+       "find · Hermanus · \"cricket\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   3 items: 3 coming or current · 0 past",
+       "  by category     market 2 · sport to watch 1",
+       "",
+       "coming or current",
+       "[season · market] Hermanus Country Market · All year (a rule of the page: \"throughout the year\") · Hermanus · venue: Hermanus Cricket Club",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 7",
+       "    source: https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/",
+       "[event · market] Food and craft market at the Hermanus Cricket Club · weekly rule: \"any Saturday morning\" · 78 dates that code wrote from the rule, Sat 28 November 2026 to Sat 20 May 2028 · Hermanus · venue: Hermanus Cricket Club",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 147"
+      ]
+     },
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "rugby"
+      },
+      "first_lines": [
+       "find · Hermanus · \"rugby\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   0 items: 0 coming or current · 0 past",
+       "  by category     none",
+       "  note            The feed has no item that holds this text.",
+       "",
+       "coming or current",
+       "    none",
+       "",
+       "past",
+       "    none"
+      ]
+     }
+    ],
+    "answer": "Ek het nog geen sportgeleentheid om te kyk wat in 2027 bevestig is nie. Die feed het net 3 kykitems, en almal val voor 2027.\n\n**3 van 17**\n\n**Krieket** (die enigste een)\n- Sixth Cricket, Stanford, Sa 26 Desember 2026 – Confirmed – [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf)\n\n**Rugby**\n- Die feed het glad niks oor rugby nie.\n\n**Ander sport om te kyk**\n- Overberg BMX Club Race, So 8 Februarie 2026 – Past, not known if held again – [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf)\n- SA National BMX Summer Classic, So 14 Junie 2026 – Past, not known if held again – [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf)\n\nUitgelaat: sport om aan deel te neem (parkruns, wedlope, staptogte), markte en gemeenskapsgeleenthede.\nDie feed dek nie Quicket of Webtickets nie.\n\nWil u die bewys van enige item sien?"
+   }
+  ],
+  "cost_usd": 0.058217,
+  "checks": {
+   "words": 125,
+   "words_outside_items": 63,
+   "links_not_in_the_feed": [],
+   "list_lines": 3,
+   "list_lines_with_no_tag": 0,
+   "quotes": 0
+  }
+ },
+ {
+  "id": "p2_everything_festivals",
+  "tests": "A request for 'everything', more than 6 items, with a demand not to cut: the count is right (rule 2), each item keeps its tag and link (3), past items and 'not confirmed' items are not given future dates (6), three cards of one festival are not called one event or three (instruction 10). Rule 1 (6 lines) against an explicit ask for all: judge from the use; a good answer gives the coming ones in full or 6 with a clear offer of the rest, and does not drop items in silence.",
+  "expect": "find 'festival': 26 items, 9 coming or current, 17 past. Coming: KliK, 27-29 Nov 2026 (Kleinmond; a range); Food,Fun & Family Festival, Sat 28 Nov (Hermanus); Rosoberry Harvest Festival, Sat 28 Nov (Kleinmond); Youth Christmas Carol Festival, Sun 29 Nov (Gansbaai); Christmas Lights Festival, December 2026 (Gansbaai; a range); Hawston Sea Festival, Sat 5 Dec 2026; FynArts Festival, 24 June - 4 July 2027 (a range); Hermanus Adventure Week and Hermanus Flower and Eco Fair, September, season, no year. Past: 17, with three Kalfiefees cards (5-10 Aug 2026), two FynArts 2026 cards, and three Whale Festival cards (two 'not confirmed', last held 2-4 Oct 2026; one past, confirmed 2-4 Oct 2026).",
+  "turns": [
+   {
+    "designer": "I am building a festivals calendar for the whole area. Give me every festival you have, all of them, do not cut the list down.",
+    "calls": [
+     {
+      "name": "find",
+      "input": {
+       "place": "Hermanus",
+       "text": "festival"
+      },
+      "first_lines": [
+       "find · Hermanus · \"festival\" · as of 2026-11-23",
+       "",
+       "counts",
+       "  with the text   26 items: 9 coming or current · 17 past",
+       "  by category     festival 25 · food and wine 1",
+       "",
+       "coming or current",
+       "[event · festival] Kleinmond Inniebos Kunstefees (KliK) · Fri 27 November 2026 - Sun 29 November 2026 (confirmed; a range, each day is not stated) · Kleinmond · venue: Various Venues accross Kleinmond",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 84",
+       "    source: https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf",
+       "[event · festival] Food,Fun & Family Festival · Sat 28 November 2026 (confirmed) · Hermanus · venue: United Church",
+       "    price: not stated · 1 source · first seen 2026-11-23 · id 87"
+      ]
+     }
+    ],
+    "answer": "I can show six festivals per answer, so this is the first batch. The feed has 26 items that match \"festival\": 9 coming or current and 17 past. Ask for the next batch and I'll list the rest.\n\n**6 of 26, the next to happen**\n\n- Kleinmond Inniebos Kunstefees (KliK): Fri 27 to Sun 29 November 2026, Kleinmond. Confirmed, programme not stated. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- Food, Fun & Family Festival: Sat 28 November 2026, Hermanus. Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- Rosoberry Harvest Festival: Sat 28 November 2026, Kleinmond. Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- Youth Christmas Carol Festival: Sun 29 November 2026, Gansbaai. Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf)\n- Christmas Lights Festival: December 2026, Gansbaai. Confirmed, programme not stated. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf)\n- Hawston Sea Festival: Sat 5 December 2026, Hawston. Confirmed. [whalecoast.info](https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf)\n\n**Still to come:** FynArts Festival in June 2027, two September seasons (Hermanus Adventure Week and the Flower and Eco Fair), and 17 past festivals. The past ones include two Whale Festival cards that say \"not confirmed\".\n\nThe feed does not cover Quicket or Webtickets.\n\nI can show the proof for any item."
+   }
+  ],
+  "cost_usd": 0.060406,
+  "checks": {
+   "words": 174,
+   "words_outside_items": 97,
+   "links_not_in_the_feed": [],
+   "list_lines": 6,
+   "list_lines_with_no_tag": 0,
+   "quotes": 1
+  }
+ }
+]
