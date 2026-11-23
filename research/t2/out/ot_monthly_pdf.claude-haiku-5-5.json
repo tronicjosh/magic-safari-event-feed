@@ -1,0 +1,3147 @@
+{
+ "page_id": "ot_monthly_pdf",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T11:59:20.081951+00:00",
+ "message_id": "msg_011ChKpVFznUasDGfSnTatER",
+ "stop_reason": "end_turn",
+ "input_tokens": 5149,
+ "output_tokens": 33028,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.017029,
+ "items": [
+  {
+   "title": {
+    "value": "Ceramic Exhibition Rooted from Earth to Art",
+    "quote": "Ceramic Exhibition Rooted from Earth to Art"
+   },
+   "town": {
+    "value": "Betty’s Bay",
+    "quote": "Ceramic Exhibition Rooted from Earth to Art 14 - 22 10:00 - 16:00 Harold Porter Botanical Gardens Betty’s Bay"
+   },
+   "venue": {
+    "value": "Harold Porter Botanical Gardens",
+    "quote": "Ceramic Exhibition Rooted from Earth to Art 14 - 22 10:00 - 16:00 Harold Porter Botanical Gardens Betty’s Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 14,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "Ceramic Exhibition Rooted from Earth to Art 14 - 22 10:00 - 16:00 Harold Porter Botanical Gardens Betty’s Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Bring & Braai",
+    "quote": "Bring & Braai"
+   },
+   "town": {
+    "value": "Pringle Bay",
+    "quote": "Bring & Braai 18 17:30 Hangklip Hotel Pringle Bay"
+   },
+   "venue": {
+    "value": "Hangklip Hotel",
+    "quote": "Bring & Braai 18 17:30 Hangklip Hotel Pringle Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Bring & Braai 18 17:30 Hangklip Hotel Pringle Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "5-Course Dinner Fundraiser",
+    "quote": "5-Course Dinner Fundraiser"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "5-Course Dinner Fundraiser 18 18:00 La Trattoria Stanford"
+   },
+   "venue": {
+    "value": "La Trattoria",
+    "quote": "5-Course Dinner Fundraiser 18 18:00 La Trattoria Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "5-Course Dinner Fundraiser 18 18:00 La Trattoria Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Book Launch: Treasured Islands",
+    "quote": "Book Launch: Treasured Islands"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Book Launch: Treasured Islands 18 18:00 Hermanus Library Hermanus"
+   },
+   "venue": {
+    "value": "Hermanus Library",
+    "quote": "Book Launch: Treasured Islands 18 18:00 Hermanus Library Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Book Launch: Treasured Islands 18 18:00 Hermanus Library Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Agteros Pop Up Heritage Table",
+    "quote": "Agteros Pop Up Heritage Table"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Agteros Pop Up Heritage Table 18 18:30 The Station Bistro Hermanus"
+   },
+   "venue": {
+    "value": "The Station Bistro",
+    "quote": "Agteros Pop Up Heritage Table 18 18:30 The Station Bistro Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Agteros Pop Up Heritage Table 18 18:30 The Station Bistro Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Come & listen to Jacob Ka’laari & Badprop",
+    "quote": "Come & listen to Jacob Ka’laari & Badprop"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Come & listen to Jacob Ka’laari & Badprop 18 18:30 Birkenhead Bootklub Gansbaai"
+   },
+   "venue": {
+    "value": "Birkenhead Bootklub",
+    "quote": "Come & listen to Jacob Ka’laari & Badprop 18 18:30 Birkenhead Bootklub Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Come & listen to Jacob Ka’laari & Badprop 18 18:30 Birkenhead Bootklub Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kus + Kuier Mummy’s Night",
+    "quote": "Kus + Kuier Mummy’s Night"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kus + Kuier Mummy’s Night 18 18:30 - 21:00 43 Nemesia Avenue, Proteadorp Kleinmond"
+   },
+   "venue": {
+    "value": "43 Nemesia Avenue, Proteadorp",
+    "quote": "Kus + Kuier Mummy’s Night 18 18:30 - 21:00 43 Nemesia Avenue, Proteadorp Kleinmond"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Kus + Kuier Mummy’s Night 18 18:30 - 21:00 43 Nemesia Avenue, Proteadorp Kleinmond",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Music Quiz with Allen",
+    "quote": "Music Quiz with Allen"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Music Quiz with Allen 18 19:00 Harbour on Deck Gansbaai"
+   },
+   "venue": {
+    "value": "Harbour on Deck",
+    "quote": "Music Quiz with Allen 18 19:00 Harbour on Deck Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Music Quiz with Allen 18 19:00 Harbour on Deck Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Open Mic Night",
+    "quote": "Open Mic Night"
+   },
+   "town": {
+    "value": "Pringle Bay",
+    "quote": "Open Mic Night 18 19:00 Hangklip Hotel Pringle Bay"
+   },
+   "venue": {
+    "value": "Hangklip Hotel",
+    "quote": "Open Mic Night 18 19:00 Hangklip Hotel Pringle Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Open Mic Night 18 19:00 Hangklip Hotel Pringle Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Bingo Night",
+    "quote": "Bingo Night"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Bingo Night 18 19:00 Pearly Beach Hengel Klub Gansbaai"
+   },
+   "venue": {
+    "value": "Pearly Beach Hengel Klub",
+    "quote": "Bingo Night 18 19:00 Pearly Beach Hengel Klub Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Bingo Night 18 19:00 Pearly Beach Hengel Klub Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Christmas Stalletjies",
+    "quote": "Christmas Stalletjies"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Christmas Stalletjies 18 - 24 All Day Uilenkraalsmond Resort Gansbaai"
+   },
+   "venue": {
+    "value": "Uilenkraalsmond Resort",
+    "quote": "Christmas Stalletjies 18 - 24 All Day Uilenkraalsmond Resort Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 24,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "Christmas Stalletjies 18 - 24 All Day Uilenkraalsmond Resort Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Alien Hacking",
+    "quote": "Alien Hacking"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Alien Hacking 19 9:00 Fynbos Centre, Pearly Beach Gansbaai"
+   },
+   "venue": {
+    "value": "Fynbos Centre, Pearly Beach",
+    "quote": "Alien Hacking 19 9:00 Fynbos Centre, Pearly Beach Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Alien Hacking 19 9:00 Fynbos Centre, Pearly Beach Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 26,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Alien Hacking 26 9:00 Fynbos Centre, Pearly Beach Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "ChatGPT Mastery",
+    "quote": "ChatGPT Mastery"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "ChatGPT Mastery 19 09:00 - 12:30 Burgundy Restaurant Hermanus"
+   },
+   "venue": {
+    "value": "Burgundy Restaurant",
+    "quote": "ChatGPT Mastery 19 09:00 - 12:30 Burgundy Restaurant Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "ChatGPT Mastery 19 09:00 - 12:30 Burgundy Restaurant Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Members Mingle",
+    "quote": "Members Mingle"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Members Mingle 19 17:00 Searles Eatery, Bar & Theatre Stanford"
+   },
+   "venue": {
+    "value": "Searles Eatery, Bar & Theatre",
+    "quote": "Members Mingle 19 17:00 Searles Eatery, Bar & Theatre Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Members Mingle 19 17:00 Searles Eatery, Bar & Theatre Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Stream That Divided a Town: Talk by Dr Sheraine van Wyk",
+    "quote": "The Stream That Divided a Town: 19 17:30 The Green House Vermont Talk by Dr Sheraine van Wyk"
+   },
+   "town": {
+    "value": "Vermont",
+    "quote": "The Stream That Divided a Town: 19 17:30 The Green House Vermont Talk by Dr Sheraine van Wyk"
+   },
+   "venue": {
+    "value": "The Green House",
+    "quote": "The Stream That Divided a Town: 19 17:30 The Green House Vermont Talk by Dr Sheraine van Wyk"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "The Stream That Divided a Town: 19 17:30 The Green House Vermont Talk by Dr Sheraine van Wyk",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Music Trivia with Allen Barnley",
+    "quote": "Music Trivia with Allen Barnley"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Music Trivia with Allen Barnley 19 18:30 La Cantina Stanford"
+   },
+   "venue": {
+    "value": "La Cantina",
+    "quote": "Music Trivia with Allen Barnley 19 18:30 La Cantina Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Music Trivia with Allen Barnley 19 18:30 La Cantina Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Decisionless Dinner Pop-Up",
+    "quote": "Decisionless Dinner Pop-Up"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Decisionless Dinner Pop-Up 19 18:30 - 21:00 25 Church Street Stanford"
+   },
+   "venue": {
+    "value": "25 Church Street",
+    "quote": "Decisionless Dinner Pop-Up 19 18:30 - 21:00 25 Church Street Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Decisionless Dinner Pop-Up 19 18:30 - 21:00 25 Church Street Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Karaoke Night with Jono",
+    "quote": "Karaoke Night with Jono"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Karaoke Night with Jono 19 19:00 Harbour on Deck Gansbaai"
+   },
+   "venue": {
+    "value": "Harbour on Deck",
+    "quote": "Karaoke Night with Jono 19 19:00 Harbour on Deck Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Karaoke Night with Jono 19 19:00 Harbour on Deck Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Aligned Living Women’s Silent Retreat with Kathleen Booyse",
+    "quote": "Aligned Living Women’s Silent Retreat 19 -22 Bodhi Khaya Gansbaai with Kathleen Booyse"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Aligned Living Women’s Silent Retreat 19 -22 Bodhi Khaya Gansbaai with Kathleen Booyse"
+   },
+   "venue": {
+    "value": "Bodhi Khaya",
+    "quote": "Aligned Living Women’s Silent Retreat 19 -22 Bodhi Khaya Gansbaai with Kathleen Booyse"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "Aligned Living Women’s Silent Retreat 19 -22 Bodhi Khaya Gansbaai with Kathleen Booyse",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Annual Art Exhibition 2026",
+    "quote": "Annual Art Exhibition 2026"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Annual Art Exhibition 2026 19 - 25 18:00 Enlighten Education Trust Hermanus"
+   },
+   "venue": {
+    "value": "Enlighten Education Trust",
+    "quote": "Annual Art Exhibition 2026 19 - 25 18:00 Enlighten Education Trust Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 25,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "Annual Art Exhibition 2026 19 - 25 18:00 Enlighten Education Trust Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Paint & Decorate A Bird Feeder",
+    "quote": "Paint & Decorate A Bird Feeder"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Paint & Decorate A Bird Feeder 20 09:00 - 12:00 Colour Box Gansbaai"
+   },
+   "venue": {
+    "value": "Colour Box",
+    "quote": "Paint & Decorate A Bird Feeder 20 09:00 - 12:00 Colour Box Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Paint & Decorate A Bird Feeder 20 09:00 - 12:00 Colour Box Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Checkered Table Chess Social",
+    "quote": "The Checkered Table Chess Social"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "The Checkered Table Chess Social 20 18:00 Mr Write Hermanus"
+   },
+   "venue": {
+    "value": "Mr Write",
+    "quote": "The Checkered Table Chess Social 20 18:00 Mr Write Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "The Checkered Table Chess Social 20 18:00 Mr Write Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Open Mic Night",
+    "quote": "Open Mic Night"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Open Mic Night 20 18:30 Searles Eatery, Bar & Theatre Stanford"
+   },
+   "venue": {
+    "value": "Searles Eatery, Bar & Theatre",
+    "quote": "Open Mic Night 20 18:30 Searles Eatery, Bar & Theatre Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Open Mic Night 20 18:30 Searles Eatery, Bar & Theatre Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "FynArts Select Weekend: Makers & Masters",
+    "quote": "FynArts Select Weekend: Makers & Masters"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "FynArts Select Weekend: Makers & Masters 20 - 22 Various Venues in Hermanus Hermanus"
+   },
+   "venue": {
+    "value": "Various Venues",
+    "quote": "FynArts Select Weekend: Makers & Masters 20 - 22 Various Venues in Hermanus Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "FynArts Select Weekend: Makers & Masters 20 - 22 Various Venues in Hermanus Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "SOFCA Hermanus Open Day",
+    "quote": "SOFCA Hermanus Open Day"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "SOFCA Hermanus Open Day 21 10:00 1 Hospital Road Hermanus"
+   },
+   "venue": {
+    "value": "1 Hospital Road",
+    "quote": "SOFCA Hermanus Open Day 21 10:00 1 Hospital Road Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "SOFCA Hermanus Open Day 21 10:00 1 Hospital Road Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Beach Clean Up",
+    "quote": "Beach Clean Up"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Beach Clean Up 21 10:00 - 11:00 Die Blou Kaffee, De kelders Gansbaai"
+   },
+   "venue": {
+    "value": "Die Blou Kaffee, De kelders",
+    "quote": "Beach Clean Up 21 10:00 - 11:00 Die Blou Kaffee, De kelders Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Beach Clean Up 21 10:00 - 11:00 Die Blou Kaffee, De kelders Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Concert at the Clock Tower",
+    "quote": "Concert at the Clock Tower"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Concert at the Clock Tower 21 15:00 - 17:30 NG Kerk Stanford"
+   },
+   "venue": {
+    "value": "NG Kerk",
+    "quote": "Concert at the Clock Tower 21 15:00 - 17:30 NG Kerk Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Concert at the Clock Tower 21 15:00 - 17:30 NG Kerk Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Deo Gratia Koor",
+    "quote": "Deo Gratia Koor"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Deo Gratia Koor 21 15:30 NG Kerk, 4de Laan Kleinmond"
+   },
+   "venue": {
+    "value": "NG Kerk, 4de Laan",
+    "quote": "Deo Gratia Koor 21 15:30 NG Kerk, 4de Laan Kleinmond"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Deo Gratia Koor 21 15:30 NG Kerk, 4de Laan Kleinmond",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kogelberg Branch of the Botanical Society Talk",
+    "quote": "Kogelberg Branch of the Botanical Society Talk"
+   },
+   "town": {
+    "value": "Betty’s Bay",
+    "quote": "Kogelberg Branch of the Botanical Society Talk 21 17:30 Nivenia Hall, Betty’s Bay"
+   },
+   "venue": {
+    "value": "Nivenia Hall",
+    "quote": "Kogelberg Branch of the Botanical Society Talk 21 17:30 Nivenia Hall, Betty’s Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Kogelberg Branch of the Botanical Society Talk 21 17:30 Nivenia Hall, Betty’s Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Year-end Function",
+    "quote": "Year-end Function"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Year-end Function 21 18:30 Birkenhead Bootklub Gansbaai"
+   },
+   "venue": {
+    "value": "Birkenhead Bootklub",
+    "quote": "Year-end Function 21 18:30 Birkenhead Bootklub Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Year-end Function 21 18:30 Birkenhead Bootklub Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Live Rugby: Ireland vs Springboks",
+    "quote": "Live Rugby: Ireland vs Springboks"
+   },
+   "town": {
+    "value": "Overstrand",
+    "quote": "Live Rugby: Ireland vs Springboks 21 18:40 Various Venues Overstrand"
+   },
+   "venue": {
+    "value": "Various Venues",
+    "quote": "Live Rugby: Ireland vs Springboks 21 18:40 Various Venues Overstrand"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Live Rugby: Ireland vs Springboks 21 18:40 Various Venues Overstrand",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Louna Stofberg Organ Recital",
+    "quote": "Louna Stofberg Organ Recital"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Louna Stofberg Organ Recital 22 11:30 - 12:30 Dutch Reformed Church Hermanus"
+   },
+   "venue": {
+    "value": "Dutch Reformed Church",
+    "quote": "Louna Stofberg Organ Recital 22 11:30 - 12:30 Dutch Reformed Church Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Louna Stofberg Organ Recital 22 11:30 - 12:30 Dutch Reformed Church Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Live Music by Nite Shift",
+    "quote": "Live Music by Nite Shift"
+   },
+   "town": {
+    "value": "Rooiels",
+    "quote": "Live Music by Nite Shift 22 13:00 Drummond Arms Rooiels"
+   },
+   "venue": {
+    "value": "Drummond Arms",
+    "quote": "Live Music by Nite Shift 22 13:00 Drummond Arms Rooiels"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Live Music by Nite Shift 22 13:00 Drummond Arms Rooiels",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Atnote Music Coastal Band Showcase",
+    "quote": "Atnote Music Coastal Band Showcase"
+   },
+   "town": {
+    "value": "Hawston",
+    "quote": "Atnote Music Coastal Band Showcase 22 15:00 - 18:30 Hawston Primary School Hall Hawston"
+   },
+   "venue": {
+    "value": "Hawston Primary School Hall",
+    "quote": "Atnote Music Coastal Band Showcase 22 15:00 - 18:30 Hawston Primary School Hall Hawston"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Atnote Music Coastal Band Showcase 22 15:00 - 18:30 Hawston Primary School Hall Hawston",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kalahari Christmas Carol Service",
+    "quote": "Kalahari Christmas Carol Service"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Kalahari Christmas Carol Service 22 18:00 NG Kerk Gansbaai"
+   },
+   "venue": {
+    "value": "NG Kerk",
+    "quote": "Kalahari Christmas Carol Service 22 18:00 NG Kerk Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Kalahari Christmas Carol Service 22 18:00 NG Kerk Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Foraging Experience & Feast",
+    "quote": "Foraging Experience & Feast"
+   },
+   "town": {
+    "value": "Pringle Bay",
+    "quote": "Foraging Experience & Feast 24 9:00 - 14:00 Edible Shores Pringle Bay"
+   },
+   "venue": {
+    "value": "Edible Shores",
+    "quote": "Foraging Experience & Feast 24 9:00 - 14:00 Edible Shores Pringle Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 24,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Foraging Experience & Feast 24 9:00 - 14:00 Edible Shores Pringle Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Foraging Experience & Feast 28 11:00 - 16:00 Edible Shores Pringle Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Full Moon Cycle & Walk",
+    "quote": "Full Moon Cycle & Walk"
+   },
+   "town": {
+    "value": "Pringle Bay",
+    "quote": "Full Moon Cycle & Walk 24 19:00 422 Crescent Street Pringle Bay"
+   },
+   "venue": {
+    "value": "422 Crescent Street",
+    "quote": "Full Moon Cycle & Walk 24 19:00 422 Crescent Street Pringle Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 24,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Full Moon Cycle & Walk 24 19:00 422 Crescent Street Pringle Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Christof van der Berg: Stories & Sterre",
+    "quote": "Christof van der Berg: Stories & Sterre"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Christof van der Berg: Stories & Sterre 25 19:00 NG Kerksaal, 1ste laan Kleinmond"
+   },
+   "venue": {
+    "value": "NG Kerksaal, 1ste laan",
+    "quote": "Christof van der Berg: Stories & Sterre 25 19:00 NG Kerksaal, 1ste laan Kleinmond"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 25,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Christof van der Berg: Stories & Sterre 25 19:00 NG Kerksaal, 1ste laan Kleinmond",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Nativity Play",
+    "quote": "Nativity Play"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Nativity Play 26 10:00 Camphill School Hall Hermanus"
+   },
+   "venue": {
+    "value": "Camphill School Hall",
+    "quote": "Nativity Play 26 10:00 Camphill School Hall Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 26,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Nativity Play 26 10:00 Camphill School Hall Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Art of Edible Experience Workshop",
+    "quote": "The Art of Edible Experience Workshop"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "The Art of Edible Experience Workshop 26 10:00 - 13:00 1 Innisbrook Village, Fairways Avenue Hermanus"
+   },
+   "venue": {
+    "value": "1 Innisbrook Village, Fairways Avenue",
+    "quote": "The Art of Edible Experience Workshop 26 10:00 - 13:00 1 Innisbrook Village, Fairways Avenue Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 26,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "The Art of Edible Experience Workshop 26 10:00 - 13:00 1 Innisbrook Village, Fairways Avenue Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus Business Chamber Gala Dinner",
+    "quote": "Hermanus Business Chamber Gala Dinner"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus Business Chamber Gala Dinner 26 18:00 Hermanus Golf Club Hermanus"
+   },
+   "venue": {
+    "value": "Hermanus Golf Club",
+    "quote": "Hermanus Business Chamber Gala Dinner 26 18:00 Hermanus Golf Club Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 26,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Hermanus Business Chamber Gala Dinner 26 18:00 Hermanus Golf Club Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Think & Drink",
+    "quote": "Think & Drink"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Think & Drink 26 19:00 In the end, 25 Church Street Stanford"
+   },
+   "venue": {
+    "value": "In the end, 25 Church Street",
+    "quote": "Think & Drink 26 19:00 In the end, 25 Church Street Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 26,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Think & Drink 26 19:00 In the end, 25 Church Street Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Toy Run",
+    "quote": "Toy Run"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Toy Run 27 All Day Harbour on deck Gansbaai"
+   },
+   "venue": {
+    "value": "Harbour on deck",
+    "quote": "Toy Run 27 All Day Harbour on deck Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Toy Run 27 All Day Harbour on deck Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Sunshine Nation Modeling Show",
+    "quote": "Sunshine Nation Modeling Show"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Sunshine Nation Modeling Show 27 16:00 - 18:00 Black Leaves Club House Gansbaai"
+   },
+   "venue": {
+    "value": "Black Leaves Club House",
+    "quote": "Sunshine Nation Modeling Show 27 16:00 - 18:00 Black Leaves Club House Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sunshine Nation Modeling Show 27 16:00 - 18:00 Black Leaves Club House Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "KliK Pre-Christmas Market",
+    "quote": "KliK Pre-Christmas Market"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "KliK Pre-Christmas Market 27 16:00 - 21:00 Kleinmond Town Hall Kleinmond"
+   },
+   "venue": {
+    "value": "Kleinmond Town Hall",
+    "quote": "KliK Pre-Christmas Market 27 16:00 - 21:00 Kleinmond Town Hall Kleinmond"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "KliK Pre-Christmas Market 27 16:00 - 21:00 Kleinmond Town Hall Kleinmond",
+      "Events 2026",
+      "Events November"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "KliK Pre-Christmas Market 28 9:00 - 14:00 Kleinmond Town Hall Kleinmond",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus Music Society Concert",
+    "quote": "Hermanus Music Society Concert"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus Music Society Concert 27 17:45 Sandbaai Gereformeerde Church Hermanus"
+   },
+   "venue": {
+    "value": "Sandbaai Gereformeerde Church",
+    "quote": "Hermanus Music Society Concert 27 17:45 Sandbaai Gereformeerde Church Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Hermanus Music Society Concert 27 17:45 Sandbaai Gereformeerde Church Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Sunset Market",
+    "quote": "The Sunset Market"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "The Sunset Market 27 18:00 The Village Green Stanford"
+   },
+   "venue": {
+    "value": "The Village Green",
+    "quote": "The Sunset Market 27 18:00 The Village Green Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "The Sunset Market 27 18:00 The Village Green Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Christmas Fun Fair",
+    "quote": "Christmas Fun Fair"
+   },
+   "town": {
+    "value": "Sandbaai",
+    "quote": "Christmas Fun Fair 27 18:00 - 20:00 Jukskei Hall Sandbaai"
+   },
+   "venue": {
+    "value": "Jukskei Hall",
+    "quote": "Christmas Fun Fair 27 18:00 - 20:00 Jukskei Hall Sandbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Christmas Fun Fair 27 18:00 - 20:00 Jukskei Hall Sandbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Universals RFC presents Miss Drag",
+    "quote": "Universals RFC presents Miss Drag"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Universals RFC presents Miss Drag 27 19:00 Community Hall Stanford"
+   },
+   "venue": {
+    "value": "Community Hall",
+    "quote": "Universals RFC presents Miss Drag 27 19:00 Community Hall Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Universals RFC presents Miss Drag 27 19:00 Community Hall Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Traffic Light Party with DJ Milky",
+    "quote": "Traffic Light Party with DJ Milky"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Traffic Light Party with DJ Milky 27 19:00 Black Leaves Club House Gansbaai"
+   },
+   "venue": {
+    "value": "Black Leaves Club House",
+    "quote": "Traffic Light Party with DJ Milky 27 19:00 Black Leaves Club House Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Traffic Light Party with DJ Milky 27 19:00 Black Leaves Club House Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Sokkie Mandjie Dance",
+    "quote": "Sokkie Mandjie Dance"
+   },
+   "town": {
+    "value": "Betty’s Bay",
+    "quote": "Sokkie Mandjie Dance 27 19:00 Crassula Hall Betty’s Bay"
+   },
+   "venue": {
+    "value": "Crassula Hall",
+    "quote": "Sokkie Mandjie Dance 27 19:00 Crassula Hall Betty’s Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sokkie Mandjie Dance 27 19:00 Crassula Hall Betty’s Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "AKiMBO Live",
+    "quote": "AKiMBO Live"
+   },
+   "town": {
+    "value": "Pringle Bay",
+    "quote": "AKiMBO Live 27 20:00 Hangklip Hotel Pringle Bay"
+   },
+   "venue": {
+    "value": "Hangklip Hotel",
+    "quote": "AKiMBO Live 27 20:00 Hangklip Hotel Pringle Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "AKiMBO Live 27 20:00 Hangklip Hotel Pringle Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kleinmond Inniebos Kunstefees (KliK)",
+    "quote": "Kleinmond Inniebos Kunstefees (KliK)"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kleinmond Inniebos Kunstefees (KliK) 27 - 29 Various Venues accross Kleinmond Kleinmond"
+   },
+   "venue": {
+    "value": "Various Venues",
+    "quote": "Kleinmond Inniebos Kunstefees (KliK) 27 - 29 Various Venues accross Kleinmond Kleinmond"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "Kleinmond Inniebos Kunstefees (KliK) 27 - 29 Various Venues accross Kleinmond Kleinmond",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Sacred Pause Women’s Retreat",
+    "quote": "Sacred Pause Women’s Retreat"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Sacred Pause Women’s Retreat 27 - 29 Bodhi Khaya Gansbaai"
+   },
+   "venue": {
+    "value": "Bodhi Khaya",
+    "quote": "Sacred Pause Women’s Retreat 27 - 29 Bodhi Khaya Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "Sacred Pause Women’s Retreat 27 - 29 Bodhi Khaya Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Art Exhibition",
+    "quote": "Art Exhibition"
+   },
+   "town": {
+    "value": "Betty’s Bay",
+    "quote": "Art Exhibition 27 Nov - 1 Dec 9:00 - 16:00 Harold Porter Botanical Gardens Betty’s Bay"
+   },
+   "venue": {
+    "value": "Harold Porter Botanical Gardens",
+    "quote": "Art Exhibition 27 Nov - 1 Dec 9:00 - 16:00 Harold Porter Botanical Gardens Betty’s Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 1,
+      "month": 12,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "Art Exhibition 27 Nov - 1 Dec 9:00 - 16:00 Harold Porter Botanical Gardens Betty’s Bay",
+      "Events 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Season Opener: Secret Sunrise",
+    "quote": "Season Opener: Secret Sunrise"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Season Opener: Secret Sunrise 28 7:00 Grotto Beach Hermanus"
+   },
+   "venue": {
+    "value": "Grotto Beach",
+    "quote": "Season Opener: Secret Sunrise 28 7:00 Grotto Beach Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Season Opener: Secret Sunrise 28 7:00 Grotto Beach Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Food,Fun & Family Festival",
+    "quote": "Food,Fun & Family Festival"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Food,Fun & Family Festival 28 9:00 United Church Hermanus"
+   },
+   "venue": {
+    "value": "United Church",
+    "quote": "Food,Fun & Family Festival 28 9:00 United Church Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Food,Fun & Family Festival 28 9:00 United Church Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kintsugi Intermediate Workshop",
+    "quote": "Kintsugi Intermediate Workshop"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kintsugi Intermediate Workshop 28 9:00 Coffee at the Well Kleinmond"
+   },
+   "venue": {
+    "value": "Coffee at the Well",
+    "quote": "Kintsugi Intermediate Workshop 28 9:00 Coffee at the Well Kleinmond"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Kintsugi Intermediate Workshop 28 9:00 Coffee at the Well Kleinmond",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Christmas Pop-up & Gift Stall",
+    "quote": "Christmas Pop-up & Gift Stall"
+   },
+   "town": {
+    "value": "Betty’s Bay",
+    "quote": "Christmas Pop-up & Gift Stall 28 9:00 - 14:00 Anglican Church of St Francis of Assisi Betty’s Bay"
+   },
+   "venue": {
+    "value": "Anglican Church of St Francis of Assisi",
+    "quote": "Christmas Pop-up & Gift Stall 28 9:00 - 14:00 Anglican Church of St Francis of Assisi Betty’s Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Christmas Pop-up & Gift Stall 28 9:00 - 14:00 Anglican Church of St Francis of Assisi Betty’s Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Rotsfondasie Kerk Basaar",
+    "quote": "Rotsfondasie Kerk Basaar"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Rotsfondasie Kerk Basaar 28 10:00 23 Skoolstraat, Blompark Gansbaai"
+   },
+   "venue": {
+    "value": "23 Skoolstraat, Blompark",
+    "quote": "Rotsfondasie Kerk Basaar 28 10:00 23 Skoolstraat, Blompark Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Rotsfondasie Kerk Basaar 28 10:00 23 Skoolstraat, Blompark Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Cookie Decorating Techniques Workshop",
+    "quote": "Cookie Decorating Techniques Workshop"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Cookie Decorating Techniques Workshop 28 10:00 - 11:00 Venue TBC Kleinmond"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Cookie Decorating Techniques Workshop 28 10:00 - 11:00 Venue TBC Kleinmond",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Betty’s Bay Community Market",
+    "quote": "Betty’s Bay Community Market"
+   },
+   "town": {
+    "value": "Betty’s Bay",
+    "quote": "Betty’s Bay Community Market 28 10:00 - 15:00 Crassula Hall Betty’s Bay"
+   },
+   "venue": {
+    "value": "Crassula Hall",
+    "quote": "Betty’s Bay Community Market 28 10:00 - 15:00 Crassula Hall Betty’s Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Betty’s Bay Community Market 28 10:00 - 15:00 Crassula Hall Betty’s Bay",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Rosoberry Harvest Festival",
+    "quote": "Rosoberry Harvest Festival"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Rosoberry Harvest Festival 28 10:00 - 17:00 Hermanus River Farm Kleinmond"
+   },
+   "venue": {
+    "value": "Hermanus River Farm",
+    "quote": "Rosoberry Harvest Festival 28 10:00 - 17:00 Hermanus River Farm Kleinmond"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Rosoberry Harvest Festival 28 10:00 - 17:00 Hermanus River Farm Kleinmond",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Mosaic Workshop",
+    "quote": "Mosaic Workshop"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Mosaic Workshop 28 12:00 - 16:00 Stonehouse Cheese Bar Hermanus"
+   },
+   "venue": {
+    "value": "Stonehouse Cheese Bar",
+    "quote": "Mosaic Workshop 28 12:00 - 16:00 Stonehouse Cheese Bar Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Mosaic Workshop 28 12:00 - 16:00 Stonehouse Cheese Bar Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Stanford Stumble",
+    "quote": "Stanford Stumble"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Stanford Stumble 28 12:00 - 19:00 Stanford Hills Estate Stanford"
+   },
+   "venue": {
+    "value": "Stanford Hills Estate",
+    "quote": "Stanford Stumble 28 12:00 - 19:00 Stanford Hills Estate Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Stanford Stumble 28 12:00 - 19:00 Stanford Hills Estate Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Tekkies & Bowties Sunset Soiree",
+    "quote": "Tekkies & Bowties Sunset Soiree"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Tekkies & Bowties Sunset Soiree 28 18:00 High Season Farm Hermanus"
+   },
+   "venue": {
+    "value": "High Season Farm",
+    "quote": "Tekkies & Bowties Sunset Soiree 28 18:00 High Season Farm Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Tekkies & Bowties Sunset Soiree 28 18:00 High Season Farm Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Secret Sunrise",
+    "quote": "Secret Sunrise"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Secret Sunrise 28 19:00 Grotto Beach Hermanus"
+   },
+   "venue": {
+    "value": "Grotto Beach",
+    "quote": "Secret Sunrise 28 19:00 Grotto Beach Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Secret Sunrise 28 19:00 Grotto Beach Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Stand up Comedy: Alan Committie Live",
+    "quote": "Stand up Comedy: Alan Committie Live"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Stand up Comedy: Alan Committie Live 28 19:30 Road House Cinema Hermanus"
+   },
+   "venue": {
+    "value": "Road House Cinema",
+    "quote": "Stand up Comedy: Alan Committie Live 28 19:30 Road House Cinema Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Stand up Comedy: Alan Committie Live 28 19:30 Road House Cinema Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Open Air Cinema: Raiders of the Lost Ark",
+    "quote": "Open Air Cinema: Raiders of the Lost Ark"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Open Air Cinema: Raiders of the Lost Ark 28 19:30 The Amphitheatre @ Landskein Wines Stanford"
+   },
+   "venue": {
+    "value": "The Amphitheatre @ Landskein Wines",
+    "quote": "Open Air Cinema: Raiders of the Lost Ark 28 19:30 The Amphitheatre @ Landskein Wines Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Open Air Cinema: Raiders of the Lost Ark 28 19:30 The Amphitheatre @ Landskein Wines Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The King of Pop Experience",
+    "quote": "The King of Pop Experience"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "The King of Pop Experience 28 20:00 Sandbaai Saal Hermanus"
+   },
+   "venue": {
+    "value": "Sandbaai Saal",
+    "quote": "The King of Pop Experience 28 20:00 Sandbaai Saal Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "The King of Pop Experience 28 20:00 Sandbaai Saal Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Grip Gymnastics and Dance Concert",
+    "quote": "Grip Gymnastics and Dance Concert"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Grip Gymnastics and Dance Concert 28 & 29 10:00 Road House Cinema Hermanus"
+   },
+   "venue": {
+    "value": "Road House Cinema",
+    "quote": "Grip Gymnastics and Dance Concert 28 & 29 10:00 Road House Cinema Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "Grip Gymnastics and Dance Concert 28 & 29 10:00 Road House Cinema Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Practice Walk",
+    "quote": "Practice Walk"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Practice Walk 29 7:00 Voelklip Hermanus"
+   },
+   "venue": {
+    "value": "Voelklip",
+    "quote": "Practice Walk 29 7:00 Voelklip Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Practice Walk 29 7:00 Voelklip Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Overberg Toy Run",
+    "quote": "Overberg Toy Run"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Overberg Toy Run 29 09:00 - 14:00 Birkenhead Brewery Stanford"
+   },
+   "venue": {
+    "value": "Birkenhead Brewery",
+    "quote": "Overberg Toy Run 29 09:00 - 14:00 Birkenhead Brewery Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Overberg Toy Run 29 09:00 - 14:00 Birkenhead Brewery Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Blending Table: Create your own wine",
+    "quote": "The Blending Table: Create your own wine"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "The Blending Table: Create your own wine 29 11:00 - 13:30 Benguela Cove Hermanus"
+   },
+   "venue": {
+    "value": "Benguela Cove",
+    "quote": "The Blending Table: Create your own wine 29 11:00 - 13:30 Benguela Cove Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "The Blending Table: Create your own wine 29 11:00 - 13:30 Benguela Cove Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Oysters & Bubbles",
+    "quote": "Oysters & Bubbles"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Oysters & Bubbles 29 12:00 The Parlour Landskein Wines Stanford"
+   },
+   "venue": {
+    "value": "The Parlour Landskein Wines",
+    "quote": "Oysters & Bubbles 29 12:00 The Parlour Landskein Wines Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Oysters & Bubbles 29 12:00 The Parlour Landskein Wines Stanford",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Singles’ Night",
+    "quote": "Singles’ Night"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Singles’ Night 29 17:00 Ficks Hermanus"
+   },
+   "venue": {
+    "value": "Ficks",
+    "quote": "Singles’ Night 29 17:00 Ficks Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Singles’ Night 29 17:00 Ficks Hermanus",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Youth Christmas Carol Festival",
+    "quote": "Youth Christmas Carol Festival"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Youth Christmas Carol Festival 29 17:00 NG Kerk Gansbaai"
+   },
+   "venue": {
+    "value": "NG Kerk",
+    "quote": "Youth Christmas Carol Festival 29 17:00 NG Kerk Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Youth Christmas Carol Festival 29 17:00 NG Kerk Gansbaai",
+      "Events 2026",
+      "Events November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "ParkRun",
+    "quote": "Saturdays: ParkRun at 8:00"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "quotes": [
+      "Saturdays: ParkRun at 8:00"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Markets",
+    "quote": "Markets from 9:00"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "quotes": [
+      "Saturdays: ParkRun at 8:00; Markets from 9:00"
+     ]
+    }
+   ]
+  }
+ ]
+}

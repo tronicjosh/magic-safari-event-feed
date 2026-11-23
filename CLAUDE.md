@@ -1,6 +1,6 @@
 # Hermanus event feed
 
-A headless feed of events, seasons and luxury experiences near Hermanus, for travel designers who work through an AI agent or a web application. The process matters just as much as the implementation.
+A headless feed of events, seasons and luxury experiences near Hermanus, for travel designers who work through an AI agent or a web application. The process matters just as much as the implementation, so having clear documentation on data model design, api design and enabling agents to work through those api's is important. Thinking about how this design architecture can be extended more broadly to other towns is important and not overfitting the approach to hermanus specifically. 
 
 We measure: **false facts on the confirmed set (target 0)** and **share of items that need review**. Every change to a prompt, the registry or a rule is run against `evals/` before and after, and the change in both numbers is written to `docs/model.md`. A change with no measured effect is not done.
 
@@ -21,7 +21,7 @@ A planner looks at the same place several times, 6 to 18 months before a trip an
 Each is a rule and what we accept by choosing it.
 
 1. **A fact needs a quote that code can check.** If a check and coverage conflict, the check wins and the item waits for review. We accept lower coverage.
-2. **The model extracts only.** It never verifies, classifies the tier, or writes to the database. Code and Joshua do that. We accept more code and more review.
+2. **The model extracts only.** It never verifies, ranks, or writes to the database. Code and Joshua do that. We accept more code and more review.
 3. **Never invent and never delete.** No projected date. An item a run does not find stays, with `last_seen_at`. We accept stale items, shown as stale.
 4. **Simple, and only what the data supports.** A rule in a file beats a rule in code. An exception is data (a review decision), not a new rule. The next town needs a new registry and no new code. We accept fewer features.
 5. **The API governs the output.** Responses come from one fixed template, with the same bytes for the same query. We accept less flexible answers.

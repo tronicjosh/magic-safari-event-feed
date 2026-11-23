@@ -1,0 +1,902 @@
+{
+ "page_id": "wesgro_events_p1",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:01:27.782303+00:00",
+ "message_id": "msg_011ChKpkERCovq85uuCNq2GY",
+ "stop_reason": "end_turn",
+ "input_tokens": 4158,
+ "output_tokens": 6605,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.003718,
+ "items": [
+  {
+   "title": {
+    "value": "Cape Palooza: Where You Belong | CPT",
+    "quote": "Cape Palooza: Where You Belong | CPT"
+   },
+   "town": {
+    "value": "Cape Town",
+    "quote": "Cape Town , Western Cape"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 29,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 30,
+      "month": 12,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "29 - 30 Dec 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Cape food workshop at Soetmelksvlei: Traditional bobotie with seasonal chutney",
+    "quote": "Cape food workshop at Soetmelksvlei: Traditional bobotie with seasonal chutney"
+   },
+   "town": {
+    "value": "Franschhoek",
+    "quote": "Franschhoek , Cape Winelands"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 3,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "3 Dec 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Spring Picnics at Hazendal",
+    "quote": "Spring Picnics at Hazendal"
+   },
+   "town": {
+    "value": "Stellenbosch",
+    "quote": "Stellenbosch , Cape Winelands"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 30,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "30 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Van Loveren MTB and Trail Run Challenge",
+    "quote": "Van Loveren MTB and Trail Run Challenge"
+   },
+   "town": {
+    "value": "Robertson",
+    "quote": "Robertson, Cape Winelands"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "28 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Art of Gathering with Elmarie Berry at Du Toitskloof Wines",
+    "quote": "The Art of Gathering with Elmarie Berry at Du Toitskloof Wines"
+   },
+   "town": {
+    "value": "Breedekloof",
+    "quote": "Breedekloof, Cape Winelands"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "28 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Garden music session with Tanner Wareham at Waterford Estate",
+    "quote": "Garden music session with Tanner Wareham at Waterford Estate"
+   },
+   "town": {
+    "value": "Stellenbosch",
+    "quote": "Stellenbosch, Cape Winelands"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 30,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "30 Dec 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Boschendal New Years Eve Celebration",
+    "quote": "Boschendal New Years Eve Celebration"
+   },
+   "town": {
+    "value": "Franschhoek",
+    "quote": "Franschhoek, Cape Winelands"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 31,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "31 Dec 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Best Day Out Festival",
+    "quote": "Best Day Out Festival"
+   },
+   "town": {
+    "value": "Cape Town",
+    "quote": "Cape Town , Western Cape"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "28 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Grenache Collective",
+    "quote": "Grenache Collective"
+   },
+   "town": {
+    "value": "Paarl",
+    "quote": "Paarl , Cape Winelands"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "28 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Tide & Terroir Winemaker's Dinner at De Grendel Restaurant",
+    "quote": "Tide & Terroir Winemaker's Dinner at De Grendel Restaurant"
+   },
+   "town": {
+    "value": "Cape Town",
+    "quote": "Cape Town , Western Cape"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 25,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "25 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Toy Run Overberg",
+    "quote": "Toy Run Overberg"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai , Cape Overberg"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "29 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Stanford Stumble",
+    "quote": "The Stanford Stumble"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Stanford , Cape Overberg"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "28 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Rosoberry Harvest Fest",
+    "quote": "Rosoberry Harvest Fest"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus , Cape Overberg"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "28 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kleinmond inniebos Kunstefees (KliK)",
+    "quote": "Kleinmond inniebos Kunstefees (KliK)"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kleinmond , Cape Overberg"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "27 - 29 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Filthy Fondo Caledon",
+    "quote": "Filthy Fondo Caledon"
+   },
+   "town": {
+    "value": "Caledon",
+    "quote": "Caledon , Cape Overberg"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 6,
+      "month": 2,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "6 Feb 2027"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Sanlam Cape Town Marathon - Africa’s First Abbott World Marathon Majors Race",
+    "quote": "Sanlam Cape Town Marathon - Africa’s First Abbott World Marathon Majors Race"
+   },
+   "town": {
+    "value": "Cape Town",
+    "quote": "Cape Town , Western Cape"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 22,
+      "month": 5,
+      "year": 2027
+     },
+     "end": {
+      "day": 23,
+      "month": 5,
+      "year": 2027
+     },
+     "weekday": "",
+     "quotes": [
+      "22 - 23 May 2027"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "7Passes MTB",
+    "quote": "7Passes MTB"
+   },
+   "town": {
+    "value": "Knysna",
+    "quote": "Knysna , Garden Route & Klein Karoo"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 3,
+      "month": 1,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "3 Jan 2027"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Taste of Cape Town",
+    "quote": "Taste of Cape Town"
+   },
+   "town": {
+    "value": "Cape Town",
+    "quote": "Cape Town , Western Cape"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "28 - 29 Nov 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "TITAN Trail Run | Benguela Cove Lagoon Wine Estate",
+    "quote": "TITAN Trail Run | Benguela Cove Lagoon Wine Estate"
+   },
+   "town": {
+    "value": "Fisherhaven",
+    "quote": "Fisherhaven , Cape Overberg"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 6,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "6 Dec 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Eden Triathlon League 2026/27 Event #2",
+    "quote": "Eden Triathlon League 2026/27 Event #2"
+   },
+   "town": {
+    "value": "Great Brak River",
+    "quote": "Great Brak River,Garden Route & Klein Karoo"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 6,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "6 Dec 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Stanford 100 Miler",
+    "quote": "The Stanford 100 Miler"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Stanford , Cape Overberg"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 5,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "5 Dec 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Headline Farewell Tour",
+    "quote": "Headline Farewell Tour"
+   },
+   "town": {
+    "value": "Prince Albert",
+    "quote": "Prince Albert , Cape Karoo"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 14,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "14 Dec 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Prince Albert Market",
+    "quote": "Prince Albert Market"
+   },
+   "town": {
+    "value": "Prince Albert",
+    "quote": "Prince Albert , Cape Karoo"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 5,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "5 Dec 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "RAW Film Festival Exclusive Edition -Khayelitsha",
+    "quote": "RAW Film Festival Exclusive Edition -Khayelitsha"
+   },
+   "town": {
+    "value": "Cape Town",
+    "quote": "Cape Town, Western Cape"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 2,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 4,
+      "month": 12,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "2 - 4 Dec 2026"
+     ]
+    }
+   ]
+  }
+ ]
+}

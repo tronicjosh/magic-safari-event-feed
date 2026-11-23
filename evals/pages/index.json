@@ -1,0 +1,247 @@
+{
+  "ot_monthly_pdf": {
+    "id": "ot_monthly_pdf",
+    "kind": "pdf_latest",
+    "requested": "https://whalecoast.info/wp-json/wp/v2/media?search=Events&mime_type=application/pdf&per_page=10&orderby=date&order=desc&_fields=id,date,source_url",
+    "fetched_at": "2026-11-23T11:49:10.372994+00:00",
+    "status": 200,
+    "media_rows": [
+      {
+        "id": 12146,
+        "date": "2026-11-23T10:52:40",
+        "source_url": "https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf"
+      },
+      {
+        "id": 12140,
+        "date": "2026-11-16T11:39:35",
+        "source_url": "https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-111126.pdf"
+      },
+      {
+        "id": 12130,
+        "date": "2026-11-05T08:37:53",
+        "source_url": "https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-031126.pdf"
+      }
+    ],
+    "url": "https://whalecoast.info/wp-content/uploads/2022/06/Tourism-November-Events-181126.pdf",
+    "uploaded": "2026-11-23T10:52:40",
+    "text_chars": 5919
+  },
+  "ot_yearly_pdf": {
+    "id": "ot_yearly_pdf",
+    "kind": "pdf_latest",
+    "requested": "https://whalecoast.info/wp-json/wp/v2/media?search=Cape-Whale-Coast-Events&per_page=5&orderby=date&order=desc&_fields=id,date,source_url",
+    "fetched_at": "2026-11-23T11:49:15.571930+00:00",
+    "status": 200,
+    "media_rows": [
+      {
+        "id": 12016,
+        "date": "2026-08-08T08:28:57",
+        "source_url": "https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf"
+      },
+      {
+        "id": 11752,
+        "date": "2025-08-08T07:35:27",
+        "source_url": "https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070825.pdf"
+      },
+      {
+        "id": 11748,
+        "date": "2025-08-05T13:17:06",
+        "source_url": "https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-040825.pdf"
+      }
+    ],
+    "url": "https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf",
+    "uploaded": "2026-08-08T08:28:57",
+    "text_chars": 3382
+  },
+  "overstrand_weekend": {
+    "id": "overstrand_weekend",
+    "kind": "wp_page",
+    "requested": "https://www.overstrand.gov.za/wp-json/wp/v2/pages/33987?_fields=id,modified,title,content",
+    "fetched_at": "2026-11-23T11:49:19.859633+00:00",
+    "status": 200,
+    "url": "https://www.overstrand.gov.za/wp-json/wp/v2/pages/33987?_fields=id,modified,title,content",
+    "modified": "2026-11-20T16:36:22",
+    "bytes_before_json": 3346,
+    "text_chars": 3348
+  },
+  "ht_festivals": {
+    "id": "ht_festivals",
+    "kind": "html",
+    "requested": "https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/",
+    "fetched_at": "2026-11-23T11:49:22.358837+00:00",
+    "status": 200,
+    "url": "https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/",
+    "text_chars": 8144
+  },
+  "ht_whale_watching": {
+    "id": "ht_whale_watching",
+    "kind": "html",
+    "requested": "https://hermanus-tourism.co.za/whale-watching/",
+    "fetched_at": "2026-11-23T11:49:25.805711+00:00",
+    "status": 200,
+    "url": "https://hermanus-tourism.co.za/whale-watching-in-hermanus-south-africa-2022%ef%bf%bc/",
+    "text_chars": 2823
+  },
+  "whale_festival": {
+    "id": "whale_festival",
+    "kind": "html",
+    "requested": "https://hermanuswhalefestival.co.za/",
+    "fetched_at": "2026-11-23T11:49:29.834329+00:00",
+    "status": 200,
+    "url": "https://hermanuswhalefestival.co.za/",
+    "text_chars": 6116
+  },
+  "kalfiefees": {
+    "id": "kalfiefees",
+    "kind": "html",
+    "requested": "https://kalfiefees-hermanus.co.za/",
+    "fetched_at": "2026-11-23T11:49:33.285130+00:00",
+    "status": 200,
+    "url": "https://kalfiefees-hermanus.co.za/",
+    "text_chars": 940
+  },
+  "xplorio_events": {
+    "id": "xplorio_events",
+    "kind": "html",
+    "requested": "https://xplorio.com/hermanus/en/things-to-do/events",
+    "fetched_at": "2026-11-23T11:49:36.643358+00:00",
+    "status": 200,
+    "url": "https://xplorio.com/hermanus/en/things-to-do/events/",
+    "text_chars": 14732
+  },
+  "wesgro_events_p1": {
+    "id": "wesgro_events_p1",
+    "kind": "html",
+    "requested": "https://www.wesgro.co.za/travel/events?q=hermanus",
+    "fetched_at": "2026-11-23T11:49:39.164097+00:00",
+    "status": 200,
+    "url": "https://www.wesgro.co.za/travel/events?q=hermanus",
+    "text_chars": 4884
+  },
+  "southern_right_charters": {
+    "id": "southern_right_charters",
+    "kind": "html",
+    "requested": "https://www.southernrightcharters.co.za/",
+    "fetched_at": "2026-11-23T11:49:43.351677+00:00",
+    "status": 200,
+    "url": "https://www.southernrightcharters.co.za/",
+    "text_chars": 1892
+  },
+  "white_shark_projects": {
+    "id": "white_shark_projects",
+    "kind": "html",
+    "requested": "https://www.whitesharkprojects.co.za/",
+    "fetched_at": "2026-11-23T11:49:46.703654+00:00",
+    "status": 200,
+    "url": "https://www.whitesharkprojects.co.za/",
+    "text_chars": 5854
+  },
+  "x_marine_dynamics": {
+    "id": "x_marine_dynamics",
+    "kind": "html",
+    "requested": "https://www.sharkwatchsa.com/en/shark-cage-diving/",
+    "fetched_at": "2026-11-23T12:20:15.711286+00:00",
+    "status": 200,
+    "url": "https://sharkwatchsa.com/shark-cage-diving/",
+    "text_chars": 15212
+  },
+  "x_dyer_island_cruises": {
+    "id": "x_dyer_island_cruises",
+    "kind": "html",
+    "requested": "https://www.whalewatchsa.com/",
+    "fetched_at": "2026-11-23T12:20:19.772868+00:00",
+    "status": 200,
+    "url": "https://www.whalewatchsa.com/",
+    "text_chars": 7840
+  },
+  "x_hermanus_whale_cruises": {
+    "id": "x_hermanus_whale_cruises",
+    "kind": "html",
+    "requested": "https://www.hermanus-whale-cruises.co.za/",
+    "fetched_at": "2026-11-23T12:20:22.474583+00:00",
+    "status": 200,
+    "url": "https://www.hermanus-whale-cruises.co.za/",
+    "text_chars": 1482
+  },
+  "x_walker_bay_kayaking": {
+    "id": "x_walker_bay_kayaking",
+    "kind": "html",
+    "requested": "https://walkerbayadventures.co.za/sea-kayaking/",
+    "fetched_at": "2026-11-23T12:20:25.831406+00:00",
+    "status": 200,
+    "url": "https://walkerbayadventures.co.za/sea-kayaking/",
+    "text_chars": 5491
+  },
+  "x_creation_wines": {
+    "id": "x_creation_wines",
+    "kind": "html",
+    "requested": "https://www.creationwines.com/activities/",
+    "fetched_at": "2026-11-23T12:20:30.244817+00:00",
+    "status": 200,
+    "url": "https://www.creationwines.com/activities/",
+    "text_chars": 3061
+  },
+  "x_hamilton_russell": {
+    "id": "x_hamilton_russell",
+    "kind": "html",
+    "requested": "https://www.hamiltonrussellvineyards.com/",
+    "fetched_at": "2026-11-23T12:20:33.920977+00:00",
+    "status": 200,
+    "url": "https://hamiltonrussellvineyards.com/",
+    "text_chars": 1064
+  },
+  "x_bouchard_finlayson": {
+    "id": "x_bouchard_finlayson",
+    "kind": "html",
+    "requested": "https://bouchardfinlayson.co.za/",
+    "fetched_at": "2026-11-23T12:20:40.483696+00:00",
+    "status": 200,
+    "url": "https://www.bouchardfinlayson.co.za/",
+    "text_chars": 76
+  },
+  "x_grootbos": {
+    "id": "x_grootbos",
+    "kind": "html",
+    "requested": "https://www.grootbos.com/en/experiences",
+    "fetched_at": "2026-11-23T12:20:44.750952+00:00",
+    "status": 200,
+    "url": "https://www.grootbos.com/en/experiences",
+    "text_chars": 7826
+  },
+  "x_heart_of_abalone": {
+    "id": "x_heart_of_abalone",
+    "kind": "html",
+    "requested": "https://www.heartofabalone.co.za/",
+    "fetched_at": "2026-11-23T12:20:47.250862+00:00",
+    "status": 200,
+    "url": "https://www.heartofabalone.co.za/",
+    "text_chars": 872
+  },
+  "x_african_horse_company": {
+    "id": "x_african_horse_company",
+    "kind": "html",
+    "requested": "https://www.africanhorseco.com/",
+    "fetched_at": "2026-11-23T12:20:50.027596+00:00",
+    "status": 200,
+    "url": "https://africanhorseco.com/",
+    "text_chars": 2141
+  },
+  "x_ht_southern_right_whales": {
+    "id": "x_ht_southern_right_whales",
+    "kind": "html",
+    "requested": "https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/",
+    "fetched_at": "2026-11-23T12:21:18.156771+00:00",
+    "status": 200,
+    "url": "https://hermanus-tourism.co.za/about-hermanus/southern-right-whales/",
+    "text_chars": 6895
+  },
+  "x_ht_whale_and_shark_viewing": {
+    "id": "x_ht_whale_and_shark_viewing",
+    "kind": "html",
+    "requested": "https://hermanus-tourism.co.za/things-to-do/whale-and-shark-viewing/",
+    "fetched_at": "2026-11-23T12:21:21.390713+00:00",
+    "status": 200,
+    "url": "https://hermanus-tourism.co.za/things-to-do/whale-and-shark-viewing/",
+    "text_chars": 11532
+  }
+}

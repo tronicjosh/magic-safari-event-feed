@@ -1,0 +1,88 @@
+{
+ "page_id": "x_dyer_island_cruises",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:21:46.714950+00:00",
+ "message_id": "msg_011ChKrK6XxuQVkRwLE7eCDa",
+ "stop_reason": "end_turn",
+ "input_tokens": 4954,
+ "output_tokens": 1421,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.001206,
+ "items": [
+  {
+   "title": {
+    "value": "Marine Big 5 Tours",
+    "quote": "Marine Big 5 Tours:"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "R2340 pp",
+    "quote": "R2340 pp"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "January to December"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Southern right whales",
+    "quote": "Southern right whales visit the bay between June to December"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 6,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Southern right whales visit the bay between June to December"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,6 +1,6 @@
 # Model: Hermanus event feed
 
-Last change: 2026-11-22. This file is the shared mental model. If the code and this file disagree, one of them has a fault. The full design is in `docs/design.md`.
+Last change: 2026-11-23. This file is the shared mental model. If the code and this file disagree, one of them has a fault. The full design is in `docs/design.md`.
 
 ## The problem in one paragraph
 
@@ -23,13 +23,26 @@ QUERY, on request
 - **Extract** is the only model step. It returns fields with word-for-word quotes. It must never verify, write or use a tool.
 - **Verify** is code. It checks quote on page, value in quote, shape, and links. It must never let a field through on the model's word.
 - **Store** holds events, their occurrence rows, the evidence for each field and a change log.
-- **Update** gives each item a category and a tier (headline or local) by a rule in a file. It never deletes an item that a run does not find.
-- **Read and Card** answer four questions: what is on, when to go, what changed, tell me more. Headline comes first. `include_local` is `auto`, `true` or `false`. They must never start a fetch or invent a date.
-- An item has two separate properties: its time shape (single date, repeating dates, run, season) and its tier.
+- **Update** gives each item a category from Joshua's list. It sets no tier and no rank: the feed stores facts, not judgments. It never deletes an item that a run does not find.
+- **Read and Card** are six read operations: places, what is on (dates known), when to go (no dates), find (by name or subject), what changed, tell me more. A list gives short cards with enough facts to judge; tell me more gives the depth for the items that the agent recommends. The order is neutral (group, date, title). Each list starts with `counts`, so the designer knows how many items exist. The fact rules are sent one time in the server instructions; a tool description says only when to call the tool. Each answer shows all groups; there is no `include_local` (design draft 3). They must never start a fetch or invent a date.
+- An item has a time shape (single date, repeating dates, run, season) and a category. Both are facts.
+- **Discovery** runs each week: sources that collected pages name, and that the registry does not have, go to a candidates list for Joshua. `holes` shows how many wait.
 
 ## Findings that shaped the model
 
 Each line: what we believed, what the test showed, what changed. Newest first.
+
+- 2026-11-23 Decision by Joshua, not a test: the feed controls what the agent knows, not what it decides. We believed that four operations and the instruction "show the text as it is" were enough. Joshua's points: an agent must look up an item by name and see which places exist; rules belong one time in the server instructions; the agent decides how many items to show; and a designer who sees 5 items must know that 47 exist. Thus design draft 5 has six operations, a short card with kind, category, price and one quote, `counts` in each list, and server instructions. Effect on the two measures: none measured; this is tested by acceptance A8 and A14 with a new Claude.
+
+- 2026-11-23 Decision by Joshua, not a test: the feed stores facts, not judgments. We believed that the feed must mark headline items by a table from category to tier. Joshua's reason: travellers have different interests, so relevance belongs to the agent at query time. Thus the tier, the headline-first order and the promote and demote commands are removed (design draft 4). Effect on the two measures: none measured; no code used the tier yet. Acceptance lines A7, A8, A12 and hand cases 10, 12, 15, 20 still describe the tier and wait for Joshua.
+- 2026-11-23 We believed that the T2 pass rate was equal for each kind of item. Joshua's review of T2 showed that the items closest to what Magic Safari sells are the weakest: the whale page gave 0 items, shark cage diving has no time, and only 3 of 11 saved pages are experience or season pages. Thus the 198 of 213 result is mostly small local events. I then measured 15 experience and season pages (T2b): no check failed, but only 9 of 49 items have a time, 5 a price and 7 a town, because operator pages do not state them or need a browser. Thus the weak point for experiences is the source page, not the check. An experience needs its operator, town and booking link from the registry, and the page adds only what it states.
+
+- 2026-11-23 We believed that 22 passing tests made the verify step safe. A blind review showed 6 ways for a false value to pass, for example a quote "8 17:30 Hangklip Hotel" on a page that says "18 17:30". Thus a quote must start and end at a word or number boundary, a day number must stand alone, and a date part that the kind does not use must be 0. Effect, measured on the saved T2 answers before and after: false facts found 0 and 0; items for review 15 of 213 and 15 of 213. Known gaps that stay open: text hidden by a stylesheet class passes `feed/render.py`; an inline tag splits a word or a price over two lines; a price passes if its number is anywhere in the quote, with any currency; "Jan" and "Julie" in a name count as a month.
+
+- 2026-11-23 We believed that a date in a list row (day only, year in a header) may not be checkable by code. T2 showed that it is: the model gives day, month and year as numbers with one quote for each place (row, month header, year header), and code finds each part. 215 of 218 date entries pass on 11 real pages; 32 of 32 dates agree between two pages of the same office. Thus the verify design stays. Measured: 0 false dates found in the sample and the cross-check; 15 of 213 items (7 percent) need review or have no time.
+- 2026-11-23 We believed that quotes need loose matching. T2 showed that 745 of 755 checked fields match exactly and 10 need only whitespace. Thus the punctuation level is not needed by the data so far; it stays until T4, then it is removed if still 0.
+- 2026-11-23 We believed that four time kinds cover the pages (date, range, months, weekly). T2 showed a fifth: a rule by month ("first Friday of every month", 3 items, and 2 more in a PDF footnote with no date entry). Thus the time shape "repeating dates" needs a monthly rule, or these items wait for review. Joshua decides.
+- 2026-11-23 We believed that a quote ties a date to its item. T2 showed that it does only where the row holds both (166 of 214 entries). On pages where the title and the date are on different lines, code proves that the date is on the page, not that it is this item's date. Thus this is a known gap of the check; a position rule (the date quote is the nearest to the title quote) is a candidate, not built.
 
 - 2026-11-23 We believed that a Hermanus list gives the standing experiences. T9 showed that no list is complete, and that 15 of 20 candidates start outside Hermanus (shark cage diving starts in Kleinbaai). Thus experiences come from a list of operator pages that Joshua approves, and their place rule is wider than for events.
 - 2026-11-23 We believed that an operator page states months and price. T9 showed months on 5 of 15 pages and price on 7 of 15; the facts are often in a booking engine. Thus many experience cards say "not stated", and the booking link is the main value.
@@ -53,8 +66,9 @@ From the prototype (stated in `docs/handover.md`, not tested again here):
 
 ## Open questions
 
-- Does the value-in-quote check work for dates in words and for a year in a header? T2 answers it.
-- Is the category rule good enough for the tier? Joshua's marks answer it (design O1, acceptance A6).
+- T2 answered the date question (yes). Open from T2: a monthly rule as a time kind; "free" as a price; the link between a date quote and its item on pages with one field for each line.
+- Can a new Claude, with only the tool descriptions, pick the correct call and rank the items well? Acceptance A14 answers it.
+- Does extraction work on operator pages (experiences, seasons) as well as on event lists?
 - Which towns are inside 45 minutes, and which experiences are approved? Joshua decides (design O2, O3).
 - Which access path is the most reliable for each source? T10 answers it.
 - Which model? T4 answers it.

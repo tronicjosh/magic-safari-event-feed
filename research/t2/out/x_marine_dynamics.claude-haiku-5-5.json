@@ -1,0 +1,33 @@
+{
+ "page_id": "x_marine_dynamics",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:22:31.920424+00:00",
+ "message_id": "msg_011ChKrNSu9gCpmUtpi7uLLZ",
+ "stop_reason": "end_turn",
+ "input_tokens": 7217,
+ "output_tokens": 1219,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.001331,
+ "items": [
+  {
+   "title": {
+    "value": "Shark cage diving adventure",
+    "quote": "Shark cage diving adventure"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai, South Africa"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "ZAR 3 655.00",
+    "quote": "ZAR 3 655.00"
+   },
+   "when": []
+  }
+ ]
+}

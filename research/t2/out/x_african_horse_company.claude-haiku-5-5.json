@@ -1,0 +1,71 @@
+{
+ "page_id": "x_african_horse_company",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:21:30.926954+00:00",
+ "message_id": "msg_011ChKrJ52ASaFkYFbzS1gyT",
+ "stop_reason": "end_turn",
+ "input_tokens": 2711,
+ "output_tokens": 953,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.000748,
+ "items": [
+  {
+   "title": {
+    "value": "Mountain",
+    "quote": "Mountain"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "1hr R470 pp • 2 hr R850 pp",
+    "quote": "Mountain: 1hr R470 pp • 2 hr R850 pp"
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Beach",
+    "quote": "Beach"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "3.5hr R1300 pp • Full day R1900 pp incl lunch",
+    "quote": "Beach: 3.5hr R1300 pp • Full day R1900 pp incl lunch"
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Multi day trails",
+    "quote": "Multi day trails"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  }
+ ]
+}

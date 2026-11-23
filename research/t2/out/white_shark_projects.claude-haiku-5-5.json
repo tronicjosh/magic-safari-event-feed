@@ -1,0 +1,33 @@
+{
+ "page_id": "white_shark_projects",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:01:37.085123+00:00",
+ "message_id": "msg_011ChKpn4JJcwfjDAPTxBXGw",
+ "stop_reason": "end_turn",
+ "input_tokens": 4266,
+ "output_tokens": 995,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.000924,
+ "items": [
+  {
+   "title": {
+    "value": "Shark Cage Diving",
+    "quote": "Shark Cage Diving Cape Town, starts in the early hours of the morning."
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Shark cage diving in Gansbaai with White Shark Projects"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "R2,700 per international adult and R1,800 per South African adult",
+    "quote": "R2,700 per international adult and R1,800 per South African adult"
+   },
+   "when": []
+  }
+ ]
+}

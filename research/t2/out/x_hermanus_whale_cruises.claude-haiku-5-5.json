@@ -1,0 +1,90 @@
+{
+ "page_id": "x_hermanus_whale_cruises",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:22:09.972711+00:00",
+ "message_id": "msg_011ChKrLu6giecPp3nWwVimt",
+ "stop_reason": "end_turn",
+ "input_tokens": 2524,
+ "output_tokens": 1154,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.000829,
+ "items": [
+  {
+   "title": {
+    "value": "The Boat Trip",
+    "quote": "The Boat Trip"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "boat-based whale watching in Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Eco-Tours",
+    "quote": "We also offer Eco-Tours"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Cultural Tours",
+    "quote": "Cultural Tours where you meet the local people"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Township tours",
+    "quote": "Township tours to Mount Pleasant, Zwelihle and Stanford can be arranged."
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  }
+ ]
+}

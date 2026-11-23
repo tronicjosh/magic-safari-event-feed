@@ -1,0 +1,51 @@
+{
+ "page_id": "x_ht_southern_right_whales",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:22:14.972959+00:00",
+ "message_id": "msg_011ChKrMJ8HTg4YREXPwwHGR",
+ "stop_reason": "end_turn",
+ "input_tokens": 4493,
+ "output_tokens": 949,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.000924,
+ "items": [
+  {
+   "title": {
+    "value": "Southern Right Whales",
+    "quote": "Southern Right Whales"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 6,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 11,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "from June till end November mostly"
+     ]
+    }
+   ]
+  }
+ ]
+}

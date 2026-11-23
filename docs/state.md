@@ -5,9 +5,9 @@ Last change: 2026-11-23. Read this file first in a new session. It says where th
 ## Where we are
 
 ```text
-design (draft 3) ── done
-slice 0a  direction test T2 ............ NEXT   (not started; nothing is built)
-slice 0b  schema + tracer bullet ....... after 0a passes
+design (draft 5) ── done
+slice 0a  direction test T2 ............ PASSED (my review of the failures is open)
+slice 0b  schema + tracer bullet ....... NEXT (new session)
 slices 1-3  collect | verify | read .... three builders in parallel worktrees, then a blind reviewer each
 slice 4   first real run + my review
 slice 5   fresh-Claude test, site, write-up
@@ -25,27 +25,33 @@ Way of work for each slice: plan, my review of the plan, build, report with one 
 
 Run Python as `./.venv/Scripts/python` (Windows, Git Bash).
 
-## Slice 0a: the direction test T2
+## Slice 0a: PASSED on 2026-11-23
 
-**Question:** do the quote check and the date check work on real Hermanus pages? If not, stop and change the design before any builder starts.
+The quote check and the date check work on real pages. Result and gaps: `docs/assumptions.md` row T2, `research/t2_results.md`, `docs/model.md`. Spend: 0.048414 of 5 US dollars (one more small call was not recorded).
 
-**Plan (not yet reviewed by me):**
+What exists now: `evals/pages/` (11 saved sources), `feed/render.py`, `feed/verify.py`, `feed/env.py`, `tests/test_verify.py` (30 tests), `research/t2/` (fetch, extract, check), `runs/runs.md`.
 
-1. Save about 10 real text sources into `evals/pages/` as visible text, with the raw file beside it:
-   - the newest Overstrand monthly PDF and the yearly PDF (find the file through `whalecoast.info/wp-json/wp/v2/media`);
-   - the Overstrand "this weekend" page (page data; text comes before the JSON and must be removed);
-   - Hermanus Tourism: festivals page and whale-watching page;
-   - Hermanus Whale Festival and Kalfiefees home pages;
-   - Xplorio events, Wesgro events page 1;
-   - two operator pages: Southern Right Charters and White Shark Projects.
-2. For each page, one call to `claude-haiku-5-5` with a JSON schema: items, and for each field a value and a word-for-word quote. A date has a list of quotes (the row and the header).
-3. Code checks, with no model: quote on page; value in quote; date parts (day, month, year) in the date quotes; shape.
-4. Report in `research/t2_results.md` and one row in `docs/assumptions.md`: for each page, items found, fields passed, fields failed and why. Also tokens and cost in `runs/`.
-5. I review the failures in short form: page extract, quote, entry.
+To repeat with no cost (answers are saved): `./.venv/Scripts/python research/t2/check.py`.
 
-**Pass:** most fields pass, and each failure has a cause that a rule or the stronger-model retry can fix. **Fail:** dates in list rows (day only, year in a header) cannot be checked. Then the date check in the design must change.
+After my review of T2 (same day): design draft 4 (facts, not judgments; weekly source discovery; Hermanus as the pilot). T2b measured 15 experience and season pages: the checks pass, but 40 of 49 items have no time and 2 sites need a browser (`docs/assumptions.md`, row T2b). `evals/pages/` now has 23 sources.
 
-**Access paths and odd results:** `research/t10_collection_strategy.md`, section 2.
+Design draft 5 (same day): six read operations (`places`, `what_is_on`, `when_to_go`, `find`, `what_changed`, `tell_me_more`), short card, `counts`, server instructions. `docs/acceptance.md` (A3, A7, A8, A12, A14), the hand cases (now 24) and `CLAUDE.md` principle 2 agree with it.
+
+## Slice 0b: NEXT (start in a new session)
+
+Schema and tracer bullet: one item of each time shape goes from a saved page in `evals/pages/` to `what_is_on`. Check: hand cases 1 to 5.
+
+- Open decisions O5 to O9 are in `docs/design.md`. Slice 0b uses each recommendation as its working default; I can change one before the plan is approved.
+- Way of work: I give my approach in two lines, Claude shows where its plan differs, then test first, build, check, blind review.
+- Reuse: `feed/render.py`, `feed/verify.py`, `feed/env.py`, the saved pages, and the saved model answers in `research/t2/out/` (no new model call is necessary for the tracer bullet).
+
+Blind review of `feed/verify.py`: done, 6 false-pass faults repaired, 30 tests pass, T2 numbers unchanged.
+
+Open for slice 1 (render): hidden text by a stylesheet class, off-screen text, and `textarea` or `iframe` content pass `html_to_text`; an inline tag splits text over two lines (`R75<sup>1</sup>` becomes two lines). A change to render changes the saved page texts, so T2 must then run again (about 0.05 US dollars).
+
+Open for slice 2 (verify): the price check takes any number in the quote and no currency; "Jan" or "Julie" in a name counts as a month; dates such as `2026-12-04` and `04.12.2026` fail (safe, but they go to review).
+
+Not done in 0a: my review of the failures (step 5), a test for hidden text in `feed/render.py`, a commit.
 
 ## Open decisions (mine)
 
@@ -56,6 +62,6 @@ Run Python as `./.venv/Scripts/python` (Windows, Git Bash).
 
 ## Changes after draft 3 that the design already holds
 
-- No `include_local` and no threshold: each answer shows all groups, headline first.
+- No `include_local`, no threshold and no tier: each answer gives all items, in a neutral order, with `counts`.
 - `holes` measures survivorship bias: sources collected against sources known, and the declared count of each source that is not collected.
 - A Vercel site for connecting an agent to the MCP URL. The local version is identical and comes first.

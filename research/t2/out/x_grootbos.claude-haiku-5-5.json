@@ -1,0 +1,317 @@
+{
+ "page_id": "x_grootbos",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:21:56.894974+00:00",
+ "message_id": "msg_011ChKrKahsQpmoETNm39x1A",
+ "stop_reason": "end_turn",
+ "input_tokens": 4992,
+ "output_tokens": 2596,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.001797,
+ "items": [
+  {
+   "title": {
+    "value": "Botanical 4x4 Tour",
+    "quote": "Botanical 4x4 Tour"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Shark Cage Diving",
+    "quote": "Shark Cage Diving"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Horse Riding",
+    "quote": "Horse Riding"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Whale Watching",
+    "quote": "Whale Watching"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Lady Stanford River Cruise",
+    "quote": "Lady Stanford River Cruise"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Walks and Hikes",
+    "quote": "Walks and Hikes"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Marine Safari",
+    "quote": "Marine Safari"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Fatbike Tours",
+    "quote": "Fatbike Tours"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Wellness Spas",
+    "quote": "Wellness Spas"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Bird Watching",
+    "quote": "Bird Watching"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Living the Future Tour",
+    "quote": "Living the Future Tour"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Southern Tip of Africa Tour",
+    "quote": "Southern Tip of Africa Tour"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Coastal Safari",
+    "quote": "Coastal Safari"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Immersive Wellbeing",
+    "quote": "Immersive Wellbeing"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "The Fynbos Superbloom",
+    "quote": "The Fynbos Superbloom"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 5,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 9,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "from May to September 2026"
+     ]
+    }
+   ]
+  }
+ ]
+}

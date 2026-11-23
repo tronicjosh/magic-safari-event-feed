@@ -1,0 +1,33 @@
+{
+ "page_id": "x_heart_of_abalone",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:22:04.588779+00:00",
+ "message_id": "msg_011ChKrLS9CqKsexFRTaquH8",
+ "stop_reason": "end_turn",
+ "input_tokens": 2248,
+ "output_tokens": 1263,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.000856,
+ "items": [
+  {
+   "title": {
+    "value": "Heart of Abalone",
+    "quote": "Heart of Abalone"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "New Harbour of Hermanus"
+   },
+   "venue": {
+    "value": "Heart Shed",
+    "quote": "The Heart Shed is our own venue"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  }
+ ]
+}

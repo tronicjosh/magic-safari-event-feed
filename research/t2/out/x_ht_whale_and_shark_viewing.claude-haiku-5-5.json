@@ -1,0 +1,316 @@
+{
+ "page_id": "x_ht_whale_and_shark_viewing",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:22:25.593024+00:00",
+ "message_id": "msg_011ChKrMfa81jv1soMn9Zq9G",
+ "stop_reason": "end_turn",
+ "input_tokens": 6674,
+ "output_tokens": 2769,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.002052,
+ "items": [
+  {
+   "title": {
+    "value": "Whale Watching on the Cape Whale Coast",
+    "quote": "Whale Watching on the Cape Whale Coast"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 6,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 11,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "from June till November each year"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus Whale Watchers",
+    "quote": "Hermanus Whale Watchers"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 6,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 11,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "in season from June - November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus Whale Cruises",
+    "quote": "Hermanus Whale Cruises"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Southern Right Charters",
+    "quote": "Southern Right Charters"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Ivanhoe Sea Safaris",
+    "quote": "Ivanhoe Sea Safaris"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Marine Dynamics Whale Tours offers Marine Big 5 Whale Watching trips",
+    "quote": "Marine Dynamics Whale Tours offers Marine Big 5 Whale Watching trips"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Marine Big Five Tours with Dyer Island Cruises (Copy)",
+    "quote": "Marine Big Five Tours with Dyer Island Cruises (Copy)"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "SharkLady Adventures",
+    "quote": "SharkLady Adventures"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "White Shark Projects",
+    "quote": "White Shark Projects"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "White Shark Diving Company",
+    "quote": "White Shark Diving Company"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Great White Shark Tours",
+    "quote": "Great White Shark Tours"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Marine Dynamics Shark Tours",
+    "quote": "Marine Dynamics Shark Tours"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Dave de Beer",
+    "quote": "Dave de Beer"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Blade Charters",
+    "quote": "Blade Charters"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  }
+ ]
+}

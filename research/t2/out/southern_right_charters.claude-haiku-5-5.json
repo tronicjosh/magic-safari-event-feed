@@ -1,0 +1,90 @@
+{
+ "page_id": "southern_right_charters",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:01:07.486442+00:00",
+ "message_id": "msg_011ChKpjmBMZgPURfA29bTi8",
+ "stop_reason": "end_turn",
+ "input_tokens": 2701,
+ "output_tokens": 1050,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.000795,
+ "items": [
+  {
+   "title": {
+    "value": "Whale Watching",
+    "quote": "WHALE WATCHING"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 6,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 11,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "WHALE WATCHING Hermanus June to end November",
+      "June to end November"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Whale Expedition SA",
+    "quote": "WHALE EXPEDITION SA"
+   },
+   "town": {
+    "value": "West Coast",
+    "quote": "West Coast"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 11,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 4,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "WHALE EXPEDITION SA West Coast November to April",
+      "November to April"
+     ]
+    }
+   ]
+  }
+ ]
+}
