@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hermanus Event Feed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #001E01; --deep: #1F2A1C; --moss: #2C3628; --leaf: #5A6353; --sage: #7A8274; --mist: #93998E;
+    --ink: #292827; --body: #5C5954; --line: #E2E6EA; --line-2: #D5D9DD; --wash: #F5F6F7; --paper: #FAF9F7;
+    --ok-bg: #EDF6EA; --ok-line: #C9E6C0; --ok: #2A6B2E; --rule-bg: #DCE6F2; --rule: #3F5672;
+    --warn-bg: #FDF3C7; --warn: #7A5B00; --bad: #C0392B;
+    --serif: "Crimson Text", Georgia, "Times New Roman", serif;
+    --sans: Montserrat, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #fff; color: var(--ink); font: 400 15px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--leaf); }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  [hidden] { display: none !important; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* navigation */
+  .nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; gap: 20px; height: 64px; }
+  .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+  .brand b { font: 700 22px/1 var(--serif); color: var(--deep); letter-spacing: -.01em; }
+  .brand span { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--sage); }
+  .nav nav { margin-left: auto; display: flex; gap: 4px; }
+  .nav nav button { border: 0; background: transparent; padding: 8px 14px; border-radius: 6px; font-weight: 600; font-size: 14px; color: var(--body); cursor: pointer; }
+  .nav nav button:hover { color: var(--deep); background: var(--wash); }
+  .nav nav button[aria-selected="true"] { color: #fff; background: var(--deep); }
+
+  /* hero */
+  .hero { background: var(--forest); color: #fff; }
+  .hero .wrap { padding-top: 44px; padding-bottom: 40px; }
+  .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #A9B8A2; }
+  .hero h1 { font: 700 44px/1.08 var(--serif); letter-spacing: -.02em; margin: 10px 0 12px; max-width: 18ch; text-wrap: balance; }
+  .hero p { margin: 0; max-width: 62ch; color: rgba(255,255,255,.86); font-size: 16px; line-height: 1.7; }
+  .stats { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .stat { border: 1px solid rgba(255,255,255,.16); border-radius: 8px; padding: 10px 16px; min-width: 132px; }
+  .stat b { display: block; font: 700 26px/1.1 var(--serif); }
+  .stat span { font-size: 12px; color: #A9B8A2; }
+
+  main { padding: 32px 0 72px; }
+  h2 { font: 700 26px/1.15 var(--serif); color: var(--deep); margin: 0 0 6px; }
+  .sub { color: var(--body); margin: 0 0 20px; max-width: 70ch; }
+
+  /* controls */
+  .panel { border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+  .tools { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; border-bottom: 1px solid var(--line); background: var(--wash); border-radius: 12px 12px 0 0; }
+  .tools button { border: 1px solid transparent; background: transparent; padding: 8px 14px; border-radius: 6px; font-weight: 600; font-size: 14px; color: var(--body); cursor: pointer; text-align: left; }
+  .tools button small { display: block; font-weight: 400; font-size: 11.5px; color: var(--mist); }
+  .tools button[aria-selected="true"] { background: #fff; border-color: var(--line-2); color: var(--deep); box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+  form.query { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; padding: 16px; }
+  label { display: flex; flex-direction: column; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sage); }
+  input, select, textarea { border: 1px solid var(--line-2); border-radius: 6px; padding: 9px 11px; background: #fff; font-size: 14.5px; min-width: 160px; }
+  input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--sage); outline-offset: 1px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 6px; border: 1px solid transparent; background: var(--deep); color: #fff; font-weight: 600; font-size: 14.5px; cursor: pointer; transition: background .2s; }
+  .btn:hover { background: var(--leaf); }
+  .btn:disabled { opacity: .55; cursor: wait; }
+  .btn.ghost { background: #fff; color: var(--deep); border-color: var(--line-2); }
+  .btn.ghost:hover { background: var(--wash); }
+  .viewswitch { margin-left: auto; display: inline-flex; border: 1px solid var(--line-2); border-radius: 6px; overflow: hidden; }
+  .viewswitch button { border: 0; background: #fff; padding: 8px 12px; font-size: 13px; font-weight: 600; color: var(--body); cursor: pointer; }
+  .viewswitch button[aria-pressed="true"] { background: var(--deep); color: #fff; }
+
+  /* results */
+  .counts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 22px 0 6px; }
+  .counts .total { font: 700 22px/1 var(--serif); color: var(--deep); margin-right: 6px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-2); background: var(--wash); border-radius: 999px; padding: 3px 11px; font-size: 12.5px; color: var(--body); }
+  .chip b { color: var(--deep); }
+  .group { margin-top: 26px; }
+  .group h3 { display: flex; align-items: baseline; gap: 10px; font: 600 12px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--sage); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .group h3 span { color: var(--mist); letter-spacing: 0; text-transform: none; font-weight: 400; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+  .card { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: #fff; display: flex; flex-direction: column; gap: 8px; }
+  .card:hover { border-color: #C9CFC4; box-shadow: 0 2px 10px rgba(31,42,28,.06); }
+  .card .top { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--leaf); background: #F3F4F1; border: 1px solid #DDE1D8; border-radius: 4px; padding: 1px 7px; }
+  .sure { font-size: 11.5px; font-weight: 600; border-radius: 4px; padding: 1px 8px; border: 1px solid transparent; margin-left: auto; white-space: nowrap; }
+  .sure.ok { background: var(--ok-bg); border-color: var(--ok-line); color: var(--ok); }
+  .sure.rule { background: var(--rule-bg); color: var(--rule); }
+  .sure.warn { background: var(--warn-bg); color: var(--warn); }
+  .card h4 { font: 700 19px/1.2 var(--serif); color: var(--deep); margin: 0; }
+  .card .when { font-weight: 600; font-size: 14px; color: var(--ink); }
+  .card .note { font-size: 12.5px; color: var(--body); }
+  .card q { quotes: "\201C" "\201D"; font-style: italic; color: var(--moss); }
+  .card .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--body); }
+  .card .foot { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); font-size: 12.5px; }
+  .card .foot a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+  .linkbtn { border: 0; background: transparent; color: var(--deep); font-weight: 600; cursor: pointer; padding: 0; white-space: nowrap; }
+  .linkbtn:hover { text-decoration: underline; }
+  .holes { margin-top: 30px; border: 1px solid #EBDDA8; background: #FFFBEA; border-radius: 10px; padding: 14px 16px; font-size: 13.5px; color: #5E4B0B; }
+  .holes b { color: #3D3006; }
+  .empty { color: var(--mist); padding: 10px 0; }
+  pre.raw { margin: 22px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 18px; background: var(--paper); white-space: pre-wrap; word-break: break-word; font: 12.5px/1.6 var(--mono); color: var(--ink); }
+  .error { color: var(--bad); font-weight: 600; margin-top: 18px; }
+
+  /* agent chat */
+  .chat { max-width: 860px; }
+  #talk { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
+  .turn { border-radius: 12px; padding: 14px 18px; white-space: pre-wrap; word-break: break-word; }
+  .turn.you { align-self: flex-end; max-width: 82%; background: var(--deep); color: #fff; border-bottom-right-radius: 4px; }
+  .turn.agent { border: 1px solid var(--line); background: #fff; border-bottom-left-radius: 4px; }
+  .turn.agent strong { color: var(--deep); }
+  .turn.agent .h { font: 700 18px/1.3 var(--serif); color: var(--deep); }
+  .trace { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12px; color: var(--body); white-space: normal; }
+  .trace code { display: inline-block; background: var(--wash); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; margin: 2px 4px 2px 0; font: 11.5px var(--mono); color: var(--moss); }
+  .dots::after { content: "…"; animation: dots 1.2s steps(4, end) infinite; }
+  @keyframes dots { 0% { content: ""; } 33% { content: "."; } 66% { content: ".."; } 100% { content: "..."; } }
+  .composer { padding: 14px; }
+  .composer textarea { width: 100%; min-height: 62px; resize: vertical; }
+  .composer .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-top: 10px; }
+  .composer .row .grow { flex: 1; }
+
+  /* proof drawer */
+  .scrim { position: fixed; inset: 0; background: rgba(0,30,1,.35); z-index: 30; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 100%); background: #fff; z-index: 31; box-shadow: -8px 0 30px rgba(0,0,0,.12); display: flex; flex-direction: column; }
+  .drawer header { padding: 18px 20px; border-bottom: 1px solid var(--line); display: flex; align-items: flex-start; gap: 12px; }
+  .drawer header h3 { font: 700 22px/1.2 var(--serif); color: var(--deep); margin: 2px 0 0; flex: 1; }
+  .drawer .body { padding: 18px 20px; overflow: auto; }
+  .facts { display: grid; grid-template-columns: 92px 1fr; gap: 6px 14px; font-size: 13.5px; margin-bottom: 18px; }
+  .facts dt { color: var(--sage); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding-top: 2px; }
+  .facts dd { margin: 0; }
+  .proof { border-left: 3px solid var(--ok-line); background: var(--paper); border-radius: 0 8px 8px 0; padding: 10px 14px; margin-bottom: 10px; }
+  .proof .f { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sage); }
+  .proof q { display: block; font: 600 17px/1.4 var(--serif); color: var(--deep); margin: 2px 0 4px; quotes: "\201C" "\201D"; }
+  .proof small { color: var(--mist); }
+
+  footer { border-top: 1px solid var(--line); background: var(--paper); color: var(--body); font-size: 13px; }
+  footer .wrap { padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  @media (max-width: 640px) { .hero h1 { font-size: 34px; } .brand span { display: none; } .viewswitch { margin-left: 0; } }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="wrap">
+    <a class="brand" href="/"><b>Hermanus Event Feed</b><span>Demo</span></a>
+    <nav role="tablist" aria-label="View">
+      <button data-view="ask" aria-selected="true">Ask the agent</button>
+      <button data-view="browse" aria-selected="false">Browse the feed</button>
+    </nav>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">For travel designers and their agents</div>
+    <h1>What’s on in Hermanus, and how sure are we?</h1>
+    <p>Every fact in this feed carries a word-for-word quote from its source page, checked by code.
+       The feed gives the facts and the proof. Your agent selects for the guest. You decide.</p>
+    <div class="stats" id="stats"></div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- Ask the agent -->
+  <section id="view-ask" class="chat">
+    <h2>Ask the agent</h2>
+    <p class="sub">A Claude model with only the four tools of the feed, as a travel designer’s agent has them.
+       Under each answer: the tools it called, and the measured cost.</p>
+    <div id="talk"></div>
+    <form class="panel composer" id="chat">
+      <textarea name="message" placeholder="Type your question" required></textarea>
+      <div class="row">
+        <label>Model
+          <select name="model">
+            <option value="claude-opus-5-5">Claude Opus 5.5 · about 6 cents an answer</option>
+            <option value="claude-sonnet-5-5">Claude Sonnet 5.5</option>
+            <option value="claude-haiku-5-5">Claude Haiku 5.5 · under 1 cent an answer</option>
+          </select>
+        </label>
+        <span class="grow"></span>
+        <button type="button" class="btn ghost" id="new">New chat</button>
+        <button class="btn" id="send">Ask</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Browse the feed -->
+  <section id="view-browse" hidden>
+    <h2>Browse the feed</h2>
+    <p class="sub">The same four operations that an agent calls. No model is used here.
+       “Agent view” shows the exact text that an agent gets.</p>
+    <div class="panel">
+      <div class="tools" role="tablist" aria-label="Operation">
+        <button data-tool="on" aria-selected="true">What is on<small>the trip has dates</small></button>
+        <button data-tool="go" aria-selected="false">When to go<small>no dates yet</small></button>
+        <button data-tool="changed" aria-selected="false">What changed<small>since the last look</small></button>
+        <button data-tool="more" aria-selected="false">Tell me more<small>the proof of an item</small></button>
+      </div>
+      <form class="query" id="on">
+        <label>From <input type="date" name="start" required></label>
+        <label>To <input type="date" name="end" required></label>
+        <button class="btn">Show</button>
+        <span class="viewswitch"><button type="button" data-raw="0" aria-pressed="true">Cards</button><button type="button" data-raw="1" aria-pressed="false">Agent view</button></span>
+      </form>
+      <form class="query" id="go" hidden>
+        <label>From month <select name="from_month"></select></label>
+        <label>To month <select name="to_month"></select></label>
+        <button class="btn">Show</button>
+        <span class="viewswitch"><button type="button" data-raw="0" aria-pressed="true">Cards</button><button type="button" data-raw="1" aria-pressed="false">Agent view</button></span>
+      </form>
+      <form class="query" id="changed" hidden>
+        <label>Since <input type="date" name="since" required></label>
+        <button class="btn">Show</button>
+        <span class="viewswitch"><button type="button" data-raw="0" aria-pressed="true">Cards</button><button type="button" data-raw="1" aria-pressed="false">Agent view</button></span>
+      </form>
+      <form class="query" id="more" hidden>
+        <label>Item ids <input name="ids" inputmode="numeric" required></label>
+        <button class="btn">Show</button>
+      </form>
+    </div>
+    <div id="result"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Read-only demo on a local database. A homework project for Magic Safari.</span>
+    <span id="foot"></span>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Proof of an item">
+  <header><div style="flex:1"><div class="eyebrow" style="color:var(--sage)">The proof</div><h3 id="drawer-title"></h3></div>
+    <button class="btn ghost" id="close" style="height:34px;padding:0 12px">Close</button></header>
+  <div class="body" id="drawer-body"></div>
+</aside>
+
+<script>
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+const esc = text => String(text ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const PATHS = {on: "what_is_on", go: "when_to_go", changed: "what_changed", more: "tell_me_more"};
+const GROUP_NOTES = {
+  "dated": "a page states the date, or code wrote it from a weekly rule",
+  "seasons and experiences": "months that a page states, with no year",
+  "not confirmed": "held each year; no page states the dates for this period",
+  "below the traveller bar": "the feed’s soft judgment: routine local life. Shown, not hidden",
+  "new": "first seen on or after the date",
+  "changed": "a change on or after the date"
+};
+let rawView = false, lastAnswer = null, lastTool = "on";
+
+/* ---------- header numbers ---------- */
+fetch("/api/stats").then(r => r.json()).then(s => {
+  if (!s.items && s.items !== 0) return;
+  const tiles = [[s.items, "items in the feed"], [s.sources, "sources collected"], [s.towns, "towns within a 45-minute drive"], [s.as_of, "last ingest"]];
+  $("#stats").innerHTML = tiles.map(([value, label]) => `<div class="stat"><b>${esc(value)}</b><span>${esc(label)}</span></div>`).join("");
+  $("#foot").textContent = `Not collected: ${s.not_collected.join(", ")}. ${s.below_bar} items are below the traveller bar.`;
+}).catch(() => {});
+
+/* ---------- views ---------- */
+function view(name) {
+  $("#view-ask").hidden = name !== "ask";
+  $("#view-browse").hidden = name !== "browse";
+  $$(".nav nav button").forEach(b => b.setAttribute("aria-selected", b.dataset.view === name));
+}
+$(".nav nav").addEventListener("click", e => { if (e.target.dataset.view) view(e.target.dataset.view); });
+
+/* ---------- browse ---------- */
+for (const select of $$("#go select")) {
+  select.add(new Option("Select a month", ""));
+  MONTHS.forEach((name, i) => select.add(new Option(name, i + 1)));
+  select.required = true;
+}
+function tool(name) {
+  lastTool = name;
+  $$("form.query").forEach(f => f.hidden = f.id !== name);
+  $$(".tools button").forEach(b => b.setAttribute("aria-selected", b.dataset.tool === name));
+}
+$(".tools").addEventListener("click", e => {
+  const button = e.target.closest("button");
+  if (button) { tool(button.dataset.tool); lastAnswer = null; $("#result").innerHTML = ""; }
+});
+$$("form.query").forEach(f => f.addEventListener("submit", e => { e.preventDefault(); ask(f.id); }));
+$$(".viewswitch").forEach(s => s.addEventListener("click", e => {
+  if (e.target.dataset.raw === undefined) return;
+  rawView = e.target.dataset.raw === "1";
+  $$(".viewswitch button").forEach(b => b.setAttribute("aria-pressed", (b.dataset.raw === "1") === rawView));
+  if (lastAnswer) render(lastTool, lastAnswer);
+}));
+
+async function ask(name) {
+  const result = $("#result");
+  result.innerHTML = '<p class="empty">Loading<span class="dots"></span></p>';
+  try {
+    const query = new URLSearchParams(new FormData($("#" + name)));
+    const response = await fetch(`/api/${PATHS[name]}?${query}`);
+    const body = await response.json();
+    if (!response.ok) { result.innerHTML = `<p class="error">${esc(body.detail)}</p>`; return; }
+    lastAnswer = body;
+    render(name, body);
+  } catch (error) { result.innerHTML = `<p class="error">${esc(error)}</p>`; }
+}
+
+function sure(card) {
+  if (!card.confirmed) return ['warn', 'Not confirmed'];
+  if (card.rule) return ['rule', 'Weekly rule'];
+  if (card.season) return ['rule', 'Season · no year stated'];
+  if (card.range) return ['ok', 'Confirmed · a range'];
+  return ['ok', 'Confirmed'];
+}
+function note(card) {
+  if (!card.confirmed) return "Held each year. No page states the dates for this period.";
+  if (card.rule) return `The page states the rule, not this date: <q>${esc(card.rule)}</q>`;
+  if (card.season) return `The page states: <q>${esc(card.season_quote)}</q>`;
+  if (card.range) return "The page gives a first and a last day. Each day is not stated.";
+  return "";
+}
+function cardHtml(card) {
+  const [kind, label] = sure(card);
+  const c = card.changed;
+  const changed = c ? `<div class="note"><b>Changed ${esc(c.found_at)}:</b> ${esc(c.field)} ` +
+    (c.old === null ? `added <q>${esc(c.new)}</q>` : `<q>${esc(c.old)}</q> → <q>${esc(c.new)}</q>`) + `</div>` : "";
+  let host = card.source;
+  try { host = new URL(card.source).hostname.replace(/^www\./, ""); } catch (e) {}
+  return `<article class="card">
+    <div class="top"><span class="tag">${esc(card.category)}</span><span class="sure ${kind}">${label}</span></div>
+    <h4>${esc(card.title)}</h4>
+    <div class="when">${esc(card.when)}</div>
+    ${note(card) ? `<div class="note">${note(card)}</div>` : ""}${changed}
+    <div class="meta"><span>${esc(card.town)}</span><span>Price: ${esc(card.price)}</span><span>${card.sources} source${card.sources === 1 ? "" : "s"}</span><span>First seen ${esc(card.first_seen)}</span></div>
+    <div class="foot"><a href="${esc(card.source)}" target="_blank" rel="noopener">${esc(host)}</a><button class="linkbtn" data-proof="${card.id}">See the proof →</button></div>
+  </article>`;
+}
+function groupHtml(name, cards, extra = "") {
+  const body = cards.length ? `<div class="cards">${cards.map(cardHtml).join("")}</div>` : '<p class="empty">None.</p>';
+  return `<section class="group"><h3>${esc(name)} · ${cards.length}<span>${esc(extra || GROUP_NOTES[name] || "")}</span></h3>${body}</section>`;
+}
+function render(name, body) {
+  const result = $("#result"), data = body.data;
+  if (name === "more") { result.innerHTML = moreHtml(data); return; }
+  if (rawView) { result.innerHTML = `<pre class="raw">${esc(body.text)}</pre>`; return; }
+  const counts = data.counts;
+  let html = `<div class="counts"><span class="total">${counts.items} item${counts.items === 1 ? "" : "s"}</span>`;
+  html += Object.entries(counts.groups).map(([k, v]) => `<span class="chip"><b>${v}</b> ${esc(k)}</span>`).join("");
+  html += `</div><div class="counts" style="margin-top:0">` + Object.entries(counts.categories).map(([k, v]) => `<span class="chip">${esc(k)} <b>${v}</b></span>`).join("") + `</div>`;
+  if (data.months) html += data.months.map(m => groupHtml(m.name, m.cards, " ")).join("");
+  else html += data.groups.map(g => groupHtml(g.name, g.cards)).join("");
+  const holes = data.holes;
+  if (holes && holes.not_collected.length) {
+    html += `<div class="holes"><b>The list can be incomplete.</b> The feed does not collect: ` +
+      holes.not_collected.map(h => `${esc(h.name)} (${esc(h.reason)}${h.declares ? `; it declares ${esc(h.declares)}` : ""})`).join("; ") + `.</div>`;
+  }
+  result.innerHTML = html;
+}
+
+/* ---------- proof ---------- */
+function proofHtml(card) {
+  if (!card.found) return `<p class="empty">Item ${card.id}: not found.</p>`;
+  const facts = [["When", card.when.join("<br>")], ["Town", esc(card.town)], ["Venue", esc(card.venue)], ["Price", esc(card.price)],
+                 ["Category", esc(card.category)], ["Each year", card.yearly ? "Yes, the page states it" : "Not stated"],
+                 ["Bar", card.below_bar ? "Below the traveller bar" : "Not below the traveller bar"],
+                 ["Source", `<a href="${esc(card.source)}" target="_blank" rel="noopener">${esc(card.source)}</a>`]];
+  const proofs = card.evidence.map(e => e.quote
+    ? `<div class="proof"><div class="f">${esc(e.field)}</div><q>${esc(e.quote)}</q><small>Quote from the page, checked by code · extracted by ${esc(e.model)}</small></div>`
+    : `<div class="proof"><div class="f">${esc(e.field)}</div><small>No quote: ${esc(e.model)}</small></div>`).join("");
+  return `<dl class="facts">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>${proofs}`;
+}
+function moreHtml(data) {
+  return data.cards.map(card => `<section class="group"><h3>${esc(card.title || "id " + card.id)}<span>id ${card.id}</span></h3><div style="max-width:620px">${proofHtml(card)}</div></section>`).join("");
+}
+async function openProof(id) {
+  $("#drawer-title").textContent = "Loading…";
+  $("#drawer-body").innerHTML = "";
+  $("#drawer").hidden = $("#scrim").hidden = false;
+  const response = await fetch(`/api/tell_me_more?ids=${id}`);
+  const body = await response.json();
+  if (!response.ok) { $("#drawer-body").innerHTML = `<p class="error">${esc(body.detail)}</p>`; return; }
+  const card = body.data.cards[0];
+  $("#drawer-title").textContent = card.title || `Item ${id}`;
+  $("#drawer-body").innerHTML = proofHtml(card);
+}
+function closeProof() { $("#drawer").hidden = $("#scrim").hidden = true; }
+document.addEventListener("click", e => { if (e.target.dataset.proof) openProof(e.target.dataset.proof); });
+$("#close").addEventListener("click", closeProof);
+$("#scrim").addEventListener("click", closeProof);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeProof(); });
+
+/* ---------- agent chat ---------- */
+const talk = $("#talk"), chat = $("#chat");
+let session = crypto.randomUUID();
+function rich(text) {
+  return esc(text)
+    .replace(/(https?:\/\/[^\s)<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+    .replace(/[*][*]([^*]+)[*][*]/g, "<strong>$1</strong>")
+    .replace(/^#{1,4} (.*)$/gm, '<span class="h">$1</span>')
+    .replace(/^---+$/gm, "");
+}
+function turn(html, who) {
+  const box = document.createElement("div");
+  box.className = "turn " + who;
+  box.innerHTML = html;
+  talk.append(box);
+  box.scrollIntoView({behavior: "smooth", block: "nearest"});
+  return box;
+}
+async function send() {
+  const message = chat.message.value.trim();
+  if (!message) return;
+  turn(esc(message), "you");
+  chat.message.value = "";
+  const wait = turn('The agent is calling the feed<span class="dots"></span>', "agent");
+  $("#send").disabled = true;
+  try {
+    const response = await fetch("/api/chat", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({session, model: chat.model.value, message})});
+    const body = await response.json();
+    if (!response.ok) { wait.innerHTML = `<span class="error">${esc(body.detail)}</span>`; return; }
+    const calls = body.calls.map(call =>
+      `<code>${esc(call.name)}(${esc(Object.values(call.input).map(v => JSON.stringify(v)).join(", "))})</code>`).join("") || "no tool call";
+    wait.innerHTML = rich(body.text) + `<div class="trace"><b>Tools called:</b> ${calls}<br>` +
+      `${esc(body.model)} · ${body.input_tokens.toLocaleString()} tokens in, ${body.output_tokens.toLocaleString()} out · ` +
+      `this answer ${body.cost_usd.toFixed(4)} USD · this page since start ${body.spent_usd.toFixed(4)} USD</div>`;
+  } catch (error) {
+    wait.innerHTML = `<span class="error">${esc(error)}</span>`;
+  } finally { $("#send").disabled = false; }
+}
+chat.addEventListener("submit", e => { e.preventDefault(); send(); });
+chat.message.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
+$("#new").addEventListener("click", () => {
+  fetch("/api/reset", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({session, model: chat.model.value, message: ""})});
+  session = crypto.randomUUID();
+  talk.innerHTML = "";
+});
+</script>
+</body>
+</html>
