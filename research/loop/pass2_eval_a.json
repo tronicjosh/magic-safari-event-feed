@@ -1,0 +1,196 @@
+[
+  {
+    "id": "p2_stanford_itinerary_check",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "2",
+        "what": "The count is wrong: the answer says 4 and lists 5 items.",
+        "evidence": "Answer: '4 of 46 items:' followed by five item lines (Think & Drink, The Sunset Market, Miss Drag, Open Air Cinema, Oysters & Bubbles). Tool: 'in the window   46 items'. The runner check gives list_lines 5.",
+        "cause": "agent slip",
+        "repeat_of": "none",
+        "why": "The first number must be the number of lines shown; the designer cannot trust a count that does not agree with the list below it."
+      },
+      {
+        "rule": "1",
+        "what": "109 words outside the item lines; the limit is 60. The 'left out' line and the Quicket line add nothing to an itinerary check.",
+        "evidence": "Runner check: words_outside_items 109. Answer: 'I left out other events in the region (Hermanus, Kleinmond, Gansbaai), markets, workshops and the whale season. The feed does not cover Quicket or Webtickets.'",
+        "cause": "instructions",
+        "repeat_of": "D3",
+        "why": "Instructions 12 and 13 demand the left-out line, the holes line and the offer after each list, also when the question is a check of five named items; with the correction lines the 60 words cannot hold."
+      },
+      {
+        "rule": "use",
+        "what": "The designer gave the ages 9 and 12. The answer says 'check them' for all five items in the same way, and does not use what the cards show: two of the five are in the category 'food and wine'.",
+        "evidence": "Answer: 'The feed gives no age limits or start times for these events. Check them with the organisers, given the kids are 9 and 12.' Tool: '[event · food and wine] Think & Drink' and '[event · food and wine] Oysters & Bubbles'.",
+        "cause": "instructions",
+        "repeat_of": "none",
+        "why": "No rule tells the agent to give the category when the guest's wish depends on it; the category is a fact of the feed that tells the designer which two items to check first."
+      },
+      {
+        "rule": "12",
+        "what": "The agent said that the feed gives no start times without a call of tell_me_more. The statement is true (I replayed tell_me_more for ids 75, 80, 82, 96, 102: no time), but the agent did not know that.",
+        "evidence": "Answer: 'The feed gives no age limits or start times'. Calls: what_is_on and find only. Instruction 4: 'A short card has no start time'; instruction 11: call tell_me_more when the designer 'needs a start time'.",
+        "cause": "instructions",
+        "repeat_of": "none",
+        "why": "'A short card has no start time' reads as 'the feed has no start time'; the agent must say 'the list has no start times' or call tell_me_more first."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p2_two_guests_opposite_tastes",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "use",
+        "what": "Two of the six lines are the same exhibition from two cards (same dates, same venue), with no word to the designer. Guest A gets three choices, not four, and the designer cannot tell if these are one event.",
+        "evidence": "Answer: 'Annual Art Exhibition, Thu 19 to Wed 25 Nov, Enlighten Education Trust' and 'Annual Art Exhibition 2026, Thu 19 to Wed 25 Nov, Enlighten Education Trust'. Tool: ids 28 and 58, both 'Thu 19 November 2026 - Wed 25 November 2026 ... venue: Enlighten Education Trust'.",
+        "cause": "tool text",
+        "repeat_of": "none",
+        "why": "The feed keeps two cards (open decision O1, not repaired in pass 1) and instruction 10 forbids the agent to say that they are one event; the agent obeyed, and a line was lost that 'The Art of Edible Experience Workshop' (Hermanus, Thu 26 Nov) could have used."
+      },
+      {
+        "rule": "6",
+        "what": "'a food and wine evening' in the left-out line: no card says evening.",
+        "evidence": "Answer: 'Left out: markets, whale season, a food workshop, a food and wine evening'. Tool: '[event · food and wine] Think & Drink · Thu 26 November 2026 (confirmed) · Stanford' with no time.",
+        "cause": "agent slip",
+        "repeat_of": "D1",
+        "why": "A small guess about the time of day from the title; same type as the guesses of pass 1, but in a left-out line and not in an item."
+      },
+      {
+        "rule": "1",
+        "what": "74 words outside the item lines; the limit is 60.",
+        "evidence": "Runner check: words_outside_items 74.",
+        "cause": "instructions",
+        "repeat_of": "D3",
+        "why": "Two guests need two notes (the bar for Guest B, no crowd data for Guest A) plus the three fixed closing lines."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p2_season_edge_whales_email",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "6",
+        "what": "Turn 3, the email: 'Boat-based whale watching' is not in the feed. The card gives a title and the months only. The email goes to the guest 'as is'.",
+        "evidence": "Answer: 'Boat-based whale watching from Hermanus also runs from June to the end of November.' Tool: 'Hermanus Whale Watching Experience · June - November (season, no year stated: \"June to end November\")', source southernrightcharters.co.za; tell_me_more id 148 has no word about a boat.",
+        "cause": "agent slip",
+        "repeat_of": "none",
+        "why": "The agent took 'boat' from the site name or from memory; no instruction covers text that the designer forwards, but instruction 2 is clear."
+      },
+      {
+        "rule": "11",
+        "what": "Turn 2: the offer promises more than the tool has. The detail cards hold the same two quotes and nothing about early June.",
+        "evidence": "Answer: 'the full page wording for both whale cards, so you can see exactly what each source says about early June'. tell_me_more ids 148 and 11: 'evidence  when: \"June to end November\"' and 'when: \"from June till end November mostly\"'; no other wording on the season.",
+        "cause": "agent slip",
+        "repeat_of": "D9",
+        "why": "Instruction 13 says 'Offer only what a tool can return'; the agent did not know what tell_me_more holds and described it as more than it is."
+      },
+      {
+        "rule": "6",
+        "what": "Turn 1: 'The Whale Festival isn't in their dates either' states where a 'not confirmed' item falls. The feed has no 2027 date for it, so the feed cannot say that.",
+        "evidence": "Answer: 'The Whale Festival isn't in their dates either. It was last held 2 to 4 October 2026.' Tool: 'Whale Festival · not confirmed (Last held Fri 2 October 2026 - Sun 4 October 2026)'.",
+        "cause": "agent slip",
+        "repeat_of": "D4",
+        "why": "A weak form of D4: no date is given, but the sentence implies October 2027; the correct words are 'has no 2027 dates yet; last held 2 to 4 October 2026'."
+      },
+      {
+        "rule": "1",
+        "what": "Turn 1: 99 words outside the item lines; the limit is 60.",
+        "evidence": "Runner check on turn 1: words_outside_items 99. The verdict paragraph alone has 50 words.",
+        "cause": "instructions",
+        "repeat_of": "D3",
+        "why": "A yes/no question with a reason, plus the three fixed closing lines, does not fit in 60 words."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p2_statement_then_weekly_rule_edge",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "1",
+        "what": "Turn 2: 101 words outside the item lines; the limit is 60. The left-out line gives reasons, which instruction 12 forbids.",
+        "evidence": "Runner check on turn 2: words_outside_items 101. Answer: 'Left out: the De Wet Hall market in Onrus (first Saturday of the month, which by the rule is Sat 6 May, before the trip) and Art in the Park, which is held on Sundays.'",
+        "cause": "instructions",
+        "repeat_of": "D3",
+        "why": "Instruction 4 lets the agent say that a rule's day is outside the trip, and instruction 12 says 'with no reasons'; the two conflict, and the result is a long left-out line. The day itself is correct (1 May 2028 is a Monday)."
+      },
+      {
+        "rule": "fact",
+        "what": "Not a fault of the answer, but a trap in the tool text: what_is_on for 13 to 27 May 2028 gives two dates for each weekly market and no note that code wrote dates only to 20 May. The agent got 27 May right only because it also called find.",
+        "evidence": "what_is_on: 'Akwaaba Market · Sat 13 May 2028, Sat 20 May 2028 (weekly rule: ...)' with no 'note' line. find: '78 dates that code wrote from the rule, Sat 28 November 2026 to Sat 20 May 2028'. Answer: 'For Sat 27 May it has only the rule itself.'",
+        "cause": "tool text",
+        "repeat_of": "none",
+        "why": "Without the find call, the designer would read that the markets are not held on 27 May; what_is_on needs a note when the window passes the last date that code wrote."
+      },
+      {
+        "rule": "3",
+        "what": "Turn 3, the table: the town 'Hemel-en-Aarde' and the venues are gone, and rows 2 and 3 say 'Same three markets' with no name and no link. A row that the designer copies alone cannot be used.",
+        "evidence": "Answer row 1: '[Hermanuspietersfontein Food and Wine Market](...)' with no town; rows 2 and 3: 'Same three markets'. Tool: 'Hermanuspietersfontein Food and Wine Market · ... · Hemel-en-Aarde'.",
+        "cause": "instructions",
+        "repeat_of": "none",
+        "why": "The instructions describe a list only; no rule says that each row of a table keeps name, town, tag and link."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p2_best_of_2027_one_sentence",
+    "verdict": "fault",
+    "findings": [
+      {
+        "rule": "fact",
+        "what": "False statement about the feed: FynArts Festival is not the only 2027 event with a stated date. The feed has a second one.",
+        "evidence": "Answer: 'The only 2027 event with a stated date is the **FynArts Festival**'. Tool, what_is_on 1 Jan to 31 Dec 2027 and find 'fynarts': '[event · music and shows] FynArts Old Harbour Sunset Concert · Sat 6 March 2027 (confirmed) · Hermanus'.",
+        "cause": "tool text",
+        "repeat_of": "none",
+        "why": "The agent called when_to_go only. when_to_go leaves out an event that is not yearly and has no note that says so; its count line '3 yearly with a date' looks complete. Instruction 1 sends a question with no trip dates to when_to_go, and the agent then said 'only' with no call of what_is_on or find (the spirit of rule 12)."
+      },
+      {
+        "rule": "10",
+        "what": "The agent refused to select ('I can't name a single best event, because the feed doesn't rank anything') and then selected FynArts. Selection is the agent's task.",
+        "evidence": "Answer: first sentence as quoted. Instruction 3: 'there is no rank. You select and order the items for the guest.' Rubric rule 10: 'The agent selects for the guest; the feed does not rank.'",
+        "cause": "agent slip",
+        "repeat_of": "none",
+        "why": "The instructions are clear; the agent read 'the feed does not rank' as 'I cannot select', so the designer gets a refusal where a pick with a short reason was asked for."
+      },
+      {
+        "rule": "1",
+        "what": "The designer asked for one sentence. The answer has seven sentences and 91 words, with an account of the tag, the Whale Festival, Quicket and an offer of proof.",
+        "evidence": "Designer: 'In one sentence ... not a list.' Answer: 'Its tag is \"Confirmed, programme not stated\", so the feed doesn't say what happens on each day. ... The Whale Festival has no 2027 dates yet. ... The feed doesn't cover Quicket or Webtickets. I can show you the proof for FynArts if you'd like.'",
+        "cause": "instructions",
+        "repeat_of": "D3",
+        "why": "No rule says that a format which the designer sets (one sentence) wins over the fixed closing lines 12 and 13; the agent kept the fixed lines. The Whale Festival line itself is correct: no date, 'last held' given."
+      }
+    ],
+    "better": "My pick for the headline is the FynArts Festival, Hermanus, Thu 24 June – Sun 4 July 2027 (Confirmed, programme not stated; [hermanusfynarts.co.za](https://www.hermanusfynarts.co.za/)): it is the one festival in the feed with stated 2027 dates, and the choice is mine, because the feed does not rank."
+  },
+  {
+    "id": "p2_spa_golf_misleading_then_from_memory",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "11",
+        "what": "Turn 1: a business dinner is listed under the heading 'Golf' with the count '1 of 1', a tag, a link and an offer of proof. The first sentence already says that it is not golf, so the list is filler. The couple has no dates, and the dinner is on 26 November 2026.",
+        "evidence": "Answer: '**Golf:** 1 of 1 - Hermanus Business Chamber Gala Dinner, Thu 26 November 2026, at Hermanus Golf Club. Confirmed. ... Would you like the proof for the gala dinner?' Tool: '[event · community] Hermanus Business Chamber Gala Dinner · ... · venue: Hermanus Golf Club · below the traveller bar'.",
+        "cause": "instructions",
+        "repeat_of": "D6",
+        "why": "Instruction 10 lets an item go under an interest when the venue shows the interest; 'Hermanus Golf Club' passes that test by its letters. The agent was honest about it, but the rule needs 'the item is the interest', not 'the word is on the card'. One line is enough: the feed has no golf to play; the one card with the word is a dinner at the golf club."
+      },
+      {
+        "rule": "use",
+        "what": "Turn 2: the agent offered three searches and asked 'Which would help?' when each search is free. Two of the three return nothing, and 'course' returns only a past '5-Course Dinner Fundraiser'.",
+        "evidence": "Answer: 'I can search the feed for related words such as \"wellness\", \"massage\" or \"course\"'. Replay: find 'wellness' 0 items; find 'massage' 0 items; find 'course' 1 item, '5-Course Dinner Fundraiser · Wed 18 November 2026'. No call in turn 2.",
+        "cause": "agent slip",
+        "repeat_of": "D9",
+        "why": "An offer of a search with an empty result costs the designer one more turn for nothing; the agent must run the search and give the result. The refusal to name spas from memory is correct."
+      }
+    ],
+    "better": ""
+  }
+]

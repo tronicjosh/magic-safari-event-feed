@@ -1,0 +1,147 @@
+[
+  {
+    "id": "p2_wrong_fact_hawston",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "fact",
+        "what": "Turn 1 calls 5 December and Hawston Campsite \"the new date and venue\". The feed does not say that the date or the venue changed. Turn 2 then says the opposite: it cannot tell if the date moved.",
+        "evidence": "Answer, turn 1: \"Please tell your guests the new date and venue.\" Tool (tell_me_more 135): \"changes   none\"; what_changed: \"It cannot say what changed before or on 2026-11-23.\"",
+        "cause": "agent slip",
+        "repeat_of": "none",
+        "why": "\"New\" tells the designer that the organiser moved the event; the feed can only say that its one source gives 5 December."
+      },
+      {
+        "rule": "1",
+        "what": "Turn 1 answers a question about one item in the first sentence, and then repeats the same facts as a list line. Turn 2 has 88 words outside the item lines (limit 60); the runner measured only the last turn.",
+        "evidence": "Turn 1: the bold sentence, then \"- Hawston Sea Festival · Sat 5 December 2026 · Hawston Campsite · Confirmed · [whalecoast.info]\". Instruction 7: \"For a question about one item, answer it in the first sentence, and do not add a list.\" Turn 2 count with the runner's rule: words_outside_items 88.",
+        "cause": "instructions",
+        "repeat_of": "D3",
+        "why": "Instruction 7 (no list) and instruction 8 (each item needs a tag and a link) conflict for one item; the agent kept both. The length is small, but it is the fault type of D3."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p2_budget_anything_free",
+    "verdict": "fault",
+    "findings": [
+      {
+        "rule": "use",
+        "what": "The designer asks what is free and gets \"I can't tell you\". The feed holds a page quote that says the Hermanus Park Run is free. The quote is only in the full card (tell_me_more 9), and find 'free' gives 0, so the agent could not see it in the response that it had. The words of the agent are true for its inputs; the result for the designer is a false \"nothing\".",
+        "evidence": "Answer: \"I can't tell you what is free or nearly free. None of the 9 items ... gives a price.\" Short card: \"Hermanus Park Run · Sat 17 April 2027, Sat 24 April 2027 (weekly rule: \\\"at 08:00 every Saturday\\\") ... price: not stated\". Full card id 9: \"evidence  traveller: \\\"Join us for a free, timed 5km run/walk\\\"\". find 'free': \"0 items ... The feed has no item that holds this text.\"",
+        "cause": "tool text",
+        "repeat_of": "D1",
+        "why": "Same type as D1: a fact that the designer needs is only in tell_me_more. \"price: not stated\" on the short card hides a page text that says \"free\", and find does not search the quotes."
+      },
+      {
+        "rule": "use",
+        "what": "No item, no tag and no link in the answer. The designer cannot check one price without a second turn. The answer ends with an offer of the list in the place of the list.",
+        "evidence": "Answer: \"Should I list the items with their source links so you can check prices?\" The response had 9 cards, each with a source link. Instruction 14: \"Do not fill the answer with a list or with more text.\"",
+        "cause": "instructions",
+        "repeat_of": "none",
+        "why": "Instruction 14 forbids a list when the feed cannot answer. Here the feed can answer a part (what is on, where to check the price), and the instructions have no rule for a part answer."
+      },
+      {
+        "rule": "9",
+        "what": "The account of the 9 items is loose and loses one. \"Mostly Saturday markets\": 3 of 9 are weekly Saturday markets. Hermanus Country Market (\"throughout the year\", no day) is not in the account: 3 markets + 2 parkruns + the art walk + 2 monthly markets = 8.",
+        "evidence": "Answer: \"Those 9 items are mostly Saturday markets (17 and 24 April) and two Saturday-morning parkruns. The art walk and two monthly markets fall on days outside your dates.\" Tool: \"[season · market] Hermanus Country Market · All year (a rule of the page: \\\"throughout the year\\\")\".",
+        "cause": "agent slip",
+        "repeat_of": "none",
+        "why": "Small. The calendar work is right: the first Friday, Saturday and Sunday of April 2027 are 2, 3 and 4 April, outside the trip. The dates 17 and 24 April are given in prose with no word that code wrote them from a weekly rule."
+      }
+    ],
+    "better": "**The feed states a price for none of its 9 items in these dates. One page says that its item is free.**\n\n**4 of 9**\n\n**Free, by its page**\n- Hermanus Park Run, Forest Adventures, Hemel & Aarde Valley, Sat 17 and Sat 24 April 2027, 08:00. From a weekly rule, confirm near the date. The page says \"Join us for a free, timed 5km run/walk\". [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n\n**Price not stated: check the page**\n- Akwaaba Market, Hermanus, Sat 17 and Sat 24 April 2027. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n- Food and craft market at the Hermanus Cricket Club, Sat 17 and Sat 24 April 2027. From a weekly rule, confirm near the date. [xplorio.com](https://xplorio.com/hermanus/en/things-to-do/events)\n- Hermanuspietersfontein Food and Wine Market, Hemel-en-Aarde, Sat 17 and Sat 24 April 2027. From a weekly rule, confirm near the date. [hermanus-tourism.co.za](https://hermanus-tourism.co.za/things-to-do/festivals-and-markets/)\n\nLeft out: a second parkrun, a market with no stated day, and the art walk and two monthly markets, whose rule days are outside the trip. The feed does not cover Quicket or Webtickets. I can show the proof for any item."
+  },
+  {
+    "id": "p2_how_fresh_and_two_sources",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "fact",
+        "what": "Turn 2 guesses the age of a source from the name of its file. No tool returns the date of a page or of a PDF.",
+        "evidence": "Answer, turn 2: \"Its file name suggests it may be from August.\" Tool (id 140): \"source    https://whalecoast.info/wp-content/uploads/2022/06/OM-Cape-Whale-Coast-Events-070826-1-1.pdf\" and \"last_seen_at 2026-11-23 · last_verified 2026-11-23\". The same path also holds \"2022/06\".",
+        "cause": "agent slip",
+        "repeat_of": "D5",
+        "why": "A guess in spite of instruction 2 (\"Use only the facts in a response\"). The type is the type of D5 (a guess about a source), on a new object: a link, not Quicket. The designer asked how old the data is, so the guess goes to the core of the question."
+      },
+      {
+        "rule": "use",
+        "what": "\"Where does it come from\" gets 5 of the 8 sources. No tool gives the names of the 8 sources, so the agent called what_is_on for one week (50 items) and read the links. hermanusfynarts.co.za, kalfiefees-hermanus.co.za and hermanuswhalefestival.co.za are missing. The agent says honestly \"The ones I saw\".",
+        "evidence": "Answer, turn 1: \"8 registered sources for Hermanus. The ones I saw are:\" and 5 sites. Tool, each response: \"sources         8 sources in the registry for Hermanus\" with no names. Links in the what_is_on response: hermanus-tourism.co.za, whalecoast.info, www.overstrand.gov.za, www.southernrightcharters.co.za, xplorio.com.",
+        "cause": "tool text",
+        "repeat_of": "none",
+        "why": "The holes block gives a count and no names. The designer who must decide if the feed is reliable cannot get the full list from any tool."
+      },
+      {
+        "rule": "6",
+        "what": "Three of the five links in turn 1 are short forms that no tool returned (the site root). The runner did not see it, because it tests a link as a part of the tool text.",
+        "evidence": "Answer: \"[overstrand.gov.za](https://www.overstrand.gov.za)\", \"[whalecoast.info](https://whalecoast.info)\", \"[hermanus-tourism.co.za](https://hermanus-tourism.co.za)\". Tool: \"source: https://www.overstrand.gov.za/wp-json/wp/v2/pages/33987?_fields=id,modified,title,content\".",
+        "cause": "agent slip",
+        "repeat_of": "none",
+        "why": "Low weight: for \"where from\" the site is the right level, and the root of a site is a better link for a person than a wp-json address. But it is a link from outside the response, and the check in run.py (substring) cannot catch it."
+      },
+      {
+        "rule": "1",
+        "what": "Turn 2 has 68 words outside the item lines (limit 60), with one sentence that the designer did not need.",
+        "evidence": "Answer, turn 2: \"Neither source gives a venue or start time, and nothing has changed in our data.\" what_changed was not called; the card says \"changes   none\" and the feed has one collection only.",
+        "cause": "agent slip",
+        "repeat_of": "D3",
+        "why": "Small. \"Nothing has changed\" has no value on the day of the first collection."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p2_range_day_phone_booking",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "1",
+        "what": "Each fact is right, and the two hard points pass: no claim that it is open on the 25th, and no claim that the two cards are one event. The only fault is length: 83 words outside the item lines in turn 1 and 69 in turn 2 (limit 60). \"Not confirmed\" is said three times in turn 1.",
+        "evidence": "Turn 1: \"I can't confirm it.\" ... \"so an afternoon visit isn't confirmed.\" ... \"Before the guest goes, check with Enlighten Education Trust that it's open Wednesday afternoon.\" Count with the runner's rule: turn 1 words_outside_items 83, turn 2 69. The runner measured only turn 2.",
+        "cause": "agent slip",
+        "repeat_of": "D3",
+        "why": "Small, but the same type as D3, and the runner does not see it in a first turn."
+      }
+    ],
+    "better": ""
+  },
+  {
+    "id": "p2_afrikaans_sport_to_watch",
+    "verdict": "good",
+    "findings": [],
+    "better": ""
+  },
+  {
+    "id": "p2_everything_festivals",
+    "verdict": "minor",
+    "findings": [
+      {
+        "rule": "use",
+        "what": "The designer asks for each festival and says \"do not cut the list down\". The agent gives 6 of 26 and says that 6 is a limit of the answer. The calendar needs 4 more turns. Nothing is false and nothing is dropped in silence: the count is right, and the 3 other coming items and the 17 past items are named.",
+        "evidence": "Answer: \"I can show six festivals per answer, so this is the first batch.\" Instruction 6: \"A list has 6 item lines or less. ... The designer asks for more when they want more.\" Tool: \"26 items: 9 coming or current · 17 past\".",
+        "cause": "instructions",
+        "repeat_of": "none",
+        "why": "Instruction 6 gives a hard limit and, in its last sentence, says that the designer can ask for more. It does not say what the agent does when the designer asks for all in the first message. The better answer for a calendar: the 9 coming items in full (7 dated, 2 seasons), then the offer of the 17 past ones."
+      },
+      {
+        "rule": "1",
+        "what": "The answer starts with a preface about the agent's limit, and has 97 words outside the item lines (limit 60).",
+        "evidence": "First lines: \"I can show six festivals per answer, so this is the first batch. The feed has 26 items that match \\\"festival\\\": 9 coming or current and 17 past. Ask for the next batch and I'll list the rest.\" Then \"**6 of 26, the next to happen**\" gives the same count again. Runner: words_outside_items 97.",
+        "cause": "agent slip",
+        "repeat_of": "D3",
+        "why": "The preface and the heading say the same thing two times."
+      },
+      {
+        "rule": "use",
+        "what": "No item line gives the venue, and the response has it for 5 of the 6. A calendar for an area needs the place. FynArts is given as \"in June 2027\"; the card gives 24 June to 4 July 2027.",
+        "evidence": "Answer: \"Hawston Sea Festival: Sat 5 December 2026, Hawston. Confirmed.\" Tool: \"Hawston Sea Festival · Sat 5 December 2026 (confirmed) · Hawston · venue: Hawston Campsite\"; also \"venue: United Church\", \"venue: Hermanus River Farm\", \"venue: NG Kerk\", \"venue: Various Venues accross Kleinmond\". Answer: \"FynArts Festival in June 2027\". Tool: \"FynArts Festival · Thu 24 June 2027 - Sun 4 July 2027\".",
+        "cause": "instructions",
+        "repeat_of": "D1",
+        "why": "The repair of D1 put the venue on the short card, but instruction 8 names only \"its name, its date, its town if that helps, one tag, and its source\". The venue arrives at the agent and stops there."
+      }
+    ],
+    "better": ""
+  }
+]
