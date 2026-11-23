@@ -7,7 +7,8 @@ Last change: 2026-11-23. Read this file first in a new session. It says where th
 ```text
 design (draft 5) ── done
 slice 0a  direction test T2 ............ PASSED (my review of the failures is open)
-slice 0b  schema + tracer bullet ....... NEXT (new session)
+slice 0b.1 schema, single date, repeating  BUILT, blind review done (2 design questions open)
+slice 0b.2 season, yearly not confirmed ... NEXT (new session)
 slices 1-3  collect | verify | read .... three builders in parallel worktrees, then a blind reviewer each
 slice 4   first real run + my review
 slice 5   fresh-Claude test, site, write-up
@@ -37,13 +38,26 @@ After my review of T2 (same day): design draft 4 (facts, not judgments; weekly s
 
 Design draft 5 (same day): six read operations (`places`, `what_is_on`, `when_to_go`, `find`, `what_changed`, `tell_me_more`), short card, `counts`, server instructions. `docs/acceptance.md` (A3, A7, A8, A12, A14), the hand cases (now 24) and `CLAUDE.md` principle 2 agree with it.
 
-## Slice 0b: NEXT (start in a new session)
+## Slice 0b.1: BUILT on 2026-11-23
 
-Schema and tracer bullet: one item of each time shape goes from a saved page in `evals/pages/` to `what_is_on`. Check: hand cases 1 to 5.
+A saved model answer goes through `verify_item` into SQLite, and `what_is_on` reads it. Hand cases 1 to 3 pass. 56 tests pass; lint is clean.
 
-- Open decisions O5 to O9 are in `docs/design.md`. Slice 0b uses each recommendation as its working default; I can change one before the plan is approved.
-- Way of work: I give my approach in two lines, Claude shows where its plan differs, then test first, build, check, blind review.
-- Reuse: `feed/render.py`, `feed/verify.py`, `feed/env.py`, the saved pages, and the saved model answers in `research/t2/out/` (no new model call is necessary for the tracer bullet).
+- New: `feed/schema.sql` (six tables), `feed/store.py`, `feed/update.py` (core), `feed/read.py` (core), `registry.json`, `evals/cases/` (fixtures for hand cases 1 to 3), `tests/test_tracer.py`.
+- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .`
+- Real pages (2, 56 items): 37 stored, 19 not stored. The reasons are in `docs/model.md`.
+- Decisions of Joshua in this session: the model decides with proof and a person is the last resort (principles 1 and 2 changed in `CLAUDE.md` and the design); the model marks "held each year" with a quote (T11); no town on the page gives the default town of the source; hand-case fixtures are in `evals/cases/`.
+- Open for Joshua (from the blind review): (1) the weekly rule is expanded on the weekday word alone; (2) a range with closed days. See `docs/model.md`.
+- Not tested: the rollback of an item that fails after its first row is written (no input reaches it). Not built: a set-aside table (the report only), merge of the same item from two pages, `holes`, category.
+- Spend: 0.082276 of 5 US dollars.
+
+## Slice 0b.2: NEXT (start in a new session)
+
+Season and "yearly, no new dates": hand cases 4 and 5.
+
+- Kind `months` becomes occurrence rows with month precision (one row for each year). The groups "seasons and experiences" and "not confirmed" get cards.
+- The `yearly` field of T11 goes into the extraction format and `verify_item`. Saved answers with the field: `research/t11/out/` (7 pages).
+- Real items: Southern Right Whales (June to November), Hermanus Whale Festival (2 to 4 October 2026, yearly with proof). FynArts has no proof of "yearly" on the saved pages.
+- Measure first: the item count of the Xplorio page differed between two runs (8 and 5).
 
 Blind review of `feed/verify.py`: done, 6 false-pass faults repaired, 30 tests pass, T2 numbers unchanged.
 

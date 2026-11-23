@@ -1,0 +1,503 @@
+{
+ "page_id": "ht_festivals",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:52:37.260442+00:00",
+ "message_id": "msg_011ChKte8xqTwvKZJPogkdGf",
+ "stop_reason": "end_turn",
+ "input_tokens": 5353,
+ "output_tokens": 6353,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.003712,
+ "items": [
+  {
+   "title": {
+    "value": "Hermanus First Friday Artwalk",
+    "quote": "Hermanus First Friday Artwalk"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus Old Town"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Hermanus FynArts",
+    "quote": "Hermanus FynArts"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 6,
+      "month": 6,
+      "year": 2026
+     },
+     "end": {
+      "day": 14,
+      "month": 6,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "6 – 14 June 2026"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Carols by Candlelight",
+    "quote": "Carols by Candlelight"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "Old Harbour arena",
+    "quote": "Old Harbour arena"
+   },
+   "price": {
+    "value": "donation",
+    "quote": "Entrance is by way of a donation"
+   },
+   "when": [],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Celebration of Fynbos",
+    "quote": "Celebration of Fynbos"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "Fernkloof Nature Reserve",
+    "quote": "hosted in the Fernkloof Nature Reserve"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [],
+   "yearly": {
+    "value": "yes",
+    "quote": "An annual Fynbos Festival"
+   }
+  },
+  {
+   "title": {
+    "value": "Kalfie Fees",
+    "quote": "Kalfie Fees"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 5,
+      "month": 8,
+      "year": 2026
+     },
+     "end": {
+      "day": 10,
+      "month": 8,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "05-10 August 2026"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Whale Festival",
+    "quote": "Whale Festival"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 2,
+      "month": 10,
+      "year": 2026
+     },
+     "end": {
+      "day": 4,
+      "month": 10,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "02-04 October 2026"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "yes",
+    "quote": "The annual Whale Festival"
+   }
+  },
+  {
+   "title": {
+    "value": "Wine & Food Festival",
+    "quote": "Wine & Food Festival"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [],
+   "yearly": {
+    "value": "yes",
+    "quote": "Since its inception in 1997"
+   }
+  },
+  {
+   "title": {
+    "value": "African Market",
+    "quote": "African Market"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "Market Square",
+    "quote": "on Market Square"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "De Wet Hall Onrus",
+    "quote": "De Wet Hall Onrus"
+   },
+   "town": {
+    "value": "Onrus",
+    "quote": "Onrus Market"
+   },
+   "venue": {
+    "value": "De Wet Hall",
+    "quote": "at the De Wet Hall"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Hermanuspietersfontein Food and Wine Market",
+    "quote": "Hermanuspietersfontein Food and Wine Market"
+   },
+   "town": {
+    "value": "Hemel-en-Aarde",
+    "quote": "Hemel-en-Aarde village"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "quotes": [
+      "Saturdays are busy market days"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Lemm's Corner",
+    "quote": "Lemm's Corner"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Hermanus Country Market",
+    "quote": "Hermanus Country Market"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "Hermanus Cricket Club",
+    "quote": "held at the Hermanus Cricket Club"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "throughout the year"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Benguela Cove Parkrun",
+    "quote": "Benguela Cove Parkrun"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "free",
+    "quote": "Nothing – it’s free!"
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "quotes": [
+      "Join us every Saturday morning at 8:00am"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Hermanus Park Run",
+    "quote": "Hermanus Park Run"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hemel & Aarde Valley, Hermanus"
+   },
+   "venue": {
+    "value": "Forest Adventures",
+    "quote": "Find us at Forest Adventures"
+   },
+   "price": {
+    "value": "free",
+    "quote": "Join us for a free"
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "quotes": [
+      "at 08:00 every Saturday"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Akwaaba Market",
+    "quote": "Akwaaba Market"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "corner of St Peters Church next to Windsor Hotel",
+    "quote": "situated at the corner of St Peters Church next to Windsor Hotel"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "quotes": [
+      "Every Saturday from 09:00 – 14:00"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  }
+ ]
+}

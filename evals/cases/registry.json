@@ -1,0 +1,23 @@
+{
+ "places": {
+  "hermanus": {
+   "name": "Hermanus",
+   "towns": [
+    "Hermanus",
+    "Onrus",
+    "Stanford"
+   ]
+  }
+ },
+ "sources": [
+  {
+   "id": "hand",
+   "name": "Hand cases",
+   "url": "https://example.org/hand",
+   "access_path": "html",
+   "owner_rank": 1,
+   "place": "hermanus",
+   "default_town": "Hermanus"
+  }
+ ]
+}

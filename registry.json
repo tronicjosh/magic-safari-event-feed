@@ -1,0 +1,31 @@
+{
+ "places": {
+  "hermanus": {
+   "name": "Hermanus",
+   "towns": [
+    "Hermanus", "Onrus", "Sandbaai", "Vermont", "Hawston", "Fisherhaven",
+    "Hemel-en-Aarde", "Stanford", "Kleinmond", "Gansbaai", "Kleinbaai"
+   ]
+  }
+ },
+ "sources": [
+  {
+   "id": "hermanus_tourism",
+   "name": "Hermanus Tourism",
+   "url": "https://hermanus-tourism.co.za/",
+   "access_path": "html",
+   "owner_rank": 3,
+   "place": "hermanus",
+   "default_town": "Hermanus"
+  },
+  {
+   "id": "overstrand_municipality",
+   "name": "Overstrand Municipality",
+   "url": "https://www.overstrand.gov.za/",
+   "access_path": "wp_page",
+   "owner_rank": 3,
+   "place": "hermanus",
+   "default_town": null
+  }
+ ]
+}

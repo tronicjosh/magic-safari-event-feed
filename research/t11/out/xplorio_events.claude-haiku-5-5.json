@@ -1,0 +1,355 @@
+{
+ "page_id": "xplorio_events",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:53:05.787178+00:00",
+ "message_id": "msg_011ChKtgqRDgoZyyoDhcp4Bp",
+ "stop_reason": "end_turn",
+ "input_tokens": 8900,
+ "output_tokens": 4273,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.003027,
+ "items": [
+  {
+   "title": {
+    "value": "Deli Dining at Dal-Italia",
+    "quote": "Deli Dining at Dal-Italia"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Fri, 27/11/2026, 18:00 - Fri, 27/11/2026, 21:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 4,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Fri, 04/12/2026, 18:00 - Fri, 04/12/2026, 21:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 11,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Fri, 11/12/2026, 18:00 - Fri, 11/12/2026, 21:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Fri, 18/12/2026, 18:00 - Fri, 18/12/2026, 21:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 25,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Fri, 25/12/2026, 18:00 - Fri, 25/12/2026, 21:00"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Benguela Cove Parkrun",
+    "quote": "Benguela Cove Parkrun"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "free",
+    "quote": "A free, fun, and friendly weekly 5km community event."
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 28,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sat, 28/11/2026, 08:00 - Sat, 28/11/2026, 10:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 5,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sat, 05/12/2026, 08:00 - Sat, 05/12/2026, 10:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 12,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sat, 12/12/2026, 08:00 - Sat, 12/12/2026, 10:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sat, 19/12/2026, 08:00 - Sat, 19/12/2026, 10:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 26,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sat, 26/12/2026, 08:00 - Sat, 26/12/2026, 10:00"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Hermanus Flower and Eco Fair",
+    "quote": "Hermanus Flower and Eco Fair"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "Fernkloof Nature Reserve",
+    "quote": "Fernkloof Nature Reserve"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 9,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 9,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "in September every year"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "yes",
+    "quote": "in September every year"
+   }
+  },
+  {
+   "title": {
+    "value": "Hawston Sea Festival",
+    "quote": "Hawston Sea Festival"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "Hawston campsite",
+    "quote": "at the Hawston campsite"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "At the beginning of December"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  },
+  {
+   "title": {
+    "value": "Hermanus Adventure Week",
+    "quote": "Hermanus Adventure Week"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 9,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 9,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "it is held in September"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "yes",
+    "quote": "annual"
+   }
+  }
+ ]
+}

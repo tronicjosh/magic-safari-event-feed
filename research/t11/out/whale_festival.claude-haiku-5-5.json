@@ -1,0 +1,55 @@
+{
+ "page_id": "whale_festival",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:52:44.229926+00:00",
+ "message_id": "msg_011ChKtfzg4aRUUd9uFWN6Pq",
+ "stop_reason": "end_turn",
+ "input_tokens": 4629,
+ "output_tokens": 1237,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.001081,
+ "items": [
+  {
+   "title": {
+    "value": "Hermanus Whale Festival 2026",
+    "quote": "Hermanus Whale Festival 2026"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "to the shores of Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 2,
+      "month": 10,
+      "year": 2026
+     },
+     "end": {
+      "day": 4,
+      "month": 10,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "2–4 October 2026"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "yes",
+    "quote": "celebrating the arrival of the Southern Right Whales to the shores of Hermanus each year"
+   }
+  }
+ ]
+}

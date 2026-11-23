@@ -369,8 +369,10 @@ Ingest does not apply `robots.txt` on sources (my decision). I accept: this is a
 
 ## Principles
 
-1. **A fact needs a quote that code can check.** I accept: an item that fails waits for me, so the feed can miss a true item for a week.
-2. **AI is constrained, then checked.** The model extracts with a quote or chooses from my list. Code and I verify. I accept: more code than "ask a model", and a small review task each week.
+1. **A fact needs a quote that code can check.** I accept: a field that fails stays empty, and an item that fails is set aside and counted in `holes`, so the feed can miss a true item.
+2. **AI decides, with proof.** The model extracts and judges (held each year, town, category) with a quote or a value from my list. Code verifies. A person is the last resort, not a step (decision of 2026-11-23, test T11). I accept: a set-aside item can stay out of the feed until a later run proves it.
+
+   Not changed yet in this file: the diagram and the tables above still say "needs review -> me". Slice 2 builds the set-aside path and changes them.
 3. **Facts, not judgments. All shown, and nothing is deleted.** The feed says what is true; the agent and the designer decide what is good for this guest. I accept: the quality of an answer depends on the agent and on the tool descriptions, and the feed cannot promise an order.
 4. **Never invent. State the past fact and name the holes.** I accept: 18 months out, a yearly event has no date, only "last held 6-15 June 2026".
 5. **Simple, and only what the data supports.** SQLite, Python, one weekly batch, lists in one file. The next town needs a new registry and no new code. I accept: data can be 7 days old, and some useful features are left out.

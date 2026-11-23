@@ -1,0 +1,366 @@
+{
+ "page_id": "show",
+ "model": "hand",
+ "items": [
+  {
+   "title": {
+    "value": "The Whale Song: a musical",
+    "quote": "The Whale Song: a musical"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Municipal Auditorium, Hermanus"
+   },
+   "venue": {
+    "value": "Municipal Auditorium",
+    "quote": "Municipal Auditorium, Hermanus"
+   },
+   "price": {
+    "value": "R250",
+    "quote": "Tickets R250"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 1,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Tue 1 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 2,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Wed 2 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 3,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Thu 3 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 4,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Fri 4 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 5,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sat 5 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 8,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Tue 8 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 9,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Wed 9 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 10,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Thu 10 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 11,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Fri 11 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 12,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sat 12 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 15,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Tue 15 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 16,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Wed 16 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 17,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Thu 17 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Fri 18 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sat 19 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Tue 22 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 23,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Wed 23 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 24,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Thu 24 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 25,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Fri 25 June 2027 19:30"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 26,
+      "month": 6,
+      "year": 2027
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "quotes": [
+      "Sat 26 June 2027 19:30"
+     ]
+    }
+   ]
+  }
+ ]
+}

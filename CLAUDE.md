@@ -20,8 +20,8 @@ A planner looks at the same place several times, 6 to 18 months before a trip an
 
 Each is a rule and what we accept by choosing it.
 
-1. **A fact needs a quote that code can check.** If a check and coverage conflict, the check wins and the item waits for review. We accept lower coverage.
-2. **The model extracts only.** It never verifies, ranks, or writes to the database. Code and Joshua do that. We accept more code and more review.
+1. **A fact needs a quote that code can check.** If a check and coverage conflict, the check wins: the field stays empty, or the item is set aside and counted in `holes`. No item waits for a person. We accept lower coverage.
+2. **The model decides, with proof.** It extracts, and it judges (held each year, town, category), but each answer carries a quote or a value from a list, and code checks it. It never ranks and never writes to the database. Joshua's review is the last resort, not a step of the pipeline. We accept that a set-aside item can stay out of the feed.
 3. **Never invent and never delete.** No projected date. An item a run does not find stays, with `last_seen_at`. We accept stale items, shown as stale.
 4. **Simple, and only what the data supports.** A rule in a file beats a rule in code. An exception is data (a review decision), not a new rule. The next town needs a new registry and no new code. We accept fewer features.
 5. **The API governs the output.** Responses come from one fixed template, with the same bytes for the same query. We accept less flexible answers.
@@ -36,14 +36,14 @@ Each is a rule and what we accept by choosing it.
 
 ## Commands
 
-Planned. Each becomes real in build step 0b; change this section then.
+Run Python as `./.venv/Scripts/python` (Windows, Git Bash). The first four are real since slice 0b.1. The last three are planned.
 
 ```bash
 python -m pip install -e ".[dev]"     # install
 python -m pytest                      # all tests
 python -m pytest tests/test_x.py -k name   # one test
 python -m ruff check . && python -m ruff format --check .   # lint and format
-python -m feed.ingest                 # weekly ingest
+python -m feed.ingest                 # weekly ingest (planned)
 python -m feed.review list            # review queue
 python -m uvicorn feed.api:app        # REST; the MCP server calls the same functions
 ```

@@ -1,0 +1,57 @@
+{
+ "page_id": "kalfiefees",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T12:52:48.672448+00:00",
+ "message_id": "msg_011ChKtgWQEadGQyW2wKQdEJ",
+ "stop_reason": "end_turn",
+ "input_tokens": 2617,
+ "output_tokens": 946,
+ "cache_read_input_tokens": 0,
+ "cache_creation_input_tokens": 0,
+ "cost_usd": 0.000735,
+ "items": [
+  {
+   "title": {
+    "value": "Kalfiefees Hermanus Kunstefees",
+    "quote": "Kalfiefees Hermanus Kunstefees"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 5,
+      "month": 8,
+      "year": 2026
+     },
+     "end": {
+      "day": 10,
+      "month": 8,
+      "year": 2026
+     },
+     "weekday": "",
+     "quotes": [
+      "5-10",
+      "AUGUSTUS",
+      "2026"
+     ]
+    }
+   ],
+   "yearly": {
+    "value": "",
+    "quote": ""
+   }
+  }
+ ]
+}
