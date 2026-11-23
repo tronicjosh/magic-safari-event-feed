@@ -11,7 +11,7 @@ slice 0b.1 schema, verify, update, what_is_on ........ done, 2 blind reviews
 builders   A ingest | B season, yearly, second run | C read + MCP ... done, integrated one at a time
 repairs    season proof, all year, running season, category, reasons ... done, each with a break test
 real run   10 live pages, 151 items, 0.064780 USD; second run 0 model calls ... done
-review     one blind review of the joined code ....... RUNNING when this file was written
+review     one blind review of the joined code ....... done, 7 findings, repaired with a test each
 write-up   design.md true to the code ................ partly (scope table, cost); my read is open
 mine       check 20 stored items and the bar wording; the test with a new Claude ... OPEN
 ```
@@ -26,7 +26,7 @@ feed/ingest.py runs the left side: python -m feed.ingest
 ```
 
 - Branch `build`, local commits only. A push needs my approval.
-- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (207 tests).
+- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (215 tests).
 - `feed.db` is the database of the real run (git ignores it). `python -m feed.ingest` makes it again; a run on unchanged pages costs nothing.
 - Spend: 0.240788 of 5 US dollars (tests 0.176008, real run 0.064780).
 
@@ -44,16 +44,15 @@ feed/ingest.py runs the left side: python -m feed.ingest
 
 A person is not a step. An item that is not stored is in the run report with its reason.
 
-## The MCP server, for the test with a new Claude
+## Demo and checks that are ready
 
-```bash
-# from the repository root; the database is opened read-only
-FEED_DB=feed.db ./.venv/Scripts/python -m feed.mcp_server
-# add it to Claude Code for a test session in an EMPTY folder (so that no CLAUDE.md is read):
-claude mcp add hermanus-feed --scope user --env FEED_DB="<repo>/feed.db" --env FEED_REGISTRY="<repo>/registry.json" -- "<repo>/.venv/Scripts/python" -m feed.mcp_server
-```
+| What | Where | How |
+|---|---|---|
+| Demo with no agent | `feed/demo.py` | `./.venv/Scripts/python -m feed.demo` prints the text of the four operations for a trip of 20 to 27 June 2027, from `feed.db` |
+| Test with a new Claude (A8, A14) | `C:/Users/joshj/Desktop/Magic Safari/feed-demo/` (outside the repository, so no `CLAUDE.md` is read) | Start Claude Code in that folder, approve the server `event-feed`, and ask the questions in `questions.md` |
+| Sample of 20 stored items (A1) | `evals/sample_check.md` | Open each source link and mark each fact true or false. `research/sample/make_sample.py` makes the sheet again |
 
-Tools: `what_is_on`, `when_to_go`, `tell_me_more`, `what_changed`. The rules are in the server instructions, one time.
+The MCP server: `python -m feed.mcp_server`, with `FEED_DB` and `FEED_REGISTRY` for the paths; the database is opened read-only. Tools: `what_is_on`, `when_to_go`, `tell_me_more`, `what_changed`. The rules are in the server instructions, one time.
 
 ## Open
 

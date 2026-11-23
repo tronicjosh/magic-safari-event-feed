@@ -1,4 +1,4 @@
-"""A thin MCP server over stdio: three read tools on the functions of feed/read.py.
+"""A thin MCP server over stdio: four read tools on the functions of feed/read.py.
 
 Run: python -m feed.mcp_server
 FEED_DB is the path of the database (default feed.db); it is opened read-only.
@@ -32,10 +32,12 @@ choose what fits the guest.
      it. The page does not state this date. Say that it is from the rule.
    - "a range, each day is not stated": the page gives a first and a last day only. Do not
      say that the item is on each day between them.
-   - (season, no year stated): a page states the months and no year.
+   - (season, no year stated: "..."): a page states the months in the quote, and no year.
+     "All year" is a rule of the page such as "throughout the year" or "first Friday of every
+     month": read the quote, and say the rule, not a date.
    - "not confirmed": the item is held each year, and no page states its dates for this
-     period. "Last held" gives its last real dates. It stays not confirmed in your answer;
-     never give it a date.
+     period. "Last held" (or "Last stated dates") gives its last real dates. It stays not
+     confirmed in your answer; never give it a date.
    - "below the traveller bar": the soft judgment of the feed that the item is routine local
      life. It is shown, not hidden. You decide if it fits the guest.
 5. Give the source link of each item that you show.
