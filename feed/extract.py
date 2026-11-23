@@ -2,8 +2,8 @@
 
 It extracts fields with word-for-word quotes, and it makes judgments, each with a quote
 that code finds on the page: the town (a value from the list of the place), "held each year",
-"this weekly rule has no end", and the two bars of the registry (can a visitor go; is it
-worth showing to a traveller). It never verifies and never writes.
+"this weekly rule has no end", and the soft bar of the registry (is it worth showing to a
+traveller). It never verifies and never writes.
 """
 
 import json
@@ -53,7 +53,6 @@ not search it for the value.
 "yes" and, as the quote, the span of the page that states it for this item (for example \
 "annual", "every year", "each September", "since 1991"). Give "" for value and quote if the \
 page does not state it. A date alone is not proof. Do not use your own knowledge of the item.
-- visitor: {visitor_bar} The value is "yes" or "no". For "no", the quote is the span of the page that shows it. For "yes", the quote can be "".
 - traveller: {traveller_bar} The value is "yes" or "no". This is your judgment. The quote is the span of the page that your judgment rests on.
 - when: a list, one entry for each separate date, date range, season or weekly rule of the item. \
 An empty list if the page gives no time.
@@ -111,7 +110,6 @@ def system_prompt(towns: list[str], bars: dict) -> str:
     return _SYSTEM.format(
         towns=", ".join(f'"{town}"' for town in towns),
         outside=OUTSIDE,
-        visitor_bar=bars["visitor"],
         traveller_bar=bars["traveller"],
     )
 
@@ -136,7 +134,6 @@ def schema(towns: list[str]) -> dict:
         "venue": _FIELD,
         "price": _FIELD,
         "yearly": _FIELD,
-        "visitor": _choice(["yes", "no"]),
         "traveller": _choice(["yes", "no"]),
         "when": {"type": "array", "items": _WHEN},
     }

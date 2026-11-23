@@ -9,9 +9,8 @@ design (draft 5) ── done
 slice 0a  direction test T2 ............ PASSED (my review of the failures is open)
 slice 0b.1 schema, single date, repeating  BUILT, blind review done (2 design questions open)
 slice 0b.2 season, yearly not confirmed ... NEXT (new session)
-slices 1-3  collect | verify | read .... three builders in parallel worktrees, then a blind reviewer each
-slice 4   first real run + my review
-slice 5   fresh-Claude test, site, write-up
+builders   A ingest | B season, yearly, second run | C read + MCP ... three in parallel worktrees
+then       one real run + cost | one test with a new Claude | the write-up
 ```
 
 Way of work for each slice: plan, my review of the plan, build, report with one diagram. Then go to the next slice without a new instruction.
@@ -40,14 +39,14 @@ Design draft 5 (same day): six read operations (`places`, `what_is_on`, `when_to
 
 ## Slice 0b.1: BUILT on 2026-11-23
 
-A saved model answer goes through `verify_item` into SQLite, and `what_is_on` reads it. Hand cases 1 to 3 pass. 74 tests pass; lint is clean.
+A saved model answer goes through `verify_item` into SQLite, and `what_is_on` reads it. Hand cases 1 to 3 pass. 91 tests pass; lint is clean.
 
 - New: `feed/schema.sql` (six tables), `feed/store.py`, `feed/update.py` (core), `feed/read.py` (core), `registry.json`, `evals/cases/` (fixtures for hand cases 1 to 3), `tests/test_tracer.py`.
 - Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .`
 - Real pages (2, 56 items): 40 stored (12 below the traveller bar), 16 not stored. The reasons are in `docs/model.md`.
 - Decisions of Joshua in this session: the model decides with proof and a person is the last resort (principles 1 and 2 changed in `CLAUDE.md` and the design); the model marks "held each year" with a quote (T11); no town on the page gives the default town of the source; hand-case fixtures are in `evals/cases/`.
 - Decided by Joshua after the first report, and built: the model marks a weekly rule as a rule with no end, and code refuses a weekly quote that holds a date; a range card says that each day is not stated; the model chooses the town from the list (T12); a hard visitor bar and a soft traveller bar act at ingest (T13). `feed/extract.py` holds the prompt and the answer format. The answers for the tests are in `research/t13/out/`.
-- OPEN FAULT (blind review round 2, not repaired): the weekly guard in `feed/verify.py` is a list of date patterns, and it leaks: "Saturday 05.12.2026", "Saturday 5/12", "every saturday in may", "First Saturday of every month" and "Closed on Sundays" pass and give 78 dates when the model marks them `ongoing`. This is the same type of fault as in round 1 (a weekly rule on weak proof), so the pattern approach is stopped. A different approach waits for Joshua. Minor, also open: a town of a wrong type that is falsy gets the default town; a visitor value "No" has no effect.
+- Blind review round 2 found that the weekly guard (a list of date patterns) leaks. Repaired with a different approach, approved by Joshua: code refuses a digit in a weekly quote (except a clock time with minutes), the model decides the meaning, and the card shows `weekly rule: "<quote>"`. The hard visitor bar is removed (0 of 180 items). Scope cut approved: see "Scope of the build" in `docs/design.md`. `what_changed` is "next", not built.
 - Open for Joshua: the wording of the two bars in `registry.json` is a first draft; the extraction cost is plus 39 percent with the bars; judgments differ between runs; a sample of the town choices needs your check.
 - Not tested: the rollback of an item that fails after its first row is written (no input reaches it). Not built: a set-aside table (the report only), merge of the same item from two pages, `holes`, category.
 - Spend: 0.176008 of 5 US dollars.

@@ -59,6 +59,7 @@ _DAY = re.compile(
 _YEAR = re.compile(r"(?<![\w.,/+])(\d{4})(?!\w)")
 _NUMERIC_DATE = re.compile(r"(?<!\d)(\d{1,2})/(\d{1,2})/(\d{4})(?!\d)")
 _WORD = re.compile(r"[^\W\d_]+")
+_CLOCK = re.compile(r"(?<![\d.,/:])\d{1,2}[:hH]\d{2}(?![\d.,/:])")
 _NUMBER = re.compile(r"\d+(?:[ ,]\d{3})*(?:\.\d+)?")
 
 # What a wrong type or a missing key raises. Such an entry fails; it does not stop the run.
@@ -171,11 +172,13 @@ def check_when(when: dict) -> list[str]:
     if when["kind"] == "weekly":
         if not words & WEEKDAYS[when["weekday"]]:
             return [f"weekday {when['weekday']} not in quotes"]
-        # A weekly rule becomes a date for each week. A quote that holds a day, a month or a
-        # year is a dated item or a rule inside a period, not a standing rule.
-        dated = _DAY.search(text) or _YEAR.search(text) or _NUMERIC_DATE.search(text)
-        if dated or any(words & names for names in MONTHS.values()):
-            return ["weekly quote holds a date"]
+        # A weekly rule becomes a date for each week, so the quote must hold no date. One rule,
+        # not a list of date forms: no digit, except a clock time with minutes (09:00, 14h00).
+        # The meaning of the words ("first", "closed") is the model's judgment, and the card
+        # shows the quote.
+        digit = any(char.isdigit() for char in _CLOCK.sub(" ", text))
+        if digit or any(words & names for names in MONTHS.values()):
+            return ["weekly quote holds a date or a number"]
         return []
 
     numeric = {tuple(int(n) for n in found) for found in _NUMERIC_DATE.findall(text)}
@@ -202,17 +205,24 @@ def _result(field: str, ok: bool, reason: str = "", level: str | None = None) ->
 
 
 def _verify_field(field: str, entry: dict | None, page: str, towns=None) -> dict | None:
-    entry = entry or {"value": "", "quote": ""}
-    if not entry["value"].strip():
-        return _result("title", False, "no title") if field == "title" else None
-    level = quote_on_page(entry["quote"], page)
+    if entry is None:
+        entry = {"value": "", "quote": ""}
+    if not isinstance(entry, dict):
+        raise TypeError(field)
     if field == "town" and towns is not None:
         # The model chooses the town. Code checks the list, and that the quote is page text.
+        # Only the exact empty value means "the page states no town".
+        if entry["value"] == "":
+            return None
         if entry["value"] not in towns:
-            return _result(field, False, "town not in the list", level)
+            return _result(field, False, "town not in the list")
+        level = quote_on_page(entry["quote"], page)
         if level is None:
             return _result(field, False, "quote not on page")
         return _result(field, True, level=level)
+    if not entry["value"].strip():
+        return _result("title", False, "no title") if field == "title" else None
+    level = quote_on_page(entry["quote"], page)
     check = numbers_in_quote if field == "price" else value_in_quote
     if level is None:
         return _result(field, False, "quote not on page")

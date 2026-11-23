@@ -102,16 +102,12 @@ def _store_item(db, item: dict, page_id: int, page: dict, source: dict, towns: d
     else:
         town_of_item = town
 
-    # The two bars of the registry. Each counts only with a quote that is on the page.
-    def says_no(bar: str) -> str | None:
-        entry = item.get(bar) or {}
-        if entry.get("value") == "no" and quote_on_page(entry.get("quote") or "", page["text"]):
-            return entry["quote"]
-        return None
-
-    if says_no("visitor"):  # the hard bar: not stored
-        return "visitor: the page shows that a visitor cannot go"
-    below_bar = says_no("traveller")  # the soft bar: stored, and shown in its own group
+    # The soft bar of the registry: the item is stored, and shown in its own group. A "no"
+    # counts only with a quote that is on the page.
+    below_bar = None
+    bar = item.get("traveller") or {}
+    if bar.get("value") == "no" and quote_on_page(bar.get("quote") or "", page["text"]):
+        below_bar = bar["quote"]
 
     at = page["fetched_at"]
     item_id = db.execute(
@@ -143,14 +139,15 @@ def _store_item(db, item: dict, page_id: int, page: dict, source: dict, towns: d
         evidence.append(("traveller", "no", below_bar, model))
     seen = set()
     for when, value, ranges in whens:
-        time_text = " | ".join(when["quotes"])
+        time_text = " | ".join(" ".join(quote.split()) for quote in when["quotes"])
+        rule = "weekly" if when["kind"] == "weekly" else None
         evidence.append(("when", value, time_text, model))
         new = [(start, end) for start, end in ranges if (start, end) not in seen]
         seen.update(new)
         db.executemany(
-            "INSERT INTO occurrence (item_id, start_date, end_date, precision, time_text) "
-            "VALUES (?, ?, ?, 'day', ?)",
-            [(item_id, start.isoformat(), end.isoformat(), time_text) for start, end in new],
+            "INSERT INTO occurrence (item_id, start_date, end_date, precision, time_text, rule) "
+            "VALUES (?, ?, ?, 'day', ?, ?)",
+            [(item_id, start.isoformat(), end.isoformat(), time_text, rule) for start, end in new],
         )
     db.executemany(
         "INSERT INTO evidence (item_id, field, value, quote, page_id, model) "

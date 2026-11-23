@@ -1,6 +1,5 @@
 {
  "bars": {
-  "visitor": "Can a visitor to the area go to this item or book it? Give \"no\" only when the page shows that a visitor cannot: for example members or residents only, a private or internal meeting, or a notice that is not something to attend.",
   "traveller": "Is this worth showing to a travel designer who plans a luxury trip to the area? Give \"no\" for routine local life that a guest would not put in an itinerary: for example a quiz night, bingo, karaoke, a club or society meeting, sport shown on a screen in a bar, a school or church fundraiser, a parkrun. Give \"yes\" for a festival, a market, a show or concert, an exhibition, food and wine, nature, culture, and each season or bookable experience. When in doubt, give \"yes\"."
  },
  "places": {
@@ -39,6 +38,18 @@
    "owner_rank": 3,
    "place": "hermanus",
    "default_town": null
+  }
+ ],
+ "not_collected": [
+  {
+   "name": "Quicket",
+   "reason": "the official API needs a key",
+   "declares": "136 events within 60 km"
+  },
+  {
+   "name": "Webtickets",
+   "reason": "the search needs a browser",
+   "declares": null
   }
  ]
 }

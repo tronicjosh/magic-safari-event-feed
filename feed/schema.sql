@@ -48,7 +48,10 @@ CREATE TABLE IF NOT EXISTS occurrence (
     start_date    TEXT NOT NULL,
     end_date      TEXT NOT NULL,
     precision     TEXT NOT NULL CHECK (precision IN ('day', 'month')),
-    time_text     TEXT NOT NULL
+    time_text     TEXT NOT NULL,
+    rule          TEXT CHECK (rule IS NULL OR rule IN ('weekly', 'season'))
+                  -- NULL: the page states this date. 'weekly': code wrote the date from a
+                  -- weekly rule. 'season': code wrote the year of a season with no year
 );
 CREATE INDEX IF NOT EXISTS occurrence_dates ON occurrence (start_date, end_date);
 

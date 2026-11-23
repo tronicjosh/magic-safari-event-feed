@@ -45,7 +45,7 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
     # The place of an item is the place of a source that gives evidence for it.
     rows = db.execute(
         "SELECT i.id, i.kind, i.category, i.title, i.town, i.price_text, i.source_link, i.below_bar, "
-        "o.start_date, o.end_date, "
+        "o.start_date, o.end_date, o.rule, o.time_text, "
         "(SELECT count(DISTINCT p.source_id) FROM evidence e JOIN page p ON p.id = e.page_id "
         " WHERE e.item_id = i.id) "
         "FROM item i JOIN occurrence o ON o.item_id = i.id "
@@ -58,7 +58,9 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
     ).fetchall()
 
     cards = {}
-    for item_id, kind, category, title, town, price, link, below, first, last, sources in rows:
+    for row in rows:
+        item_id, kind, category, title, town, price, link, below = row[:8]
+        first, last, rule, time_text, sources = row[8:]
         card = cards.setdefault(
             item_id,
             {
@@ -69,6 +71,7 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
                 "when": [],
                 "confirmed": True,
                 "range": False,
+                "rule": None,  # the quote of a weekly rule, if code wrote a date from it
                 "below_bar": bool(below),
                 "town": town,
                 "price": price or "not stated",
@@ -79,6 +82,8 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
         )
         card["when"].append(_when(first, last))
         card["range"] = card["range"] or first != last
+        if rule:
+            card["rule"] = time_text
     # Neutral order: the first day in the window, then the title, then the id.
     ordered = sorted(cards.values(), key=lambda c: (c.pop("first"), c["title"].casefold(), c["id"]))
     for card in ordered:
@@ -128,6 +133,8 @@ def _text(place_name: str, start: date, end: date, data: dict) -> str:
             state = "confirmed" if card["confirmed"] else "not confirmed"
             if card["range"]:  # the page gives a first and a last day, not each day
                 state += "; a range, each day is not stated"
+            if card["rule"]:  # code wrote the date from a rule; the designer sees the proof
+                state = f'weekly rule: "{card["rule"]}"'
             label = f"[{card['kind']} · {card['category']}] {card['title']}"
             sources = _count(card["sources"], "source")
             lines += [

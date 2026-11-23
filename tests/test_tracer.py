@@ -63,7 +63,10 @@ def test_case_2_market_each_saturday_match(hand):
     card = answer["data"]["groups"][0]["cards"][1]
     assert card["when"] == "Sat 12 June 2027"
     assert card["town"] == "Hermanus"
-    assert "Harbour Square Market · Sat 12 June 2027 (confirmed) · Hermanus" in answer["text"]
+    assert (
+        'Harbour Square Market · Sat 12 June 2027 (weekly rule: "Every Saturday from 09:00 '
+        'to 13:00") · Hermanus'
+    ) in answer["text"]
     assert answer["data"]["counts"]["items"] == 2
 
 
@@ -409,6 +412,18 @@ def test_a_weekly_rule_that_is_not_marked_as_ongoing_is_not_stored(hand):
         "Saturdays in 2027",
         "Saturdays 5 & 12 from 09:00",
         "Saturday 05/12/2026",
+        # date forms that a list of patterns missed (blind review, round 2)
+        "Saturday 05.12.2026",
+        "Saturday 5/12",
+        "Saturday 5/12/26",
+        "Every Saturday until 12/03",
+        "Saturday 5: carols",
+        "Saturday 5th:",
+        "Saturday #5",
+        "Saturday 5.12",
+        "Every Saturday in December",
+        # accepted loss: a clock time with no minutes looks like a day number
+        "Saturday 9 - 1pm",
     ],
 )
 def test_a_weekly_quote_that_holds_a_date_fails_the_check(quote):
@@ -416,7 +431,7 @@ def test_a_weekly_quote_that_holds_a_date_fails_the_check(quote):
 
     weekday = "wednesday" if "Wednesday" in quote else "saturday"
     when = {"kind": "weekly", "start": ZERO, "end": ZERO, "weekday": weekday, "quotes": [quote]}
-    assert check_when(when) == ["weekly quote holds a date"]
+    assert check_when(when) == ["weekly quote holds a date or a number"]
 
 
 @pytest.mark.parametrize(
@@ -426,6 +441,7 @@ def test_a_weekly_quote_that_holds_a_date_fails_the_check(quote):
         "Join us every Saturday morning at 8:00am",
         "Saturdays: ParkRun at 8:00",
         "at 08:00 every Saturday",
+        "Saterdae 14h00 tot 17h30",
     ],
 )
 def test_a_weekly_quote_with_a_clock_time_passes_the_check(quote):
@@ -435,20 +451,23 @@ def test_a_weekly_quote_with_a_clock_time_passes_the_check(quote):
     assert check_when(when) == []
 
 
-def test_the_visitor_bar_is_hard_and_needs_a_quote_on_the_page(hand):
+@pytest.mark.parametrize("town", [[], 0, False, {}, "Hermanus", {"value": "  ", "quote": "x"}])
+def test_a_town_of_a_wrong_type_does_not_get_the_default_town(hand, town):
     db, registry = hand
-    text = (CASES / "market.txt").read_text(encoding="utf-8") + "Members only\n"
-    page = dict(_page("market"), text=text)
-    answer = _market(visitor={"value": "no", "quote": "Members only"})
-    report = ingest_answer(db, registry, "hand", page, answer)
-    assert report == {
-        "stored": 0,
-        "set_aside": [
-            ("Harbour Square Market", "visitor: the page shows that a visitor cannot go")
-        ],
-    }
-    # the same answer on a page that does not hold the quote: the "no" has no proof
-    assert ingest_answer(db, registry, "hand", _page("market"), answer)["stored"] == 1
+    before = _counts(db)
+    report = ingest_answer(db, registry, "hand", _page("market"), _market(town=town))
+    assert report["stored"] == 0
+    assert report["set_aside"][0][1].startswith("town: ")
+    assert _counts(db) == before
+
+
+def test_a_date_from_a_weekly_rule_is_shown_as_a_rule_with_its_quote(hand):
+    db, registry = hand
+    answer = what_is_on(db, registry, "hermanus", date(2027, 6, 12), date(2027, 6, 12))
+    cards = {card["title"]: card for card in answer["data"]["groups"][0]["cards"]}
+    assert cards["Harbour Square Market"]["rule"] == "Every Saturday from 09:00 to 13:00"
+    assert cards["The Whale Song: a musical"]["rule"] is None
+    assert "The Whale Song: a musical · Sat 12 June 2027 (confirmed) · Hermanus" in answer["text"]
 
 
 def test_the_traveller_bar_is_soft_the_item_is_shown_in_its_own_group(hand):
@@ -573,9 +592,9 @@ def test_real_single_date_item(real):
     assert cards["Book Launch: Treasured Islands"]["when"] == "Wed 18 November 2026"
     assert cards["5-Course Dinner Fundraiser"]["town"] == "Stanford"
     assert "Bring & Braai" not in cards  # Pringle Bay is not a town of the place
-    assert ("Bring & Braai", "town: outside the place") in reports["overstrand_weekend"][
-        "set_aside"
-    ]
+    set_aside = reports["overstrand_weekend"]["set_aside"]
+    assert ("Bring & Braai", "town: outside the place") in set_aside
+    assert ("Beach Clean-up", "town: outside the place") in set_aside
     assert answer["data"]["counts"]["items"] == len(cards)
 
 

@@ -14,6 +14,23 @@ Status: **draft 5** (2026-11-23: facts, not judgments; source discovery; six ope
 
 - **The pilot.** Hermanus is the first town, not the product. The goal is the same feed for each town in South Africa. So the approach must not be fitted to Hermanus: what I learn here must apply to the next town with little work. See the next section.
 
+## Scope of the build (decision of 2026-11-23)
+
+The brief asks for a first version in about two hours of my time. The design below is larger than that. I cut the build to one path that shows each thing the brief names. The rest stays in this document as the design, and is not built.
+
+| Built | Designed, not built ("next") |
+|---|---|
+| One ingest command: fetch, visible text, hash, extract, verify, store | Source discovery, completeness gate, link check |
+| An unchanged page gives no model call | Retry with a stronger model |
+| The same item on a second run is updated, not added | Merge of one item from two sources, owner rank, conflicts |
+| Four kinds: date, repeating, run, season; yearly with "not confirmed" | `cancelled`, a set-aside table, the review command |
+| A local MCP server: `what_is_on`, `when_to_go`, `tell_me_more`, with `counts` | REST, the Vercel site, hosting, `find`, `places`, `what_changed` |
+| The soft traveller bar | The hard visitor bar (T13: 0 of 180 items, so no data supports it) |
+| `holes`: one line from the registry | `holes` from a run report |
+| One real run with measured cost; one test with a new Claude | A second town |
+
+Where a section below describes a part of the right column, that part is the design, not the code.
+
 ## Hermanus is the pilot: what must carry to the next town
 
 Two results of the pilot are as important as the Hermanus data: a design that works for a different town, and clear documentation of the data model, the API, and how an agent uses it.
@@ -119,7 +136,10 @@ SOFT BAR  worth showing to a traveller on a luxury trip?
 - **The wording of each bar is data** in the registry (`bars.visitor`, `bars.traveller`), not code. A different town, or a different type of guest, is a different text.
 - **Reversible.** A change of the wording acts on the next ingest. Relevance still depends on the traveller, and the agent decides it.
 - **This limits "facts, not judgments" above.** The feed now makes one judgment. It is kept apart from the facts: one field, one group, and an Evidence row with the model's quote.
+- **The hard bar is not built.** T13 gave 0 of 180 items, so no data supports it; it stays here as design.
 - **Measured (T13):** hard bar 0 of 180 items; soft bar 37 of 180. The soft judgment differs between two pages for the same event, and the two fields add 39 percent to the extraction cost. No real item has tested the hard bar.
+
+A weekly rule has three parts (after two review rounds showed that a list of date patterns leaks): code refuses a weekly quote that holds a digit, except a clock time with minutes; the model decides that the rule has no end; the card shows such a date as `weekly rule: "<quote>"`, not as "confirmed", so the designer sees the proof.
 
 Other decisions of the model, each with a check by code: the town is a value of the list of the place, or "outside" (not stored), or empty (the default town of the source). A weekly rule is stored only when the model marks it as a rule with no end and its quote holds no day, month or year. A card of a range says "a range, each day is not stated".
 

@@ -31,6 +31,18 @@ The agent chooses the items that fit the clients and says how many the feed has 
 | A17 | One command checks everything | One command runs lint and all tests | Exit code 0 |
 | A18 | The write-up is true | `docs/design.md` matches the code and `docs/assumptions.md`, and I can explain every part without AI | I confirm |
 
+## Changed by the scope cut of 2026-11-23
+
+These lines are not part of done for the build. Each stays as design in `docs/design.md`.
+
+- A3: the hand cases of the built parts only: 1 to 8, 10, 12, 13, 14, 16, 18, 19, 24.
+- A4: done in slice 0b.1 by deliberate breaks of the verify and update lines.
+- A5: the share is reported; there is no review queue and no target.
+- A9 (links), A10 and A13 (`holes` from a run), A11 (retry): not built.
+- A7: whale season, FynArts and the Whale Festival; the list of experiences is not built.
+- A8 and A14 are one test with a new Claude, on `what_is_on`, `when_to_go` and `tell_me_more`.
+- A12: MCP only; there is no REST.
+
 ## Not part of done
 
 - More sources than the version 1 registry.
