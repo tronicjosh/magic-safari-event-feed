@@ -207,8 +207,6 @@ def _result(field: str, ok: bool, reason: str = "", level: str | None = None) ->
 def _verify_field(field: str, entry: dict | None, page: str, towns=None) -> dict | None:
     if entry is None:
         entry = {"value": "", "quote": ""}
-    if not isinstance(entry, dict):
-        raise TypeError(field)
     if field == "town" and towns is not None:
         # The model chooses the town. Code checks the list, and that the quote is page text.
         # Only the exact empty value means "the page states no town".
