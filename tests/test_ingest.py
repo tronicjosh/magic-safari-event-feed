@@ -41,7 +41,7 @@ class SavedExtract:
     def __init__(self):
         self.calls = []
 
-    def __call__(self, client, model, page_id, text, towns, bars):
+    def __call__(self, client, model, page_id, text, towns, bars, categories=()):
         self.calls.append({"page_id": page_id, "model": model, "towns": towns, "bars": bars})
         if page_id in SAVED_ANSWERS:
             return _load(ANSWERS / f"{page_id}.{MODEL}.json")
@@ -50,7 +50,17 @@ class SavedExtract:
 
 @pytest.fixture
 def registry():
-    return _load(Path("registry.json"))
+    return _saved_registry()
+
+
+def _saved_registry() -> dict:
+    """The real registry, with only the sources and pages that have a copy in evals/pages."""
+    registry = _load(Path("registry.json"))
+    for source in registry["sources"]:
+        pages = source.get("pages", [])
+        source["pages"] = [page for page in pages if (PAGES / f"{page['id']}.txt").exists()]
+    registry["sources"] = [source for source in registry["sources"] if source["pages"]]
+    return registry
 
 
 @pytest.fixture
@@ -109,7 +119,7 @@ def test_first_run_calls_extract_one_time_for_each_page_and_stores_items(db, reg
     assert festivals["source"] == "hermanus_tourism"
     assert festivals["fetched"] is True and festivals["changed"] is True
     # The same numbers as the tracer test of the same page and the same answer.
-    assert festivals["stored"] == 6 and len(festivals["set_aside"]) == 9
+    assert festivals["stored"] == 11 and len(festivals["set_aside"]) == 4
     assert report["totals"]["stored"] == _rows(db)["item"]
     assert report["totals"]["stored"] == sum(page["stored"] for page in report["pages"])
 
@@ -209,7 +219,7 @@ def test_report_totals_are_the_measured_usage_of_the_answers(db, registry):
 def test_an_answer_with_no_items_is_reported_and_its_cost_is_counted(db, registry):
     registry["sources"] = [s for s in registry["sources"] if s["id"] == "kalfiefees"]
 
-    def extract(client, model, page_id, text, towns, bars):
+    def extract(client, model, page_id, text, towns, bars, categories=()):
         return {"model": model, "stop_reason": "max_tokens", "items": None, **HAND_USAGE}
 
     report = run_ingest(db, registry, fetch=_saved_fetch, extract=extract, model=MODEL)
@@ -222,7 +232,7 @@ def test_an_answer_with_no_items_is_reported_and_its_cost_is_counted(db, registr
 def test_an_error_of_the_model_call_is_reported_and_the_run_goes_on(db, registry):
     saved = SavedExtract()
 
-    def extract(client, model, page_id, text, towns, bars):
+    def extract(client, model, page_id, text, towns, bars, categories=()):
         if page_id == "ht_festivals":
             raise anthropic.APIConnectionError(
                 message="the service is not available",
@@ -283,7 +293,7 @@ def _hidden_run(price: dict):
     )
     seen = []
 
-    def extract(client_, model, page_id, text, towns, bars):
+    def extract(client_, model, page_id, text, towns, bars, categories=()):
         seen.append(text)
         return {"model": model, "items": [_hidden_item(price)], **HAND_USAGE}
 
@@ -490,9 +500,7 @@ def test_report_text_names_each_page_and_the_totals(db, registry):
 
 
 def test_command_runs_two_times_and_the_second_run_costs_nothing(tmp_path, monkeypatch):
-    (tmp_path / "registry.json").write_text(
-        Path("registry.json").read_text(encoding="utf-8"), encoding="utf-8"
-    )
+    (tmp_path / "registry.json").write_text(json.dumps(_saved_registry()), encoding="utf-8")
     (tmp_path / "runs").mkdir()
     header = "# Runs\n\n| Date | Run | Model | Tokens in | Tokens out | Cost (USD) | Items | Live | For review | Note |\n|---|---|---|---|---|---|---|---|---|---|"
     (tmp_path / "runs" / "runs.md").write_text(header, encoding="utf-8")  # no last line break
@@ -509,7 +517,7 @@ def test_command_runs_two_times_and_the_second_run_costs_nothing(tmp_path, monke
             "status": 200,
         }
 
-    def extract(client, model, page_id, text, towns, bars):
+    def extract(client, model, page_id, text, towns, bars, categories=()):
         calls.append(client)
         return answers.get(page_id) or {"model": model, "items": [], **HAND_USAGE}
 
@@ -529,3 +537,19 @@ def test_command_runs_two_times_and_the_second_run_costs_nothing(tmp_path, monke
     assert "9 changed" in lines[4] and "0.000000" not in lines[4]
     assert "9 unchanged" in lines[5] and "| 0 | 0 | 0.000000 |" in lines[5]
     assert (tmp_path / "test.db").exists()
+
+
+def test_an_unchanged_page_moves_last_seen_of_its_items_and_writes_no_row(db, registry):
+    run_ingest(db, registry, fetch=_saved_fetch, extract=SavedExtract(), model=MODEL)
+    before = _rows(db)
+
+    def later(page):
+        return dict(_saved_fetch(page), fetched_at="2026-11-30T12:00:00+00:00")
+
+    extract = SavedExtract()
+    run_ingest(db, registry, fetch=later, extract=extract, model=MODEL)
+    assert extract.calls == [] and _rows(db) == before
+    seen = db.execute("SELECT DISTINCT substr(last_seen_at, 1, 10) FROM item").fetchall()
+    assert seen == [("2026-11-30",)]
+    first = db.execute("SELECT DISTINCT substr(first_seen, 1, 10) FROM item").fetchall()
+    assert first == [("2026-11-23",)]

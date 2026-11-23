@@ -547,16 +547,18 @@ def test_trap_page_with_the_real_model_answer_gives_no_invented_weekly_dates():
     ingest_answer(db, registry, "hand", _page("weekly_traps"), answer)
     weekly = db.execute(
         "SELECT i.title, count(*) FROM item i JOIN occurrence o ON o.item_id = i.id "
-        "GROUP BY i.id HAVING count(*) > 1"
+        "WHERE o.rule = 'weekly' GROUP BY i.id"
     ).fetchall()
     assert weekly == [("Fish Market", 78)]
-    # the Wednesday rule is for December 2026 only, and the museum is closed on Sunday
-    wednesday = what_is_on(db, registry, "hermanus", date(2027, 6, 9), date(2027, 6, 9))
-    sunday = what_is_on(db, registry, "hermanus", date(2027, 6, 13), date(2027, 6, 13))
-    saturday = what_is_on(db, registry, "hermanus", date(2027, 6, 12), date(2027, 6, 12))
-    assert _titles(wednesday) == _titles(sunday) == _titles(saturday) == []
+    # The Wednesday rule is for December 2026 only, and the museum is closed on Sunday: no
+    # date. The rule by month is not a date: it is "All year" with the quote of the page.
+    walk = 'Harbour Art Walk · All year (season, no year stated: "First Saturday of every month")'
+    for day in (9, 12, 13):  # a Wednesday, a second Saturday, a Sunday
+        answer = what_is_on(db, registry, "hermanus", date(2027, 6, day), date(2027, 6, day))
+        assert _titles(answer) == ["Harbour Art Walk"]
+        assert walk in answer["text"] and "(confirmed" not in answer["text"]
     carols = what_is_on(db, registry, "hermanus", date(2026, 12, 5), date(2026, 12, 5))
-    assert _titles(carols) == ["Carols by Candlelight"]
+    assert _titles(carols) == ["Carols by Candlelight", "Harbour Art Walk"]
 
 
 # Real saved pages and real saved answers.

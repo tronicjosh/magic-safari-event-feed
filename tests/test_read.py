@@ -13,7 +13,7 @@ from feed.read import GROUPS, tell_me_more, what_changed, what_is_on, when_to_go
 from feed.store import open_db
 
 INGESTED = "2026-11-23T12:00:00+00:00"
-SEASON = "season, no year stated"
+SEASON = 'season, no year stated: "quote of the date"'
 
 
 @pytest.fixture
@@ -741,3 +741,13 @@ def test_what_changed_after_as_of_is_empty(moved):
     answer = what_changed(db, registry, "hermanus", date(2027, 3, 2))
     assert answer["data"]["as_of"] == "2027-03-01"
     assert titles(answer) == [] and answer["text"].count("\n    none\n") == 2
+
+
+def test_dates_that_are_not_past_are_not_called_last_held(feed):
+    """Dates stated for June 2027, and a window in June 2028: nothing was "held" yet."""
+    db, registry = feed
+    add(db, "Arts Festival", [("2027-06-05", "2027-06-13", "day", None)], yearly=1)
+    answer = on(db, registry, "2028-06-06", "2028-06-10")
+    card = answer["data"]["groups"][2]["cards"][0]
+    assert card["when"] == "Last stated dates Sat 5 June 2027 - Sun 13 June 2027"
+    assert "Last held" not in answer["text"] and "not confirmed" in answer["text"]

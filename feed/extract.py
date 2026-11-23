@@ -47,6 +47,7 @@ town (for example "Sand Bay" is Sandbaai). Give "{outside}" if the page places t
 town or area that is not a part of a town of the list. Give "" if the page does not say where \
 this item is. The quote is the span of the page that says where the item is; the program does \
 not search it for the value.
+- category: what the item is. One of: {categories}; or "other" if none fits.
 - venue: the place inside the town, only if stated.
 - price: the price text for this item, for example "R75", only if stated.
 - yearly: does the page state that this item is held or takes place each year? Give value \
@@ -106,11 +107,12 @@ _WHEN = {
 }
 
 
-def system_prompt(towns: list[str], bars: dict) -> str:
+def system_prompt(towns: list[str], bars: dict, categories=()) -> str:
     return _SYSTEM.format(
         towns=", ".join(f'"{town}"' for town in towns),
         outside=OUTSIDE,
         traveller_bar=bars["traveller"],
+        categories=", ".join(f'"{category}"' for category in categories),
     )
 
 
@@ -126,11 +128,12 @@ def _choice(values: list[str]) -> dict:
     }
 
 
-def schema(towns: list[str]) -> dict:
+def schema(towns: list[str], categories=()) -> dict:
     """The answer format. The town is a closed list: the towns of the place, outside, or empty."""
     fields = {
         "title": _FIELD,
         "town": _choice([*towns, OUTSIDE, ""]),
+        "category": {"type": "string", "enum": [*categories, "other"]},
         "venue": _FIELD,
         "price": _FIELD,
         "yearly": _FIELD,
@@ -151,19 +154,19 @@ def schema(towns: list[str]) -> dict:
     }
 
 
-def extract(client, model: str, page_id: str, text: str, towns: list[str], bars: dict) -> dict:
+def extract(client, model: str, page_id: str, text: str, towns, bars: dict, categories=()) -> dict:
     """One model call for one page. Returns the items and the measured usage and cost."""
     with client.messages.stream(
         model=model,
         max_tokens=64000,
-        system=system_prompt(towns, bars),
+        system=system_prompt(towns, bars, categories),
         messages=[
             {
                 "role": "user",
                 "content": f"<page>\n{text}\n</page>\n\nExtract the items of this page.",
             }
         ],
-        output_config={"format": {"type": "json_schema", "schema": schema(towns)}},
+        output_config={"format": {"type": "json_schema", "schema": schema(towns, categories)}},
     ) as stream:
         message = stream.get_final_message()
 

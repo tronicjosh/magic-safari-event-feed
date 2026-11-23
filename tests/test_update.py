@@ -219,6 +219,62 @@ def test_months_with_no_year_and_no_proof_of_each_year_is_not_stored(hand, yearl
     assert _counts(hand) == (0, 0, 0, 0)
 
 
+def test_the_category_is_a_choice_from_the_list_of_the_registry(hand):
+    text = "Arts festival\nJune 2027\nWine fair\nJuly 2027\n"
+    festival = _item(
+        "Arts festival", _months((6, 2027), (6, 2027), "June 2027"), category="festival"
+    )
+    fair = _item("Wine fair", _months((7, 2027), (7, 2027), "July 2027"), category="the best")
+    assert _ingest(hand, text, festival, fair)["stored"] == 2
+    rows = hand[0].execute("SELECT title, category FROM item ORDER BY title").fetchall()
+    assert rows == [("Arts festival", "festival"), ("Wine fair", "other")]
+
+
+@pytest.mark.parametrize("category", [None, 5, ["festival"], {"value": "festival"}])
+def test_a_category_of_a_wrong_type_is_stored_as_other(hand, category):
+    text = "Arts festival\nJune 2027\n"
+    item = _item("Arts festival", _months((6, 2027), (6, 2027), "June 2027"), category=category)
+    assert _ingest(hand, text, item)["stored"] == 1
+    assert _one(hand, "SELECT category FROM item")[0] == "other"
+
+
+def test_a_season_that_is_running_at_the_ingest_has_a_row(hand):
+    """November to April, ingested in January: the season of this winter is on now."""
+    text = "Shark season\nNovember to April\nThe sharks come back every year.\n"
+    season = _months((11, 0), (4, 0), "November to April")
+    item = _item("Shark season", season, yearly=YEARLY)
+    assert _ingest(hand, text, item, at="2027-01-05T08:00:00+00:00")["stored"] == 1
+    assert [row[:2] for row in _rows(hand, "Shark season")] == [
+        ("2026-11-01", "2027-04-30"),  # the running season
+        ("2027-11-01", "2028-04-30"),
+        ("2028-11-01", "2029-04-30"),
+        ("2029-11-01", "2030-04-30"),
+    ]
+
+
+def test_a_season_that_is_over_at_the_ingest_has_no_row(hand):
+    item = _item("Whale season", SEASON, yearly=YEARLY)
+    assert _ingest(hand, WHALES, item, at="2026-12-05T08:00:00+00:00")["stored"] == 1
+    assert [row[0] for row in _rows(hand, "Whale season")] == ["2027-06-01", "2028-06-01"]
+
+
+def test_all_year_needs_no_second_proof_and_keeps_its_quote(hand):
+    text = "Country Market\nopen throughout the year\n"
+    item = _item("Country Market", _months((1, 0), (12, 0), "open throughout the year"))
+    assert _ingest(hand, text, item) == {"stored": 1, "updated": 0, "set_aside": []}
+    rows = _rows(hand, "Country Market")
+    assert rows[0] == ("2026-01-01", "2026-12-31", "month", "season") and len(rows) == 3
+    assert _one(hand, "SELECT DISTINCT time_text FROM occurrence")[0] == "open throughout the year"
+
+
+def test_all_year_with_a_quote_that_is_not_on_the_page_is_not_stored(hand):
+    text = "Country Market\nopen on Saturdays\n"
+    item = _item("Country Market", _months((1, 0), (12, 0), "open throughout the year"))
+    assert _ingest(hand, text, item)["set_aside"] == [
+        ("Country Market", "when[0]: quote not on page")
+    ]
+
+
 # The second run.
 
 SHOW = "Harbour Concert\nTown Hall\nTickets R200\n12 December 2026\n"
@@ -406,7 +462,12 @@ DAY = _when("date", (12, 12, 2026), quotes=["12 December 2026"])
 
 def test_case_7_a_value_that_its_quote_does_not_hold_leaves_the_field_empty(hand):
     item = _item("Night Market", DAY, price={"value": "750", "quote": "Entry R75"})
-    assert _ingest(hand, ENTRY, item) == {"stored": 1, "updated": 0, "set_aside": []}
+    assert _ingest(hand, ENTRY, item) == {
+        "stored": 1,
+        "updated": 0,
+        "set_aside": [],
+        "left_empty": [("Night Market", "price: value not in quote")],  # the report says why
+    }
     assert _one(hand, "SELECT price_text FROM item")[0] is None
     assert _one(hand, "SELECT count(*) FROM evidence WHERE field = 'price'")[0] == 0
     assert "750" not in json.dumps(hand[0].execute("SELECT * FROM evidence").fetchall())
@@ -513,10 +574,17 @@ def test_real_festivals_page_yearly_and_months_that_no_quote_proves():
     report = _real(real, "t13", "ht_festivals", source="hermanus_tourism")
     yearly = real[0].execute("SELECT title FROM item WHERE repeats_yearly = 1").fetchall()
     assert yearly == [("Whale Festival",)]
-    # "every month", "throughout the year": the model gave months 1 to 12, no quote names them
-    assert _one(real, "SELECT count(*) FROM occurrence WHERE precision = 'month'")[0] == 0
-    reasons = dict(report["set_aside"])
-    assert reasons["Hermanus Country Market"] == (
-        "when[0]: start month 1 not in quotes; end month 12 not in quotes"
+    # "every month", "throughout the year": the model gave months 1 to 12. No month name can
+    # prove that, so the item is stored as "all year" and its quote goes to the card.
+    quotes = dict(
+        real[0].execute(
+            "SELECT DISTINCT i.title, o.time_text FROM item i JOIN occurrence o "
+            "ON o.item_id = i.id WHERE o.precision = 'month' AND o.rule = 'season'"
+        )
     )
+    assert quotes["Hermanus Country Market"] == "throughout the year"
+    assert quotes["Hermanus First Friday Artwalk"] == "On the First Friday of every month"
+    assert len(quotes) == 5
+    reasons = dict(report["set_aside"])
+    assert "Hermanus Country Market" not in reasons
     assert not any("not built" in reason for reason in reasons.values())

@@ -63,11 +63,26 @@ def _ingest_page(db, registry, source, page, fetch, extract, model, client) -> d
 
     line["changed"] = not _unchanged(db, fetched["url"], fetched["text"])
     if not line["changed"]:
-        return line  # no model call and no rows
+        # No model call and no new row. The page still lists its items: they were seen.
+        db.execute(
+            "UPDATE item SET last_seen_at = ?, last_verified = ? WHERE id IN (SELECT e.item_id "
+            "FROM evidence e WHERE e.page_id = (SELECT max(id) FROM page WHERE url = ?))",
+            (fetched["fetched_at"], fetched["fetched_at"], fetched["url"]),
+        )
+        db.commit()
+        return line
 
     towns = registry["places"][source["place"]]["towns"]
     try:
-        answer = extract(client, model, page["id"], fetched["text"], towns, registry["bars"])
+        answer = extract(
+            client,
+            model,
+            page["id"],
+            fetched["text"],
+            towns,
+            registry["bars"],
+            registry.get("categories", []),
+        )
     except _MODEL_FAILURES as error:  # one page must not stop the run or lose its report
         line["error"] = f"extract: {type(error).__name__}: {error}"
         return line
@@ -80,6 +95,7 @@ def _ingest_page(db, registry, source, page, fetch, extract, model, client) -> d
     stored = ingest_answer(db, registry, source["id"], fetched, answer)
     for key in ("stored", "updated", "set_aside"):
         line[key] = stored[key]
+    line["left_empty"] = stored.get("left_empty", [])
     return line
 
 
@@ -139,6 +155,8 @@ def format_report(report: dict) -> str:
             f"cost {page['cost_usd']:.6f} USD" + (f"  {page['error']}" if "error" in page else "")
         )
         lines.extend(f"      set aside: {title}: {reason}" for title, reason in page["set_aside"])
+        empty = page.get("left_empty", [])
+        lines.extend(f"      field left empty: {title}: {reason}" for title, reason in empty)
     totals = report["totals"]
     lines.append(
         f"Totals: {totals['pages']} pages, {totals['failed']} failed, {totals['changed']} "

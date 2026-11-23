@@ -161,11 +161,22 @@ def _shape(when: dict) -> str | None:
     return None
 
 
+def all_year(when: dict) -> bool:
+    """January to December with no year: "throughout the year", "every month"."""
+    start, end = when["start"], when["end"]
+    months = (start["month"], end["month"]) == (1, 12)
+    return when["kind"] == "months" and months and not (start["year"] or end["year"])
+
+
 def check_when(when: dict) -> list[str]:
     """Checks 2 and 3 for one date entry. Returns the failures; an empty list is a pass."""
     shape = _shape(when)
     if shape:
         return [shape]
+    if all_year(when):
+        # No month name can prove "all year". That the quote says so is the model's judgment;
+        # the quote is on the page (check 1), and the card shows it to the designer.
+        return []
 
     text = "\n".join(when["quotes"])
     words = _words(text)

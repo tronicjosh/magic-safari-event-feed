@@ -14,7 +14,7 @@ import sqlite3
 from datetime import UTC, date, datetime, timedelta
 
 from feed.extract import OUTSIDE
-from feed.verify import WEEKDAYS, quote_on_page, verify_item
+from feed.verify import WEEKDAYS, all_year, quote_on_page, verify_item
 
 EXPAND_MONTHS = 18  # a weekly rule becomes one row for each date, this far after the ingest
 SEASON_YEARS = 3  # a season with no year: a row for the year of the ingest and the next two
@@ -73,8 +73,16 @@ def _occurrences(when: dict, ingested: date) -> tuple[str, str, str | None, list
         if when["end"]["year"]:
             return "months: an end year needs a start year"
         # A season with no year. The year is the only date that code writes without a quote.
-        years = range(ingested.year, ingested.year + SEASON_YEARS)
-        return months, "month", "season", [_month_range(when, year) for year in years]
+        # From the season that is running at the ingest (it can have started last year) to
+        # the season that starts two years after the ingest. A season that is over has no row.
+        years = range(ingested.year - 1, ingested.year + SEASON_YEARS)
+        ranges = [_month_range(when, year) for year in years]
+        return (
+            months,
+            "month",
+            "season",
+            [(first, last) for first, last in ranges if last >= ingested],
+        )
     return f"time kind {kind} is not known"
 
 
@@ -112,7 +120,7 @@ def _yearly_quote(item: dict, text: str) -> str | None:
     return quote if isinstance(quote, str) and quote_on_page(quote, text) else None
 
 
-def _check_item(item: dict, page: dict, source: dict, towns: dict, model: str) -> dict | str:
+def _check_item(item, page: dict, source: dict, towns, model: str, categories) -> dict | str:
     """The checks, with no write. Returns the values to store, or the reason why not."""
     checks = verify_item(item, page["text"], towns={*towns, OUTSIDE})
     results = {result["field"]: result for result in checks}
@@ -125,7 +133,7 @@ def _check_item(item: dict, page: dict, source: dict, towns: dict, model: str) -
     # Months with no year are a season only with proof that the item is held each year. If
     # not, "October" in a calendar of one year would become October of three years.
     yearly = _yearly_quote(item, page["text"])
-    if yearly is None and any(_is_season(when) for when in item["when"]):
+    if yearly is None and any(_is_season(when) and not all_year(when) for when in item["when"]):
         return "when: months with no year, and no proof on the page that it is held each year"
     whens = []
     for index, when in enumerate(item["when"]):
@@ -183,8 +191,20 @@ def _check_item(item: dict, page: dict, source: dict, towns: dict, model: str) -
         ]
         occurrences.append((value, rows))
 
+    # The category is a choice of the model from the list of the registry. A value that is
+    # not in the list is stored as "other".
+    category = item.get("category")
+    category = category if isinstance(category, str) and category in categories else "other"
+
     time_shape = _time_shape([when for when, *_ in whens])
     return {
+        # A venue or a price that failed its check: the item is stored with that field empty.
+        "left_empty": [
+            f"{field}: {results[field]['reason']}"
+            for field in ("venue", "price")
+            if field in results and not results[field]["ok"]
+        ],
+        "category": category,
         "kind": "season" if time_shape == "season" else "event",
         "title": passed("title"),
         "town": town_of_item,
@@ -231,11 +251,12 @@ def _write_item(db, new: dict, page_id: int, page: dict, source_id: str) -> str:
     if item_id is None:
         outcome = "stored"
         item_id = db.execute(
-            "INSERT INTO item (kind, title, town, below_bar, time_shape, venue, price_text, "
-            "repeats_yearly, source_link, first_seen, last_seen_at, last_verified) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO item (kind, category, title, town, below_bar, time_shape, venue, "
+            "price_text, repeats_yearly, source_link, first_seen, last_seen_at, last_verified) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (
                 new["kind"],
+                new["category"],
                 new["title"],
                 new["town"],
                 new["below_bar"],
@@ -301,6 +322,7 @@ def ingest_answer(
         raise TypeError("answer.items is not a list")
     source = next(source for source in registry["sources"] if source["id"] == source_id)
     towns = registry["places"][source["place"]]["towns"]
+    categories = registry.get("categories", [])
     page_id = db.execute(
         "INSERT INTO page (source_id, url, content_hash, fetched_at, http_status, text) "
         "VALUES (?, ?, ?, ?, ?, ?)",
@@ -318,13 +340,15 @@ def ingest_answer(
     for item in items:
         db.execute("SAVEPOINT item")
         try:
-            new = _check_item(item, page, source, towns, model)
+            new = _check_item(item, page, source, towns, model, categories)
             reason = new if isinstance(new, str) else None
             outcome = None if reason else _write_item(db, new, page_id, page, source_id)
         except (TypeError, KeyError, AttributeError, ValueError, OverflowError):
             reason, outcome = "malformed item", None
         if outcome:
             report[outcome] += 1
+            for empty in new["left_empty"]:  # the key is in the report only when there is one
+                report.setdefault("left_empty", []).append((new["title"], empty))
         else:
             db.execute("ROLLBACK TO item")
             report["set_aside"].append((_title(item), reason))

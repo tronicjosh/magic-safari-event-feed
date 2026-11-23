@@ -2,6 +2,18 @@
  "bars": {
   "traveller": "Is this worth showing to a travel designer who plans a luxury trip to the area? Give \"no\" for routine local life that a guest would not put in an itinerary: for example a quiz night, bingo, karaoke, a club or society meeting, sport shown on a screen in a bar, a school or church fundraiser, a parkrun. Give \"yes\" for a festival, a market, a show or concert, an exhibition, food and wine, nature, culture, and each season or bookable experience. When in doubt, give \"yes\"."
  },
+ "categories": [
+  "festival",
+  "market",
+  "music and shows",
+  "art and exhibitions",
+  "food and wine",
+  "nature and wildlife",
+  "sport to watch",
+  "sport to take part",
+  "talks and workshops",
+  "community"
+ ],
  "places": {
   "hermanus": {
    "name": "Hermanus",

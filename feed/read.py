@@ -59,6 +59,8 @@ def _months(start: str, end: str, year: bool) -> str:
     first, last = _MONTHS[start.month - 1], _MONTHS[end.month - 1]
     one = (start.year, start.month) == (end.year, end.month)
     if not year:
+        if (start.month, end.month) == (1, 12):
+            return "All year"
         return first if one else f"{first} - {last}"
     if one:
         return f"{first} {start.year}"
@@ -107,6 +109,7 @@ def _card(row) -> dict:
         "range": False,
         "rule": None,  # the quote of a weekly rule, if code wrote a date from it
         "season": False,  # a page states the months and no year; code wrote the year
+        "season_quote": None,  # the quote of those months: the designer sees the proof
         "below_bar": bool(below),
         "yearly": bool(yearly),
         "town": _line(town),
@@ -123,7 +126,8 @@ def _add(card: dict, occurrence) -> None:
     first, last, precision, rule, time_text = occurrence
     if precision == "month":
         text = _months(first, last, year=rule is None)
-        card["season"] = card["season"] or rule is not None
+        if rule is not None:
+            card["season"], card["season_quote"] = True, _line(time_text)
     else:
         text = _when(first, last)
         card["range"] = card["range"] or first != last
@@ -133,11 +137,12 @@ def _add(card: dict, occurrence) -> None:
         card["when"].append(text)
 
 
-def _last_held(card: dict, occurrence) -> None:
+def _last_held(card: dict, occurrence, as_of: str) -> None:
     """The card of a yearly item with no new dates: its last real dates, and no other date."""
     first, last, precision, _rule, _ = occurrence
     text = _months(first, last, year=True) if precision == "month" else _when(first, last)
-    card["when"] = [f"Last held {text}"]
+    # Dates that are not past were not "held": they are the last dates that a page states.
+    card["when"] = [f"{'Last held' if last < as_of else 'Last stated dates'} {text}"]
     card["confirmed"] = False
 
 
@@ -147,7 +152,7 @@ def _state(card: dict) -> str:
     if card["rule"]:  # code wrote the date from a rule; the designer sees the proof
         return f'weekly rule: "{card["rule"]}"'
     if card["season"]:
-        return "season, no year stated"
+        return f'season, no year stated: "{card["season_quote"]}"'
     if card["range"]:  # the page gives a first and a last day, not each day
         return "confirmed; a range, each day is not stated"
     return "confirmed"
@@ -284,7 +289,7 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
         moved = None if item_id in cards else _moved_into(row[_N], row[_N + 1], start, end)
         if moved is not None:
             cards[item_id] = _card(row)
-            _last_held(cards[item_id], row[_N:])
+            _last_held(cards[item_id], row[_N:], _as_of(db))
             first_day[item_id] = moved.isoformat()
 
     # Neutral order: the first day in the window, then the title, then the id.
@@ -362,7 +367,7 @@ def when_to_go(
                 _add(card, row[_N:])
         else:
             group, shown = 2, rows[-1:]
-            _last_held(card, rows[-1][_N:])
+            _last_held(card, rows[-1][_N:], as_of)
         covers = set().union(*(_months_of(row[_N], row[_N + 1]) for row in shown))
         if covers & set(numbers):
             listed.append((group, _finish(db, card), covers))
@@ -416,6 +421,7 @@ def _full_when(occurrences: list) -> list[str]:
             rules[time_text][3] = last
             continue
         card = {"when": [], "confirmed": True, "range": False, "rule": None, "season": False}
+        card["season_quote"] = None
         _add(card, (first, last, precision, rule, time_text))
         line = f"{card['when'][0]} ({_state(card)})"
         if line not in lines:
