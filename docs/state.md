@@ -16,6 +16,7 @@ write-up   design.md draft 6: shortened, true to the code; acceptance.md and CLA
 agent test 7 questions to a new Claude with only the tools ... done: research/acceptance/agent_test.md
 answers    expected answers agreed (option B), instructions tuned in 3 rounds ... done: research/acceptance/comparison.md
 scenarios  39 conversations; a plan of 8 repairs (find, weekly items, horizon, one card for two sources) ... done: research/acceptance/scenarios*.md
+handover   README proved from a clean clone; feed.db in the repository; one definition of the tools ... done
 mine       mark the sample of 20 items; judge the agent's answers; read the design ... OPEN
 ```
 
@@ -28,9 +29,9 @@ registry.json -> feed/fetch.py -> feed/render.py -> hash -> feed/extract.py (mod
 feed/ingest.py runs the left side: python -m feed.ingest
 ```
 
-- Branch `build`, local commits only. A push needs my approval.
+- Branches `build` and `main` are equal and pushed to `origin` on 2026-11-23, with Joshua's approval. A later push needs his approval again.
 - Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (230 tests).
-- `feed.db` is the database of the real run (git ignores it). `python -m feed.ingest` makes it again; a run on unchanged pages costs nothing.
+- `feed.db` is the database of the real run of 2026-11-23. It is in the repository, so the feed runs from a clone with no key. `python -m feed.ingest` updates it; a run on unchanged pages costs nothing.
 - Spend: 4.790660 of 5 US dollars. No more model calls are planned. An answer of the agent on the demo page costs about 0.02 to 0.08 US dollars.
 
 ## What the model decides, and what code checks
