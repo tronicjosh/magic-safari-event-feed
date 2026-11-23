@@ -93,6 +93,9 @@ def main() -> None:
         ]
         for field, value, quote, model, page in evidence:
             shown = excerpt(page, quote) if quote else f"(no quote: {model})"
+            more = [part for part in quote.split(" | ")[1:] if part]
+            if more:
+                shown += " Also on the page: " + "; ".join(f'"{part}"' for part in more)
             shown = shown.replace("|", "\\|")
             lines.append(f"| {field} | {value} | {shown} | [ ] | [ ] |")
         lines += [

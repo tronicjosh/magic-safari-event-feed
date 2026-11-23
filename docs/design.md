@@ -238,7 +238,7 @@ Each has my recommendation and one example worked under both answers.
 - **My sample:** `evals/sample_check.md` has 20 stored items, each fact with its quote in the page text. I mark each fact true or false. This is the first count of false facts.
 - **Reviews that try to break it.** Four blind reviews, each with only the requirement and the diff, found 29 faults (for example: "8 17:30" accepted on a page that says "18 17:30"; a default town on an item in a different town; a season year that code wrote shown as a stated date). Each is repaired with a test.
 - **Tests that can fail.** 215 tests. Each key line was broken on purpose, one at a time; where no test failed, I added a test or removed the line.
-- **The agent.** A new Claude with only the feed answers 7 questions (`questions.md` in the demo folder); I check the tool it picks, that no fact changes, the source links and "5 of 13".
+- **The agent.** A new Claude with only the four tools answered 7 questions (`research/acceptance/agent_test.md`). Code checked each answer against the text of the tools: 7 of 7 called the expected tool; no link and no stated date came from outside the feed; a festival with no new dates stayed "not confirmed"; two guests on the same dates got different selections. My judgment of the answers is the last check.
 
 **How I improve it later, and see the effect.** Change one thing (the prompt, the bar wording, a category, a source), run the saved pages again, and compare the two measures; `runs/runs.md` has the cost of each run and `docs/assumptions.md` the result of each test, with wrong beliefs kept.
 
@@ -265,7 +265,8 @@ Each has my recommendation and one example worked under both answers.
 - **Measured (`claude-haiku-5-5`, 0.10 and 0.50 US dollars for 1 million tokens in and out):** the first run of 10 pages cost 0.064780 US dollars (56,659 tokens in, 118,229 out). A second run cost 0.
 - **A weekly run, by arithmetic from the measured pages:** two pages are new each week by their nature, the weekend page (0.015009) and the monthly PDF (0.018828): 0.033837 US dollars. If all 10 pages change: 0.064780. For 52 weeks: 1.76 to 3.37 US dollars.
 - **The cost driver is output tokens** (91 percent): items on changed pages, and the quotes for each judgment. The two bar fields added 39 percent (T13); town and weekly rule added 2.5 percent (T12).
-- **Total spend on this project:** 0.31 of a 5 US dollar budget.
+- **The agent's side:** a query costs the feed nothing, but the agent pays input tokens for each card. One answer cost 0.03 to 0.11 US dollars on `claude-opus-5-5`; `what_changed` with 151 new items cost 0.24. A page limit is the first thing to add when the feed is larger.
+- **Total spend on this project:** 0.90 of a 5 US dollar budget (tests 0.18, the real run 0.06, agent tests 0.66).
 - **What fails first at 10 towns:** the person who owns the registries (sources, towns, bar wording). The pipeline has no review queue, so the weekly work for a person is the run report.
 
 ## Stack, models and deployment
