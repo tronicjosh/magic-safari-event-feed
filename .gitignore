@@ -17,3 +17,6 @@ feed.db
 
 # Worktrees of parallel builders
 .claude/worktrees/
+
+# The source file for my submission document. Not part of the repository.
+SUBMISSION_SOURCE.md
