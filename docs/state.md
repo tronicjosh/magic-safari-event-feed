@@ -17,6 +17,7 @@ agent test 7 questions to a new Claude with only the tools ... done: research/ac
 answers    expected answers agreed (option B), instructions tuned in 3 rounds ... done: research/acceptance/comparison.md
 scenarios  39 conversations; a plan of 8 repairs (find, weekly items, horizon, one card for two sources) ... done: research/acceptance/scenarios*.md
 handover   README proved from a clean clone; feed.db in the repository; one definition of the tools ... done
+loop       research/loop: rubric, pass 1 (16) and pass 2 (12) with repairs, final comparison of 7 ... done; pass 3 (12 questions) is written and NOT RUN
 mine       mark the sample of 20 items; judge the agent's answers; read the design ... OPEN
 ```
 
@@ -30,9 +31,9 @@ feed/ingest.py runs the left side: python -m feed.ingest
 ```
 
 - Branches `build` and `main` are equal and pushed to `origin` on 2026-11-23, with Joshua's approval. A later push needs his approval again.
-- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (246 tests).
+- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (247 tests).
 - `feed.db` is the database of the real run of 2026-11-23. It is in the repository, so the feed runs from a clone with no key. `python -m feed.ingest` updates it; a run on unchanged pages costs nothing.
-- Spend: 4.790660 of 5 US dollars. No more model calls are planned. An answer of the agent on the demo page costs about 0.02 to 0.08 US dollars.
+- Spend: 7.288919 of 10 US dollars (Joshua raised the limit from 5 on 2026-11-23). An answer of the agent on the demo page costs about 0.02 to 0.12 US dollars.
 
 ## What the model decides, and what code checks
 
@@ -68,3 +69,12 @@ The MCP server: `python -m feed.mcp_server`, with `FEED_DB` and `FEED_REGISTRY` 
 ## History of this session (2026-11-23)
 
 Decisions by Joshua, each recorded in `docs/model.md`: the model decides with proof and a person is the last resort; town, weekly rule, yearly and category are choices of the model; a soft traveller bar (the hard visitor bar was built, measured at 0 of 180 items, and removed); a basic change log with `first seen` on each card and `what_changed`; the scope cut to one path; three builders in parallel.
+
+## Open after the improvement loop
+
+- `research/loop/pass3_questions.json` is not run (about 0.77 US dollars). No pass on new questions has come back with no finding.
+- The horizon note names one date when two weekly items stop on different dates (not in the real data now).
+- `find` does not merge two sources of one item into one card; `what_is_on` does.
+- A venue can hold raw page text (`&amp;`).
+- Five guarded lines of `feed/read.py` have no test that can fail (blind review of the pass 2 repairs).
+- `CLAUDE.md` still states a limit of 5 US dollars.

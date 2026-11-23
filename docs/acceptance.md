@@ -22,9 +22,9 @@ The agent selects the items that fit the clients, and says how many the feed has
 | A8 | A new Claude can use it | It answers the 7 questions: the expected tool, no changed fact, each item with its tag and its source, "3 of 13", and the agreed shape (`research/acceptance/expected.md`) | **Pass by test; my judgment is open** | `research/acceptance/agent_test.md` (the final run): 7 of 7 answers pass the checks by code; no site and no stated date from outside the feed; 79 to 149 words; each item has its tag and its source link. `research/acceptance/scenarios_round2.md`: 20 more conversations after the repairs, with no false "not in the feed" statement. The agent is the API agent with the tools and instructions of the MCP server; the MCP transport has its own tests |
 | A9 | The feed controls the output | The same query gives the same bytes; neutral order; `counts` equal to the cards; nothing in the window left out | Pass | Tests, and a blind review on the real database |
 | A10 | Gaps are visible | `holes` names each source that is not collected, with what it declares | Pass | Quicket (136 events within 60 km) and Webtickets are in each answer |
-| A11 | Cost is known | Measured cost of the first run and a second run; the weekly arithmetic; total spend under 5 US dollars | Pass | 0.064780 and 0.000000 US dollars; `docs/design.md`, "Scale and cost"; total 4.79 |
+| A11 | Cost is known | Measured cost of the first run and a second run; the weekly arithmetic; total spend under the limit (5 US dollars at first; 10 from 2026-11-23) | Pass | 0.064780 and 0.000000 US dollars; `docs/design.md`, "Scale and cost"; total 7.29 |
 | A12 | Unchanged pages are free | A second run on unchanged pages | Pass | 0 model calls, on live pages |
-| A13 | One command checks everything | Lint and all tests | Pass | 246 tests; exit code 0 |
+| A13 | One command checks everything | Lint and all tests | Pass | 247 tests; exit code 0 |
 | A14 | The write-up is true | `docs/design.md` matches the code, and I can explain each part without AI | **Mine, open** | Draft 6 was written against the code |
 
 ## Not part of done
