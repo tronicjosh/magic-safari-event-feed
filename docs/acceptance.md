@@ -43,6 +43,23 @@ These lines are not part of done for the build. Each stays as design in `docs/de
 - A8 and A14 are one test with a new Claude, on `what_is_on`, `when_to_go` and `tell_me_more`.
 - A12: MCP only; there is no REST.
 
+## Status on 2026-11-23
+
+| # | Status | Evidence |
+|---|---|---|
+| A1, A2 | not checked | No confirmed set exists. Joshua checks a sample of 20 stored items |
+| A3 | pass for the built cases | `pytest`: 207 tests, with hand cases 1 to 10, 12, 13, 14, 16, 18, 19, 24 |
+| A4 | pass | Each key line of verify, update, read and ingest was broken on purpose, one at a time. Where no test failed, a test was added or the line was removed |
+| A5 | reported | 41 of 194 items not stored on the first real run (21 percent); 22 of them are towns outside the place or with no town |
+| A6 | pass | The real database has a single date, repeating dates, a run, a season and yearly items |
+| A7 | pass for 2 of 3 | Whale season and FynArts 2027 are there; the Whale Festival is there with its 2026 dates and "held each year" |
+| A8, A14 | not checked | Joshua runs the test with a new Claude |
+| A12 | pass | Tests: same query, same bytes; neutral order; `counts` equal to the cards |
+| A15 | pass | First run 0.064780 US dollars; the weekly arithmetic is in `docs/design.md`; total spend 0.240788 |
+| A16 | pass | Second real run: 0 model calls |
+| A17 | pass | One command, exit code 0 |
+| A18 | not checked | Joshua reads `docs/design.md` against the code |
+
 ## Not part of done
 
 - More sources than the version 1 registry.

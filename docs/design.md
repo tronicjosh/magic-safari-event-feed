@@ -24,7 +24,9 @@ The brief asks for a first version in about two hours of my time. The design bel
 | An unchanged page gives no model call | Retry with a stronger model |
 | The same item on a second run is updated, not added | Merge of one item from two sources, owner rank, conflicts |
 | Four kinds: date, repeating, run, season; yearly with "not confirmed" | `cancelled`, a set-aside table, the review command |
-| A local MCP server: `what_is_on`, `when_to_go`, `tell_me_more`, with `counts` | REST, the Vercel site, hosting, `find`, `places`, `what_changed` |
+| A local MCP server: `what_is_on`, `when_to_go`, `tell_me_more`, `what_changed`, with `counts` | REST, the Vercel site, hosting, `find`, `places` |
+| A change log: each card gives `first seen` and its latest change | "Date moved from A to B" (a new date is shown as added; the old date stays) |
+| Category: the model chooses from the list of the registry | |
 | The soft traveller bar | The hard visitor bar (T13: 0 of 180 items, so no data supports it) |
 | `holes`: one line from the registry | `holes` from a run report |
 | One real run with measured cost; one test with a new Claude | A second town |
@@ -396,7 +398,7 @@ Ingest does not apply `robots.txt` on sources (my decision). I accept: this is a
 
 | Use | Model | State |
 |---|---|---|
-| Extraction, first try | The cheapest model with 0 false facts on my confirmed set. Candidates: `claude-haiku-5-5`, `claude-sonnet-5-5` | Not selected. Test T4 decides. |
+| Extraction, first try | The cheapest model with 0 false facts on my confirmed set. Candidates: `claude-haiku-5-5`, `claude-sonnet-5-5` | `claude-haiku-5-5` is used for each test and for the real run. Test T4 (a comparison with a stronger model) is not done. |
 | Extraction, retry after a failed check | One level stronger than the first model | Not selected. Acceptance A11: the review rate drops and false facts stay 0. |
 | Town and category from my lists | The first-try model | Not selected |
 
@@ -523,7 +525,9 @@ Cases 10, 12, 15 and 20 changed in draft 4 and 5 (no tier). Cases 21 to 24 are n
 | My review | items that fail a check after the retry | O(failures) |
 | A new town | one registry: sources, towns, experiences | O(S) of a person's time. No new code. |
 
-- **Cost of one run:** not measured yet. `runs/` records each run: date, model, tokens, cost, and the number of items new, changed, unchanged and for review. Budget for all tests and the first run: 5 US dollars.
+- **Cost of one run, measured (2026-11-23, `claude-haiku-5-5`):** the first run of 10 pages cost 0.064780 US dollars (56,659 tokens in, 118,229 out; 194 items, 151 stored). A second run on the same day: 10 pages unchanged, 0 model calls, 0.000000 US dollars.
+- **A weekly run, arithmetic from the measured pages (not measured over a week):** two pages are new each week by their nature, the weekend page (0.015009) and the monthly PDF (0.018828): 0.033837 US dollars. If each of the 10 pages changes: 0.064780. For 52 weeks: 1.76 to 3.37 US dollars. Output tokens are 91 percent of the cost, and they grow with the number of items on changed pages, not with the number of sources.
+- **Cost of one run, before the first run:** not measured yet. `runs/` records each run: date, model, tokens, cost, and the number of items new, changed, unchanged and for review. Budget for all tests and the first run: 5 US dollars.
 - **What fails first at 10 times the load (10 towns):** the person. The review queue, the registry and the approved experiences need a person. The design goal is a very low failure rate, so that review stays small.
 
 ## Execution plan

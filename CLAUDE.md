@@ -36,16 +36,15 @@ Each is a rule and what we accept by choosing it.
 
 ## Commands
 
-Run Python as `./.venv/Scripts/python` (Windows, Git Bash). The first four are real since slice 0b.1. The last three are planned.
+Run Python as `./.venv/Scripts/python` (Windows, Git Bash).
 
 ```bash
 python -m pip install -e ".[dev]"     # install
 python -m pytest                      # all tests
 python -m pytest tests/test_x.py -k name   # one test
 python -m ruff check . && python -m ruff format --check .   # lint and format
-python -m feed.ingest                 # weekly ingest (planned)
-python -m feed.review list            # review queue
-python -m uvicorn feed.api:app        # REST; the MCP server calls the same functions
+python -m feed.ingest                 # the ingest: fetches the sources, calls the model for changed pages, writes feed.db and one line in runs/runs.md. It costs money.
+python -m feed.mcp_server             # the MCP server over stdio; FEED_DB and FEED_REGISTRY give the paths
 ```
 
 ## Map
