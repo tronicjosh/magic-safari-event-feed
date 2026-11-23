@@ -6,7 +6,7 @@ A query never starts a fetch, never writes, and gives each item that matches.
 import sqlite3
 from datetime import date
 
-GROUPS = ("dated", "seasons and experiences", "not confirmed")
+GROUPS = ("dated", "seasons and experiences", "not confirmed", "below the traveller bar")
 _DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 _MONTHS = [
     "January",
@@ -44,7 +44,7 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
         raise ValueError("the window ends before it starts")
     # The place of an item is the place of a source that gives evidence for it.
     rows = db.execute(
-        "SELECT i.id, i.kind, i.category, i.title, i.town, i.price_text, i.source_link, "
+        "SELECT i.id, i.kind, i.category, i.title, i.town, i.price_text, i.source_link, i.below_bar, "
         "o.start_date, o.end_date, "
         "(SELECT count(DISTINCT p.source_id) FROM evidence e JOIN page p ON p.id = e.page_id "
         " WHERE e.item_id = i.id) "
@@ -58,7 +58,7 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
     ).fetchall()
 
     cards = {}
-    for item_id, kind, category, title, town, price, link, first, last, sources in rows:
+    for item_id, kind, category, title, town, price, link, below, first, last, sources in rows:
         card = cards.setdefault(
             item_id,
             {
@@ -68,6 +68,8 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
                 "title": title,
                 "when": [],
                 "confirmed": True,
+                "range": False,
+                "below_bar": bool(below),
                 "town": town,
                 "price": price or "not stated",
                 "sources": sources,
@@ -76,6 +78,7 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
             },
         )
         card["when"].append(_when(first, last))
+        card["range"] = card["range"] or first != last
     # Neutral order: the first day in the window, then the title, then the id.
     ordered = sorted(cards.values(), key=lambda c: (c.pop("first"), c["title"].casefold(), c["id"]))
     for card in ordered:
@@ -83,7 +86,8 @@ def what_is_on(db: sqlite3.Connection, registry: dict, place: str, start: date, 
 
     # Seasons and "not confirmed" are slice 0b.2. Until then those groups are empty.
     groups = [{"name": name, "cards": []} for name in GROUPS]
-    groups[0]["cards"] = ordered
+    groups[0]["cards"] = [card for card in ordered if not card["below_bar"]]
+    groups[3]["cards"] = [card for card in ordered if card["below_bar"]]
     categories = {}
     for card in ordered:
         categories[card["category"]] = categories.get(card["category"], 0) + 1
@@ -122,6 +126,8 @@ def _text(place_name: str, start: date, end: date, data: dict) -> str:
             lines.append("    none")
         for card in group["cards"]:
             state = "confirmed" if card["confirmed"] else "not confirmed"
+            if card["range"]:  # the page gives a first and a last day, not each day
+                state += "; a range, each day is not stated"
             label = f"[{card['kind']} · {card['category']}] {card['title']}"
             sources = _count(card["sources"], "source")
             lines += [

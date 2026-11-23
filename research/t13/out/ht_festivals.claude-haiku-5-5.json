@@ -1,0 +1,724 @@
+{
+ "page_id": "ht_festivals",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T13:22:22.094520+00:00",
+ "message_id": "msg_011ChKvsnzf8m829o1n8KURB",
+ "stop_reason": "end_turn",
+ "input_tokens": 6504,
+ "output_tokens": 13499,
+ "cost_usd": 0.0074,
+ "items": [
+  {
+   "title": {
+    "value": "Hermanus First Friday Artwalk",
+    "quote": "Hermanus First Friday Artwalk"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "through Hermanus Old Town"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "an easy Art Walk through Hermanus Old Town"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "On the First Friday of every month"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus FynArts",
+    "quote": "Hermanus FynArts"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Experience Hermanus at its best"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Exhibitions of visual arts"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 6,
+      "month": 6,
+      "year": 2026
+     },
+     "end": {
+      "day": 14,
+      "month": 6,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "6 – 14 June 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Carols by Candlelight",
+    "quote": "Carols by Candlelight"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "The Rotary Club of Hermanus presents"
+   },
+   "venue": {
+    "value": "Old Harbour arena",
+    "quote": "in the Old Harbour arena"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "an evening of carols"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "on the last Friday before Christmas"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Celebration of Fynbos",
+    "quote": "Celebration of Fynbos"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "Fernkloof Nature Reserve",
+    "quote": "hosted in the Fernkloof Nature Reserve"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "yes",
+    "quote": "An annual Fynbos Festival"
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "a colourful and spectacular showcase of local fynbos"
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Kalfie Fees",
+    "quote": "Kalfie Fees"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "The Hermanus Times Kalfiefees"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "The mostly Afrikaans festival"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 5,
+      "month": 8,
+      "year": 2026
+     },
+     "end": {
+      "day": 10,
+      "month": 8,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "05-10 August 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Whale Festival",
+    "quote": "Whale Festival"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "For a few days each September, Hermanus is transformed"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "yes",
+    "quote": "The annual Whale Festival"
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Around 30 shows"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 2,
+      "month": 10,
+      "year": 2026
+     },
+     "end": {
+      "day": 4,
+      "month": 10,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "02-04 October 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Wine & Food Festival",
+    "quote": "Wine & Food Festival"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus Food and Wine Fair"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "yes",
+    "quote": "Since its inception in 1997"
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "an important event in the Western Cape wine industry calendar"
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "African Market",
+    "quote": "African Market"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "A variety of craft markets can be found in and around Hermanus"
+   },
+   "venue": {
+    "value": "Market Square",
+    "quote": "on Market Square"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "daily craft/flea market above the Old Harbour"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "There is a daily craft/flea market above the Old Harbour"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "De Wet Hall Onrus",
+    "quote": "De Wet Hall Onrus"
+   },
+   "town": {
+    "value": "Onrus",
+    "quote": "Meander through the Onrus Market"
+   },
+   "venue": {
+    "value": "De Wet Hall",
+    "quote": "at the De Wet Hall"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Meander through the Onrus Market"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "on the first Saturday of every month"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanuspietersfontein Food and Wine Market",
+    "quote": "Hermanuspietersfontein Food and Wine Market"
+   },
+   "town": {
+    "value": "Hemel-en-Aarde",
+    "quote": "in the Hemel-en-Aarde village"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Hermanuspietersfontein Boeremark"
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "ongoing": true,
+     "quotes": [
+      "Saturdays are busy market days"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Lemm's Corner",
+    "quote": "Lemm's Corner"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "a bustling market can be found at Lemm’s Corner"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Every weekend, weather permitting"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus Country Market",
+    "quote": "Hermanus Country Market"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "The Hermanus Country Market is held at the Hermanus Cricket Club"
+   },
+   "venue": {
+    "value": "Hermanus Cricket Club",
+    "quote": "The Hermanus Country Market is held at the Hermanus Cricket Club"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "The Hermanus Country Market is held"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "throughout the year"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Benguela Cove Parkrun",
+    "quote": "Benguela Cove Parkrun"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "free",
+    "quote": "Nothing – it’s free!"
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "no",
+    "quote": "This community event welcomes walkers, joggers, runners, volunteers, spectators, and leashed furry friends."
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "ongoing": true,
+     "quotes": [
+      "Join us every Saturday morning at 8:00am"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus Park Run",
+    "quote": "Hermanus Park Run"
+   },
+   "town": {
+    "value": "Hemel-en-Aarde",
+    "quote": "Hemel & Aarde Valley, Hermanus"
+   },
+   "venue": {
+    "value": "Forest Adventures",
+    "quote": "Forest Adventures, Camphill Rd"
+   },
+   "price": {
+    "value": "free",
+    "quote": "a free, timed 5km run/walk"
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "no",
+    "quote": "Hermanus parkrun is family and dog friendly!"
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "ongoing": true,
+     "quotes": [
+      "Join us for a free, timed 5km run/walk at 08:00 every Saturday"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Akwaaba Market",
+    "quote": "Akwaaba Market"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "corner of St Peters Church next to Windsor Hotel",
+    "quote": "corner of St Peters Church next to Windsor Hotel"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Akwaaba Market"
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "ongoing": true,
+     "quotes": [
+      "Every Saturday from 09:00 – 14:00"
+     ]
+    }
+   ]
+  }
+ ]
+}

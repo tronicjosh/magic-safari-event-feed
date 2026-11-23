@@ -1,0 +1,570 @@
+{
+ "page_id": "ht_festivals",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T13:16:54.577554+00:00",
+ "message_id": "msg_011ChKvUmCsmhqN3Mmr11yJA",
+ "stop_reason": "end_turn",
+ "input_tokens": 5933,
+ "output_tokens": 8917,
+ "cost_usd": 0.005052,
+ "items": [
+  {
+   "title": {
+    "value": "Hermanus First Friday Artwalk",
+    "quote": "Hermanus First Friday Artwalk"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "an easy Art Walk through Hermanus Old Town"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "On the First Friday of every month"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus FynArts",
+    "quote": "Hermanus FynArts"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Experience Hermanus at its best"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 6,
+      "month": 6,
+      "year": 2026
+     },
+     "end": {
+      "day": 14,
+      "month": 6,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "6 – 14 June 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Carols by Candlelight",
+    "quote": "Carols by Candlelight"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "in the Old Harbour arena"
+   },
+   "venue": {
+    "value": "Old Harbour arena",
+    "quote": "in the Old Harbour arena"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Celebration of Fynbos",
+    "quote": "Celebration of Fynbos"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "hosted in the Fernkloof Nature Reserve"
+   },
+   "venue": {
+    "value": "Fernkloof Nature Reserve",
+    "quote": "hosted in the Fernkloof Nature Reserve"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "yes",
+    "quote": "An annual Fynbos Festival"
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Kalfie Fees",
+    "quote": "Kalfie Fees"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 5,
+      "month": 8,
+      "year": 2026
+     },
+     "end": {
+      "day": 10,
+      "month": 8,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "05-10 August 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Whale Festival",
+    "quote": "Whale Festival"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "For a few days each September, Hermanus is transformed"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "yes",
+    "quote": "The annual Whale Festival"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 2,
+      "month": 10,
+      "year": 2026
+     },
+     "end": {
+      "day": 4,
+      "month": 10,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "02-04 October 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Wine & Food Festival",
+    "quote": "Wine & Food Festival"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "yes",
+    "quote": "Since its inception in 1997"
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "African Market",
+    "quote": "African Market"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "There is a daily craft/flea market above the Old Harbour"
+   },
+   "venue": {
+    "value": "Market Square",
+    "quote": "on Market Square"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Craft Markets",
+    "quote": "Craft Markets"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "There is a daily craft/flea market above the Old Harbour"
+   },
+   "venue": {
+    "value": "Market Square",
+    "quote": "on Market Square"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Onrus Market",
+    "quote": "Onrus Market"
+   },
+   "town": {
+    "value": "Onrus",
+    "quote": "Onrus Market"
+   },
+   "venue": {
+    "value": "De Wet Hall",
+    "quote": "at the De Wet Hall"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "first Saturday of every month"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanuspietersfontein Food and Wine Market",
+    "quote": "Hermanuspietersfontein Food and Wine Market"
+   },
+   "town": {
+    "value": "Hemel-en-Aarde",
+    "quote": "in the Hemel-en-Aarde village"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "ongoing": true,
+     "quotes": [
+      "Saturdays are busy market days"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Lemm's Corner",
+    "quote": "Lemm's Corner"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Hermanus Country Market",
+    "quote": "Hermanus Country Market"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "held at the Hermanus Cricket Club"
+   },
+   "venue": {
+    "value": "Hermanus Cricket Club",
+    "quote": "held at the Hermanus Cricket Club"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "throughout the year"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Benguela Cove Parkrun",
+    "quote": "Benguela Cove Parkrun"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "free",
+    "quote": "Nothing – it’s free!"
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "ongoing": true,
+     "quotes": [
+      "Join us every Saturday morning at 8:00am"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus Park Run",
+    "quote": "Hermanus Park Run"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Camphill Rd, Hemel & Aarde Valley, Hermanus"
+   },
+   "venue": {
+    "value": "Forest Adventures",
+    "quote": "Find us at Forest Adventures"
+   },
+   "price": {
+    "value": "free",
+    "quote": "Join us for a free, timed 5km run/walk"
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "ongoing": true,
+     "quotes": [
+      "Join us for a free, timed 5km run/walk at 08:00 every Saturday"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Akwaaba Market",
+    "quote": "Akwaaba Market"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "corner of St Peters Church next to Windsor Hotel",
+    "quote": "situated at the corner of St Peters Church next to Windsor Hotel"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "ongoing": true,
+     "quotes": [
+      "Every Saturday from 09:00 – 14:00"
+     ]
+    }
+   ]
+  }
+ ]
+}

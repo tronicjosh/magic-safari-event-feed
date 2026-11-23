@@ -76,6 +76,9 @@ Only two paths write facts: ingest after verification, and my review command.
 | Extract a field from text | Must give a word-for-word quote | Quote on page, value in quote, shape | Retry with a stronger model, then my review |
 | Name the town ("Sand Bay" is Sandbaai) | Must choose from my list of towns, or "unknown" | The value is in the list | "Unknown": my review |
 | Name the category | Must choose from my list of categories, or "other" | The value is in the list | Stored as "other" |
+| Mark a weekly rule as a rule with no end | A quote; no day, month or year in it | Quote on page, weekday in quote, no date in quote | The item is not stored |
+| Hard bar: a visitor cannot go | A quote that shows it | Quote on page | The "no" does not count; the item is stored |
+| Soft bar: not worth showing to a traveller | A quote that the judgment rests on | Quote on page | The "no" does not count; the item is shown in its normal group |
 
 - Each choice is stored with the text that it came from. It is made one time for each item, so the same query gives the same answer, and I can read each choice.
 - This is not a list of exceptions. A new town needs a new list of towns, and no new rule.
@@ -99,6 +102,26 @@ THE FEED STORES (facts, each with a source)        THE AGENT DECIDES (at query t
 - **The feed controls what the agent knows, not what it decides.** A new Claude with no custom prompt must pick the correct call and get enough facts back to rank the items. See "Interface": the short card, `counts`, and the server instructions. Acceptance A8 and A14 test this.
 - **Two choices about what to collect stay with me:** the registry of sources and the approved experience operators (O2). They decide what is in the feed, not what is good in it.
 - **History:** draft 3 had a table from category to tier. On my 16 marks, a rule on time shape alone was wrong (a triathlon, two BMX races and a Christmas market came out as headline). The table and the promote and demote commands are removed.
+
+### Two bars at ingest (decision of 2026-11-23, tests T12 and T13)
+
+```text
+item from the model
+   v
+HARD BAR  can a visitor go to it?  "no" with a quote on the page ──> not stored, reason in the run report
+   v yes
+SOFT BAR  worth showing to a traveller on a luxury trip?
+   ├─ yes ─> stored, shown in its normal group
+   └─ no, with a quote on the page ─> stored with `below_bar`, shown in the group "below the traveller bar"
+```
+
+- **Why two.** The hard bar is a fact about access. The soft bar is a judgment, so it removes nothing: the designer's agent still gets the item, in the last group, and `counts` includes it.
+- **The wording of each bar is data** in the registry (`bars.visitor`, `bars.traveller`), not code. A different town, or a different type of guest, is a different text.
+- **Reversible.** A change of the wording acts on the next ingest. Relevance still depends on the traveller, and the agent decides it.
+- **This limits "facts, not judgments" above.** The feed now makes one judgment. It is kept apart from the facts: one field, one group, and an Evidence row with the model's quote.
+- **Measured (T13):** hard bar 0 of 180 items; soft bar 37 of 180. The soft judgment differs between two pages for the same event, and the two fields add 39 percent to the extraction cost. No real item has tested the hard bar.
+
+Other decisions of the model, each with a check by code: the town is a value of the list of the place, or "outside" (not stored), or empty (the default town of the source). A weekly rule is stored only when the model marks it as a rule with no end and its quote holds no day, month or year. A card of a range says "a range, each day is not stated".
 
 ### Time shape
 

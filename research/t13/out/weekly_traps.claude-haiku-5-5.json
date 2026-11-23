@@ -1,0 +1,315 @@
+{
+ "page_id": "weekly_traps",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T13:27:01.549006+00:00",
+ "message_id": "msg_011ChKwHAufjf4vgLNsjQ6Ny",
+ "stop_reason": "end_turn",
+ "input_tokens": 3447,
+ "output_tokens": 3396,
+ "cost_usd": 0.002043,
+ "items": [
+  {
+   "title": {
+    "value": "Sunset Concerts",
+    "quote": "Sunset Concerts"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Old Harbour, Hermanus"
+   },
+   "venue": {
+    "value": "Old Harbour",
+    "quote": "Old Harbour, Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Sunset Concerts"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 2,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Every Wednesday in December 2026 from 17:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 9,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Every Wednesday in December 2026 from 17:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 16,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Every Wednesday in December 2026 from 17:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 23,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Every Wednesday in December 2026 from 17:00"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 30,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Every Wednesday in December 2026 from 17:00"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Harbour Art Walk",
+    "quote": "Harbour Art Walk"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Old Harbour, Hermanus"
+   },
+   "venue": {
+    "value": "Old Harbour",
+    "quote": "Old Harbour, Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Harbour Art Walk"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "First Saturday of every month"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Old Harbour Museum",
+    "quote": "Old Harbour Museum"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Old Harbour Museum"
+   },
+   "when": []
+  },
+  {
+   "title": {
+    "value": "Carols by Candlelight",
+    "quote": "Carols by Candlelight"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Old Harbour, Hermanus"
+   },
+   "venue": {
+    "value": "Old Harbour",
+    "quote": "Old Harbour, Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Carols by Candlelight"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 5,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 5 December 2026 at 19:00"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Fish Market",
+    "quote": "Fish Market"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Old Harbour, Hermanus"
+   },
+   "venue": {
+    "value": "Old Harbour",
+    "quote": "Old Harbour, Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Fish Market"
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "friday",
+     "ongoing": true,
+     "quotes": [
+      "Every Friday from 16:00"
+     ]
+    }
+   ]
+  }
+ ]
+}

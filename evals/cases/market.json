@@ -35,7 +35,8 @@
      "weekday": "saturday",
      "quotes": [
       "Every Saturday from 09:00 to 13:00"
-     ]
+     ],
+     "ongoing": true
     }
    ]
   }

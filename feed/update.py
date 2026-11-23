@@ -10,7 +10,8 @@ import hashlib
 import sqlite3
 from datetime import UTC, date, datetime, timedelta
 
-from feed.verify import WEEKDAYS, verify_item
+from feed.extract import OUTSIDE
+from feed.verify import WEEKDAYS, quote_on_page, verify_item
 
 EXPAND_MONTHS = 18  # a weekly rule becomes one row for each date, this far after the ingest
 _WEEKDAY_NUMBER = {name: number for number, name in enumerate(WEEKDAYS)}
@@ -63,7 +64,8 @@ def _title(item: dict) -> str:
 
 def _store_item(db, item: dict, page_id: int, page: dict, source: dict, towns: dict, model: str):
     """Returns None when the item is stored, or the reason why it is not."""
-    results = {result["field"]: result for result in verify_item(item, page["text"])}
+    checks = verify_item(item, page["text"], towns={*towns, OUTSIDE})
+    results = {result["field"]: result for result in checks}
     for field, result in results.items():
         if (field == "title" or field.startswith("when")) and not result["ok"]:
             return f"{field}: {result['reason']}"
@@ -72,6 +74,8 @@ def _store_item(db, item: dict, page_id: int, page: dict, source: dict, towns: d
     ingested = (ingested.astimezone(UTC) if ingested.tzinfo else ingested).date()
     whens = []
     for index, when in enumerate(item["when"]):
+        if when["kind"] == "weekly" and when.get("ongoing") is not True:
+            return f"when[{index}]: the weekly rule is not marked as a rule with no end"
         found = _occurrences(when, ingested)
         if found is None:
             return f"when[{index}]: time kind {when['kind']} is not built yet"
@@ -93,18 +97,31 @@ def _store_item(db, item: dict, page_id: int, page: dict, source: dict, towns: d
         if not source.get("default_town"):
             return "town: not stated, and the source has no default town"
         town_of_item = source["default_town"]
-    elif town.casefold() in towns:
-        town_of_item = towns[town.casefold()]
+    elif town == OUTSIDE:
+        return "town: outside the place"
     else:
-        return f"town: {town} is not in the place"
+        town_of_item = town
+
+    # The two bars of the registry. Each counts only with a quote that is on the page.
+    def says_no(bar: str) -> str | None:
+        entry = item.get(bar) or {}
+        if entry.get("value") == "no" and quote_on_page(entry.get("quote") or "", page["text"]):
+            return entry["quote"]
+        return None
+
+    if says_no("visitor"):  # the hard bar: not stored
+        return "visitor: the page shows that a visitor cannot go"
+    below_bar = says_no("traveller")  # the soft bar: stored, and shown in its own group
 
     at = page["fetched_at"]
     item_id = db.execute(
-        "INSERT INTO item (kind, title, town, time_shape, venue, price_text, source_link, "
-        "first_seen, last_seen_at, last_verified) VALUES ('event', ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO item (kind, title, town, below_bar, time_shape, venue, price_text, "
+        "source_link, first_seen, last_seen_at, last_verified) "
+        "VALUES ('event', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         (
             passed("title"),
             town_of_item,
+            int(below_bar is not None),
             _time_shape([when for when, _, _ in whens]),
             passed("venue"),
             passed("price"),
@@ -122,6 +139,8 @@ def _store_item(db, item: dict, page_id: int, page: dict, source: dict, towns: d
     ]
     if town is None:
         evidence.append(("town", town_of_item, "", "registry default"))
+    if below_bar is not None:
+        evidence.append(("traveller", "no", below_bar, model))
     seen = set()
     for when, value, ranges in whens:
         time_text = " | ".join(when["quotes"])
@@ -152,7 +171,7 @@ def ingest_answer(
     if not isinstance(items, list):
         raise TypeError("answer.items is not a list")
     source = next(source for source in registry["sources"] if source["id"] == source_id)
-    towns = {town.casefold(): town for town in registry["places"][source["place"]]["towns"]}
+    towns = registry["places"][source["place"]]["towns"]
     page_id = db.execute(
         "INSERT INTO page (source_id, url, content_hash, fetched_at, http_status, text) "
         "VALUES (?, ?, ?, ?, ?, ?)",

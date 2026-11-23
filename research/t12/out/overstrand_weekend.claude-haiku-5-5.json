@@ -1,0 +1,1832 @@
+{
+ "page_id": "overstrand_weekend",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T13:17:49.915518+00:00",
+ "message_id": "msg_011ChKvXSS6qZrCPvFRGpJFS",
+ "stop_reason": "end_turn",
+ "input_tokens": 4521,
+ "output_tokens": 17371,
+ "cost_usd": 0.009138,
+ "items": [
+  {
+   "title": {
+    "value": "Bring & Braai",
+    "quote": "Bring & Braai"
+   },
+   "town": {
+    "value": "outside",
+    "quote": "Hangklip Hotel Pringle Bay"
+   },
+   "venue": {
+    "value": "Hangklip Hotel Pringle Bay",
+    "quote": "Hangklip Hotel Pringle Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "Bring & Braai 17:30 Hangklip Hotel Pringle Bay"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "5-Course Dinner Fundraiser",
+    "quote": "5-Course Dinner Fundraiser"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "La Trattoria Stanford"
+   },
+   "venue": {
+    "value": "La Trattoria",
+    "quote": "La Trattoria Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "5-Course Dinner Fundraiser 18:00 La Trattoria Stanford"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Book Launch: Treasured Islands",
+    "quote": "Book Launch: Treasured Islands"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus Library"
+   },
+   "venue": {
+    "value": "Hermanus Library",
+    "quote": "Hermanus Library"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "Book Launch: Treasured Islands 18:00 Hermanus Library"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Agteros Pop Up Heritage Table",
+    "quote": "Agteros Pop Up Heritage Table"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "The Station Bistro Hermanus"
+   },
+   "venue": {
+    "value": "The Station Bistro",
+    "quote": "The Station Bistro Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "Agteros Pop Up Heritage Table 18:30 The Station Bistro Hermanus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kus + Kuier Mummy’s Night",
+    "quote": "Kus + Kuier Mummy’s Night"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "43 Nemesia Ave, Proteadorp Kleinmond"
+   },
+   "venue": {
+    "value": "43 Nemesia Ave, Proteadorp Kleinmond",
+    "quote": "43 Nemesia Ave, Proteadorp Kleinmond"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "Kus + Kuier Mummy’s Night 18:30 – 21:00 43 Nemesia Ave, Proteadorp Kleinmond"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Come & listen to Jacob Ka’laari & Badprop",
+    "quote": "Come & listen to Jacob Ka’laari & Badprop"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Birkenhead Bootklub Gansbaai"
+   },
+   "venue": {
+    "value": "Birkenhead Bootklub",
+    "quote": "Birkenhead Bootklub Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "Come & listen to Jacob Ka’laari & Badprop 18:30 Birkenhead Bootklub Gansbaai"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Music Quiz with Allen",
+    "quote": "Music Quiz with Allen"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Harbour on Deck Gansbaai"
+   },
+   "venue": {
+    "value": "Harbour on Deck",
+    "quote": "Harbour on Deck Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "Music Quiz with Allen 19:00 Harbour on Deck Gansbaai"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Open Mic Night",
+    "quote": "Open Mic Night"
+   },
+   "town": {
+    "value": "outside",
+    "quote": "Hangklip Hotel Pringle Bay"
+   },
+   "venue": {
+    "value": "Hangklip Hotel Pringle Bay",
+    "quote": "Hangklip Hotel Pringle Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "Open Mic Night 19:00 Hangklip Hotel Pringle Bay"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Bingo Night",
+    "quote": "Bingo Night"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Pearly Beach Hengel Klub Gansbaai"
+   },
+   "venue": {
+    "value": "Pearly Beach Hengel Klub",
+    "quote": "Pearly Beach Hengel Klub Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "Bingo Night 19:00 Pearly Beach Hengel Klub Gansbaai"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Christmas Stalletjies",
+    "quote": "Christmas Stalletjies"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Uilenkraalsmond Resort Gansbaai"
+   },
+   "venue": {
+    "value": "Uilenkraalsmond Resort",
+    "quote": "Uilenkraalsmond Resort Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 18,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 24,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Wednesday 18th November 2026",
+      "Christmas Stalletjies 18 – 24 Nov All Day Uilenkraalsmond Resort Gansbaai"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Thursday Community Walks",
+    "quote": "Thursday Community Walks"
+   },
+   "town": {
+    "value": "Onrus",
+    "quote": "23 Molteno Str Onrus"
+   },
+   "venue": {
+    "value": "23 Molteno Str Onrus",
+    "quote": "23 Molteno Str Onrus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "Thursday Community Walks 07:30 23 Molteno Str Onrus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Thursday Morning Market",
+    "quote": "Thursday Morning Market"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "14 Queen Victoria Street Stanford"
+   },
+   "venue": {
+    "value": "14 Queen Victoria Street Stanford",
+    "quote": "14 Queen Victoria Street Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "Thursday Morning Market 9:00 – 13:00 14 Queen Victoria Street Stanford"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Alien Hacking",
+    "quote": "Alien Hacking"
+   },
+   "town": {
+    "value": "outside",
+    "quote": "Fynbos Centre Pearly Beach"
+   },
+   "venue": {
+    "value": "Fynbos Centre Pearly Beach",
+    "quote": "Fynbos Centre Pearly Beach"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "Alien Hacking 9:00 Fynbos Centre Pearly Beach"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "ChatGPT Mastery Workshop",
+    "quote": "ChatGPT Mastery Workshop"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Burgundy Restaurant Hermanus"
+   },
+   "venue": {
+    "value": "Burgundy Restaurant",
+    "quote": "Burgundy Restaurant Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "ChatGPT Mastery Workshop 9:00 – 12:30 Burgundy Restaurant Hermanus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Ceramic Exhibition Rooted from Earth to Art",
+    "quote": "Ceramic Exhibition Rooted from Earth to Art"
+   },
+   "town": {
+    "value": "outside",
+    "quote": "Harold Porter Botanical Gardens Betty’s Bay"
+   },
+   "venue": {
+    "value": "Harold Porter Botanical Gardens",
+    "quote": "Harold Porter Botanical Gardens Betty’s Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "Ceramic Exhibition Rooted from Earth to Art 10:00 – 16:00 Harold Porter Botanical Gardens Betty’s Bay"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Friday 20th November 2026",
+      "Ceramic Exhibition Rooted from Earth to Art 10:00 – 16:00 Harold Porter Botanical Gardens Betty’s Bay"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "Ceramic Exhibition Rooted from Earth to Art 10:00 – 16:00 Harold Porter Botanical Gardens Betty’s Bay"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Sunday 22nd November 2026",
+      "Ceramic Exhibition Rooted from Earth to Art 10:00 – 16:00 Harold Porter Botanical Gardens Betty’s Bay"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Members Mingle",
+    "quote": "Members Mingle"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Searles Eatery, Bar & Theatre Stanford"
+   },
+   "venue": {
+    "value": "Searles Eatery, Bar & Theatre",
+    "quote": "Searles Eatery, Bar & Theatre Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "Members Mingle 17:00 Searles Eatery, Bar & Theatre Stanford"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Stream That Divided a Town: Talk by Dr Sheraine van Wyk",
+    "quote": "The Stream That Divided a Town: Talk by Dr Sheraine van Wyk"
+   },
+   "town": {
+    "value": "Vermont",
+    "quote": "The Green House Vermont"
+   },
+   "venue": {
+    "value": "The Green House",
+    "quote": "The Green House Vermont"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "The Stream That Divided a Town: Talk by Dr Sheraine van Wyk 17:30 The Green House Vermont"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Music Trivia with Allen Barnley",
+    "quote": "Music Trivia with Allen Barnley"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "La Cantina Stanford"
+   },
+   "venue": {
+    "value": "La Cantina",
+    "quote": "La Cantina Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "Music Trivia with Allen Barnley 18:30 La Cantina Stanford"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Karaoke Night with Jono",
+    "quote": "Karaoke Night with Jono"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Harbour on Deck Gansbaai"
+   },
+   "venue": {
+    "value": "Harbour on Deck",
+    "quote": "Harbour on Deck Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "Karaoke Night with Jono 19:00 Harbour on Deck Gansbaai"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Aligned Living Women’s Silent Retreat with Kathleen Booyse",
+    "quote": "Aligned Living Women’s Silent Retreat with Kathleen Booyse"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Bodhi Khaya Gansbaai"
+   },
+   "venue": {
+    "value": "Bodhi Khaya",
+    "quote": "Bodhi Khaya Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "Aligned Living Women’s Silent Retreat with Kathleen Booyse 19 -22 Nov Bodhi Khaya Gansbaai"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Annual Art Exhibition",
+    "quote": "Annual Art Exhibition"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Enlighten Education Trust Hermanus"
+   },
+   "venue": {
+    "value": "Enlighten Education Trust",
+    "quote": "Enlighten Education Trust Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "yes",
+    "quote": "Annual Art Exhibition"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 19,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 25,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Thursday 19th November 2026",
+      "Annual Art Exhibition 19 – 25 Nov Enlighten Education Trust Hermanus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Friday Morning Market",
+    "quote": "Friday Morning Market"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Pretorius Hall Gansbaai"
+   },
+   "venue": {
+    "value": "Pretorius Hall",
+    "quote": "Pretorius Hall Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Friday 20th November 2026",
+      "Friday Morning Market 9:00 – 11:30 Pretorius Hall Gansbaai"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Bhuki Café",
+    "quote": "Bhuki Café"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus Library"
+   },
+   "venue": {
+    "value": "Hermanus Library",
+    "quote": "Hermanus Library"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Friday 20th November 2026",
+      "Bhuki Café 9:00 – 12:00 Hermanus Library"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Paint & Decorate a Bird Feeder",
+    "quote": "Paint & Decorate a Bird Feeder"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Colour Box Gansbaai"
+   },
+   "venue": {
+    "value": "Colour Box",
+    "quote": "Colour Box Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Friday 20th November 2026",
+      "Paint & Decorate a Bird Feeder 9:00 – 12:00 Colour Box Gansbaai"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "The Checkered Table Chess Social",
+    "quote": "The Checkered Table Chess Social"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Mr. Write Hermanus"
+   },
+   "venue": {
+    "value": "Mr. Write",
+    "quote": "Mr. Write Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Friday 20th November 2026",
+      "The Checkered Table Chess Social 18:00 Mr. Write Hermanus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Open Mic Night",
+    "quote": "Open Mic Night"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Searles Eatery, Bar & Theatre Stanford"
+   },
+   "venue": {
+    "value": "Searles Eatery, Bar & Theatre",
+    "quote": "Searles Eatery, Bar & Theatre Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Friday 20th November 2026",
+      "Open Mic Night 18:30 Searles Eatery, Bar & Theatre Stanford"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "FynArts Select Weekend: Makers & Masters",
+    "quote": "FynArts Select Weekend: Makers & Masters"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Various Venues in Hermanus"
+   },
+   "venue": {
+    "value": "Various Venues",
+    "quote": "Various Venues in Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 20,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Friday 20th November 2026",
+      "FynArts Select Weekend: Makers & Masters 20 – 22 Nov Various Venues in Hermanus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Parkrun",
+    "quote": "Parkrun"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "Parkrun 8:00 Groeneweide Gansbaai, Harold Porter Betty’s Bay, Hemel-en-Aarde & Benguela Cove Hermanus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Markets",
+    "quote": "Markets from 9:00 in Hermanus, Gansbaai, Stanford, Onrus & Fisherhaven"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "Markets from 9:00 in Hermanus, Gansbaai, Stanford, Onrus & Fisherhaven"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "SOFCA Hermanus Open Day",
+    "quote": "SOFCA Hermanus Open Day"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "1 Hospital Road Hermanus"
+   },
+   "venue": {
+    "value": "1 Hospital Road Hermanus",
+    "quote": "1 Hospital Road Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "SOFCA Hermanus Open Day 10:00 1 Hospital Road Hermanus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Beach Clean-up",
+    "quote": "Beach Clean-up"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "Die Blou Kaffee De Kelders",
+    "quote": "Die Blou Kaffee De Kelders"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "Beach Clean-up 10:00 – 11:00 Die Blou Kaffee De Kelders"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Concert at the Clock Tower",
+    "quote": "Concert at the Clock Tower"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "NG Kerk Stanford"
+   },
+   "venue": {
+    "value": "NG Kerk",
+    "quote": "NG Kerk Stanford"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "Concert at the Clock Tower 15:00 – 17:30 NG Kerk Stanford"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Deo Gratia Koor",
+    "quote": "Deo Gratia Koor"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "NG Kerk, 4de Laan Kleinmond"
+   },
+   "venue": {
+    "value": "NG Kerk",
+    "quote": "NG Kerk, 4de Laan Kleinmond"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "Deo Gratia Koor 15:30 NG Kerk, 4de Laan Kleinmond"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kogelberg Branch of the Botanical Society Talk",
+    "quote": "Kogelberg Branch of the Botanical Society Talk"
+   },
+   "town": {
+    "value": "outside",
+    "quote": "Nivenia Hall, Harold Porter Botanical Gardens Betty’s Bay"
+   },
+   "venue": {
+    "value": "Nivenia Hall",
+    "quote": "Nivenia Hall, Harold Porter Botanical Gardens Betty’s Bay"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "Kogelberg Branch of the Botanical Society Talk 17:30 Nivenia Hall, Harold Porter Botanical Gardens Betty’s Bay"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Year-end Function",
+    "quote": "Year-end Function"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Birkenhead Bootklub Gansbaai"
+   },
+   "venue": {
+    "value": "Birkenhead Bootklub",
+    "quote": "Birkenhead Bootklub Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "Year-end Function 18:30 Birkenhead Bootklub Gansbaai"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Live Rugby: Ireland vs Springboks",
+    "quote": "Live Rugby: Ireland vs Springboks"
+   },
+   "town": {
+    "value": "outside",
+    "quote": "Various Venues in Overstrand"
+   },
+   "venue": {
+    "value": "Various Venues",
+    "quote": "Various Venues in Overstrand"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 21,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Saturday 21st November 2026",
+      "Live Rugby: Ireland vs Springboks 18:40 Various Venues in Overstrand"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Louna Stofberg Organ Recital",
+    "quote": "Louna Stofberg Organ Recital"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Dutch Reformed Church Hermanus"
+   },
+   "venue": {
+    "value": "Dutch Reformed Church",
+    "quote": "Dutch Reformed Church Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Sunday 22nd November 2026",
+      "Louna Stofberg Organ Recital 11:30 – 12:30 Dutch Reformed Church Hermanus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Live Music by Nite Shift",
+    "quote": "Live Music by Nite Shift"
+   },
+   "town": {
+    "value": "outside",
+    "quote": "Drummond Arms Rooiels"
+   },
+   "venue": {
+    "value": "Drummond Arms",
+    "quote": "Drummond Arms Rooiels"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Sunday 22nd November 2026",
+      "Live Music by Nite Shift 13:00 Drummond Arms Rooiels"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Atnote Music Coastal Band Showcase",
+    "quote": "Atnote Music Coastal Band Showcase"
+   },
+   "town": {
+    "value": "Hawston",
+    "quote": "Hawston Primary School Hall"
+   },
+   "venue": {
+    "value": "Hawston Primary School Hall",
+    "quote": "Hawston Primary School Hall"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Sunday 22nd November 2026",
+      "Atnote Music Coastal Band Showcase 15:00 – 18:30 Hawston Primary School Hall"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Soulful Sunday ft. Mario Live",
+    "quote": "Soulful Sunday ft. Mario Live"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Mozambik Hermanus"
+   },
+   "venue": {
+    "value": "Mozambik",
+    "quote": "Mozambik Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Sunday 22nd November 2026",
+      "Soulful Sunday ft. Mario Live 16:00 Mozambik Hermanus"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kalahari Christmas Carol Service",
+    "quote": "Kalahari Christmas Carol Service"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "NG Kerk Gansbaai"
+   },
+   "venue": {
+    "value": "NG Kerk",
+    "quote": "NG Kerk Gansbaai"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 22,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Sunday 22nd November 2026",
+      "Kalahari Christmas Carol Service 18:00 NG Kerk Gansbaai"
+     ]
+    }
+   ]
+  }
+ ]
+}

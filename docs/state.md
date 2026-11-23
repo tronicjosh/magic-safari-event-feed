@@ -40,15 +40,17 @@ Design draft 5 (same day): six read operations (`places`, `what_is_on`, `when_to
 
 ## Slice 0b.1: BUILT on 2026-11-23
 
-A saved model answer goes through `verify_item` into SQLite, and `what_is_on` reads it. Hand cases 1 to 3 pass. 56 tests pass; lint is clean.
+A saved model answer goes through `verify_item` into SQLite, and `what_is_on` reads it. Hand cases 1 to 3 pass. 74 tests pass; lint is clean.
 
 - New: `feed/schema.sql` (six tables), `feed/store.py`, `feed/update.py` (core), `feed/read.py` (core), `registry.json`, `evals/cases/` (fixtures for hand cases 1 to 3), `tests/test_tracer.py`.
 - Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .`
-- Real pages (2, 56 items): 37 stored, 19 not stored. The reasons are in `docs/model.md`.
+- Real pages (2, 56 items): 40 stored (12 below the traveller bar), 16 not stored. The reasons are in `docs/model.md`.
 - Decisions of Joshua in this session: the model decides with proof and a person is the last resort (principles 1 and 2 changed in `CLAUDE.md` and the design); the model marks "held each year" with a quote (T11); no town on the page gives the default town of the source; hand-case fixtures are in `evals/cases/`.
-- Open for Joshua (from the blind review): (1) the weekly rule is expanded on the weekday word alone; (2) a range with closed days. See `docs/model.md`.
+- Decided by Joshua after the first report, and built: the model marks a weekly rule as a rule with no end, and code refuses a weekly quote that holds a date; a range card says that each day is not stated; the model chooses the town from the list (T12); a hard visitor bar and a soft traveller bar act at ingest (T13). `feed/extract.py` holds the prompt and the answer format. The answers for the tests are in `research/t13/out/`.
+- OPEN FAULT (blind review round 2, not repaired): the weekly guard in `feed/verify.py` is a list of date patterns, and it leaks: "Saturday 05.12.2026", "Saturday 5/12", "every saturday in may", "First Saturday of every month" and "Closed on Sundays" pass and give 78 dates when the model marks them `ongoing`. This is the same type of fault as in round 1 (a weekly rule on weak proof), so the pattern approach is stopped. A different approach waits for Joshua. Minor, also open: a town of a wrong type that is falsy gets the default town; a visitor value "No" has no effect.
+- Open for Joshua: the wording of the two bars in `registry.json` is a first draft; the extraction cost is plus 39 percent with the bars; judgments differ between runs; a sample of the town choices needs your check.
 - Not tested: the rollback of an item that fails after its first row is written (no input reaches it). Not built: a set-aside table (the report only), merge of the same item from two pages, `holes`, category.
-- Spend: 0.082276 of 5 US dollars.
+- Spend: 0.176008 of 5 US dollars.
 
 ## Slice 0b.2: NEXT (start in a new session)
 

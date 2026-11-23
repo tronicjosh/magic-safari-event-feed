@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS item (
     town          TEXT NOT NULL,
     time_shape    TEXT NOT NULL,
     repeats_yearly INTEGER NOT NULL DEFAULT 0,
+    below_bar     INTEGER NOT NULL DEFAULT 0,   -- 1: the model put it below the traveller bar
     category      TEXT NOT NULL DEFAULT 'other',
     status        TEXT NOT NULL DEFAULT 'live'
                   CHECK (status IN ('live', 'needs review', 'cancelled', 'rejected')),

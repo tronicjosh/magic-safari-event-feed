@@ -1,0 +1,2099 @@
+{
+ "page_id": "ot_yearly_pdf",
+ "model": "claude-haiku-5-5",
+ "at": "2026-11-23T13:26:48.040772+00:00",
+ "message_id": "msg_011ChKwCxEKGD9XcQPvkoKYj",
+ "stop_reason": "end_turn",
+ "input_tokens": 5064,
+ "output_tokens": 18266,
+ "cost_usd": 0.009639,
+ "items": [
+  {
+   "title": {
+    "value": "Stiek Yt Motorbike Rally",
+    "quote": "Stiek Yt Motorbike Rally"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kleinmond"
+   },
+   "venue": {
+    "value": "Palmiet Caravan Park",
+    "quote": "Palmiet Caravan Park"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Stiek Yt Motorbike Rally"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 6,
+      "month": 2,
+      "year": 2026
+     },
+     "end": {
+      "day": 8,
+      "month": 2,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "6 - 8 Feb Stiek Yt Motorbike Rally Palmiet Caravan Park, Kleinmond",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Overberg BMX Club Race",
+    "quote": "Overberg BMX Club Race"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Overberg BMX Club Race"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 8,
+      "month": 2,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "8 February Overberg BMX Club Race Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Birkenhead Commemoration",
+    "quote": "Birkenhead Commemoration"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Birkenhead Commemoration"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 26,
+      "month": 2,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "26 Feb Birkenhead Commemoration Gansbaai",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Lighthouse2Lighthouse Walk",
+    "quote": "Lighthouse2Lighthouse Walk"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Lighthouse2Lighthouse Walk"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 5,
+      "month": 3,
+      "year": 2026
+     },
+     "end": {
+      "day": 8,
+      "month": 3,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "5 - 8 March Lighthouse2Lighthouse Walk Gansbaai",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Cape 1000 Classic Cars",
+    "quote": "Cape 1000 Classic Cars"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "Burgundy Restaurant",
+    "quote": "Burgundy Restaurant"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Cape 1000 Classic Cars"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 18,
+      "month": 3,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "18 March Cape 1000 Classic Cars Burgundy Restaurant, Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Baardskeerdersbos Art Route",
+    "quote": "Baardskeerdersbos Art Route"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Baardskeerdersbos Art Route"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 27,
+      "month": 3,
+      "year": 2026
+     },
+     "end": {
+      "day": 29,
+      "month": 3,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "27 - 29 March Baardskeerdersbos Art Route Gansbaai",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Greenpop’s Reforest Festival",
+    "quote": "Greenpop’s Reforest Festival"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Greenpop’s Reforest Festival"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 3,
+      "month": 4,
+      "year": 2026
+     },
+     "end": {
+      "day": 6,
+      "month": 4,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "3 - 6 April Greenpop’s Reforest Festival Gansbaai",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Franskraal Art Route",
+    "quote": "Franskraal Art Route"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Franskraal Art Route"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 4,
+      "month": 4,
+      "year": 2026
+     },
+     "end": {
+      "day": 6,
+      "month": 4,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "4 - 6 April Franskraal Art Route Gansbaai",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "False Bay 50km",
+    "quote": "False Bay 50km"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kleinmond - Gordon’s Bay"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "False Bay 50km"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 2,
+      "month": 5,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "2 May False Bay 50km Kleinmond - Gordon’s Bay",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Race2Hermanus Triathlon",
+    "quote": "Race2Hermanus Triathlon"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Race2Hermanus Triathlon"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 3,
+      "month": 5,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "3 May Race2Hermanus Triathlon Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Stanford River Race",
+    "quote": "Stanford River Race"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Stanford"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Stanford River Race"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 9,
+      "month": 5,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "9 May Stanford River Race Stanford",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus FynArts Festival",
+    "quote": "Hermanus FynArts Festival"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Hermanus FynArts Festival"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 6,
+      "month": 6,
+      "year": 2026
+     },
+     "end": {
+      "day": 14,
+      "month": 6,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "6 - 14 June Hermanus FynArts Festival Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "SA National BMX Summer Classic",
+    "quote": "SA National BMX Summer Classic"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "SA National BMX Summer Classic"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 14,
+      "month": 6,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "14 June SA National BMX Summer Classic Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Penguin Plunge",
+    "quote": "Penguin Plunge"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Stanford"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Penguin Plunge"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 20,
+      "month": 6,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "20 June Penguin Plunge Stanford",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kalfiefees",
+    "quote": "Kalfiefees"
+   },
+   "town": {
+    "value": "Onrus",
+    "quote": "Onrus & Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Kalfiefees"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 5,
+      "month": 8,
+      "year": 2026
+     },
+     "end": {
+      "day": 10,
+      "month": 8,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "5 - 10 Aug Kalfiefees Onrus & Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Overstrand Fashion Week",
+    "quote": "Overstrand Fashion Week"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "The Shed, Kleinmond"
+   },
+   "venue": {
+    "value": "The Shed",
+    "quote": "The Shed"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Overstrand Fashion Week"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 7,
+      "month": 8,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "7 & 8 Aug Overstrand Fashion Week The Shed, Kleinmond",
+      "EVENTS 2026"
+     ]
+    },
+    {
+     "kind": "date",
+     "start": {
+      "day": 8,
+      "month": 8,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "7 & 8 Aug Overstrand Fashion Week The Shed, Kleinmond",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Trail Series Super League",
+    "quote": "Trail Series Super League"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kleinmond"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Trail Series Super League"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 16,
+      "month": 8,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "16 Aug Trail Series Super League Kleinmond",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Race 2 the Sea 2026",
+    "quote": "Race 2 the Sea 2026"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Franschhoek to Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Race 2 the Sea 2026"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 5,
+      "month": 9,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "5 Sept Race 2 the Sea 2026 Franschhoek to Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Stanford in Bloom",
+    "quote": "Stanford in Bloom"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Queen Victoria Street, Stanford"
+   },
+   "venue": {
+    "value": "Queen Victoria Street",
+    "quote": "Queen Victoria Street"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Stanford in Bloom"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 12,
+      "month": 9,
+      "year": 2026
+     },
+     "end": {
+      "day": 27,
+      "month": 9,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "12 - 27 Sept Stanford in Bloom Queen Victoria Street, Stanford",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Chelsea Flowers in Stanford",
+    "quote": "Chelsea Flowers in Stanford"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Queen Victoria Street, Stanford"
+   },
+   "venue": {
+    "value": "Queen Victoria Street",
+    "quote": "Queen Victoria Street"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Chelsea Flowers in Stanford"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 12,
+      "month": 9,
+      "year": 2026
+     },
+     "end": {
+      "day": 27,
+      "month": 9,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "12 - 27 Sept Chelsea Flowers in Stanford Queen Victoria Street, Stanford",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Rewilding Greater Gansbaai Festival",
+    "quote": "Rewilding Greater Gansbaai Festival"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Rewilding Greater Gansbaai Festival"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 24,
+      "month": 9,
+      "year": 2026
+     },
+     "end": {
+      "day": 26,
+      "month": 9,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "24 - 26 Sept Rewilding Greater Gansbaai Festival Gansbaai",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Fernkloof Flower Show",
+    "quote": "Fernkloof Flower Show"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Fernkloof, Hermanus"
+   },
+   "venue": {
+    "value": "Fernkloof",
+    "quote": "Fernkloof, Hermanus"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Fernkloof Flower Show"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 25,
+      "month": 9,
+      "year": 2026
+     },
+     "end": {
+      "day": 27,
+      "month": 9,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "25 - 27 Sept Fernkloof Flower Show Fernkloof, Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus Whale Festival",
+    "quote": "Hermanus Whale Festival"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Hermanus Whale Festival"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 2,
+      "month": 10,
+      "year": 2026
+     },
+     "end": {
+      "day": 4,
+      "month": 10,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "2 - 4 Oct Hermanus Whale Festival Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Wine & Cheese Festival",
+    "quote": "Wine & Cheese Festival"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Wine & Cheese Festival Stanford"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Wine & Cheese Festival"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 3,
+      "month": 10,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "3 Oct Wine & Cheese Festival Stanford Walker Bay Estate",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Pam Golding Hangklip Marathon",
+    "quote": "Pam Golding Hangklip Marathon"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kleinmond"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Pam Golding Hangklip Marathon"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 25,
+      "month": 10,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "25 Oct Pam Golding Hangklip Marathon Kleinmond",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kleinmond Ceramic Festival",
+    "quote": "Kleinmond Ceramic Festival"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kleinmond"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Kleinmond Ceramic Festival"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 10,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 10,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Oct Kleinmond Ceramic Festival Kleinmond",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Wines2Whales",
+    "quote": "Wines2Whales"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Wines2Whales"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 6,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 15,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "6 Nov - 15 Nov Wines2Whales Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Kleinmond inniebos Kunstefees (KliK)",
+    "quote": "Kleinmond inniebos Kunstefees (KliK)"
+   },
+   "town": {
+    "value": "Kleinmond",
+    "quote": "Kleinmond"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Kleinmond inniebos Kunstefees (KliK)"
+   },
+   "when": [
+    {
+     "kind": "range",
+     "start": {
+      "day": 27,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "27 - 29 Nov Kleinmond inniebos Kunstefees (KliK) Kleinmond",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Overberg Toy Run",
+    "quote": "Overberg Toy Run"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Stanford"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Overberg Toy Run"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 29,
+      "month": 11,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "29 Nov Overberg Toy Run Stanford",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Christmas Lights Festival",
+    "quote": "Christmas Lights Festival"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Christmas Lights Festival"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Dec Christmas Lights Festival Gansbaai",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Christmas Lights Campaign",
+    "quote": "Christmas Lights Campaign"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Stanford"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Christmas Lights Campaign"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Dec Christmas Lights Campaign Stanford",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Stanford 100 Miler",
+    "quote": "Stanford 100 Miler"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Stanford"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Stanford 100 Miler"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 5,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "5 Dec Stanford 100 Miler Stanford",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hawston Sea Festival",
+    "quote": "Hawston Sea Festival"
+   },
+   "town": {
+    "value": "Hawston",
+    "quote": "Hawston"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Hawston Sea Festival"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 5,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "5 Dec Hawston Sea Festival Hawston Campsite",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Ubumnandi Summer Picnic",
+    "quote": "Ubumnandi Summer Picnic"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Mount Pleasant Sport Field, Hermanus"
+   },
+   "venue": {
+    "value": "Mount Pleasant Sport Field",
+    "quote": "Mount Pleasant Sport Field"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Ubumnandi Summer Picnic"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 5,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "5 Dec Ubumnandi Summer Picnic Mount Pleasant Sport Field, Hermanus",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Sunset Sessions",
+    "quote": "Sunset Sessions"
+   },
+   "town": {
+    "value": "Stanford",
+    "quote": "Sunset Sessions Stanford"
+   },
+   "venue": {
+    "value": "Hills Estate",
+    "quote": "Hills Estate"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Sunset Sessions"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "Dec Sunset Sessions Stanford Hills Estate",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Sixth Cricket Stanford",
+    "quote": "Sixth Cricket Stanford"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Buildit Gansbaai"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Sixth Cricket Stanford"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 26,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "26 Dec Sixth Cricket Stanford Buildit Gansbaai",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Trans Agulhas Boat Race",
+    "quote": "Trans Agulhas Boat Race"
+   },
+   "town": {
+    "value": "Gansbaai",
+    "quote": "Gansbaai"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Trans Agulhas Boat Race"
+   },
+   "when": [
+    {
+     "kind": "date",
+     "start": {
+      "day": 31,
+      "month": 12,
+      "year": 2026
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "31 Dec Trans Agulhas Boat Race Gansbaai",
+      "EVENTS 2026"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "ParkRun",
+    "quote": "ParkRun"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "no",
+    "quote": "ParkRun every Saturday at 8:00"
+   },
+   "when": [
+    {
+     "kind": "weekly",
+     "start": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 0,
+      "year": 0
+     },
+     "weekday": "saturday",
+     "ongoing": true,
+     "quotes": [
+      "ParkRun every Saturday at 8:00"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus First Friday Artwalk",
+    "quote": "Hermanus First Friday Artwalk"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus First Friday Artwalk"
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Hermanus First Friday Artwalk"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "1st Friday of the month"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Hermanus Art in the Park",
+    "quote": "Hermanus Art in the Park"
+   },
+   "town": {
+    "value": "Hermanus",
+    "quote": "Hermanus Art in the Park at Hermanus Country Market"
+   },
+   "venue": {
+    "value": "Hermanus Country Market",
+    "quote": "Hermanus Country Market"
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Hermanus Art in the Park"
+   },
+   "when": [
+    {
+     "kind": "months",
+     "start": {
+      "day": 0,
+      "month": 1,
+      "year": 0
+     },
+     "end": {
+      "day": 0,
+      "month": 12,
+      "year": 0
+     },
+     "weekday": "",
+     "ongoing": false,
+     "quotes": [
+      "1st Sunday of the month"
+     ]
+    }
+   ]
+  },
+  {
+   "title": {
+    "value": "Farmers, Saturday and Night Markets",
+    "quote": "Farmers, Saturday and Night Markets"
+   },
+   "town": {
+    "value": "",
+    "quote": ""
+   },
+   "venue": {
+    "value": "",
+    "quote": ""
+   },
+   "price": {
+    "value": "",
+    "quote": ""
+   },
+   "yearly": {
+    "value": "",
+    "quote": ""
+   },
+   "visitor": {
+    "value": "yes",
+    "quote": ""
+   },
+   "traveller": {
+    "value": "yes",
+    "quote": "Farmers, Saturday and Night Markets"
+   },
+   "when": []
+  }
+ ]
+}

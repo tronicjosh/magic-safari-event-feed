@@ -1,7 +1,7 @@
 """Slice 0b.1: a saved answer goes through verify into SQLite, and what_is_on reads it.
 
 Hand cases 1 to 3 of docs/design.md use the fixtures in evals/cases/. The last tests use real
-saved pages and the saved model answers of T2. No model call.
+saved pages and the saved model answers of T13 (research/t13/out). No model call.
 """
 
 import json
@@ -16,7 +16,7 @@ from feed.update import ingest_answer
 
 CASES = Path("evals/cases")
 PAGES = Path("evals/pages")
-ANSWERS = Path("research/t2/out")
+ANSWERS = Path("research/t13/out")
 INGESTED = "2026-11-23T12:00:00+00:00"
 ZERO = {"day": 0, "month": 0, "year": 0}
 
@@ -140,7 +140,7 @@ def test_a_town_outside_the_place_is_not_given_the_default_town(hand):
     report = ingest_answer(db, registry, "hand", page, answer)
     assert report == {
         "stored": 0,
-        "set_aside": [("Harbour Square Market", "town: Pringle Bay is not in the place")],
+        "set_aside": [("Harbour Square Market", "town: town not in the list")],
     }
 
 
@@ -207,7 +207,7 @@ def test_a_town_that_fails_the_check_does_not_get_the_default_town(hand):
     db, registry = hand
     before = _counts(db)
     answer = _load(CASES / "market.json")
-    answer["items"][0]["town"] = {"value": "Pringle Bay", "quote": "not on the page"}
+    answer["items"][0]["town"] = {"value": "Stanford", "quote": "not on the page"}
     report = ingest_answer(db, registry, "hand", _page("market"), answer)
     assert report == {
         "stored": 0,
@@ -346,7 +346,7 @@ def test_a_title_over_two_lines_is_stored_as_one_line(hand):
     assert ingest_answer(db, registry, "hand", _page("market"), answer)["stored"] == 1
     answer = what_is_on(db, registry, "hermanus", date(2027, 6, 12), date(2027, 6, 12))
     assert "Harbour Square Market Every Saturday" in _titles(answer)
-    assert len(answer["text"].splitlines()) == 5 + 3 + 3 * len(_titles(answer)) + 3 * 2 - 1
+    assert not any(line.startswith("Every Saturday") for line in answer["text"].splitlines())
 
 
 def test_weekly_rows_start_on_the_first_such_day_after_the_ingest(hand):
@@ -356,6 +356,177 @@ def test_weekly_rows_start_on_the_first_such_day_after_the_ingest(hand):
         "JOIN item i ON i.id = o.item_id WHERE i.title = 'Harbour Square Market'"
     ).fetchone()
     assert rows == ("2026-11-28", 78, 78)  # the ingest is on Monday 23 November 2026
+
+
+# The model decides, with proof: town from the list, a weekly rule with no end, two bars.
+
+
+def _market(**changes) -> dict:
+    answer = _load(CASES / "market.json")
+    answer["items"][0].update(changes)
+    return answer
+
+
+def test_a_town_that_the_model_marks_as_outside_is_not_stored(hand):
+    db, registry = hand
+    answer = _market(town={"value": "outside", "quote": "Harbour Square, Hermanus"})
+    report = ingest_answer(db, registry, "hand", _page("market"), answer)
+    assert report == {
+        "stored": 0,
+        "set_aside": [("Harbour Square Market", "town: outside the place")],
+    }
+
+
+def test_the_model_chooses_a_town_of_the_list_and_the_quote_is_page_text(hand):
+    db, registry = hand
+    # "Stanford" is not in the quote: the choice is the model's, the quote is the proof.
+    answer = _market(
+        title={"value": "Harbour Square", "quote": "Harbour Square Market"},
+        town={"value": "Stanford", "quote": "Harbour Square, Hermanus"},
+    )
+    assert ingest_answer(db, registry, "hand", _page("market"), answer)["stored"] == 1
+    town = db.execute("SELECT town FROM item WHERE title = 'Harbour Square'").fetchone()[0]
+    assert town == "Stanford"
+
+
+def test_a_weekly_rule_that_is_not_marked_as_ongoing_is_not_stored(hand):
+    db, registry = hand
+    answer = _market()
+    answer["items"][0]["when"][0]["ongoing"] = False
+    report = ingest_answer(db, registry, "hand", _page("market"), answer)
+    assert report["stored"] == 0
+    assert "not marked as a rule with no end" in report["set_aside"][0][1]
+    del answer["items"][0]["when"][0]["ongoing"]
+    assert ingest_answer(db, registry, "hand", _page("market"), answer)["stored"] == 0
+
+
+@pytest.mark.parametrize(
+    "quote",
+    [
+        "Every Wednesday in December 2026 from 17:00",
+        "Saturday 5 December 2026 at 19:00",
+        "Every Saturday until 12 March",
+        "Saturdays in 2027",
+        "Saturdays 5 & 12 from 09:00",
+        "Saturday 05/12/2026",
+    ],
+)
+def test_a_weekly_quote_that_holds_a_date_fails_the_check(quote):
+    from feed.verify import check_when
+
+    weekday = "wednesday" if "Wednesday" in quote else "saturday"
+    when = {"kind": "weekly", "start": ZERO, "end": ZERO, "weekday": weekday, "quotes": [quote]}
+    assert check_when(when) == ["weekly quote holds a date"]
+
+
+@pytest.mark.parametrize(
+    "quote",
+    [
+        "Every Saturday from 09:00 – 14:00",
+        "Join us every Saturday morning at 8:00am",
+        "Saturdays: ParkRun at 8:00",
+        "at 08:00 every Saturday",
+    ],
+)
+def test_a_weekly_quote_with_a_clock_time_passes_the_check(quote):
+    from feed.verify import check_when
+
+    when = {"kind": "weekly", "start": ZERO, "end": ZERO, "weekday": "saturday", "quotes": [quote]}
+    assert check_when(when) == []
+
+
+def test_the_visitor_bar_is_hard_and_needs_a_quote_on_the_page(hand):
+    db, registry = hand
+    text = (CASES / "market.txt").read_text(encoding="utf-8") + "Members only\n"
+    page = dict(_page("market"), text=text)
+    answer = _market(visitor={"value": "no", "quote": "Members only"})
+    report = ingest_answer(db, registry, "hand", page, answer)
+    assert report == {
+        "stored": 0,
+        "set_aside": [
+            ("Harbour Square Market", "visitor: the page shows that a visitor cannot go")
+        ],
+    }
+    # the same answer on a page that does not hold the quote: the "no" has no proof
+    assert ingest_answer(db, registry, "hand", _page("market"), answer)["stored"] == 1
+
+
+def test_the_traveller_bar_is_soft_the_item_is_shown_in_its_own_group(hand):
+    db, registry = hand
+    title = {"value": "Harbour Square", "quote": "Harbour Square Market"}
+    below = _market(title=title, traveller={"value": "no", "quote": "Harbour Square Market"})
+    assert ingest_answer(db, registry, "hand", _page("market"), below)["stored"] == 1
+    answer = what_is_on(db, registry, "hermanus", date(2027, 6, 12), date(2027, 6, 12))
+    groups = {
+        group["name"]: [c["title"] for c in group["cards"]] for group in answer["data"]["groups"]
+    }
+    assert groups["below the traveller bar"] == ["Harbour Square"]
+    assert "Harbour Square" not in groups["dated"]
+    counts = answer["data"]["counts"]
+    assert counts["items"] == sum(len(titles) for titles in groups.values()) == 3
+    assert counts["groups"]["below the traveller bar"] == 1
+    assert "3 items: 2 dated" in answer["text"] and "1 below the traveller bar" in answer["text"]
+    row = db.execute(
+        "SELECT e.value, e.quote FROM evidence e JOIN item i ON i.id = e.item_id "
+        "WHERE i.title = 'Harbour Square' AND e.field = 'traveller'"
+    ).fetchone()
+    assert row == ("no", "Harbour Square Market")
+
+
+def test_a_traveller_no_with_a_quote_that_is_not_on_the_page_does_not_count(hand):
+    db, registry = hand
+    title = {"value": "Harbour Square", "quote": "Harbour Square Market"}
+    answer = _market(title=title, traveller={"value": "no", "quote": "a quiz night"})
+    assert ingest_answer(db, registry, "hand", _page("market"), answer)["stored"] == 1
+    below = db.execute("SELECT below_bar FROM item WHERE title = 'Harbour Square'").fetchone()[0]
+    assert below == 0
+
+
+def test_a_range_card_says_that_each_day_is_not_stated(hand):
+    db, registry = hand
+    answer = _load(CASES / "show.json")
+    item = answer["items"][0]
+    item["title"] = {"value": "The Whale Song", "quote": "The Whale Song"}
+    item["when"] = [
+        {
+            "kind": "range",
+            "start": {"day": 8, "month": 6, "year": 2027},
+            "end": {"day": 10, "month": 6, "year": 2027},
+            "weekday": "",
+            "ongoing": False,
+            "quotes": ["Tue 8 June 2027 19:30", "Thu 10 June 2027 19:30"],
+        }
+    ]
+    assert ingest_answer(db, registry, "hand", _page("show"), answer)["stored"] == 1
+    text = what_is_on(db, registry, "hermanus", date(2027, 6, 9), date(2027, 6, 9))["text"]
+    lines = [line for line in text.splitlines() if "The Whale Song" in line]
+    assert lines == [
+        (
+            "[event · other] The Whale Song · Tue 8 June 2027 - Thu 10 June 2027 "
+            "(confirmed; a range, each day is not stated) · Hermanus"
+        ),
+        "[event · other] The Whale Song: a musical · Wed 9 June 2027 (confirmed) · Hermanus",
+    ]
+
+
+def test_trap_page_with_the_real_model_answer_gives_no_invented_weekly_dates():
+    """The model answer of T13 for evals/cases/weekly_traps.txt, a page made to mislead."""
+    registry = _load(CASES / "registry.json")
+    db = open_db(":memory:", registry)
+    answer = _load(ANSWERS / "weekly_traps.claude-haiku-5-5.json")
+    ingest_answer(db, registry, "hand", _page("weekly_traps"), answer)
+    weekly = db.execute(
+        "SELECT i.title, count(*) FROM item i JOIN occurrence o ON o.item_id = i.id "
+        "GROUP BY i.id HAVING count(*) > 1"
+    ).fetchall()
+    assert weekly == [("Fish Market", 78)]
+    # the Wednesday rule is for December 2026 only, and the museum is closed on Sunday
+    wednesday = what_is_on(db, registry, "hermanus", date(2027, 6, 9), date(2027, 6, 9))
+    sunday = what_is_on(db, registry, "hermanus", date(2027, 6, 13), date(2027, 6, 13))
+    saturday = what_is_on(db, registry, "hermanus", date(2027, 6, 12), date(2027, 6, 12))
+    assert _titles(wednesday) == _titles(sunday) == _titles(saturday) == []
+    carols = what_is_on(db, registry, "hermanus", date(2026, 12, 5), date(2026, 12, 5))
+    assert _titles(carols) == ["Carols by Candlelight"]
 
 
 # Real saved pages and real saved answers.
@@ -387,7 +558,10 @@ def test_real_weekly_market_is_on_a_saturday_only(real):
     weekend = what_is_on(db, registry, "hermanus", date(2027, 6, 11), date(2027, 6, 13))
     cards = {c["title"]: c for g in weekend["data"]["groups"] for c in g["cards"]}
     assert cards["Akwaaba Market"]["when"] == "Sat 12 June 2027"
-    assert cards["Akwaaba Market"]["town"] == "Hermanus"  # no town on the page: source default
+    assert cards["Akwaaba Market"]["town"] == "Hermanus"
+    # The page says "Hemel-en-Aarde village"; the model chose the town of the list.
+    market = cards["Hermanuspietersfontein Food and Wine Market"]
+    assert (market["town"], market["when"]) == ("Hemel-en-Aarde", "Sat 12 June 2027")
     week = what_is_on(db, registry, "hermanus", date(2027, 6, 7), date(2027, 6, 10))
     assert "Akwaaba Market" not in _titles(week)
 
@@ -399,10 +573,9 @@ def test_real_single_date_item(real):
     assert cards["Book Launch: Treasured Islands"]["when"] == "Wed 18 November 2026"
     assert cards["5-Course Dinner Fundraiser"]["town"] == "Stanford"
     assert "Bring & Braai" not in cards  # Pringle Bay is not a town of the place
-    assert ("Bring & Braai", "town: Pringle Bay is not in the place") in reports[
-        "overstrand_weekend"
-    ]["set_aside"]
-    assert "Beach Clean-up" not in cards  # no town on the page, and a regional source
+    assert ("Bring & Braai", "town: outside the place") in reports["overstrand_weekend"][
+        "set_aside"
+    ]
     assert answer["data"]["counts"]["items"] == len(cards)
 
 

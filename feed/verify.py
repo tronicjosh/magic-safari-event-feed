@@ -169,9 +169,14 @@ def check_when(when: dict) -> list[str]:
     text = "\n".join(when["quotes"])
     words = _words(text)
     if when["kind"] == "weekly":
-        if words & WEEKDAYS[when["weekday"]]:
-            return []
-        return [f"weekday {when['weekday']} not in quotes"]
+        if not words & WEEKDAYS[when["weekday"]]:
+            return [f"weekday {when['weekday']} not in quotes"]
+        # A weekly rule becomes a date for each week. A quote that holds a day, a month or a
+        # year is a dated item or a rule inside a period, not a standing rule.
+        dated = _DAY.search(text) or _YEAR.search(text) or _NUMERIC_DATE.search(text)
+        if dated or any(words & names for names in MONTHS.values()):
+            return ["weekly quote holds a date"]
+        return []
 
     numeric = {tuple(int(n) for n in found) for found in _NUMERIC_DATE.findall(text)}
     days = {int(n) for n in _DAY.findall(text)}
@@ -196,11 +201,18 @@ def _result(field: str, ok: bool, reason: str = "", level: str | None = None) ->
     return {"field": field, "ok": ok, "reason": reason, "level": level}
 
 
-def _verify_field(field: str, entry: dict | None, page: str) -> dict | None:
+def _verify_field(field: str, entry: dict | None, page: str, towns=None) -> dict | None:
     entry = entry or {"value": "", "quote": ""}
     if not entry["value"].strip():
         return _result("title", False, "no title") if field == "title" else None
     level = quote_on_page(entry["quote"], page)
+    if field == "town" and towns is not None:
+        # The model chooses the town. Code checks the list, and that the quote is page text.
+        if entry["value"] not in towns:
+            return _result(field, False, "town not in the list", level)
+        if level is None:
+            return _result(field, False, "quote not on page")
+        return _result(field, True, level=level)
     check = numbers_in_quote if field == "price" else value_in_quote
     if level is None:
         return _result(field, False, "quote not on page")
@@ -217,12 +229,16 @@ def _verify_when(field: str, when: dict, page: str) -> dict:
     return _result(field, not failures, "; ".join(failures), max(levels, key=LEVELS.index))
 
 
-def verify_item(item: dict, page: str) -> list[dict]:
-    """All checks for one extracted item. One result for each field that has a value."""
+def verify_item(item: dict, page: str, towns=None) -> list[dict]:
+    """All checks for one extracted item. One result for each field that has a value.
+
+    towns: the closed list of town values. With it, the town is a choice of the model from the
+    list, and the value is not searched in the quote. Without it, the town is a quoted value.
+    """
     results = []
     for field in ("title", "town", "venue", "price"):
         try:
-            result = _verify_field(field, item.get(field), page)
+            result = _verify_field(field, item.get(field), page, towns)
         except _MALFORMED:
             result = _result(field, False, "malformed entry")
         if result:
