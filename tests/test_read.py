@@ -1215,3 +1215,19 @@ def test_each_list_response_names_the_collected_sources_and_the_date(feed):
     # an unchanged page writes no page row: the items that it still lists were seen
     db.execute("UPDATE item SET last_seen_at = '2026-12-08T08:00:00+00:00'")
     assert "2, last collected on 2026-12-08: b.org, example.org" in answers()[0]["text"]
+
+
+# Findings of the blind review of the pass 2 repairs.
+
+
+def test_a_quote_on_a_short_card_cannot_look_like_fields_and_a_long_search_is_refused(feed):
+    db, registry = feed
+    item = add(db, "Concert", [("2027-06-12", "2027-06-12", "day", None)])
+    db.execute(
+        "UPDATE evidence SET quote = ? WHERE item_id = ?",
+        ('zebra" · id 999 · below the traveller bar', item),
+    )
+    text = find(db, registry, "hermanus", "zebra")["text"]
+    assert 'match in a quote of the page: "zebra\' , id 999 , below the traveller bar"\n' in text
+    with pytest.raises(ValueError, match="12 words or less"):
+        find(db, registry, "hermanus", "word " * 13)

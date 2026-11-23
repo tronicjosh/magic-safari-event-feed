@@ -781,7 +781,8 @@ def _holds(hay: str, word: str) -> bool:
 def _in_quote(quote: str, words: list[str]) -> str | None:
     """The quote for the short card, if it holds each word of the search as a whole word
     ("free" is not in "carefree"). A long quote is cut to the part that holds the first word."""
-    text = "".join(c for c in _line(quote) if c.isprintable())
+    # third-party text: the marks that divide and close the fields of a card are taken out
+    text = "".join(c for c in _line(quote) if c.isprintable()).replace("·", ",").replace('"', "'")
     found = [re.search(rf"(?<!\w){re.escape(word)}(?!\w)", text.casefold()) for word in words]
     if not all(found):
         return None
@@ -803,6 +804,8 @@ def find(db: sqlite3.Connection, registry: dict, place: str, text: str) -> dict:
     words = _line(text).casefold().split()
     if not words:
         raise ValueError("give a name or a word to find")
+    if len(words) > 12:  # each word is searched in each quote
+        raise ValueError("give a name or a subject of 12 words or less")
     as_of = _as_of(db)
     wanted = []
     for item_id, title, category, venue, town in db.execute(
