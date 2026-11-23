@@ -113,7 +113,8 @@ def test_a_field_that_fails_the_check_stays_empty(hand):
     page = {"url": "u", "text": (CASES / "show.txt").read_text(encoding="utf-8")}
     page |= {"fetched_at": INGESTED, "status": 200}
     report = ingest_answer(db, registry, "hand", page, answer)
-    assert report == {"stored": 0, "set_aside": [("Second show", "title: value not in quote")]}
+    reason = ("Second show", "title: value not in quote")
+    assert report == {"stored": 0, "updated": 0, "set_aside": [reason]}
 
     answer["items"][0]["title"] = {"value": "The Whale Song", "quote": "The Whale Song"}
     report = ingest_answer(db, registry, "hand", page, answer)
@@ -143,6 +144,7 @@ def test_a_town_outside_the_place_is_not_given_the_default_town(hand):
     report = ingest_answer(db, registry, "hand", page, answer)
     assert report == {
         "stored": 0,
+        "updated": 0,
         "set_aside": [("Harbour Square Market", "town: town not in the list")],
     }
 
@@ -177,32 +179,39 @@ def test_an_item_that_is_not_an_object_does_not_stop_the_page(hand):
     bad = dict(good, when=[{"kind": "date"}])
     answer = {"model": "hand", "items": [None, "text", bad, good]}
     report = ingest_answer(db, registry, "hand", _page("market"), answer)
-    assert report["stored"] == 1 and len(report["set_aside"]) == 3
+    # the market of the fixture is in the database, so the good item is an update
+    assert report["updated"] == 1 and len(report["set_aside"]) == 3
+    assert report["stored"] == 0
     assert not db.in_transaction
+    middle = _counts(db)
     one = ingest_answer(db, registry, "hand", _page("market"), {"model": "hand", "items": [good]})
     after = _counts(db)
-    assert one["stored"] == 1
-    # the three bad items left no row: the two good items added the same number of rows
-    assert [(a - b) % 2 for a, b in zip(after, before, strict=True)] == [0, 0, 0]
-    assert after[0] - before[0] == 2
+    assert one["updated"] == 1
+    # the three bad items left no row: the good item added the same rows with them and alone
+    # (no item, no occurrence, its evidence for the page)
+    added = [a - b for a, b in zip(middle, before, strict=True)]
+    assert added == [a - b for a, b in zip(after, middle, strict=True)]
+    assert added[:2] == [0, 0] and added[2] > 0
 
 
 def test_an_item_that_is_not_stored_leaves_no_row(hand):
     db, registry = hand
     before = _counts(db)
     answer = _load(CASES / "show.json")
+    # The last entry passes the checks of verify, and update can not store it: months with
+    # an end year and no start year. The 20 dates before it must leave no row.
     answer["items"][0]["when"].append(
         {
             "kind": "months",
-            "start": {"day": 0, "month": 6, "year": 2027},
+            "start": {"day": 0, "month": 6, "year": 0},
             "end": {"day": 0, "month": 6, "year": 2027},
             "weekday": "",
             "quotes": ["Tue 1 June 2027 19:30"],
         }
     )
     report = ingest_answer(db, registry, "hand", _page("show"), answer)
-    assert report["stored"] == 0
-    assert "months is not built yet" in report["set_aside"][0][1]
+    assert report["stored"] == 0 and report["updated"] == 0
+    assert "months: an end year needs a start year" in report["set_aside"][0][1]
     assert _counts(db) == before
 
 
@@ -214,6 +223,7 @@ def test_a_town_that_fails_the_check_does_not_get_the_default_town(hand):
     report = ingest_answer(db, registry, "hand", _page("market"), answer)
     assert report == {
         "stored": 0,
+        "updated": 0,
         "set_aside": [("Harbour Square Market", "town: quote not on page")],
     }
     assert _counts(db) == before
@@ -376,6 +386,7 @@ def test_a_town_that_the_model_marks_as_outside_is_not_stored(hand):
     report = ingest_answer(db, registry, "hand", _page("market"), answer)
     assert report == {
         "stored": 0,
+        "updated": 0,
         "set_aside": [("Harbour Square Market", "town: outside the place")],
     }
 
@@ -602,4 +613,5 @@ def test_real_report_counts_each_item_one_time(real):
     _, _, reports = real
     for page_id, report in reports.items():
         answer = _load(ANSWERS / f"{page_id}.claude-haiku-5-5.json")
-        assert report["stored"] + len(report["set_aside"]) == len(answer["items"])
+        counted = report["stored"] + report["updated"] + len(report["set_aside"])
+        assert counted == len(answer["items"])

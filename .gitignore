@@ -13,3 +13,6 @@ __pycache__/
 *.sqlite
 *.db
 *.egg-info/
+
+# Worktrees of parallel builders
+.claude/worktrees/
