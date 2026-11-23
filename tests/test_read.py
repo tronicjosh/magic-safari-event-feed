@@ -796,3 +796,44 @@ def test_when_to_go_does_not_call_a_past_rule_date_last_held(feed):
     add(db, "Old market", [("2026-06-06", "2026-06-06", "day", "weekly")], yearly=1)
     text = when_to_go(db, registry, "hermanus", 6, 6)["text"]
     assert "Old market" not in text and "Last" not in text
+
+
+# A look that was before the first collection of the feed.
+
+
+def test_a_look_before_the_first_collection_does_not_list_each_item_as_new(feed):
+    """The feed cannot know what changed before it existed, and it says so."""
+    db, registry = feed
+    festival(db)
+    whales(db)
+    answer = what_changed(db, registry, "hermanus", date(2026, 11, 1))
+    assert groups(answer) == {"new": [], "changed": []}
+    assert answer["data"]["counts"]["items"] == 0
+    assert answer["data"]["first_collected"] == "2026-11-23"
+    assert answer["data"]["at_first_collection"] == 2
+    assert "The feed first collected Hermanus on 2026-11-23, after this date." in answer["text"]
+    assert "2 items of that first collection: not listed as new." in answer["text"]
+
+
+def test_an_item_that_the_feed_saw_after_its_first_collection_is_new(feed):
+    db, registry = feed
+    festival(db)
+    later = add(db, "Harvest concert", [("2027-09-18", "2027-09-18", "day", None)])
+    db.execute("UPDATE item SET first_seen = '2026-12-07T08:00:00+00:00' WHERE id = ?", (later,))
+    answer = what_changed(db, registry, "hermanus", date(2026, 11, 1))
+    assert groups(answer) == {"new": ["Harvest concert"], "changed": []}
+    assert answer["data"]["at_first_collection"] == 1
+
+
+def test_an_item_of_the_first_collection_that_changed_is_in_changed(moved):
+    db, registry, _ = moved
+    answer = what_changed(db, registry, "hermanus", date(2026, 11, 1))
+    assert groups(answer) == {"new": [], "changed": ["Harvest concert"]}
+
+
+def test_a_look_on_or_after_the_first_collection_has_no_first_look_line(feed):
+    db, registry = feed
+    festival(db)
+    answer = what_changed(db, registry, "hermanus", date(2026, 11, 23))
+    assert groups(answer) == {"new": ["Arts Festival"], "changed": []}
+    assert "first look" not in answer["text"]

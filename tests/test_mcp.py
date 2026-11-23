@@ -67,7 +67,10 @@ def test_each_tool_answers_one_time_with_the_text_of_the_operation(server):
     )
     changed, bad_since = (_text(result) for result in (results.pop(4), results.pop(4)))
     assert changed.startswith("what_changed · Hermanus · since 1 November 2026 · as of 2026-11-23")
-    assert "  since the date  2 items: 2 new · 0 changed" in changed
+    # the earlier look (1 November) is before the first collection (23 November)
+    assert "  since the date  0 items: 0 new · 0 changed" in changed
+    assert "It cannot say what changed before 2026-11-23." in changed
+    assert "2 items of that first collection: not listed as new." in changed
     assert bad_since == 'error: bad date "last week". Use the form YYYY-MM-DD'
     assert "what_changed" in instructions and "no memory of an earlier look" in instructions
     assert sorted(tool.name for tool in tools) == [

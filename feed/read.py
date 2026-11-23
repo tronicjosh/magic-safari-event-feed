@@ -538,9 +538,17 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
     """The items of the place that are new or changed on or after a date.
 
     The feed has no memory of an earlier look: the caller gives the date. An item that is new
-    is not also in "changed".
+    is not also in "changed". The feed cannot know what changed before its first collection
+    of the place: an item of that first collection is not "new", it is only counted.
     """
     day, as_of = since.isoformat(), _as_of(db)
+    first = db.execute(
+        "SELECT min(substr(p.fetched_at, 1, 10)) FROM page p JOIN source s ON s.id = p.source_id "
+        "WHERE s.place = ?",
+        (place,),
+    ).fetchone()[0]
+    before_first = bool(first) and day < first  # the earlier look was before the feed existed
+    at_first = 0
     items = {}
     where = (
         "(substr(i.first_seen, 1, 10) >= ? OR EXISTS (SELECT 1 FROM change c "
@@ -555,11 +563,14 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
         shown = [row[_N:] for row in rows if row[_N + 1] >= as_of] or [rows[-1][_N:]]
         card["when"] = ", ".join(_full_when(shown))
         card["state"] = ""  # each part of `when` has its own state
-        if card["first_seen"] >= day:
+        changes = _changes(db, card["id"], day)
+        if before_first and card["first_seen"] == first and not changes:
+            at_first += 1  # in the feed from its first collection: not known to be new
+        elif card["first_seen"] >= day and not (before_first and card["first_seen"] == first):
             found.append((0, card["first_seen"], card))
         else:
-            card["changes"] = _changes(db, card["id"], day)
-            found.append((1, card["changes"][0]["found_at"], card))
+            card["changes"] = changes
+            found.append((1, changes[0]["found_at"], card))
     found.sort(key=lambda entry: (*entry[:2], entry[2]["title"].casefold(), entry[2]["id"]))
     groups = [
         {"name": name, "cards": [card for group, _, card in found if group == index]}
@@ -570,6 +581,8 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
         "place": place,
         "since": day,
         "as_of": as_of,
+        "first_collected": first,
+        "at_first_collection": at_first,
         "counts": _counts(cards, {group["name"]: len(group["cards"]) for group in groups}),
         "groups": groups,
         "holes": _holes(registry, [place]),
@@ -578,6 +591,12 @@ def what_changed(db: sqlite3.Connection, registry: dict, place: str, since: date
     place_name = _line(registry["places"][place]["name"])
     lines = [f"what_changed · {place_name} · since {_day(since, False)} · as of {as_of}", ""]
     lines += _counts_lines(data["counts"], "since the date")
+    if before_first:
+        lines += [
+            f"  first look      The feed first collected {place_name} on {first}, after this date.",
+            f"                  It cannot say what changed before {first}.",
+            f"                  {_count(at_first, 'item')} of that first collection: not listed as new.",
+        ]
     for group in groups:
         lines += ["", group["name"]]
         if not group["cards"]:

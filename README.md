@@ -15,7 +15,7 @@ A homework project for Magic Safari: a feed of events and seasons near Hermanus 
 
 ```bash
 python -m venv .venv && ./.venv/Scripts/python -m pip install -e ".[dev]"
-./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check .   # 215 tests
+./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check .   # 219 tests
 ./.venv/Scripts/python -m feed.ingest        # needs ANTHROPIC_API_KEY in .env; about 0.07 US dollars; writes feed.db
 ./.venv/Scripts/python -m feed.demo          # the text that an agent gets for 20 to 27 June 2027; no model
 ./.venv/Scripts/python -m feed.mcp_server    # the MCP server over stdio, for Claude

@@ -14,6 +14,7 @@ real run   10 live pages, 151 items, 0.064780 USD; second run 0 model calls ... 
 review     one blind review of the joined code ....... done, 7 findings, repaired with a test each
 write-up   design.md draft 6: shortened, true to the code; acceptance.md and CLAUDE.md refined ... done; my read is open
 agent test 7 questions to a new Claude with only the tools ... done: research/acceptance/agent_test.md
+answers    expected answers agreed (option B), instructions tuned in 3 rounds ... done: research/acceptance/comparison.md
 mine       mark the sample of 20 items; judge the agent's answers; read the design ... OPEN
 ```
 
@@ -27,9 +28,9 @@ feed/ingest.py runs the left side: python -m feed.ingest
 ```
 
 - Branch `build`, local commits only. A push needs my approval.
-- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (215 tests).
+- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (219 tests).
 - `feed.db` is the database of the real run (git ignores it). `python -m feed.ingest` makes it again; a run on unchanged pages costs nothing.
-- Spend: 0.903330 of 5 US dollars (tests 0.176008, real run 0.064780, demo agent tests 0.069481, the agent test for acceptance 0.593061). Answers that Joshua asks on the demo page add to this; the page shows each cost.
+- Spend: 1.822850 of 5 US dollars (tests 0.176008, real run 0.064780, demo agent tests 0.069481, the agent test 0.593061, three rounds of tuning the answers 0.919520).
 
 ## What the model decides, and what code checks
 
