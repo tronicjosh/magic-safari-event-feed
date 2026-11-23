@@ -29,7 +29,7 @@ feed/ingest.py runs the left side: python -m feed.ingest
 ```
 
 - Branch `build`, local commits only. A push needs my approval.
-- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (229 tests).
+- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (230 tests).
 - `feed.db` is the database of the real run (git ignores it). `python -m feed.ingest` makes it again; a run on unchanged pages costs nothing.
 - Spend: 4.790660 of 5 US dollars. No more model calls are planned. An answer of the agent on the demo page costs about 0.02 to 0.08 US dollars.
 

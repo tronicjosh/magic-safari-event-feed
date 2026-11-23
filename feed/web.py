@@ -18,7 +18,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
-from feed import agent, read
+from feed import agent, mcp_server, read
 from feed.env import load_env
 
 app = FastAPI(title="Event feed demo", docs_url=None, redoc_url=None)
@@ -52,10 +52,11 @@ def _run(operation, *values) -> dict:
 
 
 def _date(text: str) -> date:
+    """The same check and the same words as the MCP server."""
     try:
-        return date.fromisoformat(text)
+        return mcp_server._date(text)
     except ValueError as error:
-        raise HTTPException(status_code=400, detail=f"not a date: {text}") from error
+        raise HTTPException(status_code=400, detail=str(error)) from error
 
 
 @app.get("/api/stats")

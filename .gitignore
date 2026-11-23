@@ -12,7 +12,6 @@ __pycache__/
 .venv/
 *.sqlite
 *.db
-feed.db
 *.egg-info/
 
 # Worktrees of parallel builders
@@ -20,3 +19,6 @@ feed.db
 
 # The source file for my submission document. Not part of the repository.
 SUBMISSION_SOURCE.md
+
+# The database of the real run is in the repository, so that the feed runs from a clone with no key.
+!feed.db

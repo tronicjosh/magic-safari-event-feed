@@ -1,5 +1,9 @@
 """T12: the model chooses the town from the list and marks a weekly rule as ongoing.
 
+History: this script ran one time on 2026-11-23. `feed.extract.extract` has more parameters now
+(the bars and the categories), so this script does not run as it is. Its saved answers are in
+research/t12/out/.
+
 Run: ./.venv/Scripts/python research/t12/extract_v2.py
 One call to feed.extract for each page below. Answers go to research/t12/out/.
 A page that has an answer file is not sent again.

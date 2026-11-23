@@ -1,6 +1,6 @@
 # Hermanus event feed
 
-A headless feed of events and seasons near Hermanus, for travel designers who work through an AI agent. The process matters as much as the code: the data model, the agent interface and the reason for each decision must be clear in `docs/`. Hermanus is the pilot. Do not fit the approach to one town: a town is data in `registry.json`.
+A feed of events and seasons in and near Hermanus, for travel designers who work through an AI agent. The process matters as much as the code: the data model, the agent interface and the reason for each decision must be clear in `docs/`. Hermanus is the pilot. Do not fit the approach to one town: a town is data in `registry.json`.
 
 We measure two numbers: **false facts in stored items (target 0)** and **the share of items that are not stored**. Measure each change to a prompt, the registry or a rule before and after on the saved pages, and write the effect in `docs/model.md`. A change with no measured effect is not done.
 

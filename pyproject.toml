@@ -19,6 +19,9 @@ dev = ["pytest>=8", "ruff>=0.5"]
 [tool.setuptools.packages.find]
 include = ["feed*"]
 
+[tool.setuptools.package-data]
+feed = ["*.sql", "*.html"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 

@@ -168,3 +168,40 @@ def test_the_database_is_opened_read_only(server, monkeypatch):
     with pytest.raises(sqlite3.OperationalError, match="readonly"):
         db.execute("DELETE FROM item")
     db.close()
+
+
+def test_the_demo_agent_has_the_same_tools_as_the_mcp_server(server, monkeypatch):
+    """One definition: a Claude on the MCP server and the agent of the demo page must get the
+    same tools, the same descriptions, the same inputs, the same instructions and the same text.
+    """
+    from feed import agent, mcp_server
+
+    parameters, (_, ids) = server
+    monkeypatch.setenv("FEED_DB", parameters.env["FEED_DB"])
+    monkeypatch.setenv("FEED_REGISTRY", parameters.env["FEED_REGISTRY"])
+    calls = [
+        ("what_is_on", {"place": "hermanus", "from_date": "2027-06-08", "to_date": "2027-06-12"}),
+        ("when_to_go", {"place": "hermanus"}),
+        ("when_to_go", {"place": "hermanus", "from_month": 6, "to_month": 8}),
+        ("find", {"place": "hermanus", "text": "festival"}),
+        ("tell_me_more", {"ids": ids}),
+        ("what_changed", {"place": "hermanus", "since": "2026-11-01"}),
+        ("what_is_on", {"place": "atlantis", "from_date": "2027-06-08", "to_date": "2027-06-12"}),
+        ("what_is_on", {"place": "hermanus", "from_date": "2027-02-30", "to_date": "2027-03-02"}),
+    ]
+    instructions, tools, results = _calls(parameters, calls)
+
+    served = {tool.name: tool for tool in tools}
+    demo = {tool["name"]: tool for tool in agent.TOOLS}
+    assert set(demo) == set(served)
+    for name, tool in demo.items():
+        assert tool["description"] == " ".join(served[name].description.split())
+        schema = served[name].input_schema
+        assert set(tool["input_schema"]["properties"]) == set(schema["properties"])
+        assert sorted(tool["input_schema"]["required"]) == sorted(schema.get("required", []))
+    # the same text for the same call, also for a bad input
+    for (name, arguments), result in zip(calls, results, strict=True):
+        assert agent.run_tool(name, arguments) == _text(result)
+    # the same instructions: the agent adds only the places and the date of today
+    assert instructions == mcp_server.INSTRUCTIONS
+    assert agent.system_prompt().startswith(mcp_server.INSTRUCTIONS)

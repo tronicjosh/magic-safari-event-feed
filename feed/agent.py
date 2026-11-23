@@ -10,7 +10,7 @@ import os
 from datetime import date
 from pathlib import Path
 
-from feed import mcp_server, read
+from feed import mcp_server
 
 # US dollars for each 1 million tokens (input, output). Source: the claude-api skill table,
 # cached 2026-11-03. Haiku: prompts up to 100K tokens.
@@ -56,24 +56,17 @@ TOOLS = [
 
 
 def run_tool(name: str, arguments: dict) -> str:
-    """The text of one tool call: the same functions as the MCP server, read-only."""
-    answer, day = mcp_server._answer, mcp_server._date
+    """The text of one tool call.
+
+    It calls the function of the MCP server itself. So the demo agent and a Claude that is
+    connected to the server get the same text for the same call.
+    """
+    if name not in {tool["name"] for tool in TOOLS}:
+        return f"error: unknown tool {name}"
     try:
-        if name == "what_is_on":
-            start, end = arguments["from_date"], arguments["to_date"]
-            return answer(read.what_is_on, arguments["place"], lambda: day(start), lambda: day(end))
-        if name == "when_to_go":
-            first, last = arguments.get("from_month") or 1, arguments.get("to_month") or 12
-            return answer(read.when_to_go, arguments["place"], lambda: first, lambda: last)
-        if name == "what_changed":
-            return answer(read.what_changed, arguments["place"], lambda: day(arguments["since"]))
-        if name == "find":
-            return answer(read.find, arguments["place"], lambda: arguments["text"])
-        if name == "tell_me_more":
-            return answer(read.tell_me_more, None, [int(item) for item in arguments["ids"]])
-    except (KeyError, TypeError, ValueError) as error:
+        return getattr(mcp_server, name)(**arguments)
+    except TypeError as error:  # a missing or an unknown input
         return f"error: bad input for {name}: {error}"
-    return f"error: unknown tool {name}"
 
 
 def system_prompt() -> str:

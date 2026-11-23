@@ -363,7 +363,7 @@ async function run(name) {
 function problem(detail) {
   const text = String(detail);
   if (text.includes("ends before it starts")) return "The last day is before the first day. Change one of the dates.";
-  if (text.startsWith("not a date")) return "Give both dates.";
+  if (text.includes("is not a date")) return "Give each date.";
   return text.charAt(0).toUpperCase() + text.slice(1) + ".";
 }
 

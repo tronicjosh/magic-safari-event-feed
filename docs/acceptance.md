@@ -24,7 +24,7 @@ The agent selects the items that fit the clients, and says how many the feed has
 | A10 | Gaps are visible | `holes` names each source that is not collected, with what it declares | Pass | Quicket (136 events within 60 km) and Webtickets are in each answer |
 | A11 | Cost is known | Measured cost of the first run and a second run; the weekly arithmetic; total spend under 5 US dollars | Pass | 0.064780 and 0.000000 US dollars; `docs/design.md`, "Scale and cost"; total 4.79 |
 | A12 | Unchanged pages are free | A second run on unchanged pages | Pass | 0 model calls, on live pages |
-| A13 | One command checks everything | Lint and all tests | Pass | 229 tests; exit code 0 |
+| A13 | One command checks everything | Lint and all tests | Pass | 230 tests; exit code 0 |
 | A14 | The write-up is true | `docs/design.md` matches the code, and I can explain each part without AI | **Mine, open** | Draft 6 was written against the code |
 
 ## Not part of done
