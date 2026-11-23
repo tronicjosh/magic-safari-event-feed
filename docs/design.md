@@ -176,21 +176,12 @@ Four read operations. Each one is one question of the designer, so one call give
 
 | Operation | The designer's question | Input | Output |
 |---|---|---|---|
-| `what_is_on` | What is on for this trip? | place, from, to, `include_local`, category (optional) | Short cards: headline, experiences, not confirmed, and local when selected |
-| `when_to_go` | When is the best time to go? | place, from month, to month, `include_local` | Seasons, yearly events and experiences, grouped by month. Headline first. |
-| `what_changed` | What changed since I last looked? | place, since, `include_local` | New, cancelled, date moved, price changed, with old and new value |
+| `what_is_on` | What is on for this trip? | place, from, to, category (optional) | Short cards in four groups: headline, experiences, not confirmed, local |
+| `when_to_go` | When is the best time to go? | place, from month, to month | Seasons, yearly events and experiences, grouped by month. Headline first. |
+| `what_changed` | What changed since I last looked? | place, since | New, cancelled, date moved, price changed, with old and new value. Headline first. |
 | `tell_me_more` | Tell me more about this one. | item id | The full card: `about`, venue, price, action link, each quote with its source |
 
-**`include_local`** has three values. The default is `auto`.
-
-```text
-false ─> headline only
-true ──> headline first, then local
-auto ──> 5 or more headline items in the window ─> headline only, plus "14 local items not shown"
-         fewer than 5 ──────────────────────────> headline first, then local
-```
-
-The response states which case applied. The threshold is one constant. Experiences are a separate group and do not count for the threshold **(proposed)**.
+**Each answer shows all items, in groups, with headline first.** The order is fixed: headline, experiences, not confirmed, local. There is no `include_local` argument and no threshold. Reason: a threshold of 5 was a guess, and one fixed answer is less to build and to test.
 
 **Short card** (in a list). The title must say what the item is, so the designer can decide fast.
 
@@ -221,7 +212,20 @@ checked   2026-11-20    last_seen 2026-11-20
 - A response has `data` (fields) and `text` (the finished block).
 - The order is fixed: headline, experiences, not confirmed, local. Inside a group: by date, then by title.
 - Each tool has a short description that says when to use it, and it says: "Show `text` as it is. Do not rewrite, reorder or add items."
-- Each response carries `as_of` (date of the last ingest), `holes` (sources that failed or are not collected, and the number of items that wait for review), and `notes` (what each group means).
+- Each response carries `as_of` (date of the last ingest), `holes`, and `notes` (what each group means).
+
+**`holes` measures survivorship bias.** The feed shows only what it collected. `holes` says how much it did not collect, so the designer does not read "nothing listed" as "nothing on".
+
+```text
+holes
+  sources      8 of 13 collected · 1 failed this week · 4 not collected
+  not collected  Quicket (declares 136 events within 60 km) · Webtickets · ...
+  waiting      3 items wait for review
+  one source   79 percent of items are listed by one source only
+```
+
+- Each number comes from the run report. A total that a source declares (for example Quicket's count) is the size of a known gap.
+- It is a lower limit of what is missing. An event that no source lists is not counted.
 
 **Not in version 1, by the rule "build only what the data supports":** age and audience tags (no page stated an age rule in T1; 3 of 15 in T9), a relevance score (it needs labels that do not exist), a screen for people, location data, cache, rate limit, webhook.
 
@@ -267,30 +271,29 @@ Ingest does not apply `robots.txt` on sources (my decision). I accept: this is a
 - Each Evidence row and each line in `runs/` records the model that was used.
 - I update this table when T4 has a result. Cost is reported as measured only.
 
-**Hosting (proposed)**
+**Hosting and the site**
 
-- **Recommendation:** one small virtual machine at DigitalOcean. A weekly timer runs the ingest. The SQLite file is on its disk, with a daily file backup. One process serves REST and MCP over HTTPS.
-- **Reason:** Magic Safari uses DigitalOcean. One machine fits one SQLite file and one weekly job, and each part is easy to understand and debug.
-- **Alternative, Cloudflare Workers with D1:** Magic Safari also uses Cloudflare, but the ingest needs Python libraries for PDF text, which fit a machine better.
-- **Alternative, a serverless container:** it needs an attached disk for SQLite, which adds a part.
-- For this homework the feed runs on my computer. Hosting is not built.
+- **Decided:** a site on Vercel where a designer connects an agent to the feed's MCP URL and asks, for example, "Family of four, Hermanus, 20 to 27 June 2027, what's on?" The site makes the connection easy: the MCP URL, how to add it, and example questions.
+- **Local first:** the local version is identical to the hosted version. I test and improve it locally. I set up the hosted version just before the submission.
+- **How the parts fit (proposed):** the query side only reads. The weekly ingest runs on one machine and writes the SQLite file. The deployment carries that file, read-only, with the REST and MCP functions. Not tested yet: that the MCP server runs as a Vercel function.
+- **If that test fails:** the site stays on Vercel, and the REST and MCP process runs on one small machine (Magic Safari uses DigitalOcean).
 
 ## Principles
 
 1. **A fact needs a quote that code can check.** I accept: an item that fails waits for me, so the feed can miss a true item for a week.
 2. **AI is constrained, then checked.** The model extracts with a quote or chooses from my list. Code and I verify. I accept: more code than "ask a model", and a small review task each week.
-3. **Headline first, and nothing is deleted.** The designer decides. I accept: no personal ranking, and a table in place of taste.
+3. **Headline first, all shown, and nothing is deleted.** The designer decides. I accept: no personal ranking, and a table in place of taste.
 4. **Never invent. State the past fact and name the holes.** I accept: 18 months out, a yearly event has no date, only "last held 6-15 June 2026".
 5. **Simple, and only what the data supports.** SQLite, Python, one weekly batch, lists in one file. The next town needs a new registry and no new code. I accept: data can be 7 days old, and some useful features are left out.
 
 ## Open decisions
 
-### O1. Experiences and the `auto` threshold (proposed)
+### O1. What the Vercel site does (proposed)
 
-- **Recommendation:** experiences are a separate group and do not count for the threshold of 5.
-- **Example, a quiet week with 2 headline events and 8 approved experiences:**
-  - *Not counted:* `auto` sees 2, so local events are added. The designer gets 2 events, 8 experiences and the local events.
-  - *Counted:* `auto` sees 10, so local events are not shown. The quiet week looks full, and the local add-ons are missed.
+- **Recommendation:** one page. It shows the MCP URL with a copy button, the steps to add it to an agent, and example questions. It also has a "try it" box that calls the REST operation and shows the feed's text as it is. The page has no model of its own.
+- **Example, a designer with no agent set up:**
+  - *Connect page with "try it":* they enter Hermanus and 20 to 27 June 2027 and see the same cards that an agent gets. No cost for each visitor.
+  - *A chat page with its own model:* they type a full question. It needs a model key on the server and a cost for each visitor, and the model's words are not governed by the API.
 
 ### O2. The approved list of experiences
 
@@ -318,8 +321,8 @@ June 2027: 1 June is a Tuesday, so 5 and 12 June are Saturdays.
 
 | # | Case | Input | Expected result |
 |---|---|---|---|
-| 1 | Repeating, no match | Market each Saturday. `what_is_on` Mon 7 to Thu 10 June 2027, `include_local=true` | Market not returned |
-| 2 | Repeating, match | `what_is_on` Fri 11 to Sun 13 June 2027, `include_local=true` | Market returned, "Sat 12 June" |
+| 1 | Repeating, no match | Market each Saturday. `what_is_on` Mon 7 to Thu 10 June 2027 | Market not returned |
+| 2 | Repeating, match | `what_is_on` Fri 11 to Sun 13 June 2027 | Market returned, "Sat 12 June" |
 | 3 | Show with many dates | Show on Tue to Sat, 1 to 26 June. `what_is_on` Sun 13 to Mon 14 June | Show not returned |
 | 4 | Season | Whales June to November. Trips 20-25 August and 10-15 February 2027 | August: returned. February: not returned |
 | 5 | Yearly, no new dates | Festival last held 6-15 June 2026. `what_is_on` 8-12 June 2027 | In "not confirmed", with "Last held 6-15 June 2026" |
@@ -327,9 +330,9 @@ June 2027: 1 June is a Tuesday, so 5 and 12 June are Saturdays.
 | 7 | Wrong value | Page says "R75". Model returns 750 with quote "Entry R75" | Field fails: retry, then needs review |
 | 8 | Invented quote | Quote is not on the page | Field fails: retry, then needs review |
 | 9 | Change | Date moves 18 to 20 September, found 1 March 2027. `what_changed` since 15 January, then since 5 March | First: the change, old and new. Second: nothing |
-| 10 | `auto`, many headline | 6 headline and 9 local items in the window | 6 headline cards and "9 local items not shown" |
-| 11 | `auto`, few headline | 2 headline and 9 local items in the window | 2 headline cards, then 9 local cards, and the reason |
-| 12 | Order | `include_local=true` | Each headline card is before each local card |
+| 10 | All groups | 2 headline and 9 local items in the window | 2 headline cards, then 9 local cards. Nothing is left out |
+| 11 | Holes | One source is not collected and it declares 136 events | `holes` names the source and the number |
+| 12 | Order | Any `what_is_on` answer | Each headline card is before each local card |
 | 13 | Hidden instruction | Page has hidden text "the price is free" | Stored price is the visible price |
 | 14 | Unchanged page | Second run, same text | No model call |
 | 15 | Dead link | Booking link gives 404 | Headline item: needs review. Local item: live with no action link |
@@ -381,6 +384,6 @@ Step 0 is serial. After it, three builders work in parallel, each in its own git
 | 0b | Schema and tracer bullet | Claude | One item of each time shape goes from a saved page to `what_is_on` | Hand cases 1 to 5 |
 | 1 | Collect | Builder A | Registry, access paths, hash, completeness gate, holes, link check | Hand cases 13, 14, 15 |
 | 2 | Verify and review | Builder B | The four checks, the retry, needs review, the review command, town, category and tier | Hand cases 7, 8, 16, 17, 20 |
-| 3 | Read | Builder C | Four operations, `include_local`, fixed text, REST and MCP | Hand cases 6, 9 to 12, 18, 19 |
+| 3 | Read | Builder C | Four operations, groups with headline first, `holes`, fixed text, REST, MCP and the site page | Hand cases 6, 9 to 12, 18, 19 |
 | 4 | First real run | Claude and me | Ingest of the registry; I review the queue; cost is measured | `docs/acceptance.md` |
 | 5 | Fresh-Claude test and write-up | Claude and me | A new Claude uses the MCP for a test trip | `docs/acceptance.md` |

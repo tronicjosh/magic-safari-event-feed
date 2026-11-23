@@ -1,0 +1,6 @@
+pyproject.toml
+hermanus_feed.egg-info/PKG-INFO
+hermanus_feed.egg-info/SOURCES.txt
+hermanus_feed.egg-info/dependency_links.txt
+hermanus_feed.egg-info/requires.txt
+hermanus_feed.egg-info/top_level.txt

@@ -23,8 +23,8 @@ The answer is short. Headline items come first. Each item has a title that says 
 | A9 | Links work | Request every source link and action link of a live item | 100% return a page |
 | A10 | Gaps are visible | Stop one source on purpose. The response names it in `holes`. Quicket shows as "not collected" | Pass |
 | A11 | The retry adds no errors | Run the confirmed set with and without the stronger-model retry | Review rate drops, false facts stay 0 |
-| A12 | The API controls the output | Same query twice gives the same bytes. REST and MCP give the same bytes. With `include_local=true`, every headline card comes before every local card | Pass |
-| A13 | `auto` works | One window with 5 or more headline items, one with fewer | Hand cases 10 and 11 pass on real data |
+| A12 | The API controls the output | Same query twice gives the same bytes. REST and MCP give the same bytes. Every headline card comes before every local card, and no item in the window is left out | Pass |
+| A13 | `holes` shows what is missing | The response gives sources collected against sources known, each source not collected with its declared count, and the items that wait for review | Hand cases 10 and 11 pass on real data |
 | A14 | A fresh Claude can use it | A new Claude session with only the MCP answers three questions for a test trip: what's on, when to go, what changed. It shows the feed's text unchanged | I judge pass or fail |
 | A15 | Cost is known | Measured cost of the first run and of a second run a week later (or a replay). Weekly-run estimate with the model named and the arithmetic shown | Recorded; total spend under $5 |
 | A16 | Unchanged pages are free | Second run on unchanged saved pages | 0 model calls |

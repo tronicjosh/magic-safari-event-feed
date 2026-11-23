@@ -1,0 +1,26 @@
+[project]
+name = "hermanus-feed"
+version = "0.1.0"
+description = "A headless feed of events, seasons and experiences near Hermanus"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.70",
+    "beautifulsoup4>=4.12",
+    "fastapi>=0.110",
+    "httpx>=0.27",
+    "mcp>=1.2",
+    "pypdf>=4.0",
+    "uvicorn>=0.29",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[tool.setuptools.packages.find]
+include = ["feed*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100

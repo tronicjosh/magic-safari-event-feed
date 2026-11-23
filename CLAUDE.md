@@ -6,6 +6,7 @@ We measure: **false facts on the confirmed set (target 0)** and **share of items
 
 ## Read first
 
+- `docs/state.md`: where the build is now, and the plan of the current slice. Update it at the end of each slice.
 - `docs/design.md`: the design and each decision. If the code disagrees with it, one of them has a fault.
 - `docs/acceptance.md`: This defines what good work looks like and all criteria is met for the project.
 - `docs/model.md`: how the system works, the findings that shaped it, and the effect of each change. Keep it current. This is the mental model of the project.
@@ -28,7 +29,7 @@ Each is a rule and what we accept by choosing it.
 ## How we work
 
 - **Tracer bullet first.** Take one item of each kind through the whole pipeline to the API before adding breadth. Hand cases live in `evals/`.
-- **Agents.** The orchestrator plans and delegates; subagents run in parallel where steps don't depend on each other. Skills live in `.claude/skills/`, agents in `.claude/agents/`. <!-- list the real ones: reviewer, security, extractor... -->
+- **Agents.** The orchestrator plans and delegates; subagents run in parallel where steps don't depend on each other. Skills live in `.claude/skills/`, agents in `.claude/agents/`. 
 - **Review against ground truth.** A reviewer checks the stored quote against the fetched page, the test output and the database row. It never asks a model to confirm a model's work.
 - **Smoke means fire.** An odd count, a cost jump or a test that passes too easily is investigated and reported before anything is built on it.
 - **Decide or ask.** A reversible implementation choice: make it and log it in `docs/model.md`. A choice that changes the data model, the API, a principle or spend: ask Joshua first.
