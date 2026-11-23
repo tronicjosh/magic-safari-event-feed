@@ -32,7 +32,7 @@ python -m venv .venv && ./.venv/Scripts/python -m pip install -e ".[dev]"
 
 In the commands below, `PY` is `.venv/bin/python` (macOS, Linux) or `./.venv/Scripts/python` (Windows).
 
-**2. Check** (230 tests and the lint; exit code 0)
+**2. Check** (246 tests and the lint; exit code 0)
 
 ```bash
 PY -m pytest && PY -m ruff check . && PY -m ruff format --check .
@@ -118,7 +118,7 @@ Settings: `FEED_DB` (default `feed.db`), `FEED_REGISTRY` (default `registry.json
 | `feed/read.py` | The five read operations and the fixed text |
 | `feed/mcp_server.py` | The five tools and the server instructions for an agent |
 | `feed/web.py`, `feed/demo_page.html`, `feed/agent.py`, `feed/demo.py` | The demo page, the demo agent and the command-line demo |
-| `tests/` | 230 tests. The hand cases of the design are tests |
+| `tests/` | 246 tests. The hand cases of the design are tests |
 | `evals/` | Saved real pages, hand-case fixtures, and a sample of 20 stored items to check by hand |
 | `research/` | Each research test with its saved model answers; `research/acceptance/` has the tests of the agent |
 

@@ -30,7 +30,7 @@ feed/ingest.py runs the left side: python -m feed.ingest
 ```
 
 - Branches `build` and `main` are equal and pushed to `origin` on 2026-11-23, with Joshua's approval. A later push needs his approval again.
-- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (230 tests).
+- Check: `./.venv/Scripts/python -m pytest && ./.venv/Scripts/python -m ruff check . && ./.venv/Scripts/python -m ruff format --check .` (246 tests).
 - `feed.db` is the database of the real run of 2026-11-23. It is in the repository, so the feed runs from a clone with no key. `python -m feed.ingest` updates it; a run on unchanged pages costs nothing.
 - Spend: 4.790660 of 5 US dollars. No more model calls are planned. An answer of the agent on the demo page costs about 0.02 to 0.08 US dollars.
 

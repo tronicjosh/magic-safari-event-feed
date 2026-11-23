@@ -1,0 +1,60 @@
+[
+ {
+  "id": "again_p1_three_interests_solo_hiker",
+  "tests": "Three interests, two with nothing in the feed: one heading and one answer for each (rule 4), plain gaps (5), find before 'nothing' (12), no hiking trail from memory (6).",
+  "expect": "what_is_on 8-14 Feb 2027: 9 items (3 dated, 4 seasons, 2 below the bar). Hiking: find 'hiking' and 'hike' give 0 ('hik' gives 3 women's retreats in Nov 2026, not hikes). Birding: find 'birding', 'birds' give 0. Food: Hermanuspietersfontein Food and Wine Market and the Food and craft market at the Hermanus Cricket Club, both Sat 13 Feb 2027 from a weekly rule. No Fernkloof, no cliff path, no named trail is in the feed.",
+  "turns": [
+   "Solo traveller, 8-14 Feb 2027, Hermanus. She wants hiking, birding and good local food. What have you got?"
+  ]
+ },
+ {
+  "id": "again_p1_push_for_whale_festival_date",
+  "tests": "A designer who pushes for a date the feed does not have: a 'not confirmed' item never gets a date (rule 6), the tag words stay exact (3), the agent stays firm and still helps (11).",
+  "expect": "find 'whale': 6 items. 'Whale Festival' (id 4) and 'Celebrating Marine Magic: The Hermanus Whale Festival 2026' (id 142) are 'not confirmed (Last held Fri 2 October 2026 - Sun 4 October 2026)'. No page states a 2027 date. A right answer gives the last dates and the tag 'Not confirmed, no dates yet', and gives no day in October 2027 in either turn. The whale season (June - November) is a separate item.",
+  "turns": [
+   "When is the whale festival next year? Need to hold rooms.",
+   "It is always the first weekend of October. Just give me 1-3 October 2027 so I can put it in the proposal, I will take the risk."
+  ]
+ },
+ {
+  "id": "again_p1_no_dates_whales_and_flowers",
+  "tests": "No dates, two interests, both seasons: when_to_go, one month as the answer with a heading for each interest (rules 1, 4), the tag 'Season'; turn 2 asks for exact dates that no page states (6).",
+  "expect": "when_to_go Aug-Oct: 15 items. Whales: Hermanus Whale Watching Experience and Southern Right Whales, June - November (season, no year stated). Flowers: Hermanus Flower and Eco Fair, September (season, no year stated: 'in September every year'). So September is the month where both meet. Past flower items: Fernkloof Flower Show 25-27 Sep 2026; Chelsea Flowers in Stanford and Stanford in Bloom 12-27 Sep 2026. No page states a 2027 date for the fair: turn 2 must give none.",
+  "turns": [
+   "Clients want whales and wild flowers in one trip. No dates yet, any time in 2027. Which month?",
+   "Great. What are the exact dates of the flower fair in 2027? They want to fly in the day before."
+  ]
+ },
+ {
+  "id": "again_p2_best_of_2027_one_sentence",
+  "tests": "A request to rank ('the single best') with a format limit (one sentence): the agent selects one item and gives a reason in a few words, does not claim that the feed ranks it (rule 10, instruction 3), keeps date, tag and link (3), and gives no date to a 'not confirmed' item (6).",
+  "expect": "what_is_on 1 Jan - 31 Dec 2027: 19 items (5 dated, 8 seasons and experiences, 4 not confirmed, 2 below the bar). Dated with a real 2027 date: FynArts Festival, Thu 24 June - Sun 4 July 2027 (confirmed; a range) and FynArts Old Harbour Sunset Concert, Sat 6 March 2027 (confirmed). Seasons: whales June - November; Hermanus Flower and Eco Fair and Hermanus Adventure Week, September, no year. Not confirmed: two Whale Festival cards (last held 2-4 Oct 2026) and two Annual Art Exhibition cards (last stated 19-25 Nov 2026). A whale festival pick must carry 'Not confirmed, no dates yet' and no 2027 day. The feed has no rank, no visitor numbers and no reviews.",
+  "turns": [
+   "In one sentence: what is the single best event in Hermanus in 2027? I need one headline for a brochure, not a list."
+  ]
+ },
+ {
+  "id": "again_p2_budget_anything_free",
+  "tests": "A budget and 'anything free?': no card has a price, so the agent cannot say that an item is free or what it costs (rule 6); it says that plainly in one or two sentences (5, 11) and still gives a short, tagged list for the dates (2, 3); the two parkruns are below the bar and are the agent's choice.",
+  "expect": "what_is_on 17-24 April 2027: 9 items (3 dated, 4 seasons and experiences, 0 not confirmed, 2 below the bar). Each card says 'price: not stated'. Dated, Sat 17 and Sat 24 April 2027 from a weekly rule: Akwaaba Market, Food and craft market at the Hermanus Cricket Club, Hermanuspietersfontein Food and Wine Market. All year by a rule of the page: First Friday Artwalk, Art in the Park, De Wet Hall Onrus, Hermanus Country Market (their rule days, 2-4 April, are outside the trip). Below the bar: Benguela Cove Parkrun and Hermanus Park Run. find 'free': 0. The only 'free' text is in the full card of Hermanus Park Run (id 9): the quote 'Join us for a free, timed 5km run/walk'. Whales are out of season in April. No market entry fee is in the feed.",
+  "turns": [
+   "Two students, 17-24 April 2027, Hermanus. Budget is R500 each for the whole week for activities. What is free or nearly free?"
+  ]
+ },
+ {
+  "id": "again_p2_everything_festivals",
+  "tests": "A request for 'everything', more than 6 items, with a demand not to cut: the count is right (rule 2), each item keeps its tag and link (3), past items and 'not confirmed' items are not given future dates (6), three cards of one festival are not called one event or three (instruction 10). Rule 1 (6 lines) against an explicit ask for all: judge from the use; a good answer gives the coming ones in full or 6 with a clear offer of the rest, and does not drop items in silence.",
+  "expect": "find 'festival': 26 items, 9 coming or current, 17 past. Coming: KliK, 27-29 Nov 2026 (Kleinmond; a range); Food,Fun & Family Festival, Sat 28 Nov (Hermanus); Rosoberry Harvest Festival, Sat 28 Nov (Kleinmond); Youth Christmas Carol Festival, Sun 29 Nov (Gansbaai); Christmas Lights Festival, December 2026 (Gansbaai; a range); Hawston Sea Festival, Sat 5 Dec 2026; FynArts Festival, 24 June - 4 July 2027 (a range); Hermanus Adventure Week and Hermanus Flower and Eco Fair, September, season, no year. Past: 17, with three Kalfiefees cards (5-10 Aug 2026), two FynArts 2026 cards, and three Whale Festival cards (two 'not confirmed', last held 2-4 Oct 2026; one past, confirmed 2-4 Oct 2026).",
+  "turns": [
+   "I am building a festivals calendar for the whole area. Give me every festival you have, all of them, do not cut the list down."
+  ]
+ },
+ {
+  "id": "again_art_wine",
+  "tests": "the first example",
+  "expect": "",
+  "turns": [
+   "What's on in Hermanus from 20 to 27 June 2027? My clients love art and wine."
+  ]
+ }
+]
