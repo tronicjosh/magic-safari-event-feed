@@ -83,7 +83,7 @@ def saved(path: Path) -> dict:
                 {"name": tool, "input": json.loads(arguments)}
                 for tool, arguments in re.findall(r"`(\w+)\((\{.*?\})\)`", calls_line)
             ]
-            text = chunk.split("\n\n", 4)[4].strip()
+            text = re.search(r"<!-- answer -->\n(.*?)\n<!-- end -->", chunk, re.DOTALL).group(1)
             turns.append({"text": text, "calls": calls, "cost_usd": cost})
         runs[name] = turns
     return runs
@@ -152,7 +152,9 @@ def main() -> int:
                 "",
                 f"Tools called: {calls or 'none'}",
             ]
-            parts += [f"Cost: {result['cost_usd']:.4f}", "", "", result["text"], ""]
+            # the answer is between two marks, so that a re-check reads it back exactly
+            parts += [f"Cost: {result['cost_usd']:.4f}", "", "<!-- answer -->"]
+            parts += [result["text"].strip(), "<!-- end -->", ""]
         print(f"{state} {name:22} {len(text.split()):4} words  {names_called}  {failed}")
 
     total = len(rows)
